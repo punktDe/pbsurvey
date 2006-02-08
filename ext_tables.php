@@ -116,7 +116,7 @@ if (TYPO3_MODE=='BE') {
 	t3lib_extMgm::addModule('web','txpbsurveyM1','',t3lib_extMgm::extPath($_EXTKEY).'mod1/');
 	t3lib_extMgm::insertModuleFunction('web_txpbsurveyM1','tx_pbsurvey_modfunc1',t3lib_extMgm::extPath($_EXTKEY).'modfunc1/class.tx_pbsurvey_modfunc1.php','LLL:EXT:pbsurvey/lang/locallang_modfunc1.xml:moduleFunction');
 	// class for displaying the answers in BE results forms.
-	include_once(t3lib_extMgm::extPath($_EXTKEY).'class.tx_pbsurvey_answers.php');
+	//include_once(t3lib_extMgm::extPath($_EXTKEY).'class.tx_pbsurvey_answers.php');
 	// user class to display wizards in the form
 	//include_once(t3lib_extMgm::extPath($_EXTKEY).'class.tx_pbsurvey_wizards.php');
 }
