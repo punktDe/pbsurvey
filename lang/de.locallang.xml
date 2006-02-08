@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+    <data type="array">
+		<languageKey index="de" type="array">
+			<label index="pi1_title_pbsurvey">Umfrage</label>
+			<label index="pi1_plus_wiz_description_pbsurvey">Sammeln Sie mit Hilfe komplexer Umfragen Informationen von ihren Besuchern.</label>
+			<label index="pi_flexform.sheet_general">Allgemein</label>
+			<label index="pi_flexform.template_file">Template Datei</label>
+			<label index="pi_flexform.sheet_access">Zugriff</label>
+			<label index="pi_flexform.access_level">Befragten Zugriffslevel</label>
+			<label index="pi_flexform.access_level0">Mehrfaches Beantworten</label>
+			<label index="pi_flexform.access_level1">Einmaliges beantwort</label>
+			<label index="pi_flexform.access_level2">Einmaliges beantwort (nicht bearbeitbar)</label>
+			<label index="pi_flexform.access_level3">Freie Antwort</label>
+			<label index="pi_flexform.sheet_completion">Abschluss</label>
+			<label index="pi_flexform.completion_action">Abschluss Aktion</label>
+			<label index="pi_flexform.action0">Nachricht anzeigen</label>
+			<label index="pi_flexform.action1">Ergebnisse sofort anzeigen</label>
+			<label index="pi_flexform.action2">Weiterleitung zu einer anderen Seite</label>
+			<label index="pi_flexform.action3">Schließen des Browsers</label>
+			<label index="pi_flexform.completion_message">Fertigstellungsnachricht</label>
+			<label index="pi_flexform.completion_url">Abschluss Seite</label>
+			<label index="pi_flexform.close_button">Schließen Schaltfläche</label>
+			<label index="pi_flexform.continue_button">Fortfahren Schaltfläche</label>
+			<label index="pi_flexform.view_reports_button">Zeige Bericht Schaltfläche</label>
+			<label index="pi_flexform.sheet_navigation">Navigation</label>
+			<label index="pi_flexform.navigation_back">Zurück Schaltfläche</label>
+			<label index="pi_flexform.back0">anzeigen</label>
+			<label index="pi_flexform.back1">nicht anzeigen</label>
+			<label index="pi_flexform.navigation_cancel">Abbrechen Schaltfläche</label>
+			<label index="pi_flexform.cancel0">Browser Schließen</label>
+			<label index="pi_flexform.cancel1">Nicht anzeigen</label>
+			<label index="pi_flexform.cancel2">Weiterleiten an das Ende der Umfrage</label>
+			<label index="pi_flexform.cancel3">Weiterleiten zu einer benutzerdefinierten Seite (Bitte unten eingeben)</label>
+			<label index="pi_flexform.cancel_url">Abbrechen Schaltfäche Seite</label>
+			<label index="pi_flexform.sheet_numbering">Nummerierung</label>
+			<label index="pi_flexform.page_numbering">Seitennummerierung</label>
+			<label index="pi_flexform.page_numbering0">Seiten Zahl auf jeder Seite anzeigen</label>
+			<label index="pi_flexform.page_numbering1">Den Fortschritt in der Form eines Fortschrittsbalken anzeigen</label>
+			<label index="pi_flexform.page_numbering2">Den Fortschritt in der Form 'Seite X von Y' anzeigen</label>
+			<label index="pi_flexform.page_numbering3">Seitenzahlen nicht anzeigen</label>
+			<label index="pi_flexform.question_numbering">Fragennummerierung</label>
+			<label index="pi_flexform.question_numbering0">Fragennummern nicht anzeigen</label>
+			<label index="pi_flexform.question_numbering1">Fragen fortlaufend in der ganzen Umfrage nummerieren</label>
+			<label index="pi_flexform.question_numbering2">Fragen pro Seite nummerieren</label>
+			<label index="pi_flexform.other">Andere</label>
+			<label index="pi_flexform.maximum_responses">Maximale Anzahl Antworten</label>
+			<label index="pi_flexform.responses_per_user">Antworten je Benutzer</label>
+			<label index="pi_flexform.days_for_update">Tage zum bearbeiten</label>
+		</languageKey>
+	</data>
+</T3locallangExt>

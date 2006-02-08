@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+	<data type="array">
+		<languageKey index="fr" type="array">
+			<label index="mlang_tabs_tab">Questionnaire</label>
+			<label index="mlang_labels_tabdescr">Visualiser les statistiques du questionnaire et exporter les résultats au format csv.</label>
+			<label index="mlang_labels_tablabel">Statistiques du questionnaire</label>
+			<label index="title">Résultats du questionaire</label>
+			<label index="stats">Statistiques du questionnaire</label>
+			<label index="number_questions">Nombre de questions</label>
+			<label index="number_forms">Nombre de formulaires reçus</label>
+			<label index="csv_export">Export en CSV</label>
+			<label index="csv_submit">Exporter un fichier CSV</label>
+			<label index="csv_clean">Fichier CSV propre à SPSS</label>
+			<label index="csv_user">Réponses utilisateurs - Exporte chaque réponse sur une ligne, avec une colonne individuelle pour chaque réponse possible.</label>
+			<label index="csv_spss">Format SPSS - Comme au-dessus, exception faite des boutons d'option qui seront sur une seule ligne.</label>
+			<label index="no_results">Il n'y a pas de résultat de questionnaire sur cette page.</label>
+			<label index="error">Erreur</label>
+			<label index="list_questions">Liste des questions</label>
+			<label index="additional">additionnelle</label>
+			<label index="value_true">Vrai</label>
+			<label index="value_false">Faux</label>
+			<label index="value_yes">Oui</label>
+			<label index="value_no">Non</label>
+			<label index="crdate">Date_creation</label>
+			<label index="tstamp">Dernier_changement</label>
+			<label index="name">Nom</label>
+			<label index="address">Adresse</label>
+			<label index="zip">NPA</label>
+			<label index="city">Localité</label>
+			<label index="email">Email</label>
+		</languageKey>
+	</data>
+</T3locallangExt>

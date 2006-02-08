@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+	<data type="array">
+		<languageKey index="no" type="array">
+			<label index="pi1_title_pbsurvey">Spørreundersøkelse</label>
+			<label index="pi1_plus_wiz_description_pbsurvey">Samle informasjon fra nettbruker gjennom spørreundersøkelse.</label>
+			<label index="pi_flexform.sheet_general">Generelle</label>
+			<label index="pi_flexform.template_file">Malfil</label>
+			<label index="pi_flexform.sheet_access">Tilgang</label>
+			<label index="pi_flexform.access_level">Respondenten sitt tilgangsnivå</label>
+			<label index="pi_flexform.access_level0">Mange svar</label>
+			<label index="pi_flexform.access_level1">Et svar</label>
+			<label index="pi_flexform.access_level2">Et svar (ikke oppdaterbart)</label>
+			<label index="pi_flexform.access_level3">Manual Response Entry</label>
+			<label index="pi_flexform.sheet_completion">Ferdig</label>
+			<label index="pi_flexform.completion_action">Handling når ferdig</label>
+			<label index="pi_flexform.action0">Vis melding</label>
+			<label index="pi_flexform.action1">Vis resultat med en gang</label>
+			<label index="pi_flexform.action2">Gå til annen side</label>
+			<label index="pi_flexform.action3">Lukk nettleser</label>
+			<label index="pi_flexform.completion_message">Sluttmelding</label>
+			<label index="pi_flexform.completion_url">Sluttside</label>
+			<label index="pi_flexform.close_button">Lukk knapp</label>
+			<label index="pi_flexform.continue_button">Gå videre knapp</label>
+			<label index="pi_flexform.view_reports_button">Vis rapport knapp</label>
+			<label index="pi_flexform.sheet_navigation">Navigasjon</label>
+			<label index="pi_flexform.navigation_back">Tilbake knapp</label>
+			<label index="pi_flexform.back0">Vis</label>
+			<label index="pi_flexform.back1">Ikke vis</label>
+			<label index="pi_flexform.navigation_cancel">Avbryt knapp</label>
+			<label index="pi_flexform.cancel0">Lukk nettleser</label>
+			<label index="pi_flexform.cancel1">Ikke vis</label>
+			<label index="pi_flexform.cancel2">Gå til enden av undersøkelse</label>
+			<label index="pi_flexform.cancel3">Gå til tilpasset side (entered below)</label>
+			<label index="pi_flexform.cancel_url">Avbryt side</label>
+			<label index="pi_flexform.sheet_numbering">Nummering</label>
+			<label index="pi_flexform.page_numbering">Sidenummerering</label>
+			<label index="pi_flexform.page_numbering0">Vis side nummer på hver side</label>
+			<label index="pi_flexform.page_numbering1">Vis fremskritt i fremskrittslinje</label>
+			<label index="pi_flexform.page_numbering2">Vis fremskritt i 'side X av Y' format</label>
+			<label index="pi_flexform.page_numbering3">Ikke vis sidenummer</label>
+			<label index="pi_flexform.question_numbering">Nummering av spørsmål</label>
+			<label index="pi_flexform.question_numbering0">Vis ikke nummer på spørsmål</label>
+			<label index="pi_flexform.question_numbering1">Nummerering av spørsmål for hele undersøkelsen</label>
+			<label index="pi_flexform.question_numbering2">Nummerering av spørsmål pr. side</label>
+			<label index="pi_flexform.other">Annet</label>
+			<label index="pi_flexform.maximum_responses">Maksimalt antall respondenter</label>
+			<label index="pi_flexform.responses_per_user">Svar pr. bruker</label>
+			<label index="pi_flexform.days_for_update">Dager før oppdatering</label>
+		</languageKey>
+	</data>
+</T3locallangExt>

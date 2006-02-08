@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+    <data type="array">
+        <languageKey index="de" type="array">
+            <label index="no_items">Es sind keine Fragen vorhanden die angezeigt werden können.</label>
+            <label index="access_single_no_update">Sie haben schon einmal an dieser Umfrage teilgenommen. Sie können nur einmal an dieser Umfrage teilnehmen.</label>
+            <label index="access_single_update_expired">Sie können ihre Antworten nicht mehr bearbeiten. Die Zeit zum Bearbeiten ist abgelaufen.</label>
+            <label index="access_user_maximum">Sie haben die maximale Anzahl von Antworten für diese Umfrage erreicht.</label>
+            <label index="access_survey_maximum">Diese Umfrage ist beendet. Es ist nicht mehr möglich an dieser Umfrage teilzunehmen.</label>
+            <label index="value_none">-- keine --</label>
+            <label index="value_true">Wahr</label>
+            <label index="value_false">Falsch</label>
+            <label index="value_yes">Ja</label>
+            <label index="value_no">Nein</label>
+            <label index="js_required_select">Bitte wählen Sie einen Wert für Frage Nummer %q aus.</label>
+            <label index="js_required_enter">Bitte geben Sie einen Wert für Frage Nummer %q ein.</label>
+            <label index="js_required_enter_multiple">Bitte geben Sie einen Wert für jedes Element bei Frage Nummer %q ein.</label>
+            <label index="js_required_matrix_check">Bitte wählen Sie mindestens ein Element für Frage Nummer %q aus.</label>
+            <label index="js_required_matrix_value">Bitte geben Sie mindestens für ein Element einen Wert bei Frage Nummer %q ein.</label>
+            <label index="js_required_matrix_radio">Bitte wählen Sie je Zeile ein Element bei Frage Nummer %q aus.</label>
+            <label index="js_required_date">Bitte geben Sie ein Datum bei Frage Nummer %q ein.</label>
+            <label index="js_required_numeric">Bitte geben Sie einen nummerischen Wert bei Frage Nummer %q ein.</label>
+            <label index="js_numeric">Bitte gehen Sie sicher das alle Werte die Sie bei Frage Nummer %q eingegeben haben nummerisch sind.</label>
+            <label index="js_sum">Die Summe der Addition aller Antworten für Frage Nummer %q muss %t ergeben. Die aktuelle Summe ist %v.</label>
+            <label index="js_minimum_date">Bitte geben Sie für Frage Nummer %q ein Datum ein das größer oder gleich %d ist.</label>
+            <label index="js_maximum_date">Bitte geben Sie für Frage Nummer %q ein Datum ein das kleiner oder gleich %d ist.</label>
+            <label index="js_date_notvalid">Bitte geben Sie für Frage Nummer %q ein Datum im Format tt/mm/jjjj oder tt-mm-jjjj ein.</label>
+            <label index="js_month_notvalid">Der Wert für den Monat muss bei Frage Nummer %q zwischen 1 und 12 liegen.</label>
+            <label index="js_day_notvalid">Der Wert für den Tag muss bei Frage Nummer %q zwischen 1 und 31 liegen.</label>
+            <label index="js_month_not31">Bei Frage Nummer %q hat der Monat %m keine 31 Tage!</label>
+            <label index="js_februari_notvalid">Bei Frage Nummer %q hat der Februar %y keine %d Tage!</label>
+            <label index="js_minimum_responses">Bitte wählen Sie mindestens %v Werte bei Frage Nummer %q aus.</label>
+            <label index="js_maximum_responses">Bitte wählen Sie maximal %v Werte bei Frage Nummer %q aus.</label>
+            <label index="js_minimum_responses_enter">Bitte geben Sie mindestens %v Werte bei Frage Nummer %q ein.</label>
+            <label index="js_maximum_responses_enter">Bitte geben Sie maximal %v Werte bei Frage Nummer %q ein.</label>
+            <label index="js_minimum_value">Bitte geben Sie bei Frage Nummer %q einen Wert ein der größer oder gleich %v ist.</label>
+            <label index="js_maximum_value">Bitte geben Sie bei Frage Nummer %q einen Wert ein der kleiner oder gleich %v ist.</label>
+            <label index="js_email">Bitte geben Sie bei Frage Nummer %q eine gültige Email Adresse ein.</label>
+            <label index="js_ranking">Die Reihenfolge der Elemente muss bei Frage Nummer %q zwischen 1 und %v liegen.</label>
+            <label index="js_ranking_double">Jeder Reihenfolgewert kann bei Frage Nummer %q  nur einmal eingegben werden.</label>
+            <label index="comment_responses_both">Bitte wählen Sie mindestens ###OPTIONS_MINIMUM_RESPONSES### Antworten und nicht mehr als ###OPTIONS_MAXIMUM_RESPONSES### Antworten.</label>
+            <label index="comment_responses_minimum">Bitte wählen Sie mindestens ###OPTIONS_MINIMUM_RESPONSES### Antworten.</label>
+            <label index="comment_responses_maximum">Bitte wählen Sie nicht mehr als ###OPTIONS_MINIMUM_RESPONSES### Antworten.</label>
+            <label index="comment_sum">Die Summe der eingegebenen Nummern muss gleich ###TOTAL_NUMBER### sein.</label>
+            <label index="comment_date_both">Der Wert muss zwischen ###MINIMUM_DATE### und inklusive ###MAXIMUM_DATE### liegen.</label>
+            <label index="comment_date_minimum">Der Wert muss größer oder gleich ###MINIMUM_DATE### sein.</label>
+            <label index="comment_date_maximum">Der Wert muss kleiner oder gleich ###MINIMUM_DATE### sein.</label>
+            <label index="comment_number_both">Der Wert muss zwischen ###MINIMUM_VALUE### und inklusive ###MAXIMUM_VALUE### liegen.</label>
+            <label index="comment_number_minimum">Der Wert muss größer oder gleich ###MINIMUM_VALUE### sein.</label>
+            <label index="comment_number_maximum">Der Wert muss kleiner oder gleich ###MAXIMUM_VALUE### sein.</label>
+            <label index="comment_responses_enter_both">Geben Sie mindestens ###OPTIONS_MINIMUM_RESPONSES### Antworten und nicht mehr als ###OPTIONS_MAXIMUM_RESPONSES### Antworten ein.</label>
+            <label index="comment_responses_enter_minimum">Geben Sie mindestens ###OPTIONS_MINIMUM_RESPONSES### Antworten ein.</label>
+            <label index="comment_responses_enter_maximum">Geben sie maximal ###OPTIONS_MAXIMUM_RESPONSES### Antworten ein.</label>
+            <label index="comment_ranking">Zur Bewertung des folgenden Elements verwenden Sie einen nummerischen Wert beginnend mit 1.</label>
+            <label index="submit">Absenden</label>
+            <label index="back">Zurück</label>
+            <label index="cancel">Abbrechen</label>
+            <label index="username">Bitte geben Sie ihren Benutzernamen ein:</label>
+            <label index="continue">Weiter</label>
+            <label index="close">Fenster schließen</label>
+            <label index="page">Seite</label>
+            <label index="page_xy">Seite %x von %y</label>
+            <label index="percent">Prozent</label>
+            <label index="failed_saving_data">Während des Speicherns der Daten ist ein Fehler aufgetreten!</label>
+        </languageKey>
+	</data>
+</T3locallangExt>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+	<data type="array">
+		<languageKey index="fr" type="array">
+			<label index="pi1_title_pbsurvey">Questionnaire</label>
+			<label index="pi1_plus_wiz_description_pbsurvey">Crée des sondages et collecte les réponses des questions que vous destinez à vos visiteurs</label>
+			<label index="pi_flexform.sheet_general">Général</label>
+			<label index="pi_flexform.template_file">Fichier de gabarit</label>
+			<label index="pi_flexform.sheet_access">Accessibilité</label>
+			<label index="pi_flexform.access_level">Niveau d'accès des répondants</label>
+			<label index="pi_flexform.access_level0">Réponses multiples</label>
+			<label index="pi_flexform.access_level1">Réponse unique</label>
+			<label index="pi_flexform.access_level2">Réponse unique (sans mise à jour possible)</label>
+			<label index="pi_flexform.access_level3">Manual Response Entry</label>
+			<label index="pi_flexform.sheet_completion">Accomplissement</label>
+			<label index="pi_flexform.completion_action">Action après accomplissement</label>
+			<label index="pi_flexform.action0">Afficher le message</label>
+			<label index="pi_flexform.action1">Afficher le résultat immédiatement</label>
+			<label index="pi_flexform.action2">Redirection sur une autre page</label>
+			<label index="pi_flexform.action3">Fermer le navigateur</label>
+			<label index="pi_flexform.completion_message">Message à la fin de l'accomplissement</label>
+			<label index="pi_flexform.completion_url">Page après accomplissement</label>
+			<label index="pi_flexform.close_button">Bouton Fermer</label>
+			<label index="pi_flexform.continue_button">Bouton Continuer</label>
+			<label index="pi_flexform.view_reports_button">View reports Button</label>
+			<label index="pi_flexform.sheet_navigation">Navigation</label>
+			<label index="pi_flexform.navigation_back">Boton de retour</label>
+			<label index="pi_flexform.back0">Afficher</label>
+			<label index="pi_flexform.back1">Ne pas afficher</label>
+			<label index="pi_flexform.navigation_cancel">Bouton Annuler</label>
+			<label index="pi_flexform.cancel0">Fermer le navigateur</label>
+			<label index="pi_flexform.cancel1">Ne pas afficher</label>
+			<label index="pi_flexform.cancel2">Redirection sur la fin du questionnaire</label>
+			<label index="pi_flexform.cancel3">Redirection sur une page personnalisée (au-dessous)</label>
+			<label index="pi_flexform.cancel_url">Page d'annulation</label>
+			<label index="pi_flexform.sheet_numbering">Numérotation</label>
+			<label index="pi_flexform.page_numbering">Numérotation par page</label>
+			<label index="pi_flexform.page_numbering0">Afficher le numéro de page sur chaque page</label>
+			<label index="pi_flexform.page_numbering1">Afficher le degré de progression sous la forme d'une barre</label>
+			<label index="pi_flexform.page_numbering2">Afficher le degré de progressions au format 'Page X sur Y'</label>
+			<label index="pi_flexform.page_numbering3">Ne pas afficher les numéros de page</label>
+			<label index="pi_flexform.question_numbering">Numérotation des questions</label>
+			<label index="pi_flexform.question_numbering0">Ne pas afficher les numéros de question</label>
+			<label index="pi_flexform.question_numbering1">Numérotation sur la totalité du questionnaire</label>
+			<label index="pi_flexform.question_numbering2">Numérotation de 1 à X sur chaque page</label>
+			<label index="pi_flexform.other">Autre</label>
+			<label index="pi_flexform.maximum_responses">Nombre maximum de réponses</label>
+			<label index="pi_flexform.responses_per_user">Résponses par utilisateurs</label>
+			<label index="pi_flexform.days_for_update">Jours pour la mise à jours</label>
+		</languageKey>
+	</data>
+</T3locallangExt>

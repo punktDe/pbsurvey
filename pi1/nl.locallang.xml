@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+    <data type="array">
+        <languageKey index="nl" type="array">
+            <label index="no_items">Er zijn geen vragen beschikbaar om te tonen.</label>
+            <label index="access_single_no_update">U heeft reeds deelgenomen aan deze enquete. U kunt dit slechts eenmalig doen.</label>
+            <label index="access_single_update_expired">U kunt uw reactie niet actualiseren. De termijn voor actualiseren is reeds verstreken.</label>
+            <label index="access_user_maximum">U heeft het maximaal aantal reacties voor deze enquete bereikt.</label>
+            <label index="access_survey_maximum">De enquete is gesloten. Het is niet meer mogelijk aan deze enquete deel te nemen.</label>
+            <label index="value_none">--Geen--</label>
+            <label index="value_true">Waar</label>
+            <label index="value_false">Onwaar</label>
+            <label index="value_yes">Ja</label>
+            <label index="value_no">Nee</label>
+            <label index="js_required_select">Selecteer aub een waarde voor vraag nummer %q</label>
+            <label index="js_required_enter">Vul aub een waarde in voor vraag nummer %q</label>
+            <label index="js_required_enter_multiple">Vul aub waardes in voor alle items van vraag nummer %q</label>
+            <label index="js_required_matrix_check">Selecteer aub tenminste één item voor vraag nummer %q</label>
+            <label index="js_required_matrix_value">Vul aub een waarde in voor tenminste één item voor vraag nummer %q</label>
+            <label index="js_required_matrix_radio">Selecteer aub één item per rij voor vraag nummer %q</label>
+            <label index="js_required_date">Vul aub een datum in voor vraag nummer %q</label>
+            <label index="js_required_numeric">Vul aub een numerieke waarde in voor vraag nummer %q</label>
+            <label index="js_numeric">Zorg er voor dat alle waardes ingevuld voor vraag nummer %q een numerieke waarde hebben.</label>
+            <label index="js_sum">De som van alle antwoorden op vraag nummer %q dienen opgeteld gelijk te zijn aan %t. De huidige som is %v</label>
+            <label index="js_minimum_date">Vul aub een datum in die groter is of gelijk aan %d voor vraag nummer %q</label>
+            <label index="js_maximum_date">Vul aub een datum in die kleiner is of gelijk aan %d voor vraag nummer %q</label>
+            <label index="js_date_notvalid">Vul aub een datum in als dd/mm/yyy of dd-mm-yyy voor vraag nummer %q</label>
+            <label index="js_month_notvalid">Maand dient tussen 1 en 12 te liggen voor vraag nummer %q</label>
+            <label index="js_day_notvalid">Dag dient tussen 1 en 31 te liggen voor vraag nummer %q</label>
+            <label index="js_month_not31">Maand %m heeft geen 31 dagen voor vraag nummer %q</label>
+            <label index="js_februari_notvalid">Februari %y heeft geen %d dagen voor vraag nummer %q</label>
+            <label index="js_minimum_responses">Selecteer tenminste %v waardes voor vraag nummer %q</label>
+            <label index="js_maximum_responses">Selecteer niet meer dan %v waardes voor vraag nummer %q</label>
+            <label index="js_minimum_responses_enter">Vul tenminste %v waardes in voor vraag nummer %q</label>
+            <label index="js_maximum_responses_enter">Vul niet meer dan %v waardes in voor vraag nummer %q</label>
+            <label index="js_minimum_value">Vul aub een waarde in die groter is of gelijk aan %v voor vraag nummer %q</label>
+            <label index="js_maximum_value">Vul aub een waarde in die kleiner is of gelijk aan %v voor vraag nummer %q</label>
+            <label index="js_email">Vul een geldig e-mailadres in voor vraag %q</label>
+            <label index="js_ranking">Waarderingscijfers liggen tussen 1 en %v voor vraag %q</label>
+            <label index="js_ranking_double">Elke waarderingswaarde kan slechts eenmalig worden ingevuld voor vraag %q</label>
+            <label index="comment_responses_both">Selecteer tenminste ###OPTIONS_MINIMUM_RESPONSES### antwoord(en) en niet meer dan ###OPTIONS_MAXIMUM_RESPONSES### antwoorden.</label>
+            <label index="comment_responses_minimum">Selecteer tenminste ###OPTIONS_MINIMUM_RESPONSES### antwoord(en).</label>
+            <label index="comment_responses_maximum">Selecteer niet meer dan ###OPTIONS_MAXIMUM_RESPONSES### antwoord(en).</label>
+            <label index="comment_sum">De totale som moet gelijk zijn aan ###TOTAL_NUMBER###.</label>
+            <label index="comment_date_both">De waarde moet tussen ###MINIMUM_DATE### tot en met ###MAXIMUM_DATE### liggen.</label>
+            <label index="comment_date_minimum">De waarde moet groter of gelijk zijn aan ###MINIMUM_DATE###.</label>
+            <label index="comment_date_maximum">De waarde moet kleiner of gelijk zijn aan ###MAXIMUM_DATE###.</label>
+            <label index="comment_number_both">De waarde moet tussen ###MINIMUM_VALUE### tot en met ###MAXIMUM_VALUE### liggen.</label>
+            <label index="comment_number_minimum">De waarde moet groter zijn of gelijk aan ###MINIMUM_VALUE###.</label>
+            <label index="comment_number_maximum">De waarde moet kleiner zijn of gelijk aan ###MAXIMUM_VALUE###.</label>
+            <label index="comment_responses_enter_both">Vul tenminste ###OPTIONS_MINIMUM_RESPONSES### waardes in en niet meer dan ###OPTIONS_MAXIMUM_RESPONSES### waardes.</label>
+            <label index="comment_responses_enter_minimum">Vul tenminste ###OPTIONS_MINIMUM_RESPONSES### waardes in.</label>
+            <label index="comment_responses_enter_maximum">Vul niet meer dan ###OPTIONS_MAXIMUM_RESPONSES### waardes in.</label>
+            <label index="comment_ranking">Waardeer onderstaande items, gebruikmakend van cijfers beginnend met 1.</label>
+            <label index="submit">Inzenden</label>
+            <label index="back">Terug</label>
+            <label index="cancel">Annuleer</label>
+            <label index="username">Vul uw gebruikersnaam in:</label>
+            <label index="continue">Doorgaan</label>
+            <label index="close">Sluit venster</label>
+            <label index="page">Pagina</label>
+            <label index="page_xy">Pagina %x van %y</label>
+            <label index="percent">procent</label>
+            <label index="failed_saving_data">Er vond een fout plaats tijdens het opslaan van de gegevens. Sorry!</label>
+        </languageKey>
+	</data>
+</T3locallangExt>

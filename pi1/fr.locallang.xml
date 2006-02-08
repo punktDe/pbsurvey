@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+    <data type="array">
+        <languageKey index="fr" type="array">
+            <label index="no_items">Il n'y a aucune question à afficher.</label>
+            <label index="access_single_no_update">Vous avez déjà répondu à ce questionaire. Vous ne pouvez le faire qu'une seule fois</label>
+            <label index="access_single_update_expired">Vous ne pouvez plus modifier vos réponses. Le délai de mise à jour a expiré</label>
+            <label index="access_user_maximum">Vous avez atteint le nombre maximum de réponses à ce questionaire.</label>
+            <label index="access_survey_maximum">Ce questionnaire est fermé. Il n'est plus possible d'y répondre</label>
+            <label index="value_none">-- Vide --</label>
+            <label index="value_true">Vrai</label>
+            <label index="value_false">Faux</label>
+            <label index="value_yes">Oui</label>
+            <label index="value_no">Non</label>
+            <label index="js_required_select">Veuillez sélectionner une valeur pour la question numéro %q</label>
+            <label index="js_required_enter">Veuillez entrer une valeur pour la question numéro %q</label>
+            <label index="js_required_enter_multiple">Veuillez entrer des valeurs pour tous les éléments de la question numéro %q</label>
+            <label index="js_required_matrix_check">Veuillez sélectionner au moins un élément pour la question numéro %q</label>
+            <label index="js_required_matrix_value">Veuillez entrer une valeur pour au moins un élément de la question numéro %q</label>
+            <label index="js_required_matrix_radio">Veuillez sélectionner un élément par ligne pour la question numéro %q</label>
+            <label index="js_required_date">Veuillez entrer une date pour la question numéro %q</label>
+            <label index="js_required_numeric">Veuillez entrer une valeur numérique pour la question numéro %q</label>
+            <label index="js_numeric">Veuillez vous assurer que toutes les valeurs insérées pour la question numéro %q sont numériques.</label>
+            <label index="js_sum">La somme de toutes les réponses à la question numéro %q ne peut pas dépasser %t. La valeur actuelle est %v</label>
+            <label index="js_minimum_date">Veuillez entrer une date supérieure ou égale à %d pour la question numéro %q</label>
+            <label index="js_maximum_date">Veuillez entrer une date inférieure ou égale à %d pour la question numéro %q</label>
+            <label index="js_date_notvalid">Veuillez entrer la date au format jj/mm/aaaa ou jj-mm-aaaa pour la question numéro %1</label>
+            <label index="js_month_notvalid">Le mois doit être entre 1 et 12 pour la question numéro %q</label>
+            <label index="js_day_notvalid">Le jour doit être entre 1 et 31 pour la question numéro %q</label>
+            <label index="js_month_not31">Le mois %m n'a pas 31 jour a la question numéro %q!</label>
+            <label index="js_februari_notvalid">Le mois de février n'a pas %d jours à la question numéro %q!</label>
+            <label index="js_minimum_responses">Veuillez sélectionner au moins %v valeurs pour la question numéro %q</label>
+            <label index="js_maximum_responses">Veuillez ne pas sélectionner plus de %v valeurs pour la question numéro %q</label>
+            <label index="js_minimum_responses_enter">Veuillez entrer au moins %v valeurs pour la question numéro %q</label>
+            <label index="js_maximum_responses_enter">Veuillez ne pas entrer plus de %v valeurs pour la question numéro %q</label>
+            <label index="js_minimum_value">Veuillez entrer une valeur supérieure ou égale à %v pour la question numéro %q</label>
+            <label index="js_maximum_value">Veuillez entrer une valeur inférieure ou égale à %v pour la question numéro %q</label>
+            <label index="js_email">Veuillez entrer une adresse email valide à la question numéro %q</label>
+            <label index="js_ranking">Le classement des éléments doit être entre 1 et %v à la question numéro %q</label>
+            <label index="js_ranking_double">Chaque valeur de classement ne peut êre entrée qu'une seule fois à la question numéro %q</label>
+            <label index="comment_responses_both">Veuillez sélectionner au moins ###OPTIONS_MINIMUM_RESPONSES### réponses et pas plus de ###OPTIONS_MAXIMUM_RESPONSES###.</label>
+            <label index="comment_responses_minimum">Veuillez sélectionner au moins ###OPTIONS_MINIMUM_RESPONSES### réponses.</label>
+            <label index="comment_responses_maximum">Veuillez ne pas sélectionner plus de ###OPTIONS_MAXIMUM_RESPONSES### réponses.</label>
+            <label index="comment_sum">La somme des nombres entrés doit être égale à ###TOTAL_NUMBER###.</label>
+            <label index="comment_date_both">La valeur doit être entre ###MINIMUM_DATE### et ###MAXIMUM_DATE###, y compris.</label>
+            <label index="comment_date_minimum">La valeur doit être supérieure ou égale à ###MINIMUM_DATE###.</label>
+            <label index="comment_date_maximum">La valeur doit être inférieure ou égale à ###MAXIMUM_DATE###.</label>
+            <label index="comment_number_both">La valeur doit être entre ###MINIMUM_VALUE### et ###MAXIMUM_VALUE###, y compris.</label>
+            <label index="comment_number_minimum">La valeur doit être supérieure ou égale à ###MINIMUM_VALUE###.</label>
+            <label index="comment_number_maximum">La valeur doit être inférieure ou égale à ###MAXIMUM_VALUE###.</label>
+            <label index="comment_responses_enter_both">Veuillez entrer au moins ###OPTIONS_MINIMUM_RESPONSES### réponses, et pas plus de ###OPTIONS_MAXIMUM_RESPONSES###.</label>
+            <label index="comment_responses_enter_minimum">Veuillez entrer au moins ###OPTIONS_MINIMUM_RESPONSES### réponses.</label>
+            <label index="comment_responses_enter_maximum">Veuillez ne pas entrer plus de ###OPTIONS_MAXIMUM_RESPONSES### réponses.</label>
+            <label index="comment_ranking">Classez les éléments ci-dessous en utilisant des valeurs numériques commençant par 1.</label>
+            <label index="submit">Valider</label>
+            <label index="back">Retour</label>
+            <label index="cancel">Annuler</label>
+            <label index="username">Veuillez entrer un nom d'utilisateur:</label>
+            <label index="continue">Continuer</label>
+            <label index="close">Fermer la fenêtre</label>
+            <label index="page">Page</label>
+            <label index="page_xy">Page %x sur %y</label>
+            <label index="percent">pour cent</label>
+            <label index="failed_saving_data">Désolé, une erreur est survenue lors de l'enregistrement des données.</label>
+        </languageKey>
+	</data>
+</T3locallangExt>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+    <data type="array">
+		<languageKey index="nl" type="array">
+			<label index="pi1_title_pbsurvey">Enquete</label>
+			<label index="pi1_plus_wiz_description_pbsurvey">Verzameld informatie van bezoekers gebruikmakend van uitgebreide onderzoeken.</label>
+			<label index="pi_flexform.sheet_general">Algemeen</label>
+			<label index="pi_flexform.template_file">Sjabloonbestand</label>
+			<label index="pi_flexform.sheet_access">Toegang</label>
+			<label index="pi_flexform.access_level">Respondent Toegangs Niveau</label>
+			<label index="pi_flexform.access_level0">Meervoudige deelname</label>
+			<label index="pi_flexform.access_level1">Eenmalige deelname</label>
+			<label index="pi_flexform.access_level2">Eenmalige deelname (niet te actualiseren)</label>
+			<label index="pi_flexform.access_level3">Handmatig invullen respons</label>
+			<label index="pi_flexform.sheet_completion">Voltooiing</label>
+			<label index="pi_flexform.completion_action">Actie na voltooiing</label>
+			<label index="pi_flexform.action0">Toon bericht</label>
+			<label index="pi_flexform.action1">Onmiddelijk tonen resultaten</label>
+			<label index="pi_flexform.action2">Verwijs naar andere pagina</label>
+			<label index="pi_flexform.action3">Sluit de browser</label>
+			<label index="pi_flexform.completion_message">Bericht na voltooiing</label>
+			<label index="pi_flexform.completion_url">Pagina na voltooiing</label>
+			<label index="pi_flexform.close_button">Sluiten-knop</label>
+			<label index="pi_flexform.continue_button">Doorgaan-knop</label>
+			<label index="pi_flexform.view_reports_button">Bekijk rapportage knop</label>
+			<label index="pi_flexform.sheet_navigation">Navigatie</label>
+			<label index="pi_flexform.navigation_back">Terug-knop</label>
+			<label index="pi_flexform.back0">Toon</label>
+			<label index="pi_flexform.back1">Niet tonen</label>
+			<label index="pi_flexform.navigation_cancel">Annuleer-knop</label>
+			<label index="pi_flexform.cancel0">Sluit browser</label>
+			<label index="pi_flexform.cancel1">Niet tonen</label>
+			<label index="pi_flexform.cancel2">Verwijs naar einde van de enquete</label>
+			<label index="pi_flexform.cancel3">Verwijs naar eigen pagina (hieronder ingevoerd)</label>
+			<label index="pi_flexform.cancel_url">Annuleer-knop pagina</label>
+			<label index="pi_flexform.sheet_numbering">Nummering</label>
+			<label index="pi_flexform.page_numbering">Paginanummering</label>
+			<label index="pi_flexform.page_numbering0">Toon paginanummer op iedere pagina</label>
+			<label index="pi_flexform.page_numbering1">Toon voortgang in een balk</label>
+			<label index="pi_flexform.page_numbering2">Toon voortgang als 'Pagina X van Y'</label>
+			<label index="pi_flexform.page_numbering3">Niet weergeven</label>
+			<label index="pi_flexform.question_numbering">Vraagnummering</label>
+			<label index="pi_flexform.question_numbering0">Vraagnummering niet tonen</label>
+			<label index="pi_flexform.question_numbering1">Vraagnummering over hele enquete</label>
+			<label index="pi_flexform.question_numbering2">Nummer vragen binnen elke pagina</label>
+			<label index="pi_flexform.other">Overig</label>
+			<label index="pi_flexform.maximum_responses">Maximum aantal deelnames</label>
+			<label index="pi_flexform.responses_per_user">Deelnames per bezoeker</label>
+			<label index="pi_flexform.days_for_update">Dagen voor actualiseren</label>
+		</languageKey>
+	</data>
+</T3locallangExt>

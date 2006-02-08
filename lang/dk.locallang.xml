@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+    <data type="array">
+		<languageKey index="dk" type="array">
+			<label index="pi1_title_pbsurvey">Spørgeskema</label>
+			<label index="pi1_plus_wiz_description_pbsurvey">Indsaml information fra brugere gennem spørgeskema.</label>
+			<label index="pi_flexform.sheet_general">General</label>
+			<label index="pi_flexform.template_file">Skabelonfil</label>
+			<label index="pi_flexform.sheet_access">Adgang</label>
+			<label index="pi_flexform.access_level">Svar Adgangsniveau</label>
+			<label index="pi_flexform.access_level0">Flere svar</label>
+			<label index="pi_flexform.access_level1">Enkelt svar</label>
+			<label index="pi_flexform.access_level2">Enkelt svar (IKKE opdaterbar)</label>
+			<label index="pi_flexform.access_level3">Manuelt svar</label>
+			<label index="pi_flexform.sheet_completion">Afslut</label>
+			<label index="pi_flexform.completion_action">Afslut funktion</label>
+			<label index="pi_flexform.action0">Vis meddelelse</label>
+			<label index="pi_flexform.action1">Vis resultater</label>
+			<label index="pi_flexform.action2">Hop til anden side</label>
+			<label index="pi_flexform.action3">Luk browseren</label>
+			<label index="pi_flexform.completion_message">Afslut meddelelse</label>
+			<label index="pi_flexform.completion_url">Afslutside</label>
+			<label index="pi_flexform.close_button">Luk knap</label>
+			<label index="pi_flexform.continue_button">Forsæt knap</label>
+			<label index="pi_flexform.view_reports_button">Vis report knap</label>
+			<label index="pi_flexform.sheet_navigation">Navigation</label>
+			<label index="pi_flexform.navigation_back">Tilbage knap</label>
+			<label index="pi_flexform.back0">Vis</label>
+			<label index="pi_flexform.back1">Vis IKKE</label>
+			<label index="pi_flexform.navigation_cancel">Afbryd knap</label>
+			<label index="pi_flexform.cancel0">Luk vindue</label>
+			<label index="pi_flexform.cancel1">Vis IKKE</label>
+			<label index="pi_flexform.cancel2">Hop til enden af spørgeskema</label>
+			<label index="pi_flexform.cancel3">Hop til ny side (Indtastes nedenunder)</label>
+			<label index="pi_flexform.cancel_url">Afbryd side</label>
+			<label index="pi_flexform.sheet_numbering">Nummerering</label>
+			<label index="pi_flexform.page_numbering">Sidenummerering</label>
+			<label index="pi_flexform.page_numbering0">Vise sidenummer på hver side</label>
+			<label index="pi_flexform.page_numbering1">Vis status som statusbar</label>
+			<label index="pi_flexform.page_numbering2">Vis status som 'Side X af Y' format</label>
+			<label index="pi_flexform.page_numbering3">Vis IKKE sidenumre</label>
+			<label index="pi_flexform.question_numbering">Spørgsmålnummer</label>
+			<label index="pi_flexform.question_numbering0">Vis IKKE spørgsmålsnumre</label>
+			<label index="pi_flexform.question_numbering1">Antal spørgsmål i hele spørgeskemaet</label>
+			<label index="pi_flexform.question_numbering2">Antal spørgsmål på hver side</label>
+			<label index="pi_flexform.other">Andet</label>
+			<label index="pi_flexform.maximum_responses">Maksimum antal svar</label>
+			<label index="pi_flexform.responses_per_user">Svar pr. bruger</label>
+			<label index="pi_flexform.days_for_update">Dage før opdatering</label>
+		</languageKey>
+	</data>
+</T3locallangExt>

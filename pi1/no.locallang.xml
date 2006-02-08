@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+    <data type="array">
+        <languageKey index="no" type="array">
+            <label index="no_items">Det er ingen spørmål å vise.</label>
+            <label index="access_single_no_update">Du har allerede svart på denne undersøkelsen. Du kan bare svare en gang.</label>
+            <label index="access_single_update_expired">Du kan ikke oppdatere dine svar lengre. Tiden for oppdatering har gått ut.</label>
+            <label index="access_user_maximum">Maksimalt nummer på svar til denne undersøkelsen er nådd.</label>
+            <label index="access_survey_maximum">Undersøkelsen er avsluttet. Det er ikke mulig å avgi svar lengre.</label>
+            <label index="value_none">-- Ingen --</label>
+            <label index="value_true">Rett</label>
+            <label index="value_false">Galt</label>
+            <label index="value_yes">Ja</label>
+            <label index="value_no">Nei</label>
+            <label index="js_required_select">Vennligst velg en verdi for spørsmål nummer %q</label>
+            <label index="js_required_enter">Vennligst skriv inn en verdi for spørsmål nummer %q</label>
+            <label index="js_required_enter_multiple">Vennligst skriv inn verdier for alle postene i spørsmål nummer %q</label>
+            <label index="js_required_matrix_check">Vennligst velg inn minst en verdi for spørsmål nummer %q</label>
+            <label index="js_required_matrix_value">Vennligst skriv inn minst en verdi for spørsmål nummer %q</label>
+            <label index="js_required_matrix_radio">Vennligst velg en verdi pr rad for spørsmål nummer %q</label>
+            <label index="js_required_date">Vennligst skriv inn en dato i spørsmål nummer %q</label>
+            <label index="js_required_numeric">Vennligst skriv inn et tall for for spørsmål nummer %q</label>
+            <label index="js_numeric">Sjekk at alle verdier skrevet inn for spørsmål nummer %q er tall.</label>
+            <label index="js_sum">Summen av svarene for spørsmål nummer %q må være %t. Gjeldende verdi er %v</label>
+            <label index="js_minimum_date">Vennligst skriv inn en dato som er større enn eller lik %d for spørsmål nummer %q</label>
+            <label index="js_maximum_date">Vennligst skriv inn en dato som er mindre enn eller lik %d for spørsmål nummer %q</label>
+            <label index="js_date_notvalid">Vennligs skriv inn dato som enten dd/mm/åååå eller dd-mm-åååå for spørsmål nummer %q</label>
+            <label index="js_month_notvalid">Måned må være mellom 1 og 12 for spørsmål nummer %q</label>
+            <label index="js_day_notvalid">Dag må være mellom 1 og 31 for  for spørsmål nummer %q</label>
+            <label index="js_month_not31">Måned %m har ikke 31 dager for spørsmål nummer %q</label>
+            <label index="js_februari_notvalid">Februar %y har ikke mere enn %d dager for spørsmål nummer %q</label>
+            <label index="js_minimum_responses">Vennligst velg minst %v verdier for spørsmål nummer %q</label>
+            <label index="js_maximum_responses">Vennligst velg ikke flere en %v verdier for spørsmål nummer %q</label>
+            <label index="js_minimum_responses_enter">Vennligs skriv inn minst %v verdier for spørsmål nummer %q</label>
+            <label index="js_maximum_responses_enter">Vennligst skriv ikke inn flere en %v verdier for spørsmål nummer %q</label>
+            <label index="js_minimum_value">Vennligst skriv inn en verdi som er større enn eller lik %v for spørsmål nummer %q</label>
+            <label index="js_maximum_value">Vennligst skriv inn en verdi som er mindre enn eller lik %v for spørsmål nummer %q</label>
+            <label index="js_email">Vennligst skriv inn en gyldig epost adresse for spørsmål nummer %q</label>
+            <label index="js_ranking">Punktenes rangering må være mellom 1 og %v for spørsmål nummer %q</label>
+            <label index="js_ranking_double">Hver rangeringsverdi kan bare skrives inn en gang for spørsmål nummer %q</label>
+            <label index="comment_responses_both">Velg minst ###OPTIONS_MINIMUM_RESPONSES### svar og ikke mer enn ###OPTIONS_MAXIMUM_RESPONSES### svar.</label>
+            <label index="comment_responses_minimum">Velg minst ###OPTIONS_MINIMUM_RESPONSES### svar.</label>
+            <label index="comment_responses_maximum">Velg ikke mer enn ###OPTIONS_MAXIMUM_RESPONSES### svar.</label>
+            <label index="comment_sum">Summer av nummer skrevet inn må være lik ###TOTAL_NUMBER###.</label>
+            <label index="comment_date_both">Verdien må være mellom ###MINIMUM_DATE### og ###MAXIMUM_DATE###, til og med.</label>
+            <label index="comment_date_minimum">Verdien må være større enn eller lik ###MINIMUM_DATE###.</label>
+            <label index="comment_date_maximum">Verdien må være mindre enn eller lik ###MAXIMUM_DATE###.</label>
+            <label index="comment_number_both">Verdien må være mellom ###MINIMUM_VALUE### og ###MAXIMUM_VALUE###, til og med.</label>
+            <label index="comment_number_minimum">Verdien må være større enn eller lik ###MINIMUM_VALUE###.</label>
+            <label index="comment_number_maximum">Verdien må være mindre enn eller lik ###MAXIMUM_VALUE###.</label>
+            <label index="comment_responses_enter_both">Skriv inn minst ###OPTIONS_MINIMUM_RESPONSES### svar, og ikke flere enn ###OPTIONS_MAXIMUM_RESPONSES### svar.</label>
+            <label index="comment_responses_enter_minimum">Skriv inn minst ###OPTIONS_MINIMUM_RESPONSES### svar.</label>
+            <label index="comment_responses_enter_maximum">Skriv ikke inn flere enn ###OPTIONS_MAXIMUM_RESPONSES### svar.</label>
+            <label index="comment_ranking">Ranger punktene nedenfor ved hjelp av tallverdier. Start med 1.</label>
+            <label index="submit">Send inn</label>
+            <label index="back">Tilbake</label>
+            <label index="cancel">Avbryt</label>
+            <label index="username">Skriv inn brukernavn</label>
+            <label index="continue">Fortsett</label>
+            <label index="close">Lukk vindu</label>
+            <label index="page">Side</label>
+            <label index="page_xy">Side %x av %y</label>
+            <label index="percent">prosent</label>
+            <label index="failed_saving_data">En feil har oppstått ved lagring av data. Vi er lei for dette.</label>
+        </languageKey>
+	</data>
+</T3locallangExt>

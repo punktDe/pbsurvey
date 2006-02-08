@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallangExt>
+    <data type="array">
+		<languageKey index="no" type="array">
+			<label index="mlang_tabs_tab">Spørreundersøkelser</label>
+			<label index="mlang_labels_tabdescr">Vis spørreundersøkelsens statistikk og eksporter resultat som csv.</label>
+			<label index="mlang_labels_tablabel">Spørreundersøkelsens statistikk</label>
+			<label index="title">Spørreundersøkelsens resultat</label>
+			<label index="stats">Spørreundersøkelsens statistikk</label>
+			<label index="number_questions">Antall spørsmål</label>
+			<label index="number_forms">Antall innsendte skjema</label>
+			<label index="csv_export">CSV eksport</label>
+			<label index="csv_submit">Eksporter til CSV-fil</label>
+			<label index="csv_clean">Rens CSV for SPSS</label>
+			<label index="csv_user">Brukersvar - Eksporter hvert svar som rekke, med en kolonne pr mulig svar.</label>
+			<label index="csv_spss">SPSS Format- Som brukersvar, bare med alternativknapp verdier i en rekke.</label>
+			<label index="no_results">De er ingen resultat fra spårreundersøkelse på denne siden.</label>
+			<label index="error">Feil</label>
+			<label index="list_questions">Liste med spørsmål</label>
+			<label index="additional">tillegg</label>
+			<label index="value_true">Riktig</label>
+			<label index="value_false">Feilaktig</label>
+			<label index="value_yes">Ja</label>
+			<label index="value_no">Nei</label>
+			<label index="crdate">Laget dato</label>
+			<label index="tstamp">Siste endring</label>
+			<label index="name">Navn</label>
+			<label index="address">Adresse</label>
+			<label index="zip">Postnr</label>
+			<label index="city">By</label>
+			<label index="email">epost</label>
+		</languageKey>
+	</data>
+</T3locallangExt>
