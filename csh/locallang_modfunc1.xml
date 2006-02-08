@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<description>CSH for Web&gt;Questionaire module function 'overview'</description>
+		<type>CSH</type>
+		<fileId>EXT:pbsurvey/csh/locallang_modfunc1.xml</fileId>
+		<csh_table>_MOD_web_txpbsurveyM1</csh_table>
+		<keep_original_text>1</keep_original_text>
+		<ext_filename_template>EXT:pbsurvey/csh/###LANGKEY###.locallang_modfunc1.xml</ext_filename_template>
+		<labelContext type="array">
+		</labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pbsurveyModfunc1.alttitle">Questionaire overview</label>
+			<label index="pbsurveyModfunc1.description">This page gives you an overview of the questions and results available on the selected page.</label>
+			<label index="pbsurveyModfunc1.details">Hier komen de details te staan</label>
+			<label index="pbsurveyModfunc1.seeAlso">xEXT_pbsurvey</label>
+			<label index="pbsurveyModfunc1.image"></label>
+			<label index="pbsurveyModfunc1.image_descr"></label>
+		</languageKey>
+	</data>
+</T3locallang>

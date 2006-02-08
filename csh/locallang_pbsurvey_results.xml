@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<description>Questionaire results.</description>
+		<type>CSH</type>
+		<csh_table>tx_pbsurvey_results</csh_table>
+		<fileId>EXT:pbsurvey/csh/locallang_pbsurvey_results.xml</fileId>
+		<ext_filename_template>EXT:pbsurvey/csh/###LANGKEY###.locallang_pbsurvey_results.xml</ext_filename_template>
+		<labelContext type="array">
+		</labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index=".description">Questionaire results.</label>
+			<label index=".details">Displays all results from the questionaire that have been finished.</label>
+			<label index="_.seeAlso">tx_pbsurvey_item</label>
+			<label index="hidden.description">Use this to temporarily exclude this result from display and export to csv file with the module Web &gt; Questionaire.</label>
+			<label index="hidden.details">Setting this option is practical when exporting the results to a csv file. You can, for instance, exclude this result that was meant for testing purposes only.</label>
+			<label index="survey.description">The title of the questionaire that generated this result.</label>
+			<label index="survey.details">Do not change this field if you want reliable results from the questionaire. Changing this field will exclude the result from being exported to a csv file if the questions do not match the ones of the questionaire that generated this result.</label>
+			<label index="_survey.seeAlso">tx_pbsurvey_item</label>
+			<label index="user.description">The name of the frontend user who participated in the questionaire.</label>
+			<label index="user.details">When a questionaire has been taken among logged-in frontend users, the user who participated will be displayed here.
+			
+When a questionaire has been taken anonymously, this field will be empty.
+	
+This field will be used by the module &quot;Web &gt; Questionaire&quot; to extract the users personal information from the table &quot;fe_users&quot; and insert this information in the csv file.</label>
+			<label index="_user.seeAlso">tx_pbsurvey_item, fe_users</label>
+			<label index="results.description">Field containing all answers from a single response.</label>
+			<label index="results.details">Do not change this field unless you know what you are doing.</label>
+			<label index="_results.seeAlso">tx_pbsurvey</label>
+		</languageKey>
+		<languageKey index="nl">EXT:pbsurvey/csh/nl.locallang_pbsurvey_results.xml</languageKey>
+		<languageKey index="de">EXT:pbsurvey/csh/de.locallang_pbsurvey_results.xml</languageKey>
+		<languageKey index="no">EXT:pbsurvey/csh/no.locallang_pbsurvey_results.xml</languageKey>
+	</data>
+</T3locallang>
