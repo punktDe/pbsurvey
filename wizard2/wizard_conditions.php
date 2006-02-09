@@ -72,11 +72,16 @@ class tx_pbsurvey_conditions_wiz {
 	 */
 	function main()	{
         global $LANG;
+        $this->previousQuestions();
         $strOutput = $this->objDoc->startPage($LANG->getLL('conditions_title'));
-		if ($this->arrWizardParameters['table'] && $this->arrWizardParameters['field'] && $this->arrWizardParameters['uid'])	{
+		if ($this->arrWizardParameters['table'] && $this->arrWizardParameters['field'] && $this->arrWizardParameters['uid'] && is_array($this->arrPrevQuestions))	{
 			$strOutput.=$this->objDoc->section($LANG->getLL('conditions_title'),$this->conditionsWizard(),0,1);
 		} else {
 			$strOutput.=$this->objDoc->section($LANG->getLL('conditions_title'),'<span class="typo3-red">'.$LANG->getLL('conditions_error',1).'</span>',0,1);
+			$strOutput.= '
+			<div id="c-saveButtonPanel">
+                <a href="#" onclick="'.htmlspecialchars('jumpToUrl(unescape(\''.rawurlencode($this->arrWizardParameters['returnUrl']).'\')); return false;').'"><img class="c-inputButton"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/closedok.gif').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.closeDoc')).'" /></a>
+			</div>';
 		}
 		$strOutput.=$this->objDoc->endPage();
 		$this->content = $strOutput;
@@ -119,10 +124,9 @@ class tx_pbsurvey_conditions_wiz {
 	 * @return	string		HTML for the table wizard
 	 */
 	function wizardHTML($arrTable)	{
-		$this->previousQuestions();
-		$strOutput .= $this->wizardHeader();
+		$strOutput = $this->wizardHeader();
 		$strOutput .= $this->groupsHTML($arrTable);
-        $strOutput .= $this->wizardFooter();
+		$strOutput .= $this->wizardFooter();
 		return $strOutput;
 	}
 	

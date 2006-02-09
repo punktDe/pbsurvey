@@ -132,7 +132,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 * @return	void
 	 */
 	function readSurvey() {
-		$arrSelectConf['selectFields'] = '*';
+		$arrSelectConf['selectFields'] = 'uid,question_type,question,question_alias,answers,rows,answers_allow_additional';
     	$arrSelectConf['where'] = '1=1';
     	$arrSelectConf['where'] .= ' AND pid=' . intval($this->id);
 		$arrSelectConf['where'] .= ' AND ' . $this->strItemsTable . '.sys_language_uid IN (0,-1)';
@@ -143,9 +143,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strItemsTable,$arrSelectConf['where'],'',$arrSelectConf['orderBy'],'');
 		while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
             array_walk($arrRow, 'trim');
-            if ($GLOBALS['TSFE']->sys_language_content) {
-				$arrRow = $GLOBALS['TSFE']->sys_page->getRecordOverlay($this->strItemsTable, $arrRow, $GLOBALS['TSFE']->sys_language_content, $GLOBALS['TSFE']->sys_language_contentOL, '');
-			}
+            $arrRow['answers'] = $this->answersArray($arrRow['answers']);
             $this->arrSurveyItems[$arrRow['uid']] = $arrRow;
 		}	
     }
@@ -177,11 +175,12 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 * @return	array		Converted answers information to array
 	 */
 	function answersArray($strInput) {
+		$arrKeys = array('answer','points');
 		$strLine=explode(chr(10),$strInput);
 		foreach($strLine as $intKey => $strLineValue)	{
 			$strValue = explode('|',$strLineValue);
-			for ($intCounter=0;$intCounter<3;$intCounter++)	{
-				$arrOutput[$intKey+1][$intCounter]=trim($strValue[$intCounter]);
+			for ($intCounter=0;$intCounter<2;$intCounter++)	{
+				$arrOutput[$intKey+1][$arrKeys[$intCounter]]=trim($strValue[$intCounter]);
 			}
 		}
 		return $arrOutput;
