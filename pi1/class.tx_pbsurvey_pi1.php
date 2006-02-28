@@ -469,6 +469,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * Store new result in database or, if update, update the previous one, in the beginning of the survey.
 	 * Set finished and endtsstamp when survey has been finished.
 	 *
+	 * @param	 boolean	   True if the survey is finished
 	 * @return   string        Error message if query to database failed
      */
     function storeResults($boolFinished) {

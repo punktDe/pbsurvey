@@ -48,6 +48,8 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 		$this->arrModParameters = t3lib_div::_GP($this->strExtKey);
 		$this->strResultsTable = $this->strExtKey . '_results';
 		$this->strItemsTable = $this->strExtKey . '_item';
+		$this->strAnswersTable = $this->strExtKey . '_answers';
+		$this->strUserTable = 'fe_users';
 		$this->readSurvey();
 	}
 	
@@ -120,13 +122,13 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 */
 	function sectionError() {
 		global $LANG;
-		$strTemp = '<p>'.$LANG->getLL('no_results').'</p>'; 
+		$strTemp = '<p><span class="typo3-red">'.$LANG->getLL('no_results').'</span></p>'; 
 		$strOutput = $this->objDoc->section($LANG->getLL('error'),$strTemp,0,1);
 		return $strOutput;
 	}
 	
 	/**
-	 * Read all questions in the selected page
+	 * Read all questions in the selected page and filter unneccessary content
 	 * Write content to $this->arrSurveyItems[]
 	 *
 	 * @return	void
@@ -143,7 +145,20 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strItemsTable,$arrSelectConf['where'],'',$arrSelectConf['orderBy'],'');
 		while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
             array_walk($arrRow, 'trim');
-            $arrRow['answers'] = $this->answersArray($arrRow['answers']);
+			if (in_array($arrRow['question_type'],array(1,2,3,6,7,8))) {
+            	$arrRow['answers'] = $this->answersArray($arrRow['answers']);
+			} else {
+				unset($arrRow['answers']);
+			}
+            if (in_array($arrRow['question_type'],array(6,7,8,9,11,15,16))) {
+            	$arrRow['rows'] = explode(chr(10),$arrRow['rows']);
+            	array_walk($arrRow['rows'] ,create_function('&$arr','$arr=trim($arr);'));
+            } else {
+            	unset($arrRow['rows']);
+            }
+            if (!in_array($arrRow['question_type'],array(1,3))) {
+            	unset($arrRow['answers_allow_additional']);
+            }
             $this->arrSurveyItems[$arrRow['uid']] = $arrRow;
 		}	
     }
