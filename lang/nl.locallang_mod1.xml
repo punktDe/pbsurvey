@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3locallangExt>
-    <data type="array">
+	<data type="array">
 		<languageKey index="nl" type="array">
 			<label index="mlang_tabs_tab">Enquete</label>
-			<label index="mlang_labels_tabdescr">Bekijk enquetestatistieken en exporteer ze als CSV.</label>
-			<label index="mlang_labels_tablabel">Enquetestatistieken</label>
+			<label index="mlang_labels_tabdescr">Deze module geeft u de mogelijkheid om enquetestatistieken te bekijken of te eporteren als een CSV bestand voor verdere analyse in statistische software als SPSS.</label>
+			<label index="mlang_labels_tablabel">Enquetetools, zoals exporteren van resultates, statistieken etc.</label>
+			<label index="no_results">Er bevinden zich geen enqueteresultaten op deze pagina.</label>
+			<label index="error">FOUT:</label>
 			<label index="title">Enquete resultaten</label>
 			<label index="stats">Enquete statistieken</label>
 			<label index="number_questions">Aantal vragen</label>
@@ -14,8 +16,6 @@
 			<label index="csv_clean">CSV-bestand opschonen voor SPSS</label>
 			<label index="csv_user">Deelnemersresultaten: Exporteert een bestand waarin iedere deelname in een rij wordt geplaatst, met één kolom voor elk mogelijk antwoord op iedere vraag. Bij veel vragen met veel antwoordmogelijkheden zullen er veel kolommen aangemaakt worden in het CSV-bestand.</label>
 			<label index="csv_spss">SPSS-formaat: Iedere deelname wordt in een aparte rij geplaatst. Voor vragen waar maar één enkel antwoord mogelijk is, wordt maar één kolom gemaakt. SPSS laat niet alle karakters toe in de kolomnaam. In dit formaat worden de karakters verwijderd uit deze namen.</label>
-			<label index="no_results">Er bevinden zich geen enqueteresultaten op deze pagina.</label>
-			<label index="error">FOUT:</label>
 			<label index="list_questions">Lijst van vragen</label>
 			<label index="additional">additioneel</label>
 			<label index="value_true">Waar</label>
@@ -31,4 +31,17 @@
 			<label index="email">E-mail</label>
 		</languageKey>
 	</data>
+	<orig_hash type="array">
+		<languageKey index="nl" type="array">
+			<label index="mlang_tabs_tab" type="integer">195136475</label>
+			<label index="mlang_labels_tabdescr" type="integer">18218660</label>
+			<label index="mlang_labels_tablabel" type="integer">43726921</label>
+			<label index="no_results" type="integer">167311142</label>
+			<label index="error" type="integer">151171285</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="nl" type="array">
+		</languageKey>
+	</orig_text>
 </T3locallangExt>

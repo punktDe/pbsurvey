@@ -7,8 +7,7 @@
 		<sDEF>
 			<ROOT>
 				<TCEforms>
-				<sheetTitle>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.sheet_general</sheetTitle>
-				<!--  <sheetDescription>Dat wil ik wel eens zien</sheetDescription> !-->
+					<sheetTitle>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.sheet_general</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
@@ -70,10 +69,6 @@
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level2</numIndex>
 									<numIndex index="1">2</numIndex>
 								</numIndex>
-								<!--<numIndex index="3" type="array">
-									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level3</numIndex>
-									<numIndex index="1">3</numIndex>
-								</numIndex>!-->
 							</items>
 						</config>
 						</TCEforms>
@@ -122,17 +117,13 @@
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action0</numIndex>
 									<numIndex index="1">0</numIndex>
 								</numIndex>
-								<!--<numIndex index="1" type="array">
+								<numIndex index="1" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action1</numIndex>
 									<numIndex index="1">1</numIndex>
-								</numIndex>!-->
+								</numIndex>				
 								<numIndex index="2" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action2</numIndex>
 									<numIndex index="1">2</numIndex>
-								</numIndex>				
-								<numIndex index="3" type="array">
-									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action3</numIndex>
-									<numIndex index="1">3</numIndex>
 								</numIndex>						
 							</items>	
 							<minitems>1</minitems>
@@ -193,20 +184,6 @@
 						</config>
 						</TCEforms>
 					</continue_button>
-					<!--<view_reports_button>
-						<TCEforms>
-						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.view_reports_button</label>
-						<config>
-							<type>check</type>
-							<items type="array">
-								<numIndex index="0" type="array">
-									<numIndex index="0"></numIndex>
-									<numIndex index="1">1</numIndex>
-								</numIndex>
-							</items>
-						</config>
-						</TCEforms>
-					</view_reports_button>!-->
 				</el>
 			</ROOT>
 		</sCOMPLETION>
@@ -226,12 +203,12 @@
 							<items type="array">
 								<numIndex index="0" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.back0</numIndex>
-									<numIndex index="1">1</numIndex>
-								</numIndex>
+									<numIndex index="1">0</numIndex>
+								</numIndex>	
 								<numIndex index="1" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.back1</numIndex>
-									<numIndex index="1">0</numIndex>
-								</numIndex>								
+									<numIndex index="1">1</numIndex>
+								</numIndex>							
 							</items>	
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>

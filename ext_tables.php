@@ -93,7 +93,6 @@ t3lib_div::loadTCA('tt_content');
 	// Exclude fields from displaying and add FlexForm content
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1']='layout,select_key,pages,recursive';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1']='pi_flexform';
-
 	// Add tablename to default list of allowed tables on pages. Otherwise only in SysFolders
 t3lib_extMgm::allowTableOnStandardPages('tx_pbsurvey_item');
 t3lib_extMgm::allowTableOnStandardPages('tx_pbsurvey_results');
@@ -111,13 +110,8 @@ t3lib_extMgm::addLLrefForTCAdescr('_MOD_web_txpbsurveyM1','EXT:pbsurvey/csh/loca
 t3lib_extMgm::addLLrefForTCAdescr('_MOD_web_txpbsurveyM1','EXT:pbsurvey/csh/locallang_modfunc1.xml');
 
 if (TYPO3_MODE=='BE') {
-	// initialize Module
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_pbsurvey_pi1_wizicon'] = t3lib_extMgm::extPath($_EXTKEY).'pi1/class.tx_pbsurvey_pi1_wizicon.php';
 	t3lib_extMgm::addModule('web','txpbsurveyM1','',t3lib_extMgm::extPath($_EXTKEY).'mod1/');
 	t3lib_extMgm::insertModuleFunction('web_txpbsurveyM1','tx_pbsurvey_modfunc1',t3lib_extMgm::extPath($_EXTKEY).'modfunc1/class.tx_pbsurvey_modfunc1.php','LLL:EXT:pbsurvey/lang/locallang_modfunc1.xml:moduleFunction');
-	// class for displaying the answers in BE results forms.
-	//include_once(t3lib_extMgm::extPath($_EXTKEY).'class.tx_pbsurvey_answers.php');
-	// user class to display wizards in the form
-	//include_once(t3lib_extMgm::extPath($_EXTKEY).'class.tx_pbsurvey_wizards.php');
 }
 ?>

@@ -6,18 +6,19 @@
 		<csh_table></csh_table>
 		<fileId>EXT:pbsurvey/lang/locallang_modfunc1.xml</fileId>
 		<ext_filename_template>EXT:pbsurvey/lang/###LANGKEY###.locallang_modfunc1.xml</ext_filename_template>
-		<labelContext type="array" />
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="moduleFunction">Overview</label>
 			<label index="title">Questionaire Overview</label>
-			<label index="stats">Questionaire Statistics</label>
 			<label index="number_questions">Number of questions</label>
 			<label index="number_results_finished">Finished responses</label>
 			<label index="number_results_unfinished">Unfinished responses</label>
 			<label index="number_results_all">Total number of responses</label>
 			<label index="list_questions">List of questions</label>
 		</languageKey>
+		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang_modfunc1.xml</languageKey>
 	</data>
 </T3locallang>

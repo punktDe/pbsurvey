@@ -106,7 +106,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
             if ($arrItem[3]==1) {
                 $arrOutput[$strKey] = $this->cObj->fileResource($strFFValue ? 'uploads/tx_pbsurvey/'.$strFFValue : $strTemp);
             } else {
-                $arrOutput[$strKey] = $strFFValue ? $strFFValue : $strTemp;
+                $arrOutput[$strKey] = isset($strFFValue) ? $strFFValue : $strTemp;
             }
         }
         return $arrOutput;
@@ -351,8 +351,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
     function pageNumber($intInput) {
 		switch($intInput) {
-			case 0: // Display page number on each page
-				$strOutput = $this->pi_getLL('page') . ' ' . $this->intStage;
+			case 0: // Do not display page numbers
+				$strOutput = '';
 			break;
 			case 1: // Display progress as a progress bar
 				$arrBar['percent'] = intval($this->intStage * 100/ ($this->intStage+$this->intNextPages));
@@ -364,8 +364,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				$strOutput = $this->cObj->substituteMarker($this->pi_getLL('page_xy'),'%x',$this->intStage);
 				$strOutput = $this->cObj->substituteMarker($strOutput,'%y',($this->intStage+$this->intNextPages));
 			break;
-			case 3: // Do not display page numbers
-				$strOutput = '';
+			case 3: // Display page number on each page
+				$strOutput = $this->pi_getLL('page') . ' ' . $this->intStage;
 			break;
 		}
 		return $strOutput;
@@ -380,9 +380,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     function setButton($strInput) {
         switch($strInput) {
             case 'cancel':
-                if ($this->arrConfig['navigation_cancel']!=1) {
+                if ($this->arrConfig['navigation_cancel']!=0) {
             		$arrCancel['cancel'] = $this->pi_getLL('cancel');
-            		if ($this->arrConfig['navigation_cancel']==0) {
+            		if ($this->arrConfig['navigation_cancel']==1) {
                         $arrCancel['canceltype'] = 'button';
                         $arrCancel['cancelscript'] = 'onclick="javascript:window.close();"';
                     } else {
@@ -393,7 +393,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                 }
             break;
             case 'back':
-                if (!$this->arrConfig['navigation_back']||$this->intStage>1) {
+                if ($this->arrConfig['navigation_back'] && $this->intStage>1) {
                 	$arrBack['back'] = $this->pi_getLL('back');
                 	$arrBack['backscript'] = 'onclick="javascript:pbsurveyChangeValue(\'tx_pbsurvey_pi1[stage]\','. ($this->piVars['stage']-1) . ');"';
                     $strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'BACK_BUTTON'), $arrBack,'###|###',1);
@@ -560,7 +560,6 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 			}
 		}
-    	
    		if ($GLOBALS['TYPO3_DB']->sql_error()) {
              $strOutput = $this->surveyError('failed_saving_data');
         }
@@ -585,19 +584,16 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      */
     function surveyCompletion() {
 		switch($this->arrConfig['completion_action']) {
-			case 0: // Display message
+			case 0: // Close the browser
+				$strOutput = '<img src="clear.gif" alt="" onLoad="javascript:window.close();" />';
+			break;
+			case 1: // Display message
 				$completionArray['message_buttons'] = $this->setButton('close').$this->setButton('continue');
 				$completionArray['message_text'] = $this->arrConfig['completion_message'];
 				$strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'COMPLETION'),$completionArray,'###|###',1);
 			break;
-			case 1: // Display results immediately. Ain't working yet
-				$strOutput = $this->arrConfig['completion_message'];
-			break;
 			case 2: // Redirect to another page
 				$this->callHeader('completion_url');
-			break;
-			case 3: // Close the browser
-				$strOutput = '<img src="clear.gif" alt="" onLoad="javascript:window.close();" />';
 			break;
 		}
 		return $strOutput;
@@ -1465,11 +1461,16 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			15 => 16,
 			16 => 17,
 		);
+	    if ($this->arrConfig['question_numbering']==1) {
+			$intQuestionNumber = $this->intCurrentItem;
+		} elseif ($this->arrConfig['question_numbering']<>0){
+			$intQuestionNumber = $this->intPageItem;
+		}
 		$this->arrJsItems[$arrJsValidate[$arrQuestion['question_type']]] = true;
         if ($arrQuestion['options_required']) {
             $strRequired = 'R';
         }
-        $strOutput = "'" . $arrQuestion['uid'] . "','" . $this->intCurrentItem . "','" .$arrQuestion['question_type'] . ":" . $strRequired;
+        $strOutput = "'" . $arrQuestion['uid'] . "','" . $intQuestionNumber . "','" .$arrQuestion['question_type'] . ":" . $strRequired;
         switch($arrQuestion['question_type']){
             case 1:
                 $strOutput .= ":" . ($arrQuestion['options_minimum_responses']?$arrQuestion['options_minimum_responses']:'') . ":" .

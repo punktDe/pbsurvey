@@ -166,7 +166,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
     /**
 	 * Count the results
 	 *
-	 * @return	integer		total number of results on this page
+	 * @return	array		Numbers of finished and unfinished results
 	 */
 	function countResults() {
 		$arrSelectConf['selectFields'] = '*';

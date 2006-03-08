@@ -11,7 +11,8 @@ $strHideNewLocalizations = ($arrConfiguration['hideNewLocalizations']?'mergeIfNo
 $TCA['tx_pbsurvey_item'] = array (
     'ctrl' => $TCA['tx_pbsurvey_item']['ctrl'],
     'interface' => array (
-        'showRecordFieldList' => 'hidden,
+        'showRecordFieldList' => '
+        	hidden,
 			question_type,
 			question,
 			question_alias,

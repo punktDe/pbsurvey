@@ -1,0 +1,8 @@
+2006-03-07  Patrick Broens	<patrick@patrickbroens.nl>
+	* Changed the order of pulldown options in the FlexForm of the backend plugin
+	* Added missing CSH in tx_pbsurvey_item, tx_pbsurvey_results and tx_pbsurvey_answers
+
+2006-03-02  Patrick Broens	<patrick@patrickbroens.nl>
+	* Added ChangeLog to pbsurvey
+	* Changed Context Sensitive Help of mod1
+	* Changed Context Sensitive Help of modfunc1

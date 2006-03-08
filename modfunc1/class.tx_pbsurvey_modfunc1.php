@@ -90,7 +90,7 @@ class tx_pbsurvey_modfunc1 extends t3lib_extobjbase {
 		$arrTemp[] = '<td><strong>'.$arrResults['all'].'</strong></td>';		
 		$arrTemp[] = '</tr>';
 		$arrTemp[] = '</table>';
-		$strOutput .= $this->pObj->objDoc->section($LANG->getLL('stats'),t3lib_BEfunc::cshItem('_MOD_'.$GLOBALS['MCONF']['name'],'pbsurveyModfunc1',$GLOBALS['BACK_PATH'],'|<br/>').implode(chr(13),$arrTemp),0,1);
+		$strOutput .= $this->pObj->objDoc->section($LANG->getLL('title'),t3lib_BEfunc::cshItem('_MOD_'.$GLOBALS['MCONF']['name'],'pbsurveyModfunc1',$GLOBALS['BACK_PATH'],'|<br/>').implode(chr(13),$arrTemp),0,1);
 		$strOutput .= $this->pObj->objDoc->divider(10);
 		return $strOutput;
 	}

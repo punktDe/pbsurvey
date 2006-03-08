@@ -15,6 +15,11 @@
 			<label index="_.seeAlso">tx_pbsurvey_results</label>
 			<label index="hidden.description">Hide item from display in the questionaire.</label>
 			<label index="hidden.details">Setting this option is practical while testing the questionaire. Do not change this option in a questionaire that is already online. It will influence the reliability of the results.</label>
+			<label index="sys_language_uid.description">Select the system language of this element. &lt;strong&gt;Notice&lt;/strong&gt; this will affect whether the element is visible.</label>
+			<label index="sys_language_uid.details">This allows you to assign a specific language to the question type. If you select anything but the default value, the element will not be visible unless the language assigned is also configured by the TypoScript template.
+The available system languages are created by the administrator..
+
+&lt;strong&gt;Note:&lt;/strong&gt; To get reliable results of a multiple language survey, you must translate all items in this survey.</label>
 			<label index="question_type.description">Choose from over 20 item types, including four kinds of matrix questions, ranking questions, drop-down lists, open-ended text boxes, checkboxes, and more.</label>
 			<label index="question_type.details"></label>
 			<label index="question.description">Use this field to enter the text for your question or input prompt.</label>
@@ -28,7 +33,7 @@
 			<label index="options_maximum_responses.description">Enter the maximum number of fields that can be answered.</label>
 			<label index="options_row_heading_width.description">Enter the width, in pixels, of the column for the row headings.</label>
 			<label index="rows.description">Enter each row name on a separate line below.</label>
-			<label index="answers.description">Enter each of the answers on a new line in the textbox below. Click the &quot;wizard&quot;-button for extra options</label>
+			<label index="answers.description">The textbox below will show the answers each on a new line. Click the &quot;wizard&quot;-button to enter new answers and its options.</label>
 			<label index="answers_allow_additional.description">Check this box if you would like an additional &quot;Other&quot; answer to allow questionaire takers to give a different answer.</label>
 			<label index="answers_text_additional.description">You may edit the text of the &quot;Other&quot; prompt in the text box below.</label>
 			<label index="answers_type_additional.description">Select the type of control that should be used to for the additional answer.</label>
