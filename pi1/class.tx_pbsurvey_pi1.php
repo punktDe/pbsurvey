@@ -24,6 +24,13 @@
 require_once(PATH_tslib.'class.tslib_pibase.php');
 require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php'); // debugregel
 
+/**
+ * Frontend Module for the 'pbsurvey' extension.
+ *
+ * @author Patrick Broens <patrick@patrickbroens.nl>
+ * @package TYPO3
+ * @subpackage pbsurvey
+ */
 class tx_pbsurvey_pi1 extends tslib_pibase {
 	var $prefixId = 'tx_pbsurvey_pi1';
 	var $scriptRelPath = 'pi1/class.tx_pbsurvey_pi1.php';
@@ -36,6 +43,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     var $arrSessionData=array(); // User data stored in session
     var $arrSurveyItems=array(); // Survey Items
     var $arrJsItems=array(); // Javascript Items
+    var $arrValidation=array(); // Validation values 
+    var $arrValidationErrors=array(); // Errorlines during server side validation
     var $intStage;
     var $arrPage=array();
     var $intPastItems;
@@ -45,13 +54,19 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     var $strOutItems;
     var $strJsCalls;
     
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+
 	/**
 	 * All needed configuration values are stored in the member variable $this->arrConfig and the template code goes in $this->arrConfig['templateCode'] .
 	 *
 	 * @param	array		Configuration array from TS
 	 * @return	void
 	 */
-	 function init($conf) {
+	function init($conf) {
 		$this->conf = $conf; // Storing configuration as a member var
 		$this->pi_loadLL();
 		$this->pi_USER_INT_obj=1;	// Configuring so caching is not expected. This value means that no cHash params are ever set. We do this, because it's a USER_INT object!
@@ -71,6 +86,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
         $arrFFConfig = array(
             'templateCode'        => array('template_file', 'sDEF', 'templateFile',1),
             'pid'                 => array('pages', 'sDEF', 'pid',2),
+            'captcha_page'        => array('captcha', 'sACCESS', 'security.captcha', 2),
             'access_level'        => array('access_level', 'sACCESS', 'accessLevel', 2),
             'completion_action'   => array('completion_action', 'sACOMPLETTION', 'completion.action', 2),
             'completion_url'      => array('completion_url', 'sCOMPLETION', 'completion.redirectPid', 2),
@@ -85,7 +101,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
             'maximum_responses'   => array('maximum_responses', 'sOTHER', 'maximumResponses', 2),
             'responses_per_user'  => array('responses_per_user', 'sOTHER', 'userResponses', 2),
             'days_for_update'     => array('days_for_update', 'sOTHER', 'daysForUpdate', 2),
-            'captcha_page'        => array('captcha', 'sSECURITY', 'security.captcha', 2),
+            'validation'          => array('validation', 'sOTHER', 'validation', 2),
         );
         return $arrOutput = $this->getFFconfig($arrFFConfig);
     }
@@ -112,6 +128,12 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
         return $arrOutput;
     }
     
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+	 
 	/**
 	 * Calls the init() function to setup the configuration, 
 	 * checks access levels and outputs the survey
@@ -128,157 +150,67 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
         $strOutput = $this->pi_wrapInBaseClass($strOutput?$this->surveyError($strOutput):$this->processSurvey());
 		return $strOutput;
 	}
-
-	/**
-	 * Do check if maximum responses is not exceeded
-	 *
-	 * @return	string		Locallang label if error
-	 */
-	function checkResponses() {
-        if ($this->arrConfig['maximum_responses']<>0) {
-			$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*',$this->strResultsTable,'pid='. $this->arrConfig['pid'] . $this->cObj->enableFields($this->strResultsTable),'','','');
-			$intRow = $GLOBALS['TYPO3_DB']->sql_num_rows($dbRes);
-			// Survey reached maximum number of responses, only check at beginning of survey
-			if ($intRow >= $this->arrConfig['maximum_responses'] && !$this->piVars['stage']) {
-				$strOutput = 'access_survey_maximum';
-			}
-		}
-		return $strOutput;
-    }
-    
+	
 	/**
 	 * Declare username according to login or anonymous
 	 *
 	 * @return	void
 	 */
     function setUserName() {
-        if ($GLOBALS['TSFE']->loginUser)	{
-			$this->arrSessionData = $GLOBALS['TSFE']->fe_user->getKey('user','surveyData');
-			$this->arrSessionData['uid'] = $GLOBALS['TSFE']->fe_user->user['uid'];
-		} else {
-			$this->arrSessionData = $GLOBALS['TSFE']->fe_user->getKey('ses','surveyData');
-			$this->arrSessionData['uid'] = 0;
-		}
-		$this->arrSessionData['uip'] = t3lib_div::getIndpEnv('REMOTE_ADDR');
+    	$this->arrSessionData = $GLOBALS['TSFE']->fe_user->getKey('ses','surveyData');
+    	$this->arrSessionData['uip'] = t3lib_div::getIndpEnv('REMOTE_ADDR');
+    	$this->arrSessionData['uid'] = $GLOBALS['TSFE']->loginUser?$GLOBALS['TSFE']->fe_user->user['uid']:0;
     }
     
 	/**
-	 * Check the Access Level of the user
-	 * If Anonymous user then check on IP-address
+	 * Builds the survey with all the parts necessary.
 	 *
-	 * @return	string		Locallang label if error
-	 */
-    function checkAccessLevel() {
-		$this->arrSessionData['begintstamp'] = time();
-        $arrPrevious = $this->readPreviousUser();
-        // Check on multiple responses
-		if ((int)$this->arrConfig['access_level']) {
-			$this->arrUserData=$arrPrevious[0]?$arrPrevious[0]:array();
-			$this->arrSessionData['rid']=$arrPrevious[2]['uid'];
-			if (!$this->piVars['stage']) {
-				// Time is expired for updateable response
-				if ($this->arrConfig['access_level']==1 && ($arrPrevious[2]['crdate']+($this->arrConfig['days_for_update']*(3600*24))<$GLOBALS['EXEC_TIME']) && $this->arrConfig['days_for_update']<>0 && $arrPrevious[1]<>0) {
-					$strOutput = 'access_single_update_expired';
-				// Exit because update not allowed
-				} elseif ($arrPrevious[0] && $this->arrConfig['access_level']==2) {
-					$strOutput = 'access_single_no_update';
+	 * @return   string        Output string
+     */
+	function processSurvey() {
+        $this->readSurvey();
+		if (!$this->arrSurveyItems){
+			$strOutput = $this->surveyError('no_items');
+		} else {
+			if ($this->arrConfig['captcha_page'] && is_object($this->objFreeCap) && !$this->arrSessionData['captcha'] && !$this->objFreeCap->checkWord($this->piVars['captcha_response'])) {
+            	$strOutput = $this->loadCaptcha();
+			} else {
+				$this->arrSessionData['captcha'] = 1;
+				$this->intStage = $this->piVars['stage']!=''?$this->piVars['stage']:-1;
+				$boolValidated = $this->validateForm();
+				$this->intPreviousStage = $this->previousStage($boolValidated);
+				if ($boolValidated && !isset($this->piVars['back'])) { //No server side validation or validation is ok
+		            $this->storeResults(FALSE);
+		            $this->storeAnswers($this->piVars);    
+		            $this->intStage++;
+				} elseif (isset($this->piVars['back'])) { // Pushed the back button
+					$this->intStage = $this->intPreviousStage;
 				}
+				$this->userSetKey();
+	            $this->processItems();
+	            $this->validationString();
+            	if ($this->strOutItems && !$this->piVars['Cancel']) { // There are still questions && User didn't cancel
+                	$strOutput =  $this->setMarkers();
+                	$GLOBALS['TSFE']->additionalJavaScript['pbsurvey'] = $this->jsFunctions();
+	            } else { // End of the survey || User pressed Cancel
+	                if (!$this->piVars['Cancel']) { // User didn't cancel, store results
+	                	unset($this->piVars['captcha_response']);
+	                    unset($this->piVars['stage']);
+	                    $strError = $this->storeResults(TRUE);
+	                    if ($strError) {
+	                        $strOutput = $strError;
+	                    }
+	                }
+	                unset($this->arrSessionData);
+	                $this->userSetKey();
+	                if ($this->piVars['Cancel'] && $this->arrConfig['navigation_cancel']==3) {
+	                    $this->callHeader('cancel_url');
+	                }
+	                $strOutput = $this->surveyCompletion();
+	            }
 			}
-		// User reached maximum number of responses
-		} elseif (($arrPrevious[1] > $this->arrConfig['responses_per_user']) && $this->arrConfig['responses_per_user']!=0) {
-				$strOutput = 'access_user_maximum';
-		}
-		return $strOutput;
-    }
-
-	/**
-	 * Read the previous response from user if there is any
-	 *
-	 * @return	array		Answers found, total number of rows found, row of the first result
-	 */
-    function readPreviousUser() {
-    	$arrSelectConf['selectFields'] = '*';
-    	$arrSelectConf['where'] = '1=1';
-    	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
-    	if ($this->arrSessionData['uid']) {
-    		$arrSelectConf['where'] .= ' AND user=' . $this->arrSessionData['uid'];
-    	} else {
-    		$arrSelectConf['where'] .= ' AND ip=\'' . $this->arrSessionData['uip'] . '\'';
-    	}
-    	$arrSelectConf['where'] .= $this->cObj->enableFields($this->strResultsTable);  		
-        $dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strResultsTable,$arrSelectConf['where'],'','','');
-		$arrRes = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes);
-		$intRowCount = $GLOBALS['TYPO3_DB']->sql_num_rows($dbRes);
-		if ($intRowCount) {
-			$arrSelectConf['selectFields'] = '*';
-	    	$arrSelectConf['where'] = '1=1';
-	    	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
-	    	$arrSelectConf['where'] .= ' AND result=' . $arrRes['uid'];
-	    	$arrSelectConf['where'] .= $this->cObj->enableFields($this->strAnswersTable); 
-			$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strAnswersTable,$arrSelectConf['where'],'','','');
-			while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)) {
-				if ($arrRow['row']) {
-					if ($arrRow['col']) {
-						$arrAnswers[$arrRow['question']][$arrRow['row']][$arrRow['col']] = $arrRow['answer'];
-					} else {
-						$arrAnswers[$arrRow['question']][$arrRow['row']] = $arrRow['answer'];
-					}
-				} else {
-					$arrAnswers[$arrRow['question']] = $arrRow['answer'];
-				}
-			}
-		}
-		$arrOutput = array($arrAnswers,$intRowCount,$arrRes);
-		return $arrOutput;
-    }
-
-	/**
-	 * Displays error message
-	 *
-	 * @param	string		Message that has to be displayed
-	 * @return	string		Complete content generated by the plugin
-	 */
-	function surveyError($strMessage) {
-        $arrError['message_text'] = $this->pi_getLL($strMessage);
-        $strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'ERROR'),$arrError,'###|###',1);
+        }
         return $strOutput;
-    }
-    
-   	/**
-	 * Read all questions from database
-	 * Frontend user has to do all question no mather what language, so sys_language_mode != 'strict'
-	 * Thanks to Rupert Germann, who probably doesn't know it anymore we discussed this during TYCON3 in Karlsruhe
-	 *
-     * @return	void
-	 */
-    function readSurvey() {
-    	$arrSelectConf['selectFields'] = '*';
-    	$arrSelectConf['where'] = '1=1';
-    	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
-		$arrSelectConf['where'] .= ' AND ' . $this->strItemsTable . '.sys_language_uid IN (0,-1)';
-		$arrSelectConf['where'] .= $this->cObj->enableFields($this->strItemsTable);
-		$arrSelectConf['orderBy'] = 'sorting ASC';
-		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strItemsTable,$arrSelectConf['where'],'',$arrSelectConf['orderBy'],'');
-		while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
-            array_walk($arrRow, 'trim');
-            if ($GLOBALS['TSFE']->sys_language_content) {
-				$arrRow = $GLOBALS['TSFE']->sys_page->getRecordOverlay($this->strItemsTable, $arrRow, $GLOBALS['TSFE']->sys_language_content, $GLOBALS['TSFE']->sys_language_contentOL, '');
-			}
-            $this->arrSurveyItems[] = $arrRow;
-		}
-    }
-    
-   	/**
-	 * Transfer data to FE_user key according to login
-	 *
-	 * @return	void
-	 */
-    function userSetKey() {
-		if ($GLOBALS['TSFE']->loginUser) {
-            $GLOBALS['TSFE']->fe_user->setKey('user','surveyData', $this->arrSessionData);
-		} else {
-            $GLOBALS['TSFE']->fe_user->setKey('ses','surveyData', $this->arrSessionData);
-		}
     }
     
     /**
@@ -325,7 +257,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					$this->intPageItem++;
 					$this->strOutItems .= $this->processQuestion($arrItem);
 					if ($arrItem['question_type']<=16) {
-						$this->strJsCalls .= ($this->strJsCalls!=''?',':'') . $this->processJsCalls($arrItem);
+						$this->jsProcessCalls($arrItem);
 					}
 				}
 			} elseif ($intCounter > $this->intStage){ // Items that belong to next stages
@@ -339,9 +271,335 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                 }
             }
 	    }
-	    $this->strJsCalls = "pbsurveyValidate(" . trim($this->strJsCalls, ',') . ");return document.pbsurveyReturnValue";
-        $this->intStage++;
     }
+
+	/**
+	 * Fills the question history and returns the previous stage
+	 *
+	 * @param	boolean		True when the submitted form is validated
+	 * @return	array		Converted answers information to array
+	 */
+	function previousStage($boolInput) {
+		if (!isset($this->piVars['back'])) { // Forward
+			$intOutput = $this->piVars['stage'];
+			if ($boolInput) {
+				$this->arrSessionData['history'][] = $intOutput;
+			}
+		} else { // Backward
+			$intOutput = array_pop($this->arrSessionData['history']);
+		}
+		return $intOutput;
+	}  
+	
+	/**
+	 * Create array out of possible answers in backend answers field
+	 *
+	 * @param	string		Content of backend answers field
+	 * @return	array		Converted answers information to array
+	 */
+	function answersArray($strInput)	{
+		$arrLine=explode(chr(10),$strInput);
+		foreach($arrLine as $intKey => $strLineValue)	{
+			$strValue = explode('|',$strLineValue);
+			for ($intCounter=0;$intCounter<3;$intCounter++)	{
+				$arrOutput[$intKey+1][$intCounter]=trim($strValue[$intCounter]);
+			}
+		}
+		return $arrOutput;
+	}
+	
+	/**
+	 * Process each conditiongroup and rule
+	 *
+	 * @param   array		Configuration array containing the type page & conditions
+	 * @return  boolean		If this is true the page is displayed
+	 */
+	function processCondition($arrQuestion) {
+		$intFound = 0;
+		$intGroup = 0;
+		$arrConditions = unserialize($arrQuestion['conditions']);
+		if ($arrConditions) {
+			foreach ($arrConditions['grps'] as $arrGrp ) { // Groups is OR
+				$intRule = 0;
+				foreach ($arrGrp['rule'] as $arrRule) { // Rule is AND
+					if ($this->arrUserData[$arrRule['field']]) { // Found a question that is in the condition
+						$arrRuleCond[$intRule] = $this->conditionAnswers($this->arrUserData[$arrRule['field']],$arrRule);
+						$intRule++;
+						$intFound++;
+					} else if ($rule['operator']=='set') {
+						$arrRuleCond[$intRule] = false;
+						$intRule++;
+						$intFound++;
+					} else if ($rule['operator']=='notset') {
+						$arrRuleCond[$intRule] = true;
+						$intRule++;
+						$intFound++;
+					}
+				}
+				if (count($arrRuleCond)==array_sum($arrRuleCond)) {
+					$arrGrpCond[$intGroup]=true;
+				} else { 
+					$arrGrpCond[$intGroup]=false;
+				}
+				$intGroup++;
+			}
+			$blnOutput = ($intFound==0?true:in_array(true,$arrGrpCond));
+		} else {
+			$blnOutput = true;
+		}
+		return $blnOutput;
+	}
+	
+	/**
+	 * Check if $answers is array or string and call function checkCondition for each answer
+	 *
+	 * @param   mixed	Given answer by user
+	 * @param	array			Rule to check answer against
+	 * @return	boolean			Condition true or false
+	 */
+	function conditionAnswers($mixAnswers,$arrRule) {
+		$intCount = 0;
+		if (is_array($mixAnswers)) {
+            $arrAnswers = $mixAnswers;
+			foreach ($this->arrSurveyItems as $arrItem){ // Check if type is constant_sum.
+				if ($arrItem['uid']==$arrRule['field'] && $arrItem['question_type']=='11') {
+					$arrConditions[$intCount] = $this->checkCondition(array_sum($arrAnswers),$arrRule);
+					$blnConstantSum = true;
+				}
+			}
+			if (!$blnConstantSum) {
+				foreach ($arrAnswers as $intKey => $unAnswer) {
+					if (is_array($unAnswer)) {
+                        $arrAnswer = $unAnswer;
+						foreach ($arrAnswer as $strVariable) {
+							$arrConditions[$intCount] = $this->checkCondition($strVariable,$arrRule);
+							$intCount++;
+						}
+					} else {
+                        $strAnswer = $unAnswer;
+						$arrConditions[$intCount] = $this->checkCondition($strAnswer,$arrRule);
+					}
+					$intCount++;
+				}
+			}
+		} else {
+            $strAnswer = $mixAnswers;
+			$arrConditions[$intCount] = $this->checkCondition($strAnswer,$arrRule);
+		}
+		if (in_array(true,$arrConditions)) {
+            $blnOutput = true;
+        }
+		return $blnOutput;
+	}
+    
+   	/**
+	 * Give output according to configuration
+	 * when survey is finished
+	 *
+	 * @return   string        Output string
+     */
+    function surveyCompletion() {
+		switch($this->arrConfig['completion_action']) {
+			case 0: // Close the browser
+				$strOutput = '<img src="clear.gif" alt="" onLoad="javascript:window.close();" />';
+			break;
+			case 1: // Display message
+				$completionArray['message_buttons'] = $this->setButton('close').$this->setButton('continue');
+				$completionArray['message_text'] = $this->arrConfig['completion_message'];
+				$strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'COMPLETION'),$completionArray,'###|###',1);
+			break;
+			case 2: // Redirect to another page
+				$this->callHeader('completion_url');
+			break;
+		}
+		return $strOutput;
+    }
+    
+    /**
+	 * Set page header when jumping to other page
+	 *
+	 * @param	string		String according to configuration to set page link
+	 * @return   void        
+     */
+    function callHeader($strInput) {
+        header('Location: '.t3lib_div::locationHeaderUrl($this->pi_getPageLink($this->arrConfig[$strInput])));
+    }
+    
+    /**
+	 * Do a trim and htmlspecialchars on input
+	 * This function is usefull when reading data from input fields from the database to display again
+	 *
+	 * @param	mixed		Input field or array to do a trim and htmlspecialchars on
+	 * @param	integer		Key from the Input variable
+     * @return	void
+	 */
+    function array_htmlspecialchars(&$mixInput, &$intKey) {
+    	if ($intKey!='conditions') {
+			$mixInput = trim(htmlspecialchars($mixInput, ENT_QUOTES));
+    	}
+    }
+    
+	/**
+	 * Displays error message
+	 *
+	 * @param	string		Message that has to be displayed
+	 * @return	string		Complete content generated by the plugin
+	 */
+	function surveyError($strMessage) {
+        $arrError['message_text'] = $this->pi_getLL($strMessage);
+        $strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'ERROR'),$arrError,'###|###',1);
+        return $strOutput;
+    }
+    
+    /**********************************
+	 *
+	 * Checking functions
+	 *
+	 **********************************/
+
+	/**
+	 * Do check if maximum responses is not exceeded
+	 *
+	 * @return	string		Locallang label if error
+	 */
+	function checkResponses() {
+        if ($this->arrConfig['maximum_responses']<>0) {
+			$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*',$this->strResultsTable,'pid='. $this->arrConfig['pid'] . $this->cObj->enableFields($this->strResultsTable),'','','');
+			$intRow = $GLOBALS['TYPO3_DB']->sql_num_rows($dbRes);
+			// Survey reached maximum number of responses, only check at beginning of survey
+			if ($intRow >= $this->arrConfig['maximum_responses'] && !$this->piVars['stage']) {
+				$strOutput = 'access_survey_maximum';
+			}
+		}
+		return $strOutput;
+    }
+    
+    /**
+	 * Check the Access Level of the user
+	 * If Anonymous user then check on IP-address
+	 *
+	 * @return	string		Locallang label if error
+	 */
+    function checkAccessLevel() {
+		$this->arrSessionData['begintstamp'] = time();
+        $arrPrevious = $this->readPreviousUser();
+        // Check on multiple responses
+		if ((int)$this->arrConfig['access_level']) {
+			$this->arrUserData=$arrPrevious[0]?$arrPrevious[0]:array();
+			$this->arrSessionData['rid']=$arrPrevious[2]['uid'];
+			if (!$this->piVars['stage']) {
+				// Time is expired for updateable response
+				if ($this->arrConfig['access_level']==1 && ($arrPrevious[2]['crdate']+($this->arrConfig['days_for_update']*(3600*24))<$GLOBALS['EXEC_TIME']) && $this->arrConfig['days_for_update']<>0 && $arrPrevious[1]<>0) {
+					$strOutput = 'access_single_update_expired';
+				// Exit because update not allowed
+				} elseif ($arrPrevious[0] && $this->arrConfig['access_level']==2) {
+					$strOutput = 'access_single_no_update';
+				}
+			}
+		// User reached maximum number of responses
+		} elseif (($arrPrevious[1] > $this->arrConfig['responses_per_user']) && $this->arrConfig['responses_per_user']!=0) {
+				$strOutput = 'access_user_maximum';
+		}
+		return $strOutput;
+    }
+    
+	/**
+	 * Check if freeCap CAPTCHA (sr_freecap) is loaded and make object of it
+	 *
+	 * @return	object		Object of sr_freecap
+	 */
+	function checkCaptcha() {
+		if (t3lib_extMgm::isLoaded('sr_freecap') ) {
+			require_once(t3lib_extMgm::extPath('sr_freecap').'pi2/class.tx_srfreecap_pi2.php');
+			$objOut = t3lib_div::makeInstance('tx_srfreecap_pi2');
+		}
+		return $objOut;
+	}
+	
+    /**
+	 * Return true if question has to be updated
+	 *
+	 * @param    array         Uid of the question
+	 * @return   string        True if it is an update
+     */
+    function checkUpdate($intInput) {
+        if ($this->arrUserData[$intInput]) {
+            $blnOutput = true;
+        }
+        return $blnOutput;
+    }
+    
+	/**
+	 * Check if a single answer corresponds to the rule given
+	 *
+	 * @param   string      Single answer given in the survey
+	 * @param	array		Condition rule
+	 * @return  boolean		Condition true or false
+	 */
+	function checkCondition($strAnswer,$arrRule){
+		switch($arrRule['operator']) {
+			case 'eq': // Equals to
+				if ($strAnswer==$arrRule['value'] || $strAnswer==$arrRule['value2']) {
+                     $blnOutput=true;
+                }
+			break;
+			case 'ne': // Not Equal to
+				if ($arrRule['value']!='' && $arrRule['value2']=='' && $strAnswer!=$arrRule['value']) {
+                    $blnOutput=true;
+				} else if ($rule['value']=='' && $rule['value2']!='' && $strAnswer!=$arrRule['value2']) {
+                    $blnOutput=true;
+				} else if ($strAnswer!=$arrRule['value'] || $strAnswer!=$arrRule['value2']) {
+                    $blnOutput=true;
+				}
+			break;
+			case 'ss': // Contains
+				if ($arrRule['value2']) {
+					$blnContains2 = stristr($strAnswer,$arrRule['value2']);
+				}
+				if (stristr($strAnswer,$arrRule['value']) || $blnContains2) {
+                    $blnOutput=true;
+                }
+			break;
+			case 'ns': // Does Not Contain
+				if ($arrRule['value2']) {
+					$blnContains2 = !stristr($strAnswer,$arrRule['value2']);
+				}
+				if (!stristr($strAnswer,$arrRule['value']) || $blnContains2) {
+                    $blnOutput=true;
+                }
+			break;
+			case 'gt': // Is Greater Than
+			case 'ge': // Is Greater Or Equal Than
+			case 'lt': // Is Less Than
+			case 'le': // Is Less Or Equal Than
+                $arrOperator = array('gt' => '>','ge' => '>=','lt' => '<','le' => '<=');
+                $arrAnswerParts=explode('-',$strAnswer);
+				$arrRuleParts=explode('-',$arrRule['value']);
+				if (count($arrAnswerParts)==2 && count($arrRuleParts)==2) {
+                    $dtAnswer = mktime(0, 0, 0, $arrAnswerParts[1], $arrAnswerParts[0], $arrAnswerParts[2]);
+                    $dtRule = mktime(0, 0, 0, $arrRuleParts[1], $arrRuleParts[0], $arrRuleParts[2]);
+					if (eval("\$dtAnswer" . $arrOperator[$arrRule['operator']] . "\$dtRule;")) {
+						$blnOutput=true;
+					}
+				} elseif (eval("\$strAnswer" . $arrOperator[$arrRule['operator']] . "\$arrRule['value'];")) {
+					$blnOutput=true;
+				}
+			break;
+			case 'set': // Provided An Answer
+				if ($strAnswer) $blnOutput=true;
+			break;
+			case 'notset': // Did Not Provide An Answer 
+				if ($strAnswer=='') $blnOutput=true;
+			break;
+		}
+		return $blnOutput;
+	}
+    
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
     
     /**
 	 * Show page numbers according to the configuration
@@ -355,17 +613,17 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				$strOutput = '';
 			break;
 			case 1: // Display progress as a progress bar
-				$arrBar['percent'] = intval($this->intStage * 100/ ($this->intStage+$this->intNextPages));
-				$arrBar['bartext'] = $this->cObj->substituteMarker($this->pi_getLL('page_xy'),'%x',$this->intStage);
-				$arrBar['bartext'] = $this->cObj->substituteMarker($arrBar['bartext'],'%y', ($this->intStage+$this->intNextPages));
+				$arrBar['percent'] = intval(($this->intStage+1) * 100/ ($this->intStage+1+$this->intNextPages));
+				$arrBar['bartext'] = $this->cObj->substituteMarker($this->pi_getLL('page_xy'),'%x',($this->intStage+1));
+				$arrBar['bartext'] = $this->cObj->substituteMarker($arrBar['bartext'],'%y', ($this->intStage+1+$this->intNextPages));
 				$strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'PROGRESSBAR'),$arrBar,'###|###',1);
 			break;
 			case 2: // Display progress in Page X of Y format
-				$strOutput = $this->cObj->substituteMarker($this->pi_getLL('page_xy'),'%x',$this->intStage);
-				$strOutput = $this->cObj->substituteMarker($strOutput,'%y',($this->intStage+$this->intNextPages));
+				$strOutput = $this->cObj->substituteMarker($this->pi_getLL('page_xy'),'%x',($this->intStage+1));
+				$strOutput = $this->cObj->substituteMarker($strOutput,'%y',($this->intStage+1+$this->intNextPages));
 			break;
 			case 3: // Display page number on each page
-				$strOutput = $this->pi_getLL('page') . ' ' . $this->intStage;
+				$strOutput = $this->pi_getLL('page') . ' ' . ($this->intStage+1);
 			break;
 		}
 		return $strOutput;
@@ -393,11 +651,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                 }
             break;
             case 'back':
-                if ($this->arrConfig['navigation_back'] && $this->intStage>1) {
+                if ($this->arrConfig['navigation_back'] && $this->intStage>0) {
                 	$arrBack['back'] = $this->pi_getLL('back');
-                	$arrBack['backscript'] = 'onclick="javascript:pbsurveyChangeValue(\'tx_pbsurvey_pi1[stage]\','. ($this->piVars['stage']-1) . ');"';
                     $strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'BACK_BUTTON'), $arrBack,'###|###',1);
-                    $this->arrJsItems[3] = true;
                 }
             break;
             case 'submit':
@@ -430,17 +686,19 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
     function setMarkers() {
         $arrMarkers = array(
-            'url'           => '$this->url',
-            'pagenumbering' => '$this->pageNumber($this->arrConfig["page_numbering"])',
-            'backbutton'    => '$this->setButton("back")',
-            'cancelbutton'  => '$this->setButton("cancel")',
-            'submit'        => '$this->setButton("submit")',
-            'items'         => '$this->strOutItems',
-            'totalitems'    => 'count($this->arrSurveyItems)',
-            'doneitems'     => '$this->intPastItems',
-            'stage'         => '$this->intStage',
-            'header'        => '$this->processQuestion($this->arrPage)',
-            'submitvalues'  => '$this->strJsCalls',
+            'url'             => '$this->url',
+            'pagenumbering'   => '$this->pageNumber($this->arrConfig["page_numbering"])',
+            'backbutton'      => '$this->setButton("back")',
+            'cancelbutton'    => '$this->setButton("cancel")',
+            'submit'          => '$this->setButton("submit")',
+            'items'           => '$this->strOutItems',
+            'totalitems'      => 'count($this->arrSurveyItems)',
+            'doneitems'       => '$this->intPastItems',
+            'stage'           => '$this->intStage',
+            'header'          => '$this->processQuestion($this->arrPage)',
+            'submitvalues'    => '$this->strCsCalls',
+            'validation'      => '$this->strSsCalls',
+            'validationerr'   => '$this->validationError($this->arrValidationErrors)',
         );
         return $strOutput = $this->getMarkers($arrMarkers);
     }
@@ -464,184 +722,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
         $strOutput =  $this->cObj->substituteMarkerArray($strTemplate,$arrTemp,'###|###',1);
         return $strOutput;
     }
-    
-    /**
-	 * Store new result in database or, if update, update the previous one, in the beginning of the survey.
-	 * Set finished and endtsstamp when survey has been finished.
-	 *
-	 * @param	 boolean	   True if the survey is finished
-	 * @return   string        Error message if query to database failed
-     */
-    function storeResults($boolFinished) {
-    	if ($boolFinished) {
-			$arrDb['finished'] = 1;
-			$arrDb['endtstamp'] = time();
-    	}
-		$arrDb['user'] = $this->arrSessionData['uid'];
-		$arrDb['begintstamp'] = $this->arrSessionData['begintstamp'];
-		$arrDb['ip'] = $this->arrSessionData['uip'];
-		$arrDb['pid'] = $this->arrConfig['pid'];
-		if (($this->arrSessionData['rid'] && $this->intStage==1) || $boolFinished) { // Surveyresult is an update and first page submitted
-			$strWhere = 'uid=' . $this->arrSessionData['rid'];
-			$dbRes = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($this->strResultsTable,$strWhere,$arrDb);
-		} elseif ($this->intStage==1) {
-			$arrDb['crdate'] = time();
-			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable,$arrDb); // Insert result
-			$this->arrSessionData['rid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
-		}
-		if ($GLOBALS['TYPO3_DB']->sql_error()) {
-			$strOutput = $this->surveyError('failed_saving_data');
-        }
-        return $strOutput;
-    }
-    
-    /**
-	 * Store the answers in the database
-	 * Updates old answers, inserts new ones or deletes previous answers not given again by the user
-	 *
-	 * @return   string        Error message if query to database failed
-     */
-    function storeAnswers($arrInput) {
-    	$intResult = $this->arrSessionData['rid'];
-    	$intPage = $this->arrConfig['pid'];
-		$arrSelectConf['selectFields'] = '*';
-	    $arrSelectConf['where'] = '1=1';
-	    $arrSelectConf['where'] .= ' AND pid=' . $intPage;
-	    $arrSelectConf['where'] .= ' AND result=' . $intResult;
     	
-    	foreach($arrInput as $mixQuestion => $mixQuestionValue) {
-			unset($this->arrUserData[$mixQuestion]);
-			if(is_array($mixQuestionValue)) {
-				$strWhere = $arrSelectConf['where'];
-				$strWhere .= ' AND question=' . $mixQuestion;
-				$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strAnswersTable,$strWhere);
-				while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
-					$arrPreviousAnswers[$arrRow['row']][$arrRow['col']]['answer'] = $arrRow['answer'];
-					$arrPreviousAnswers[$arrRow['row']][$arrRow['col']]['uid'] = $arrRow['uid'];
-				}
-				foreach($mixQuestionValue as $intRow => $mixRowValue) {
-					foreach($mixRowValue as $intColumn => $strColumnValue) {
-						if ($strColumnValue != '') {
-							$this->arrUserData[$mixQuestion][$intRow][$intColumn] = $strColumnValue;
-							if (isset($arrPreviousAnswers[$intRow][$intColumn])) {
-								if ($arrPreviousAnswers[$intRow][$intColumn]['answer'] != $strColumnValue) {
-									// update
-									$strWhere = '1=1';
-									$strWhere .= ' AND uid=' . $arrPreviousAnswers[$intRow][$intColumn]['uid'];
-									$arrDb['answer'] = $strColumnValue;
-									$dbRes = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($this->strAnswersTable,$strWhere,$arrDb);
-								}
-								unset($arrPreviousAnswers[$intRow][$intColumn]);
-							} else {
-								//insert
-								$arrDb['pid'] = $intPage;
-								$arrDb['result'] = $intResult;
-								$arrDb['question'] = $mixQuestion;
-								$arrDb['row'] = $intRow;
-								$arrDb['col'] = $intColumn;
-								$arrDb['answer'] = $strColumnValue;
-								$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strAnswersTable,$arrDb);
-							}
-						}
-					}
-				}
-				if (isset($arrPreviousAnswers)) {
-					foreach($arrPreviousAnswers as $intRow => $mixRowValue) {
-				 		if (isset($mixRowValue)) {
-				 			foreach($mixRowValue as $arrAnswer) {
-				 				if (isset($arrAnswer['uid'])) {
-				 					$strWhere = '1=1';
-				 					$strWhere .= ' AND uid=' . $arrAnswer['uid'];
-				 					$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
-				 				}
-				 			}			 			
-				 		}		
-					}
-				}
-			}
-		}
-   		if ($GLOBALS['TYPO3_DB']->sql_error()) {
-             $strOutput = $this->surveyError('failed_saving_data');
-        }
-        return $strOutput;
-    }
-      
-    /**
-	 * Set page header when jumping to other page
-	 *
-	 * @param	string		String according to configuration to set page link
-	 * @return   void        
-     */
-    function callHeader($strInput) {
-        header('Location: '.t3lib_div::locationHeaderUrl($this->pi_getPageLink($this->arrConfig[$strInput])));
-    }
-    
-   	/**
-	 * Give output according to configuration
-	 * when survey is finished
-	 *
-	 * @return   string        Output string
-     */
-    function surveyCompletion() {
-		switch($this->arrConfig['completion_action']) {
-			case 0: // Close the browser
-				$strOutput = '<img src="clear.gif" alt="" onLoad="javascript:window.close();" />';
-			break;
-			case 1: // Display message
-				$completionArray['message_buttons'] = $this->setButton('close').$this->setButton('continue');
-				$completionArray['message_text'] = $this->arrConfig['completion_message'];
-				$strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'COMPLETION'),$completionArray,'###|###',1);
-			break;
-			case 2: // Redirect to another page
-				$this->callHeader('completion_url');
-			break;
-		}
-		return $strOutput;
-    }
-    
-	/**
-	 * Builds the survey with all the parts necessary.
-	 *
-	 * @return   string        Output string
-     */
-	function processSurvey() {
-        $this->readSurvey();
-		if (!$this->arrSurveyItems){
-			$strOutput = $this->surveyError('no_items');
-		} else {
-			if ($this->arrConfig['captcha_page'] && is_object($this->objFreeCap) && !$this->arrSessionData['captcha'] && !$this->objFreeCap->checkWord($this->piVars['captcha_response'])) {
-            	$strOutput = $this->loadCaptcha();
-			} else {
-				$this->arrSessionData['captcha'] = 1;
-				$this->intStage = $this->piVars['stage']?$this->piVars['stage']:0;
-	            $this->storeResults(FALSE);
-	            $this->storeAnswers($this->piVars);
-	            $this->userSetKey();
-	            $this->processItems();
-            	if ($this->strOutItems && !$this->piVars['Cancel']) { // There are still questions && User didn't cancel
-                	$strOutput =  $this->setMarkers();
-                	$GLOBALS['TSFE']->additionalJavaScript['pbsurvey'] = $this->cfgJsString();
-	            } else { // End of the survey || User pressed Cancel
-	                if (!$this->piVars['Cancel']) { // User didn't cancel, store results
-	                	unset($this->piVars['captcha_response']);
-	                    unset($this->piVars['stage']);
-	                    $strError = $this->storeResults(TRUE);
-	                    if ($strError) {
-	                        $strOutput = $strError;
-	                    }
-	                }
-	                unset($this->arrSessionData);
-	                $this->userSetKey();
-	                if ($this->piVars['Cancel'] && $this->arrConfig['navigation_cancel']==3) {
-	                    $this->callHeader('cancel_url');
-	                }
-	                $strOutput = $this->surveyCompletion();
-	            }
-			}
-        }
-        return $strOutput;
-    }
-    
     /**
 	 * Select the question template according to alignment or type of display.
 	 *
@@ -877,8 +958,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        List of possible answers
      */
     function markerList($arrQuestion,$strTemplate) {
-        $arrAllowed = array(1,2,3);
-        if (in_array($arrQuestion['question_type'],$arrAllowed)) {
+        if (in_array($arrQuestion['question_type'],array(1,2,3))) {
 			$arrVars = $this->answersArray($arrQuestion['answers']);
             foreach($arrVars as $intKey => $arrItem){
             	unset($arrQuestion['checked']);
@@ -1101,7 +1181,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     }
     
     /**
-	 * Build the image
+	 * Build the image according to the configuration
 	 *
 	 * @param    array         Question and all of its configuration
 	 * @return   string        <img> tag, if any image found.
@@ -1133,19 +1213,6 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			}
     	}
     	return $strOutput;
-    }
-
-    /**
-	 * Return true if question has to be updated
-	 *
-	 * @param    array         Uid of the question
-	 * @return   string        True if it is an update
-     */
-    function checkUpdate($intInput) {
-        if ($this->arrUserData[$intInput]) {
-            $blnOutput = true;
-        }
-        return $blnOutput;
     }
     
 	/**
@@ -1185,186 +1252,6 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	}
 	
 	/**
-	 * Process each conditiongroup and rule
-	 *
-	 * @param   array		Configuration array containing the type page & conditions
-	 * @return  boolean		If this is true the page is displayed
-	 */
-	function processCondition($arrQuestion) {
-		$intFound = 0;
-		$intGroup = 0;
-		$arrConditions = unserialize($arrQuestion['conditions']);
-		if ($arrConditions) {
-			foreach ($arrConditions['grps'] as $arrGrp ) { // Groups is OR
-				$intRule = 0;
-				foreach ($arrGrp['rule'] as $arrRule) { // Rule is AND
-					if ($this->arrUserData[$arrRule['field']]) { // Found a question that is in the condition
-						$arrRuleCond[$intRule] = $this->conditionAnswers($this->arrUserData[$arrRule['field']],$arrRule);
-						$intRule++;
-						$intFound++;
-					} else if ($rule['operator']=='set') {
-						$arrRuleCond[$intRule] = false;
-						$intRule++;
-						$intFound++;
-					} else if ($rule['operator']=='notset') {
-						$arrRuleCond[$intRule] = true;
-						$intRule++;
-						$intFound++;
-					}
-				}
-				if (count($arrRuleCond)==array_sum($arrRuleCond)) {
-					$arrGrpCond[$intGroup]=true;
-				} else { 
-					$arrGrpCond[$intGroup]=false;
-				}
-				$intGroup++;
-			}
-			$blnOutput = ($intFound==0?true:in_array(true,$arrGrpCond));
-		} else {
-			$blnOutput = true;
-		}
-		return $blnOutput;
-	}
-	
-	/**
-	 * Check if $answers is array or string and call function checkCondition for each answer
-	 *
-	 * @param   array/string	Given answer by user
-	 * @param	array			Rule to check answer against
-	 * @return	boolean			Condition true or false
-	 */
-	function conditionAnswers($unAnswers,$arrRule) {
-		$intCount = 0;
-		if (is_array($unAnswers)) {
-            $arrAnswers = $unAnswers;
-			foreach ($this->arrSurveyItems as $arrItem){ // Check if type is constant_sum.
-				if ($arrItem['uid']==$arrRule['field'] && $arrItem['question_type']=='11') {
-					$arrConditions[$intCount] = $this->checkCondition(array_sum($arrAnswers),$arrRule);
-					$blnConstantSum = true;
-				}
-			}
-			if (!$blnConstantSum) {
-				foreach ($arrAnswers as $intKey => $unAnswer) {
-					if (is_array($unAnswer)) {
-                        $arrAnswer = $unAnswer;
-						foreach ($arrAnswer as $strVariable) {
-							$arrConditions[$intCount] = $this->checkCondition($strVariable,$arrRule);
-							$intCount++;
-						}
-					} else {
-                        $strAnswer = $unAnswer;
-						$arrConditions[$intCount] = $this->checkCondition($strAnswer,$arrRule);
-					}
-					$intCount++;
-				}
-			}
-		} else {
-            $strAnswer = $unAnswers;
-			$arrConditions[$intCount] = $this->checkCondition($strAnswer,$arrRule);
-		}
-		if (in_array(true,$arrConditions)) {
-            $blnOutput = true;
-        }
-		return $blnOutput;
-	}
-	
-	/**
-	 * Check if a single answer corresponds to the rule given
-	 *
-	 * @param   string      Single answer given in the survey
-	 * @param	array		Condition rule
-	 * @return  boolean		Condition true or false
-	 */
-	function checkCondition($strAnswer,$arrRule){
-		switch($arrRule['operator']) {
-			case 'eq': // Equals to
-				if ($strAnswer==$arrRule['value'] || $strAnswer==$arrRule['value2']) {
-                     $blnOutput=true;
-                }
-			break;
-			case 'ne': // Not Equal to
-				if ($arrRule['value']!='' && $arrRule['value2']=='' && $strAnswer!=$arrRule['value']) {
-                    $blnOutput=true;
-				} else if ($rule['value']=='' && $rule['value2']!='' && $strAnswer!=$arrRule['value2']) {
-                    $blnOutput=true;
-				} else if ($strAnswer!=$arrRule['value'] || $strAnswer!=$arrRule['value2']) {
-                    $blnOutput=true;
-				}
-			break;
-			case 'ss': // Contains
-				if ($arrRule['value2']) {
-					$blnContains2 = stristr($strAnswer,$arrRule['value2']);
-				}
-				if (stristr($strAnswer,$arrRule['value']) || $blnContains2) {
-                    $blnOutput=true;
-                }
-			break;
-			case 'ns': // Does Not Contain
-				if ($arrRule['value2']) {
-					$blnContains2 = !stristr($strAnswer,$arrRule['value2']);
-				}
-				if (!stristr($strAnswer,$arrRule['value']) || $blnContains2) {
-                    $blnOutput=true;
-                }
-			break;
-			case 'gt': // Is Greater Than
-			case 'ge': // Is Greater Or Equal Than
-			case 'lt': // Is Less Than
-			case 'le': // Is Less Or Equal Than
-                $arrOperator = array('gt' => '>','ge' => '>=','lt' => '<','le' => '<=');
-                $arrAnswerParts=explode('-',$strAnswer);
-				$arrRuleParts=explode('-',$arrRule['value']);
-				if (count($arrAnswerParts)==2 && count($arrRuleParts)==2) {
-                    $dtAnswer = mktime(0, 0, 0, $arrAnswerParts[1], $arrAnswerParts[0], $arrAnswerParts[2]);
-                    $dtRule = mktime(0, 0, 0, $arrRuleParts[1], $arrRuleParts[0], $arrRuleParts[2]);
-					if (eval("\$dtAnswer" . $arrOperator[$arrRule['operator']] . "\$dtRule;")) {
-						$blnOutput=true;
-					}
-				} elseif (eval("\$strAnswer" . $arrOperator[$arrRule['operator']] . "\$arrRule['value'];")) {
-					$blnOutput=true;
-				}
-			break;
-			case 'set': // Provided An Answer
-				if ($strAnswer) $blnOutput=true;
-			break;
-			case 'notset': // Did Not Provide An Answer 
-				if ($strAnswer=='') $blnOutput=true;
-			break;
-		}
-		return $blnOutput;
-	}
-
-	/**
-	 * Create array out of possible answers in backend answers field
-	 *
-	 * @param	string		Content of backend answers field
-	 * @return	array		Converted answers information to array
-	 */
-	function answersArray($strInput)	{
-		$strLine=explode(chr(10),$strInput);
-		foreach($strLine as $intKey => $strLineValue)	{
-			$strValue = explode('|',$strLineValue);
-			for ($intCounter=0;$intCounter<3;$intCounter++)	{
-				$arrOutput[$intKey+1][$intCounter]=trim($strValue[$intCounter]);
-			}
-		}
-		return $arrOutput;
-	}
-	
-	/**
-	 * Check if freeCap CAPTCHA (sr_freecap) is loaded and make object of it
-	 *
-	 * @return	object		Object of sr_freecap
-	 */
-	function checkCaptcha() {
-		if (t3lib_extMgm::isLoaded('sr_freecap') ) {
-			require_once(t3lib_extMgm::extPath('sr_freecap').'pi2/class.tx_srfreecap_pi2.php');
-			$objOut = t3lib_div::makeInstance('tx_srfreecap_pi2');
-		}
-		return $objOut;
-	}
-	
-	/**
 	 * Build the HTML for the captcha page
 	 *
 	 * @return	string		HTML containing the captcha page
@@ -1372,27 +1259,448 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	function loadCaptcha() {
 		$this->strOutItems = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'CAPTCHA'),$this->objFreeCap->makeCaptcha(),'',1);
 		$arrMarkers = array(
-            'url'           => '$this->url',
-            'submit'        => '$this->setButton("submit")',
-            'items'         => '$this->strOutItems',
-            'stage'         => '',
-            'pagenumbering' => '',
-            'backbutton'    => '',
-            'cancelbutton'  => '',
-            'header'        => '',
-            'submitvalues'  => '',
+            'url'             => '$this->url',
+            'submit'          => '$this->setButton("submit")',
+            'items'           => '$this->strOutItems',
+            'stage'           => '',
+            'pagenumbering'   => '',
+            'backbutton'      => '',
+            'cancelbutton'    => '',
+            'header'          => '',
+            'submitvalues'    => '',
+            'validationerr' => '',
 		);
 		$strOutput = $this->getMarkers($arrMarkers);
 		return $strOutput;
 	}
 	
+    /**********************************
+	 *
+	 * Reading functions
+	 *
+	 **********************************/
+	 
 	/**
-	 * Create javascript function containing array of the errors produced by the javascript functions in local language
+	 * Read the previous response from user if there is any
+	 *
+	 * @return	array		Answers found, total number of rows found, row of the first result
+	 */
+    function readPreviousUser() {
+    	$arrSelectConf['selectFields'] = '*';
+    	$arrSelectConf['where'] = '1=1';
+    	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
+    	if ($this->arrSessionData['uid']) {
+    		$arrSelectConf['where'] .= ' AND user=' . $this->arrSessionData['uid'];
+    	} else {
+    		$arrSelectConf['where'] .= ' AND ip=\'' . $this->arrSessionData['uip'] . '\'';
+    	}
+    	$arrSelectConf['where'] .= $this->cObj->enableFields($this->strResultsTable);  		
+        $dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strResultsTable,$arrSelectConf['where'],'','','');
+		$arrRes = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes);
+		$intRowCount = $GLOBALS['TYPO3_DB']->sql_num_rows($dbRes);
+		if ($intRowCount) {
+			$arrSelectConf['selectFields'] = '*';
+	    	$arrSelectConf['where'] = '1=1';
+	    	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
+	    	$arrSelectConf['where'] .= ' AND result=' . $arrRes['uid'];
+	    	$arrSelectConf['where'] .= $this->cObj->enableFields($this->strAnswersTable); 
+			$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strAnswersTable,$arrSelectConf['where'],'','','');
+			while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)) {
+				array_walk($arrRow, array($this,'array_htmlspecialchars'));
+				if ($arrRow['row']) {
+					if ($arrRow['col']) {
+						$arrAnswers[$arrRow['question']][$arrRow['row']][$arrRow['col']] = $arrRow['answer'];
+					} else {
+						$arrAnswers[$arrRow['question']][$arrRow['row']] = $arrRow['answer'];
+					}
+				} else {
+					$arrAnswers[$arrRow['question']] = $arrRow['answer'];
+				}
+			}
+		}
+		$arrOutput = array($arrAnswers,$intRowCount,$arrRes);
+		return $arrOutput;
+    }
+    
+   	/**
+	 * Read all questions from database
+	 * Frontend user has to do all question no mather what language, so sys_language_mode != 'strict'
+	 * Thanks to Rupert Germann, who probably doesn't know it anymore we discussed this during TYCON3 2005 in Karlsruhe
+	 *
+     * @return	void
+	 */
+    function readSurvey() {
+    	$arrSelectConf['selectFields'] = '*';
+    	$arrSelectConf['where'] = '1=1';
+    	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
+		$arrSelectConf['where'] .= ' AND ' . $this->strItemsTable . '.sys_language_uid IN (0,-1)';
+		$arrSelectConf['where'] .= $this->cObj->enableFields($this->strItemsTable);
+		$arrSelectConf['orderBy'] = 'sorting ASC';
+		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strItemsTable,$arrSelectConf['where'],'',$arrSelectConf['orderBy'],'');
+		while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
+            if ($GLOBALS['TSFE']->sys_language_content) {
+				$arrRow = $GLOBALS['TSFE']->sys_page->getRecordOverlay($this->strItemsTable, $arrRow, $GLOBALS['TSFE']->sys_language_content, $GLOBALS['TSFE']->sys_language_contentOL, '');
+			}
+			array_walk($arrRow, array($this,'array_htmlspecialchars'));
+            $this->arrSurveyItems[] = $arrRow;
+		}
+    }
+	
+    /**********************************
+	 *
+	 * Storing functions
+	 *
+	 **********************************/
+	 
+	/**
+	 * Transfer data to FE_user
+	 *
+	 * @return	void
+	 */
+    function userSetKey() {
+        $GLOBALS['TSFE']->fe_user->setKey('ses','surveyData', $this->arrSessionData);
+    }
+    
+    /**
+	 * Store new result in database or, if update, update the previous one, in the beginning of the survey.
+	 * Set finished and endtsstamp when survey has been finished.
+	 *
+	 * @param	 boolean	   True if the survey is finished
+	 * @return   string        Error message if query to database failed
+     */
+    function storeResults($boolFinished) {
+    	if ($boolFinished) {
+			$arrDb['finished'] = 1;
+			$arrDb['endtstamp'] = time();
+    	}
+		$arrDb['user'] = $this->arrSessionData['uid'];
+		$arrDb['begintstamp'] = $this->arrSessionData['begintstamp'];
+		$arrDb['ip'] = $this->arrSessionData['uip'];
+		$arrDb['pid'] = $this->arrConfig['pid'];
+		if (($this->arrSessionData['rid'] && $this->intStage==0) || $boolFinished) { // Surveyresult is an update and first page submitted
+			$strWhere = 'uid=' . $this->arrSessionData['rid'];
+			$dbRes = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($this->strResultsTable,$strWhere,$arrDb);
+		} elseif ($this->intStage==0) {
+			$arrDb['crdate'] = time();
+			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable,$arrDb); // Insert result
+			$this->arrSessionData['rid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
+		}
+		if ($GLOBALS['TYPO3_DB']->sql_error()) {
+			$strOutput = $this->surveyError('failed_saving_data');
+        }
+        return $strOutput;
+    }
+    
+    /**
+	 * Store the answers in the database
+	 * Updates old answers, inserts new ones or deletes previous answers not given again by the user
+	 *
+	 * @param	 array		   Answers to be stored
+	 * @return   string        Error message if query to database failed
+     */
+    function storeAnswers($arrInput) {
+    	$intResult = $this->arrSessionData['rid'];
+    	$intPage = $this->arrConfig['pid'];
+		$arrSelectConf['selectFields'] = '*';
+	    $arrSelectConf['where'] = '1=1';
+	    $arrSelectConf['where'] .= ' AND pid=' . $intPage;
+	    $arrSelectConf['where'] .= ' AND result=' . $intResult;
+    	
+    	foreach($arrInput as $mixQuestion => $mixQuestionValue) {
+			unset($this->arrUserData[$mixQuestion]);
+			if(is_array($mixQuestionValue)) {
+				$strWhere = $arrSelectConf['where'];
+				$strWhere .= ' AND question=' . $mixQuestion;
+				$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strAnswersTable,$strWhere);
+				while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
+					$arrPreviousAnswers[$arrRow['row']][$arrRow['col']]['answer'] = $arrRow['answer'];
+					$arrPreviousAnswers[$arrRow['row']][$arrRow['col']]['uid'] = $arrRow['uid'];
+				}
+				foreach($mixQuestionValue as $intRow => $mixRowValue) {
+					foreach($mixRowValue as $intColumn => $strColumnValue) {
+						if ($strColumnValue != '') {
+							$this->arrUserData[$mixQuestion][$intRow][$intColumn] = $strColumnValue;
+							if (isset($arrPreviousAnswers[$intRow][$intColumn])) {
+								if ($arrPreviousAnswers[$intRow][$intColumn]['answer'] != $strColumnValue) {
+									// update
+									$strWhere = '1=1';
+									$strWhere .= ' AND uid=' . $arrPreviousAnswers[$intRow][$intColumn]['uid'];
+									$arrDb['answer'] = $strColumnValue;
+									$dbRes = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($this->strAnswersTable,$strWhere,$arrDb);
+								}
+								unset($arrPreviousAnswers[$intRow][$intColumn]);
+							} else {
+								//insert
+								$arrDb['pid'] = $intPage;
+								$arrDb['result'] = $intResult;
+								$arrDb['question'] = $mixQuestion;
+								$arrDb['row'] = $intRow;
+								$arrDb['col'] = $intColumn;
+								$arrDb['answer'] = $strColumnValue;
+								$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strAnswersTable,$arrDb);
+							}
+						}
+					}
+				}
+				if (isset($arrPreviousAnswers)) {
+					foreach($arrPreviousAnswers as $intRow => $mixRowValue) {
+				 		if (isset($mixRowValue)) {
+				 			foreach($mixRowValue as $arrAnswer) {
+				 				if (isset($arrAnswer['uid'])) {
+				 					$strWhere = '1=1';
+				 					$strWhere .= ' AND uid=' . $arrAnswer['uid'];
+				 					$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
+				 				}
+				 			}			 			
+				 		}		
+					}
+				}
+			}
+		}
+   		if ($GLOBALS['TYPO3_DB']->sql_error()) {
+             $strOutput = $this->surveyError('failed_saving_data');
+        }
+        return $strOutput;
+    }
+	
+	/**********************************
+	 *
+	 * Validation functions
+	 *
+	 **********************************/
+	
+	/**
+	 * Create the validation string for use in client or server side validation.
 	 *
 	 * @return	string		Contains complete JavaScript Function
 	 */
-	function jsLocallang() {
-		$arrJsLocallang = array(
+	function validationString() {
+		if (is_array($this->arrValidation)) {
+		    if ($this->arrConfig['validation']==0) { // Client side
+	    		foreach($this->arrValidation as $intUid => $arrQuestion) {
+	    			$arrCsCalls[] = "'".$intUid."','".$arrQuestion['number']."','".$arrQuestion['type'].":".($arrQuestion['required']?'R':'').":".$arrQuestion['values'][1].":".$arrQuestion['values'][2]."'";
+	    		}
+	    		$this->strCsCalls = "pbsurveyValidate(".implode(",",$arrCsCalls).");return document.pbsurveyReturnValue";   		
+		    } else {
+		    	$this->strSsCalls = base64_encode(serialize($this->arrValidation));
+		    }		    		
+	    }
+	}
+	
+	/**
+	 * Do a server side validation of the form according to the configuration of each question
+	 *
+	 * @return   boolean       True if validation is ok or no server side validation
+     */
+    function validateForm() {
+    	$boolOutput = TRUE;
+    	if ($this->arrConfig['validation']==1 && $this->piVars['validation']) { // Server side validation and something to validate
+    		$arrValidation = unserialize(base64_decode($this->piVars['validation']));
+    		if (is_array($arrValidation)) {
+	    		foreach($arrValidation as $intKey => $arrQuestionValidation) {
+	    			$arrUnique = array();
+	    			$arrCurQuestion = $this->piVars[$intKey];
+	    			$intCounter = 0;
+	    			$boolNotNumber = false;
+	    			$boolRankingDouble = false;
+	    			$intValueHigh=1;
+					$intValueLow=1;
+					$strTotalValue = '';
+					$intTotalValue = 0;
+					if (isset($arrCurQuestion)) {
+						foreach($arrCurQuestion as $intRow => $arrRowValue) {
+							foreach ($arrRowValue as $intColumn => $strValue) {
+								if (in_array($arrQuestionValidation['type'],array(1,3,4,5,6,8,9)) && !empty($strValue)) {
+									$intCounter++;
+								}
+								if (in_array($arrQuestionValidation['type'],array(2,4,5,10,12,13,14,15)) && !empty($strValue)) {
+									$strTotalValue = $strValue;
+									$intCounter++;
+								}
+								if ($arrQuestionValidation['type']==7) {
+									$strTotalValue .= $strValue;
+								}
+								if (in_array($arrQuestionValidation['type'],array(11,16)) && !empty($strValue)) {
+									if (!is_numeric($strValue) && !$boolNotNumber) {
+										$boolNotNumber = true;
+									} else {
+										if ($arrQuestionValidation['type']==11) {
+											$intTotalValue = $intTotalValue + floatval($strValue);
+										} elseif ($arrQuestionValidation['type']==16) {
+											if (intval($strValue)<$intValueLow) $intValueLow=intval($strValue);
+											if (intval($strValue)>$intValueHigh) $intValueHigh=intval($strValue);
+											$arrUnique[] = intval($strValue);			
+											$intCounter++;
+										}
+									}
+								}
+							}
+						}	
+					}	
+					if (in_array($arrQuestionValidation['type'],array(1,3))) {
+						if ($arrQuestionValidation['required'] && $intCounter<1) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],1,$arrQuestionValidation['number'],0,0,0);
+						if ($arrQuestionValidation['values'][1]!='' && intval($arrQuestionValidation['values'][1])>$intCounter) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],11,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
+						if ($arrQuestionValidation['values'][2]!='' && $intCounter>intval($arrQuestionValidation['values'][2])) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],12,$arrQuestionValidation['number'],$arrQuestionValidation['values'][2]);
+					}
+					if (in_array($arrQuestionValidation['type'],array(2,4,5))) {
+						if ($arrQuestionValidation['required'] && ($strTotalValue=='' && $intCounter==0)) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],1,$arrQuestionValidation['number']);
+					}
+					if (in_array($arrQuestionValidation['type'],array(6,9))) {
+						if ($arrQuestionValidation['required'] && $intCounter<1) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],4,$arrQuestionValidation['number']);
+					}
+					if ($arrQuestionValidation['type']==7) {
+						if ($arrQuestionValidation['required'] && $strTotalValue=='') $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],5,$arrQuestionValidation['number']);
+					}
+					if ($arrQuestionValidation['type']==8) {
+						if ($arrQuestionValidation['required'] && $intCounter<$arrQuestionValidation['values'][1]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],6,$arrQuestionValidation['number']);
+					}
+					if ($arrQuestionValidation['type']==10) {
+						if ($arrQuestionValidation['required'] && $strTotalValue=='') $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],2,$arrQuestionValidation['number']);
+					}
+					if ($arrQuestionValidation['type']==11) {
+						if ($boolNotNumber) { 
+							$arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],22,$arrQuestionValidation['number']); 
+						} else if ($intTotalValue>0 && $intTotalValue!=$arrQuestionValidation['values'][1]) { $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],23,$arrQuestionValidation['number'],$intTotalValue,$arrQuestionValidation['values'][1]);
+						} else if ($intTotalValue==0 && $arrQuestionValidation['required']) { $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],2,$arrQuestionValidation['number']);
+						}
+					}
+					if ($arrQuestionValidation['type']==12) {
+						$strEuropeanDate = $this->validationIsDateEuropean($strTotalValue);
+						$arrDate = explode(':',$strEuropeanDate);
+						$intErrorType=intval($arrDate[0]);
+						if ($strTotalValue!='' && $intErrorType>0) {
+							$arrDateErrors=array(0,17,18,19,20,21);
+							$arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],$arrDateErrors[$intErrorType],$arrQuestionValidation['number'],$arrDate[1],$arrDate[2],$arrDate[3]);
+						}
+						if ($strTotalValue=='' && $arrQuestionValidation['required']) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],3,$arrQuestionValidation['number']);
+						if ($strTotalValue!='') {
+							if ($arrQuestionValidation['values'][1]!='' && $this->validationIsFirstDateEarlier($strTotalValue,$arrQuestionValidation['values'][1])) {
+								$arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],15,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
+							}
+							if ($arrQuestionValidation['values'][2]!='' && $this->validationIsFirstDateEarlier($arrQuestionValidation['values'][2],$strTotalValue)) {
+								$arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],16,$arrQuestionValidation['number'],$arrQuestionValidation['values'][2]);
+							}
+						}
+					}
+					if ($arrQuestionValidation['type']==13) {
+						if ($strTotalValue!='' && is_nan($strTotalValue)) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],7,$arrQuestionValidation['number']);
+						if ($strTotalValue=='' && $arrQuestionValidation['required']) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],2,$arrQuestionValidation['number']);
+						if ($strTotalValue!='' && floatval($strTotalValue)<$arrQuestionValidation['values'][1]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],9,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
+						if ($strTotalValue!='' && floatval($strTotalValue)>$arrQuestionValidation['values'][2]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],10,$arrQuestionValidation['number'],$arrQuestionValidation['values'][2]);
+					}
+					if ($arrQuestionValidation['type']==14) {
+						if ($strTotalValue=='' && $arrQuestionValidation['required']) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],2,$arrQuestionValidation['number']);
+			        	if ($strTotalValue!='' && $arrQuestionValidation['values'][1]==1 && substr_count($strTotalValue,'@')<1) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],24,$arrQuestionValidation['number']);
+					}
+					if ($arrQuestionValidation['type']==15) {
+						if ($arrQuestionValidation['required'] && $intCounter<1) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],2,$arrQuestionValidation['number']);
+						if ($intCounter>0 && $arrQuestionValidation['values'][1]!='' && intval($arrQuestionValidation['values'][1])>$intCounter) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],13,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
+						if ($intCounter>0 && $arrQuestionValidation['values'][2]!='' && $intCounter>intval($arrQuestionValidation['values'][2])) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],14,$arrQuestionValidation['number'],$arrQuestionValidation['values'][2]);
+					}
+					if ($arrQuestionValidation['type']==16) {
+						if ($boolNotNumber) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],22,$arrQuestionValidation['number']);
+						if (count(array_unique($arrUnique)) != $intCounter) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],25,$arrQuestionValidation['number']);
+						if ($intValueLow<1 || $intValueHigh>$arrQuestionValidation['values'][1]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],26,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
+						if ($arrQuestionValidation['required'] && $intCounter<$arrQuestionValidation['values'][1]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],8,$arrQuestionValidation['number']);
+					}
+	    		}
+    		}
+    	}
+    	if (!empty($arrError)) {
+    		$this->arrValidationErrors = $arrError;
+    		$boolOutput = FALSE;
+    	}
+    	return $boolOutput;
+    }
+    
+    /**
+	 * Takes the locallang validation errorstring and fills it with given values.
+	 *
+	 * @param    integer       Type of question
+	 * @param    string        LL string
+	 * @param    integer       Number of the question
+	 * @param    mixed         Value to fill in in LL string
+	 * @param    mixed         Value to fill in in LL string
+	 * @param    mixed         Value to fill in in LL string
+	 * @return   string        Template string
+     */
+    function validationErrorMarker($intType,$intGetLL,$intNumber,$mixInp1=0,$mixInp2=0,$mixInp3=0) {
+    	$arrLocallang = $this->validationLocalLang();
+		$strOutput = '- ' . $this->pi_getLL($arrLocallang[$intGetLL]);
+		$strOutput = str_replace('%q', $intNumber, $strOutput);
+		if (in_array($intType,array(1,3,11,13,15,16)) && $mixInp1!='') {
+			$strOutput = str_replace('%v', $mixInp1, $strOutput);
+		}
+		if ($intType==11 && $mixInp2!='') {
+			$strOutput = str_replace('%t', $mixInp2, $strOutput);
+		}
+		if ($intType==12) {
+			$strOutput = str_replace('%d', $mixInp1, $strOutput);
+			$strOutput = str_replace('%m', $mixInp2, $strOutput);
+			$strOutput = str_replace('%y', $mixInp3, $strOutput);
+		}
+		return $strOutput;
+	}
+	
+	/**
+	 * Checks for a valid date and returns an integer according to error
+	 *
+	 * @param    string	       The date
+	 * @return   integer       Error integer 
+     */
+	function validationIsDateEuropean($strInput){
+		$arrDate = array();
+		if (ereg('([0-9]{1,2})[-,/]([0-9]{1,2})[-,/](([0-9]{2})|([0-9]{4}))', $strInput, $arrDate)) {
+		    if ($arrDate[2]<1 || $arrDate[2]>12) return '2';
+		    if ($arrDate[1]<1 || $arrDate[1]>31) return '3';
+		    if ($arrDate[1]>30+(($arrDate[2]>7)^($arrDate[2]&1))) return '4::'.$arrDate[2];
+		    if (($arrDate[2]==2) && ($arrDate[1]>28+(!($arrDate[3]%4))-(!($arrDate[3]%100))+(!($arrDate[3]%400)))) return '5:'.$arrDate[1].'::'.$arrDate[3];
+		} else {
+			return '1';
+		}
+	    return '0';
+	}
+	
+	/**
+	 * Checks if first date is earlier than the second one
+	 *
+	 * @param    string	       Date supposed to be the earliest one
+	 * @param    string	       Date supposed to be the latest one
+	 * @return   boolean       true if first date is earlier 
+     */
+	function validationIsFirstDateEarlier($strFirstDate,$strSecondDate){
+		list($intDay[1], $intMonth[1], $intYear[1]) = split('[-,/]', $strFirstDate);
+		list($intDay[2], $intMonth[2], $intYear[2]) = split('[-,/]', $strSecondDate);
+		$intDateFirst = mktime(0,0,0,$intMonth[1],$intDay[1],$intYear[1]);
+		$intDateSecond = mktime(0,0,0,$intMonth[2],$intDay[2],$intYear[2]);
+		if ($intDateFirst<$intDateSecond) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * Displays validation error message
+	 *
+	 * @param	string		Message that has to be displayed
+	 * @return	string		Content generated by the plugin
+	 */
+	function validationError($arrInput) {
+		if (!empty($arrInput)) {
+	        $arrError['message_text'] = '<p><strong>'.$this->pi_getLL('js_errors_occurred').'</strong><br />'.chr(10).implode('<br />'.chr(10),$arrInput).'</p>';
+	        $strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'ERROR'),$arrError,'###|###',1);
+		}
+        return $strOutput;
+    }
+	
+	/**
+	 * Define the locallang keys for form validation server side and client side
+	 *
+	 * @return	array		LL Keys
+	 */
+	function validationLocalLang() {
+		$arrOutput = array(
 			'js_errors_occurred', // 0
 			'js_required_select', // 1
 			'js_required_enter', // 2
@@ -1421,8 +1729,18 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			'js_ranking_double', // 25
 			'js_ranking', // 26		
 		);
+		return $arrOutput;
+	}
+	
+	/**
+	 * Create javascript function containing array of the errors produced by the javascript functions in local language
+	 *
+	 * @return	string		Contains complete JavaScript Function
+	 */
+	function jsLocallang() {
+		$arrJsLocallang = $this->validationLocalLang();
 		$arrFunction[] = 'function ' . $this->extKey . 'GetErrorMsg(intInput) {';
-		$arrFunction[] = 'var arrErrors = new Array(27);';
+		$arrFunction[] = 'var $arrErrors = new Array(27);';
 		foreach($arrJsLocallang as $intKey=>$strJsLocallang) {
 			if ($intKey!=0) {
 				$arrFunction[] = "arrErrors[" . $intKey . "]='-" . addslashes($this->pi_getLL($strJsLocallang)) . "';";
@@ -1435,14 +1753,15 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	}
 	
 	/**
-	 * Create string with values that are submitted to 
-	 * the clientside JavaScript according to questiontype and related options.
+	 * Create array with all the values needed for form validation according to questiontype and related options.
+	 * This is used by both the Client Side JavaScript as Server Side PHP validation
 	 * Besides turn on parts of the javascriptfunction according to questiontype.
+	 * These values are stored in the global array $this->arrValidation
 	 *
 	 * @param	array		Configuration array containing the question
-	 * @return	string		String for form onSubmit
+	 * @return	void
 	 */
-	function processJsCalls($arrQuestion){
+	function jsProcessCalls($arrQuestion){
 		$arrJsValidate = array (
 			1 => 6,
 			2 => 7,
@@ -1468,53 +1787,54 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		}
 		$this->arrJsItems[$arrJsValidate[$arrQuestion['question_type']]] = true;
         if ($arrQuestion['options_required']) {
-            $strRequired = 'R';
+            $boolRequired = TRUE;
         }
-        $strOutput = "'" . $arrQuestion['uid'] . "','" . $intQuestionNumber . "','" .$arrQuestion['question_type'] . ":" . $strRequired;
+        //$strOutput = "'" . $arrQuestion['uid'] . "','" . $intQuestionNumber . "','" .$arrQuestion['question_type'] . ":" . $strRequired;
+        $this->arrValidation[$arrQuestion['uid']]['number'] = $intQuestionNumber;
+        $this->arrValidation[$arrQuestion['uid']]['type'] = $arrQuestion['question_type'];
+        $this->arrValidation[$arrQuestion['uid']]['required'] = $boolRequired;
         switch($arrQuestion['question_type']){
             case 1:
-                $strOutput .= ":" . ($arrQuestion['options_minimum_responses']?$arrQuestion['options_minimum_responses']:'') . ":" .
-					   ($arrQuestion['options_maximum_responses']?$arrQuestion['options_maximum_responses']:'');
+                $this->arrValidation[$arrQuestion['uid']]['values'][1] = $arrQuestion['options_minimum_responses']?$arrQuestion['options_minimum_responses']:'';
+				$this->arrValidation[$arrQuestion['uid']]['values'][2]	= $arrQuestion['options_maximum_responses']?$arrQuestion['options_maximum_responses']:'';
             break;
             case 8:
             case 16:
                 $intCount = count(explode("\n",$arrQuestion['rows']));
-                $strOutput .= ":" . $intCount;
+                $this->arrValidation[$arrQuestion['uid']]['values'][1] = $intCount;
             break;
             case 11:
                 if ($arrQuestion['total_number']) {
-                    $strOutput .= ":" . $arrQuestion['total_number'];
+                    $this->arrValidation[$arrQuestion['uid']]['values'][1] = $arrQuestion['total_number'];
                 }
             break;
             case 12:
-                $strOutput .= ":" . ($arrQuestion['minimum_date']?date('d-m-Y',$arrQuestion['minimum_date']):'') . ":" .
-					   ($arrQuestion['maximum_date']?date('d-m-Y',$arrQuestion['maximum_date']):'');
+                $this->arrValidation[$arrQuestion['uid']]['values'][1] = $arrQuestion['minimum_date']?date('d-m-Y',$arrQuestion['minimum_date']):'';
+				$this->arrValidation[$arrQuestion['uid']]['values'][2] = $arrQuestion['maximum_date']?date('d-m-Y',$arrQuestion['maximum_date']):'';
 				$this->arrJsItems[0] = true;$this->arrJsItems[1] = true;
             break;
             case 13:
-                $strOutput .= ":" . ($arrQuestion['minimum_value']?$arrQuestion['minimum_value']:'') . ":" .
-					   ($arrQuestion['maximum_value']?$arrQuestion['maximum_value']:'');
+                $this->arrValidation[$arrQuestion['uid']]['values'][1] = $arrQuestion['minimum_value']?$arrQuestion['minimum_value']:'';
+				$this->arrValidation[$arrQuestion['uid']]['values'][2] = $arrQuestion['maximum_value']?$arrQuestion['maximum_value']:'';
             break;
             case 14:
-                $strOutput .= ":" . ($arrQuestion['email']?'1':'');
+                $this->arrValidation[$arrQuestion['uid']]['values'][1] = $arrQuestion['email']?'1':'';
             break;
             case 15:
-                $strOutput .= ":" . ($arrQuestion['options_minimum_responses']?$arrQuestion['options_minimum_responses']:'') . ":" .
-					   ($arrQuestion['options_maximum_responses']?$arrQuestion['options_maximum_responses']:'');
+                $this->arrValidation[$arrQuestion['uid']]['values'][1] = $arrQuestion['options_minimum_responses']?$arrQuestion['options_minimum_responses']:'';
+				$this->arrValidation[$arrQuestion['uid']]['values'][2] = $arrQuestion['options_maximum_responses']?$arrQuestion['options_maximum_responses']:'';
             break;
         }
-        $strOutput .= "'";
-        return $strOutput;
     }
 	
 	/**
-	 * Build javascript
+	 * Build javascript for client and server side validation
 	 *
 	 * @return	string		Contains complete JavaScript Function
 	 */
-	function cfgJsString()	{
+	function jsFunctions()	{
 $arrJsFunctions[0] = "
-function pbsurveyIsDateEuropean(strDate){
+function validationIsDateEuropean(strDate){
 	var expDate=/^(\d{1,2})(\/|-|.)(\d{1,2})(\/|-|.)(\d{4})$/
 	var arrDate=strDate.match(expDate);
     if (arrDate==null) return '1';
@@ -1610,48 +1930,50 @@ function pbsurveyValidate() {
 		if (arrTest[1]=='R'){boolRequired=true;}
 		for (intQuestion=0;intQuestion<objForm.length;intQuestion++) {
 			objElement=objForm.elements[intQuestion];
-			strTemp = objElement.name;
-			if (strTemp.indexOf(args[intArgsCount])>-1) {
-				if (in_array(intType,arrAllowed=new Array(1,3,4,5,6,8,9)) && (objElement.type=='checkbox' || objElement.type=='radio')) {
-					if (objElement.checked) {
-						intCounter++;
-						if (objElement.value=='add_txt') {
-							intTempQuestion=intQuestion;
-						}
-					}
-					if (intTempQuestion>0 && strTemp.indexOf('additional')>-1) {
-						objForm.elements[intTempQuestion].value=objElement.value;
-						objElement.value='';
-					}
-				}
-				if (objElement.value!='') {
-					if (in_array(intType,arrAllowed=new Array(2,4,5,10,12,13,14,15)) && objElement.type!='checkbox' && objElement.type!='radio') {
-						strValue=objElement.value;
-						intCounter++;
-					}
-					if (intType==7) {
-						strValue+=objElement.value;
-					}
-					if (in_array(intType,arrAllowed=new Array(11,16))) {
-						if (isNaN(objElement.value) && !boolNotNumber) {
-							boolNotNumber=true; 
-						} else {
-							if (intType==11) {
-								intCounter+=parseFloat(objElement.value);
-							} else if (intType==16) {
-								if (parseInt(objElement.value)<intValueLow) intValueLow=parseInt(objElement.value);
-								if (parseInt(objElement.value)>intValueHigh) intValueHigh=parseInt(objElement.value);
-								intIndex = strValue.indexOf('||'+parseInt(objElement.value)+'||');
-								while (intIndex != -1) {
-	    							boolRankingDouble=true;
-	    							intIndex = strValue.indexOf('||'+parseInt(objElement.value)+'||', intIndex + 1);
-								}
-								strValue=strValue+'||'+parseInt(objElement.value)+'||';
-								intCounter++; 
+			if (objElement.name) {
+				strTemp = objElement.name;
+				if (strTemp.indexOf(args[intArgsCount])>-1) {
+					if (in_array(intType,arrAllowed=new Array(1,3,4,5,6,8,9)) && (objElement.type=='checkbox' || objElement.type=='radio')) {
+						if (objElement.checked) {
+							intCounter++;
+							if (objElement.value=='add_txt') {
+								intTempQuestion=intQuestion;
 							}
 						}
+						if (intTempQuestion>0 && strTemp.indexOf('additional')>-1) {
+							objForm.elements[intTempQuestion].value=objElement.value;
+							objElement.value='';
+						}
 					}
-				}							
+					if (objElement.value!='') {
+						if (in_array(intType,arrAllowed=new Array(2,4,5,10,12,13,14,15)) && objElement.type!='checkbox' && objElement.type!='radio') {
+							strValue=objElement.value;
+							intCounter++;
+						}
+						if (intType==7) {
+							strValue+=objElement.value;
+						}
+						if (in_array(intType,arrAllowed=new Array(11,16))) {
+							if (isNaN(objElement.value) && !boolNotNumber) {
+								boolNotNumber=true; 
+							} else {
+								if (intType==11) {
+									intCounter+=parseFloat(objElement.value);
+								} else if (intType==16) {
+									if (parseInt(objElement.value)<intValueLow) intValueLow=parseInt(objElement.value);
+									if (parseInt(objElement.value)>intValueHigh) intValueHigh=parseInt(objElement.value);
+									intIndex = strValue.indexOf('||'+parseInt(objElement.value)+'||');
+									while (intIndex != -1) {
+		    							boolRankingDouble=true;
+		    							intIndex = strValue.indexOf('||'+parseInt(objElement.value)+'||', intIndex + 1);
+									}
+									strValue=strValue+'||'+parseInt(objElement.value)+'||';
+									intCounter++; 
+								}
+							}
+						}
+					}							
+				}
 			}
 		}";
 $arrJsFunctions[6] = "		
@@ -1689,7 +2011,7 @@ $arrJsFunctions[12] = "
 		}";
 $arrJsFunctions[13] = "
 		if (intType==12) {
-			strEuropeanDate = pbsurveyIsDateEuropean(strValue);
+			strEuropeanDate = validationIsDateEuropean(strValue);
 			arrDate=strEuropeanDate.split(':');intErrorType=parseInt(arrDate[0]);
 			if (strValue!='' && intErrorType>0) {
 				arrDateErrors=new Array(0,17,18,19,20,21);
@@ -1731,7 +2053,7 @@ $arrJsFunctions[17] = "
 			if (boolRequired && intCounter<arrTest[2]) strErrors+=pbsurveyError(intType,8,intNumber);
 		}";
 $arrJsFunctions[18] = "
-	}	
+	}
 	if (strErrors) alert(strErrors);
 	document.pbsurveyReturnValue = (strErrors == '');
 }
@@ -1741,12 +2063,16 @@ $arrJsFunctions[18] = "
 	$this->arrJsItems[5] = true;
 	$this->arrJsItems[18] = true;
 	ksort($this->arrJsItems);
-	foreach($this->arrJsItems as $intKey=>$boolShow) {
-		if ($boolShow) {
-			$arrOutput[] = $arrJsFunctions[$intKey];
+	if ($this->arrConfig['validation']==0) { // Client side validation
+		foreach($this->arrJsItems as $intKey=>$boolShow) {
+			if ($boolShow) {
+				$arrOutput[] = $arrJsFunctions[$intKey];
+			}
 		}
+		$strOutput = $this->jsLocallang() . implode(chr(10),$arrOutput);
+	} elseif ($this->arrJsItems[3]) { // Server side validation
+		$strOutput = $arrJsFunctions[3];
 	}
-	$strOutput = $this->jsLocallang() . implode(chr(10),$arrOutput);
 	return $strOutput;
 	}	
 }

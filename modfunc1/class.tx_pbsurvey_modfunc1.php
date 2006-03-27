@@ -28,11 +28,20 @@ require_once (PATH_t3lib.'class.t3lib_admin.php');
 $BE_USER->modAccess($MCONF,1);
 require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php');
 
+/**
+ * Backend Module Function 'Overview' for the 'pbsurvey' extension.
+ *
+ * @author Patrick Broens <patrick@patrickbroens.nl>
+ * @package TYPO3
+ * @subpackage pbsurvey
+ */
 class tx_pbsurvey_modfunc1 extends t3lib_extobjbase {
 	
 	/**
 	 * Initialization of the class
 	 *
+	 * @param	object		Parent Object
+	 * @param	array		Configuration array for the extension
 	 * @return	void
 	 */
 	function init(&$pObj,$conf)	{

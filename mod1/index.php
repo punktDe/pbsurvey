@@ -31,6 +31,14 @@ require_once (PATH_t3lib.'class.t3lib_scbase.php');
 $BE_USER->modAccess($MCONF,1);
 //require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php');
 
+/**
+ * Backend Module 'pbsurvey' extension.
+ * The idea of this module is to be a host module for backend applications that wish to present information / analysis of results of the pbsurvey extension.
+ *
+ * @author Patrick Broens <patrick@patrickbroens.nl>
+ * @package TYPO3
+ * @subpackage pbsurvey
+ */
 class tx_pbsurvey_module1 extends t3lib_SCbase {
 	var $strExtKey;
 	var $strItemsTable;
@@ -164,7 +172,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
     }
     
     /**
-	 * Count the results
+	 * Count the results on this page
 	 *
 	 * @return	array		Numbers of finished and unfinished results
 	 */

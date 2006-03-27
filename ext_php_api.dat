@@ -1,0 +1,388 @@
+a:2:{s:4:"meta";a:3:{s:5:"title";s:13:"Survey System";s:5:"descr";s:47:"Documentation of the classes in this extension.";s:7:"options";a:2:{s:10:"usageCount";N;s:19:"includeCodeAbstract";N;}}s:5:"files";a:5:{s:14:"MD5_19aaeae789";a:4:{s:8:"filename";s:14:"mod1/index.php";s:8:"filesize";i:8971;s:6:"header";a:5:{s:4:"text";s:193:"
+
+Backend Module 'pbsurvey' extension.
+The idea of this module is to be a host module for backend applications that wish to present information / analysis of results of the pbsurvey extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:3:"DAT";a:9:{i:1;a:8:{s:6:"header";s:48:"class tx_pbsurvey_module1 extends t3lib_SCbase {";s:5:"class";i:1;s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:5:{s:4:"text";s:193:"
+
+Backend Module 'pbsurvey' extension.
+The idea of this module is to be a host module for backend applications that wish to present information / analysis of results of the pbsurvey extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:72;s:13:"content_lines";i:4;s:6:"atLine";i:40;}i:3;a:7:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:30:"
+
+Initialization of the class
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:370;s:13:"content_lines";i:11;s:6:"atLine";i:50;}i:5;a:7:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:67:"
+
+Main function of the module. Write the content to $this->content
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:237;s:13:"content_lines";i:3;s:6:"atLine";i:67;}i:7;a:6:{s:6:"header";s:25:"function jumpToUrl(URL)	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:7:"content";s:0:"";s:12:"content_size";i:1631;s:13:"content_lines";i:35;s:6:"atLine";i:78;}i:9;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:29:"
+
+Prints out the module HTML
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:72;s:13:"content_lines";i:4;s:6:"atLine";i:119;}i:11;a:7:{s:6:"header";s:25:"function sectionError() {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:73:"
+
+Build section to show error text if no questions are available on page
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:27:"HTML containing the section";}}s:7:"content";s:0:"";s:12:"content_size";i:202;s:13:"content_lines";i:6;s:6:"atLine";i:129;}i:13;a:7:{s:6:"header";s:23:"function readSurvey() {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:115:"
+
+Read all questions in the selected page and filter unneccessary content
+Write content to $this->arrSurveyItems[]
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1564;s:13:"content_lines";i:29;s:6:"atLine";i:142;}i:15;a:4:{s:6:"header";s:25:"function countResults() {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:33:"
+
+Count the results on this page
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:42:"Numbers of finished and unfinished results";}}s:6:"atLine";i:177;}i:17;a:7:{s:6:"header";s:34:"function answersArray($strInput) {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:64:"
+
+Create array out of possible answers in backend answers field
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:822;s:13:"content_lines";i:24;s:6:"atLine";i:198;}}}s:14:"MD5_86f0b1d572";a:4:{s:8:"filename";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:8:"filesize";i:4559;s:6:"header";a:5:{s:4:"text";s:67:"
+
+Backend Module Function 'Overview' for the 'pbsurvey' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:3:"DAT";a:6:{i:1;a:8:{s:6:"header";s:53:"class tx_pbsurvey_modfunc1 extends t3lib_extobjbase {";s:5:"class";i:1;s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:5:{s:4:"text";s:67:"
+
+Backend Module Function 'Overview' for the 'pbsurvey' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:2;s:13:"content_lines";i:1;s:6:"atLine";i:36;}i:3;a:7:{s:6:"header";s:29:"function init(&$pObj,$conf)	{";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:3:{s:4:"text";s:30:"
+
+Initialization of the class
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"object";i:1;s:13:"Parent Object";}i:1;a:2:{i:0;s:5:"array";i:1;s:37:"Configuration array for the extension";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:261;s:13:"content_lines";i:7;s:6:"atLine";i:45;}i:5;a:7:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:3:{s:4:"text";s:87:"
+
+Main function of the module. Check access of user and call function to build content
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"HTML of this function";}}s:7:"content";s:0:"";s:12:"content_size";i:198;s:13:"content_lines";i:7;s:6:"atLine";i:58;}i:7;a:7:{s:6:"header";s:26:"function moduleContent() {";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:3:{s:4:"text";s:31:"
+
+Generates the module content
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:29:"HTML Content of this function";}}s:7:"content";s:0:"";s:12:"content_size";i:110;s:13:"content_lines";i:5;s:6:"atLine";i:71;}i:9;a:4:{s:6:"header";s:27:"function sectionResults() {";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:3:{s:4:"text";s:70:"
+
+Build section to show some simple statistics like number of results
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:27:"HTML containing the section";}}s:6:"atLine";i:82;}i:11;a:7:{s:6:"header";s:29:"function sectionQuestions() {";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:3:{s:4:"text";s:50:"
+
+Build section to show list of questions on page
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:27:"HTML containing the section";}}s:7:"content";s:0:"";s:12:"content_size";i:639;s:13:"content_lines";i:13;s:6:"atLine";i:110;}}}s:14:"MD5_84e37bc76b";a:4:{s:8:"filename";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:8:"filesize";i:92082;s:6:"header";a:5:{s:4:"text";s:48:"
+
+Frontend Module for the 'pbsurvey' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:3:"DAT";a:66:{i:1;a:8:{s:6:"header";s:44:"class tx_pbsurvey_pi1 extends tslib_pibase {";s:5:"class";i:1;s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:5:{s:4:"text";s:48:"
+
+Frontend Module for the 'pbsurvey' extension.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:960;s:13:"content_lines";i:28;s:6:"atLine";i:32;}i:3;a:8:{s:6:"header";s:22:"function init($conf) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:150:"
+
+All needed configuration values are stored in the member variable $this->arrConfig and the template code goes in $this->arrConfig['templateCode'] .
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:27:"Configuration array from TS";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:629;s:13:"content_lines";i:10;s:6:"atLine";i:67;}i:5;a:7:{s:6:"header";s:24:"function setFFconfig() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:59:"
+
+Define all possible fields from TypoScript and FlexForm.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";s:0:"";s:12:"content_size";i:1861;s:13:"content_lines";i:23;s:6:"atLine";i:83;}i:7;a:7:{s:6:"header";s:36:"function getFFconfig($arrFFConfig) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:91:"
+
+Check configuration in TypoScript and FlexForm.
+FlexForm has precendence over TypoScript
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Definition array for TypoScipt and FlexForm";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";s:0:"";s:12:"content_size";i:768;s:13:"content_lines";i:20;s:6:"atLine";i:114;}i:9;a:8:{s:6:"header";s:37:"function main($strContent,$arrConf)	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:100:"
+
+Calls the init() function to setup the configuration,
+checks access levels and outputs the survey
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Function output is added to this";}i:1;a:2:{i:0;s:5:"array";i:1;s:19:"Configuration array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:40:"Complete content generated by the plugin";}}s:7:"content";s:0:"";s:12:"content_size";i:305;s:13:"content_lines";i:8;s:6:"atLine";i:143;}i:11;a:7:{s:6:"header";s:24:"function setUserName() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:51:"
+
+Declare username according to login or anonymous
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:272;s:13:"content_lines";i:5;s:6:"atLine";i:157;}i:13;a:7:{s:6:"header";s:26:"function processSurvey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:50:"
+
+Builds the survey with all the parts necessary.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:13:"Output string";}}s:7:"content";s:0:"";s:12:"content_size";i:2138;s:13:"content_lines";i:45;s:6:"atLine";i:168;}i:15;a:7:{s:6:"header";s:25:"function processItems() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
+
+Find the current page by stage and condition and process all items on it.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1899;s:13:"content_lines";i:54;s:6:"atLine";i:219;}i:17;a:7:{s:6:"header";s:36:"function previousStage($boolInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:60:"
+
+Fills the question history and returns the previous stage
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"boolean";i:1;s:41:"True when the submitted form is validated";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:283;s:13:"content_lines";i:11;s:6:"atLine";i:280;}i:19;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:64:"
+
+Create array out of possible answers in backend answers field
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:289;s:13:"content_lines";i:10;s:6:"atLine";i:298;}i:21;a:7:{s:6:"header";s:41:"function processCondition($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:39:"
+
+Process each conditiongroup and rule
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:57:"Configuration array containing the type page & conditions";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:37:"If this is true the page is displayed";}}s:7:"content";s:0:"";s:12:"content_size";i:1043;s:13:"content_lines";i:35;s:6:"atLine";i:315;}i:23;a:7:{s:6:"header";s:49:"function conditionAnswers($mixAnswers,$arrRule) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:88:"
+
+Check if $answers is array or string and call function checkCondition for each answer
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"mixed";i:1;s:20:"Given answer by user";}i:1;a:2:{i:0;s:5:"array";i:1;s:28:"Rule to check answer against";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:23:"Condition true or false";}}s:7:"content";s:0:"";s:12:"content_size";i:1105;s:13:"content_lines";i:34;s:6:"atLine";i:358;}i:25;a:7:{s:6:"header";s:29:"function surveyCompletion() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:65:"
+
+Give output according to configuration
+when survey is finished
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:13:"Output string";}}s:7:"content";s:0:"";s:12:"content_size";i:676;s:13:"content_lines";i:16;s:6:"atLine";i:399;}i:27;a:7:{s:6:"header";s:32:"function callHeader($strInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:45:"
+
+Set page header when jumping to other page
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:50:"String according to configuration to set page link";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:122;s:13:"content_lines";i:3;s:6:"atLine";i:422;}i:29;a:7:{s:6:"header";s:55:"function array_htmlspecialchars(&$mixInput, &$intKey) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:138:"
+
+Do a trim and htmlspecialchars on input
+This function is usefull when reading data from input fields from the database to display again
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"mixed";i:1;s:57:"Input field or array to do a trim and htmlspecialchars on";}i:1;a:2:{i:0;s:7:"integer";i:1;s:27:"Key from the Input variable";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:111;s:13:"content_lines";i:5;s:6:"atLine";i:434;}i:31;a:7:{s:6:"header";s:35:"function surveyError($strMessage) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+
+Displays error message
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Message that has to be displayed";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:40:"Complete content generated by the plugin";}}s:7:"content";s:0:"";s:12:"content_size";i:357;s:13:"content_lines";i:11;s:6:"atLine";i:446;}i:33;a:8:{s:6:"header";s:27:"function checkResponses() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:48:"
+
+Do check if maximum responses is not exceeded
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Locallang label if error";}}s:7:"content";s:0:"";s:12:"content_size";i:539;s:13:"content_lines";i:11;s:6:"atLine";i:463;}i:35;a:7:{s:6:"header";s:29:"function checkAccessLevel() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
+
+Check the Access Level of the user
+If Anonymous user then check on IP-address
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Locallang label if error";}}s:7:"content";s:0:"";s:12:"content_size";i:1052;s:13:"content_lines";i:22;s:6:"atLine";i:481;}i:37;a:7:{s:6:"header";s:25:"function checkCaptcha() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:72:"
+
+Check if freeCap CAPTCHA (sr_freecap) is loaded and make object of it
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"object";i:1;s:20:"Object of sr_freecap";}}s:7:"content";s:0:"";s:12:"content_size";i:222;s:13:"content_lines";i:7;s:6:"atLine";i:509;}i:39;a:7:{s:6:"header";s:33:"function checkUpdate($intInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:44:"
+
+Return true if question has to be updated
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:19:"Uid of the question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:23:"True if it is an update";}}s:7:"content";s:0:"";s:12:"content_size";i:121;s:13:"content_lines";i:6;s:6:"atLine";i:523;}i:41;a:7:{s:6:"header";s:45:"function checkCondition($strAnswer,$arrRule){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:57:"
+
+Check if a single answer corresponds to the rule given
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:33:"Single answer given in the survey";}i:1;a:2:{i:0;s:5:"array";i:1;s:14:"Condition rule";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:23:"Condition true or false";}}s:7:"content";s:0:"";s:12:"content_size";i:2329;s:13:"content_lines";i:64;s:6:"atLine";i:537;}i:43;a:8:{s:6:"header";s:32:"function pageNumber($intInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:51:"
+
+Show page numbers according to the configuration
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:35:"Stored configuration for pagenumber";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:52:"String containing all contents for pagenumber marker";}}s:7:"content";s:0:"";s:12:"content_size";i:1064;s:13:"content_lines";i:21;s:6:"atLine";i:608;}i:45;a:7:{s:6:"header";s:31:"function setButton($strInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:40:"
+
+Show button according to input string
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"Name of the button";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:48:"String containing all contents for button marker";}}s:7:"content";s:0:"";s:12:"content_size";i:2179;s:13:"content_lines";i:43;s:6:"atLine";i:636;}i:47;a:7:{s:6:"header";s:23:"function setMarkers() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:54:"
+
+Define all possible markers in the survey template.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:38:"String containing the filled template.";}}s:7:"content";s:0:"";s:12:"content_size";i:933;s:13:"content_lines";i:18;s:6:"atLine";i:685;}i:49;a:7:{s:6:"header";s:34:"function getMarkers($arrMarkers) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:28:"
+
+Process the marker array.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Definition array for TypoScipt and FlexForm";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";s:0:"";s:12:"content_size";i:470;s:13:"content_lines";i:13;s:6:"atLine";i:710;}i:51;a:7:{s:6:"header";s:63:"function questionTemplate($intType,$intAlignment,$intDisplay) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:74:"
+
+Select the question template according to alignment or type of display.
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:7:"integer";i:1;s:17:"Type of alignment";}i:2;a:2:{i:0;s:7:"integer";i:1;s:12:"Display type";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Template string";}}s:7:"content";s:0:"";s:12:"content_size";i:602;s:13:"content_lines";i:18;s:6:"atLine";i:732;}i:53;a:7:{s:6:"header";s:38:"function markerCurrentItem($intType) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
+
+Generate question number by configuration.
+in question type 1-16
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Question number";}}s:7:"content";s:0:"";s:12:"content_size";i:310;s:13:"content_lines";i:10;s:6:"atLine";i:758;}i:55;a:7:{s:6:"header";s:48:"function markerQuestion($intType,$strQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:50:"
+
+Fill marker with question
+in question type 1-16
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:6:"string";i:1;s:19:"The question itself";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:14:"Question asked";}}s:7:"content";s:0:"";s:12:"content_size";i:131;s:13:"content_lines";i:6;s:6:"atLine";i:777;}i:57;a:7:{s:6:"header";s:55:"function markerSub($intType,$arrSubText,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
+
+Generate subtext of question if available.
+in question type 1-16
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"The subtext";}i:2;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Subtext placed in marker";}}s:7:"content";s:0:"";s:12:"content_size";i:292;s:13:"content_lines";i:8;s:6:"atLine";i:793;}i:59;a:7:{s:6:"header";s:61:"function markerRequired($intType,$intRequired,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
+
+Put a sign behind the question if question is required.
+in question type 1-16
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:7:"integer";i:1;s:24:"Is the question required";}i:2;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:4:"Sign";}}s:7:"content";s:0:"";s:12:"content_size";i:294;s:13:"content_lines";i:8;s:6:"atLine";i:811;}i:61;a:7:{s:6:"header";s:51:"function markerComment($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:108:"
+
+Add extra text below the question to explain minimum and maximum values
+in question type 1,11,12,13,15,16
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:16:"Explanation text";}}s:7:"content";s:0:"";s:12:"content_size";i:3497;s:13:"content_lines";i:57;s:6:"atLine";i:828;}i:63;a:7:{s:6:"header";s:55:"function markerAdditionals($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:69:"
+
+Add additional open type field to the answers
+in question type 1,3
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"Additional field and text";}}s:7:"content";s:0:"";s:12:"content_size";i:1927;s:13:"content_lines";i:21;s:6:"atLine";i:894;}i:65;a:7:{s:6:"header";s:38:"function markerColspan($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:64:"
+
+Calculate Colspan of matrix question
+in question type 6,7,8,9
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:16:"Calculated value";}}s:7:"content";s:0:"";s:12:"content_size";i:373;s:13:"content_lines";i:9;s:6:"atLine";i:923;}i:67;a:7:{s:6:"header";s:39:"function markerColwidth($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:86:"
+
+Calculate width of column of matrix question in percentage
+in question type 6,7,8,9
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:16:"Calculated value";}}s:7:"content";s:0:"";s:12:"content_size";i:413;s:13:"content_lines";i:9;s:6:"atLine";i:940;}i:69;a:7:{s:6:"header";s:48:"function markerList($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:62:"
+
+Build a list of possible answers
+in question type 1,2,3,4,5
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"List of possible answers";}}s:7:"content";s:0:"";s:12:"content_size";i:2237;s:13:"content_lines";i:43;s:6:"atLine";i:958;}i:71;a:7:{s:6:"header";s:50:"function markerHeader($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:73:"
+
+Build the header row of matrix type questions
+in question type 6,7,8,9
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:10:"Header row";}}s:7:"content";s:0:"";s:12:"content_size";i:825;s:13:"content_lines";i:16;s:6:"atLine";i:1010;}i:73;a:7:{s:6:"header";s:48:"function markerRows($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:127:"
+
+Build the answer rows of matrix type questions and answers not configured by Answer Wizard
+in question type 6,7,8,9,11,15,16
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:11:"Answer rows";}}s:7:"content";s:0:"";s:12:"content_size";i:4097;s:13:"content_lines";i:73;s:6:"atLine";i:1035;}i:75;a:7:{s:6:"header";s:36:"function markerValue($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:72:"
+
+Return default value for marker
+in question type 10,12,13,14,17,19,21
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:5:"Value";}}s:7:"content";s:0:"";s:12:"content_size";i:1063;s:13:"content_lines";i:22;s:6:"atLine";i:1116;}i:77;a:7:{s:6:"header";s:36:"function markerValueNone($intType) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
+
+Return locallang value for value --None--
+in question type 2,4,5
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Locallang Value";}}s:7:"content";s:0:"";s:12:"content_size";i:151;s:13:"content_lines";i:6;s:6:"atLine";i:1146;}i:79;a:7:{s:6:"header";s:49:"function markerTitle($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
+
+Build the page title
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:10:"Page title";}}s:7:"content";s:0:"";s:12:"content_size";i:229;s:13:"content_lines";i:6;s:6:"atLine";i:1160;}i:81;a:7:{s:6:"header";s:56:"function markerIntroduction($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:30:"
+
+Build the page introduction
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:17:"Page introduction";}}s:7:"content";s:0:"";s:12:"content_size";i:243;s:13:"content_lines";i:6;s:6:"atLine";i:1174;}i:83;a:7:{s:6:"header";s:36:"function markerImage($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:49:"
+
+Build the image according to the configuration
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:30:"<img> tag, if any image found.";}}s:7:"content";s:0:"";s:12:"content_size";i:381;s:13:"content_lines";i:9;s:6:"atLine";i:1187;}i:85;a:7:{s:6:"header";s:33:"function markerAlign($intAlign) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:29:"
+
+Return the image alignment
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:26:"Configuration of alignment";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:9:"Alignment";}}s:7:"content";s:0:"";s:12:"content_size";i:208;s:13:"content_lines";i:12;s:6:"atLine";i:1203;}i:87;a:7:{s:6:"header";s:39:"function processQuestion($arrQuestion){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:75:"
+
+Process the question and substitute markers in template
+for screenoutput
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:34:"The question and its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:17:"Rendered question";}}s:7:"content";s:0:"";s:12:"content_size";i:2085;s:13:"content_lines";i:28;s:6:"atLine";i:1223;}i:89;a:7:{s:6:"header";s:24:"function loadCaptcha() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:38:"
+
+Build the HTML for the captcha page
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:32:"HTML containing the captcha page";}}s:7:"content";s:0:"";s:12:"content_size";i:798;s:13:"content_lines";i:23;s:6:"atLine";i:1257;}i:91;a:8:{s:6:"header";s:29:"function readPreviousUser() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"Reading functions";}s:4:"cDat";a:3:{s:4:"text";s:55:"
+
+Read the previous response from user if there is any
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:66:"Answers found, total number of rows found, row of the first result";}}s:7:"content";s:0:"";s:12:"content_size";i:1738;s:13:"content_lines";i:36;s:6:"atLine";i:1286;}i:93;a:7:{s:6:"header";s:23:"function readSurvey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:243:"
+
+Read all questions from database
+Frontend user has to do all question no mather what language, so sys_language_mode != 'strict'
+Thanks to Rupert Germann, who probably doesn't know it anymore we discussed this during TYCON3 2005 in Karlsruhe
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1065;s:13:"content_lines";i:22;s:6:"atLine";i:1330;}i:95;a:8:{s:6:"header";s:23:"function userSetKey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"Storing functions";}s:4:"cDat";a:3:{s:4:"text";s:27:"
+
+Transfer data to FE_user
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:97;s:13:"content_lines";i:3;s:6:"atLine";i:1358;}i:97;a:7:{s:6:"header";s:38:"function storeResults($boolFinished) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:162:"
+
+Store new result in database or, if update, update the previous one, in the beginning of the survey.
+Set finished and endtsstamp when survey has been finished.
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"boolean";i:1;s:30:"True if the survey is finished";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:41:"Error message if query to database failed";}}s:7:"content";s:0:"";s:12:"content_size";i:966;s:13:"content_lines";i:22;s:6:"atLine";i:1369;}i:99;a:7:{s:6:"header";s:34:"function storeAnswers($arrInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:130:"
+
+Store the answers in the database
+Updates old answers, inserts new ones or deletes previous answers not given again by the user
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:20:"Answers to be stored";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:41:"Error message if query to database failed";}}s:7:"content";s:0:"";s:12:"content_size";i:2709;s:13:"content_lines";i:70;s:6:"atLine";i:1399;}i:101;a:8:{s:6:"header";s:29:"function validationString() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:20:"Validation functions";}s:4:"cDat";a:3:{s:4:"text";s:76:"
+
+Create the validation string for use in client or server side validation.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";s:0:"";s:12:"content_size";i:595;s:13:"content_lines";i:12;s:6:"atLine";i:1475;}i:103;a:7:{s:6:"header";s:25:"function validateForm() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:90:"
+
+Do a server side validation of the form according to the configuration of each question
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:53:"True if validation is ok or no server side validation";}}s:7:"content";s:0:"";s:12:"content_size";i:8928;s:13:"content_lines";i:120;s:6:"atLine";i:1493;}i:105;a:7:{s:6:"header";s:96:"function validationErrorMarker($intType,$intGetLL,$intNumber,$mixInp1=0,$mixInp2=0,$mixInp3=0) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
+
+Takes the locallang validation errorstring and fills it with given values.
+";s:5:"param";a:6:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:6:"string";i:1;s:9:"LL string";}i:2;a:2:{i:0;s:7:"integer";i:1;s:22:"Number of the question";}i:3;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}i:4;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}i:5;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Template string";}}s:7:"content";s:0:"";s:12:"content_size";i:624;s:13:"content_lines";i:17;s:6:"atLine";i:1625;}i:107;a:7:{s:6:"header";s:45:"function validationIsDateEuropean($strInput){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:68:"
+
+Checks for a valid date and returns an integer according to error
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:8:"The date";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:13:"Error integer";}}s:7:"content";s:0:"";s:12:"content_size";i:517;s:13:"content_lines";i:12;s:6:"atLine";i:1649;}i:109;a:7:{s:6:"header";s:68:"function validationIsFirstDateEarlier($strFirstDate,$strSecondDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:54:"
+
+Checks if first date is earlier than the second one
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:36:"Date supposed to be the earliest one";}i:1;a:2:{i:0;s:6:"string";i:1;s:34:"Date supposed to be the latest one";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:29:"true if first date is earlier";}}s:7:"content";s:0:"";s:12:"content_size";i:389;s:13:"content_lines";i:11;s:6:"atLine";i:1669;}i:111;a:7:{s:6:"header";s:37:"function validationError($arrInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:36:"
+
+Displays validation error message
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Message that has to be displayed";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:31:"Content generated by the plugin";}}s:7:"content";s:0:"";s:12:"content_size";i:372;s:13:"content_lines";i:7;s:6:"atLine";i:1687;}i:113;a:7:{s:6:"header";s:32:"function validationLocalLang() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
+
+Define the locallang keys for form validation server side and client side
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:7:"LL Keys";}}s:7:"content";s:0:"";s:12:"content_size";i:866;s:13:"content_lines";i:32;s:6:"atLine";i:1700;}i:115;a:7:{s:6:"header";s:24:"function jsLocallang() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:115:"
+
+Create javascript function containing array of the errors produced by the javascript functions in local language
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";s:0:"";s:12:"content_size";i:521;s:13:"content_lines";i:14;s:6:"atLine";i:1738;}i:117;a:7:{s:6:"header";s:38:"function jsProcessCalls($arrQuestion){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:327:"
+
+Create array with all the values needed for form validation according to questiontype and related options.
+This is used by both the Client Side JavaScript as Server Side PHP validation
+Besides turn on parts of the javascriptfunction according to questiontype.
+These values are stored in the global array $this->arrValidation
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Configuration array containing the question";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:3014;s:13:"content_lines";i:65;s:6:"atLine";i:1762;}i:119;a:7:{s:6:"header";s:24:"function jsFunctions()	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:57:"
+
+Build javascript for client and server side validation
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";s:0:"";s:12:"content_size";i:22;s:13:"content_lines";i:0;s:6:"atLine";i:1833;}i:121;a:6:{s:6:"header";s:43:"function validationIsDateEuropean(strDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:429;s:13:"content_lines";i:9;s:6:"atLine";i:1835;}i:123;a:6:{s:6:"header";s:77:"function pbsurveyIsFirstDateEarlier(strDelimiter,strFirstDate,strSecondDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:260;s:13:"content_lines";i:5;s:6:"atLine";i:1853;}i:125;a:6:{s:6:"header";s:76:"function pbsurveyError(intType,intGetLL,intNumber,mixInp1,mixInp2,mixInp3) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:403;s:13:"content_lines";i:13;s:6:"atLine";i:1865;}i:127;a:6:{s:6:"header";s:48:"function pbsurveyChangeValue(strName,strValue) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:161;s:13:"content_lines";i:4;s:6:"atLine";i:1891;}i:129;a:3:{s:6:"header";s:42:"function in_array(strNeedle, arrHaystack){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:6:"atLine";i:1897;}i:131;a:6:{s:6:"header";s:29:"function pbsurveyValidate() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:7267;s:13:"content_lines";i:171;s:6:"atLine";i:1908;}}}s:14:"MD5_784b5db297";a:4:{s:8:"filename";s:25:"wizard/wizard_answers.php";s:8:"filesize";i:18160;s:6:"header";N;s:3:"DAT";a:20:{i:1;a:7:{s:6:"header";s:31:"class tx_pbsurvey_answers_wiz {";s:5:"class";i:1;s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:7:"content";s:0:"";s:12:"content_size";i:733;s:13:"content_lines";i:9;s:6:"atLine";i:30;}i:3;a:7:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:30:"
+
+Initialization of the class
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:883;s:13:"content_lines";i:20;s:6:"atLine";i:45;}i:5;a:7:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:23:"
+
+Rendering the wizard
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:528;s:13:"content_lines";i:11;s:6:"atLine";i:71;}i:7;a:7:{s:6:"header";s:24:"function answerGroup() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:62:"
+
+Fill the table if user has chosen a predefined answer group
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:425;s:13:"content_lines";i:11;s:6:"atLine";i:88;}i:9;a:7:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:46:"
+
+Check if there is a reference to the record
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:238;s:13:"content_lines";i:7;s:6:"atLine";i:105;}i:11;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:43:"
+
+Output the accumulated content to screen
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:31;s:13:"content_lines";i:3;s:6:"atLine";i:118;}i:13;a:7:{s:6:"header";s:26:"function answersWizard()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:12:"
+
+Configure
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:427;s:13:"content_lines";i:10;s:6:"atLine";i:127;}i:15;a:7:{s:6:"header";s:37:"function l18n_diffsource($strInput) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:52:"
+
+Get answers from default language if localization
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:42:"serialized array containing default source";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:116;s:13:"content_lines";i:4;s:6:"atLine";i:144;}i:17;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+
+Fill the table with values and check if save button has been pressed
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";s:0:"";s:12:"content_size";i:559;s:13:"content_lines";i:16;s:6:"atLine";i:155;}i:19;a:7:{s:6:"header";s:34:"function getTableHTML($arrTable)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:40:"
+
+Creates the HTML for the wizard table
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the wizard table";}}s:7:"content";s:0:"";s:12:"content_size";i:198;s:13:"content_lines";i:7;s:6:"atLine";i:178;}i:21;a:7:{s:6:"header";s:26:"function definedGroups() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:41:"
+
+Draw selectbox with pre-defined values
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Containing the selectbox";}}s:7:"content";s:0:"";s:12:"content_size";i:533;s:13:"content_lines";i:13;s:6:"atLine";i:191;}i:23;a:7:{s:6:"header";s:24:"function tableHeader() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
+
+Draw the header of the wizard table
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the header";}}s:7:"content";s:0:"";s:12:"content_size";i:878;s:13:"content_lines";i:21;s:6:"atLine";i:210;}i:25;a:7:{s:6:"header";s:24:"function tableFooter() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
+
+Draw the footer of the wizard table
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the footer";}}s:7:"content";s:0:"";s:12:"content_size";i:1312;s:13:"content_lines";i:14;s:6:"atLine";i:237;}i:27;a:7:{s:6:"header";s:42:"function controlPanel($intLine,$intRows) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+
+Draw the Control Panel in front of every row
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:13:"$intLine: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:13:"$intRows: ...";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:20:"Containing the panel";}}s:7:"content";s:0:"";s:12:"content_size";i:1585;s:13:"content_lines";i:17;s:6:"atLine";i:259;}i:29;a:7:{s:6:"header";s:31:"function tableRows($arrTable) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:33:"
+
+Creates the HTML for the rows:
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";s:0:"";s:12:"content_size";i:1970;s:13:"content_lines";i:53;s:6:"atLine";i:283;}i:31;a:7:{s:6:"header";s:28:"function checkRowButtons()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:156:"
+
+Detects if a control button (up/down/around/delete) has been pressed for an item
+and accordingly it will manipulate the internal arrTableParameters array
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1249;s:13:"content_lines";i:30;s:6:"atLine";i:343;}i:33;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:102:"
+
+Detects if a save button has been pressed
+and accordingly save the data and redirect to record page
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:687;s:13:"content_lines";i:13;s:6:"atLine";i:380;}i:35;a:7:{s:6:"header";s:35:"function answersString($arrInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:58:"
+
+Converts the input array to a configuration code string
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:28:"Array of table configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:60:"Array converted into a string with line-based configuration.";}}s:7:"content";s:0:"";s:12:"content_size";i:174;s:13:"content_lines";i:7;s:6:"atLine";i:400;}i:37;a:4:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
+
+Create array out of possible answers in backend answers field
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:6:"atLine";i:414;}i:39;a:7:{s:6:"header";s:28:"function checkTableArray() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+
+Check if submitted table array has 3 keys.
+if not, correct the array
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:817;s:13:"content_lines";i:23;s:6:"atLine";i:431;}}}s:14:"MD5_5b04452750";a:4:{s:8:"filename";s:29:"wizard2/wizard_conditions.php";s:8:"filesize";i:30728;s:6:"header";N;s:3:"DAT";a:22:{i:1;a:7:{s:6:"header";s:34:"class tx_pbsurvey_conditions_wiz {";s:5:"class";i:1;s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:7:"content";s:0:"";s:12:"content_size";i:620;s:13:"content_lines";i:11;s:6:"atLine";i:30;}i:3;a:7:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:30:"
+
+Initialization of the class
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:768;s:13:"content_lines";i:18;s:6:"atLine";i:47;}i:5;a:7:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:29:"
+
+Rendering the table wizard
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1056;s:13:"content_lines";i:16;s:6:"atLine";i:71;}i:7;a:7:{s:6:"header";s:29:"function conditionsWizard()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:12:"
+
+Configure
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:233;s:13:"content_lines";i:6;s:6:"atLine";i:93;}i:9;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+
+Fill the table with values and check if save button has been pressed
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";s:0:"";s:12:"content_size";i:379;s:13:"content_lines";i:11;s:6:"atLine";i:106;}i:11;a:7:{s:6:"header";s:32:"function wizardHTML($arrTable)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:46:"
+
+Creates the HTML for the Conditions Wizard:
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";s:0:"";s:12:"content_size";i:149;s:13:"content_lines";i:6;s:6:"atLine";i:124;}i:13;a:7:{s:6:"header";s:25:"function wizardHeader() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
+
+Draw the header of the wizard
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the header";}}s:7:"content";s:0:"";s:12:"content_size";i:113;s:13:"content_lines";i:4;s:6:"atLine";i:136;}i:15;a:7:{s:6:"header";s:25:"function wizardFooter() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
+
+Draw the footer of the wizard
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the footer";}}s:7:"content";s:0:"";s:12:"content_size";i:1238;s:13:"content_lines";i:12;s:6:"atLine";i:146;}i:17;a:7:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:46:"
+
+Check if there is a reference to the record
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:237;s:13:"content_lines";i:6;s:6:"atLine";i:164;}i:19;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+
+Outputting the accumulated content to screen
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:28;s:13:"content_lines";i:3;s:6:"atLine";i:176;}i:21;a:7:{s:6:"header";s:40:"function groupButton($strName,$intKey) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:53:"
+
+Creates the HTML for a single group control button
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"Name of the button";}i:1;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:19:"HTML for the button";}}s:7:"content";s:0:"";s:12:"content_size";i:705;s:13:"content_lines";i:12;s:6:"atLine";i:187;}i:23;a:7:{s:6:"header";s:51:"function getGroupButtons($intGroupKey,$intGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:49:"
+
+Creates the HTML for all group control buttons
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}i:1;a:2:{i:0;s:7:"integer";i:1;s:16:"Amount of groups";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:28:"HTML for the control buttons";}}s:7:"content";s:0:"";s:12:"content_size";i:636;s:13:"content_lines";i:18;s:6:"atLine";i:207;}i:25;a:7:{s:6:"header";s:36:"function groupsHTML($arrAllGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:45:"
+
+Builds the content for each conditiongroup
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:18:"$arrAllGroups: ...";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:4682;s:13:"content_lines";i:76;s:6:"atLine";i:232;}i:27;a:7:{s:6:"header";s:42:"function getOperators($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:34:"
+
+Draw the pulldown for operators
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:35:"HTML content for operator pulldown.";}}s:7:"content";s:0:"";s:12:"content_size";i:2195;s:13:"content_lines";i:41;s:6:"atLine";i:316;}i:29;a:7:{s:6:"header";s:40:"function getAnswers($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+
+Draw the pulldown or input field for answers
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:49:"HTML content for answers pulldown or input field.";}}s:7:"content";s:0:"";s:12:"content_size";i:2317;s:13:"content_lines";i:43;s:6:"atLine";i:365;}i:31;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
+
+Create array out of possible answers in backend answers field
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:207;s:13:"content_lines";i:8;s:6:"atLine";i:415;}i:33;a:7:{s:6:"header";s:25:"function groupControl() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:50:"
+
+Perform control action when a button is pressed
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:3743;s:13:"content_lines";i:66;s:6:"atLine";i:429;}i:35;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:126:"
+
+Detects if a save button (up/down/around/delete) has been pressed
+and accordingly save the data and redirect to record page
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:946;s:13:"content_lines";i:18;s:6:"atLine";i:502;}i:37;a:7:{s:6:"header";s:33:"function groupsArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:68:"
+
+Create array out of serialized string in conditions backend field
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:35:"Content of backend conditions field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:41:"Converted conditions information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:96;s:13:"content_lines";i:5;s:6:"atLine";i:527;}i:39;a:7:{s:6:"header";s:39:"function getFields($intQuestion=null) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:84:"
+
+Build the HTML for each answers option field and check if it was selected
+Returns
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:19:"uid of the question";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:33:"Option list of previous questions";}}s:7:"content";s:0:"";s:12:"content_size";i:792;s:13:"content_lines";i:18;s:6:"atLine";i:540;}i:41;a:4:{s:6:"header";s:30:"function previousQuestions() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:86:"
+
+Read all questions before this pagebreak
+Write content to $this->arrPrevQuestions[]
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:6:"atLine";i:565;}i:43;a:7:{s:6:"header";s:69:"function getRecordOverlay($strTable,$arrRow,$intSysLanguageContent)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:190:"
+
+Creates language-overlay for records (where translation is found in records from the same table)
+Inserted this function because couldn't find an alternative for the backend, only frontend
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"Table name";}i:1;a:2:{i:0;s:5:"array";i:1;s:85:"Record to overlay. Must contain uid, pid and $TCA[$strTable]['ctrl']['languageField']";}i:2;a:2:{i:0;s:7:"integer";i:1;s:66:"Pointer to the sys_language uid for content of the current record.";}}s:6:"return";a:2:{i:0;s:5:"mixed";i:1;s:63:"Returns the input record, possibly overlaid with a translation.";}}s:7:"content";s:0:"";s:12:"content_size";i:2114;s:13:"content_lines";i:50;s:6:"atLine";i:610;}}}}}

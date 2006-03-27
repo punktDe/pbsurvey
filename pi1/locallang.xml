@@ -19,6 +19,7 @@
             <label index="value_false">False</label>
             <label index="value_yes">Yes</label>
             <label index="value_no">No</label>
+            <label index="js_errors_occurred">The following error(s) occured:</label>
             <label index="js_required_select">Please select a value for question number %q</label>
             <label index="js_required_enter">Please enter a value for question number %q</label>
             <label index="js_required_enter_multiple">Please enter values for all items for question number %q</label>

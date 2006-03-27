@@ -4,6 +4,7 @@
 		<!--  <langChildren>1</langChildren>!-->
 	</meta>
 	<sheets>
+	
 		<sDEF>
 			<ROOT>
 				<TCEforms>
@@ -44,6 +45,7 @@
 				</el>
 			</ROOT>
 		</sDEF>
+		
 		<sACCESS>
 			<ROOT>
 				<TCEforms>
@@ -51,6 +53,20 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
+					<captcha>
+						<TCEforms>
+						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.captcha_page</label>
+						<config>
+							<type>check</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0"></numIndex>
+									<numIndex index="1">1</numIndex>
+								</numIndex>
+							</items>
+						</config>
+						</TCEforms>
+					</captcha>
 					<access_level>
 						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level</label>
@@ -76,30 +92,7 @@
 				</el>
 			</ROOT>
 		</sACCESS>
-		<sSECURITY>
-			<ROOT>
-				<TCEforms>
-				<sheetTitle>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.sheet_security</sheetTitle>
-				</TCEforms>
-				<type>array</type>
-				<el>					
-					<captcha>
-						<TCEforms>
-						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.captcha_page</label>
-						<config>
-							<type>check</type>
-							<items type="array">
-								<numIndex index="0" type="array">
-									<numIndex index="0"></numIndex>
-									<numIndex index="1">1</numIndex>
-								</numIndex>
-							</items>
-						</config>
-						</TCEforms>
-					</captcha>
-				</el>
-			</ROOT>
-		</sSECURITY>
+		
 		<sCOMPLETION>
 			<ROOT>
 				<TCEforms>
@@ -372,6 +365,27 @@
 						</config>
 						</TCEforms>
 					</days_for_update>
+					<validation>
+						<TCEforms>	
+						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.validation</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.validation0</numIndex>
+									<numIndex index="1">0</numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.validation1</numIndex>
+									<numIndex index="1">1</numIndex>
+								</numIndex>								
+							</items>	
+							<minitems>1</minitems>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+						</TCEforms>
+					</validation>
 				</el>
 			</ROOT>
 		</sOTHER>

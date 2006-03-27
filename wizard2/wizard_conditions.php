@@ -417,7 +417,7 @@ class tx_pbsurvey_conditions_wiz {
 		$strLine=explode(chr(10),$strInput);
 		foreach($strLine as $intKey => $strLineValue)	{
 			$strValue = explode('|',$strLineValue);
-			$arrOutput[$intKey]=trim($strValue[0]);
+			$arrOutput[$intKey+1]=trim($strValue[0]);
 		}
 		return $arrOutput;
 	}

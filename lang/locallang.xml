@@ -5,7 +5,8 @@
 		<type>module</type>
 		<fileId>EXT:pbsurvey/lang/locallang.xml</fileId>
 		<ext_filename_template>EXT:pbsurvey/lang/###LANGKEY###.locallang.xml</ext_filename_template>
-		<labelContext type="array" />
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -23,8 +24,7 @@
 			<label index="pi_flexform.action0">Close the browser</label>
 			<label index="pi_flexform.action1">Display Message</label>
 			<label index="pi_flexform.action2">Redirect to another page</label>
-			<label index="pi_flexform.sheet_security">Security</label>
-			<label index="pi_flexform.captcha_page">Show Captcha before survey</label>
+			<label index="pi_flexform.captcha_page">Show Captcha before entering survey</label>
 			<label index="pi_flexform.completion_message">Completion Message</label>
 			<label index="pi_flexform.completion_url">Completion Page</label>
 			<label index="pi_flexform.close_button">Close Button</label>
@@ -54,6 +54,9 @@
 			<label index="pi_flexform.maximum_responses">Maximum Responses</label>
 			<label index="pi_flexform.responses_per_user">Responses per user</label>
 			<label index="pi_flexform.days_for_update">Days for Update</label>
+			<label index="pi_flexform.validation">Form validation</label>
+			<label index="pi_flexform.validation0">Client-side Javascript</label>
+			<label index="pi_flexform.validation1">Server-side PHP (Accessibility)</label>
 		</languageKey>
 		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang.xml</languageKey>
 		<languageKey index="de">EXT:pbsurvey/lang/de.locallang.xml</languageKey>

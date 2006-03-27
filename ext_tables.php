@@ -101,7 +101,9 @@ t3lib_extMgm::allowTableOnStandardPages('tx_pbsurvey_answers');
 t3lib_extMgm::addPlugin(array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tt_content.list_type_pi1', $_EXTKEY.'_pi1'),'list_type');
 	// Adds an entry to the 'ds' array of the tt_content field 'pi_flexform'.
 t3lib_extMgm::addPiFlexFormValue('pbsurvey_pi1', 'FILE:EXT:pbsurvey/flexform_ds.xml');
-	// initalize 'context sensitive help' (csh)
+	// initialize static extension templates
+t3lib_extMgm::addStaticFile($_EXTKEY,'static/css/','default CSS-styles');
+	// initialize 'context sensitive help' (csh)
 t3lib_extMgm::addLLrefForTCAdescr('tx_pbsurvey_item','EXT:pbsurvey/csh/locallang_pbsurvey_item.xml');
 t3lib_extMgm::addLLrefForTCAdescr('tx_pbsurvey_results','EXT:pbsurvey/csh/locallang_pbsurvey_results.xml');
 t3lib_extMgm::addLLrefForTCAdescr('tx_pbsurvey_answers','EXT:pbsurvey/csh/locallang_pbsurvey_answers.xml');
