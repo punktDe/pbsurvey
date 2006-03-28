@@ -29,6 +29,14 @@ require ($BACK_PATH."template.php");
 $LANG->includeLLFile('EXT:pbsurvey/lang/locallang_wiz.xml');
 //require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php');
 
+/**
+ * Conditions wizard for the 'pbsurvey' extension.
+ * This wizard will help the user to add conditions to pagebreaks
+ *
+ * @author Patrick Broens <patrick@patrickbroens.nl>
+ * @package TYPO3
+ * @subpackage pbsurvey
+ */
 class tx_pbsurvey_conditions_wiz {
     var $strExtKey; // Key of the extension
    	var $objDoc; // Document template object
@@ -41,6 +49,12 @@ class tx_pbsurvey_conditions_wiz {
   	var $arrFields = array();
   	var $blnLocalization = FALSE; // Identifies if record is localization instead of 'All' or 'Default' language
 
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+	 
 	/**
 	 * Initialization of the class
 	 *
@@ -65,6 +79,12 @@ class tx_pbsurvey_conditions_wiz {
 		}
 	}
 
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+	 
     /**
 	 * Rendering the table wizard
 	 *
@@ -88,7 +108,7 @@ class tx_pbsurvey_conditions_wiz {
 	}
 
 	/**
-	 * Configure
+	 * Get the contents of the current record and make a HTML table out of it.
 	 *
 	 * @return	string		HTML content for the form.
 	 */
@@ -116,297 +136,7 @@ class tx_pbsurvey_conditions_wiz {
 		}
 		return $arrOutput;
 	}
-	
-	/**
-	 * Creates the HTML for the Conditions Wizard:
-	 *
-	 * @param	array		Table config array
-	 * @return	string		HTML for the table wizard
-	 */
-	function wizardHTML($arrTable)	{
-		$strOutput = $this->wizardHeader();
-		$strOutput .= $this->groupsHTML($arrTable);
-		$strOutput .= $this->wizardFooter();
-		return $strOutput;
-	}
-	
-	/**
-	 * Draw the header of the wizard
-	 *
-	 * @return	string		HTML containing the header
-	 */
-    function wizardHeader() {
-        $strOutput = '<table border="0" cellpadding="2" cellspacing="1">';
-        return $strOutput;
-    }
-	
-   	/**
-	 * Draw the footer of the wizard
-	 *
-	 * @return	string		HTML containing the footer
-	 */
-    function wizardFooter() {
-        global $LANG;
-        $strOutput = '
-			</table>
-			<div id="c-saveButtonPanel">
-                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[savedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/savedok.gif').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveDoc')).'" />
-                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[saveandclosedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/saveandclosedok.gif').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveCloseDoc')).'" />
-                <a href="#" onclick="'.htmlspecialchars('jumpToUrl(unescape(\''.rawurlencode($this->arrWizardParameters['returnUrl']).'\')); return false;').'"><img class="c-inputButton"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/closedok.gif').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.closeDoc')).'" /></a>
-                <input type="image" class="c-inputButton" name="_refresh"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/refresh_n.gif').t3lib_BEfunc::titleAltAttrib($LANG->getLL('forms_refresh',1)).'" />
-			</div>';
-        return $strOutput;
-   }
-   
-    /**
-	 * Check if there is a reference to the record
-	 *
-	 * @return	void
-	 */
-    function checkReference() {
-		$arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
-		if (!is_array($arrRecord))	{
-			t3lib_BEfunc::typo3PrintError('Wizard Error','No reference to record',0);
-			exit;
-		}
-    }
-	/**
-	 * Outputting the accumulated content to screen
-	 *
-	 * @return	void
-	 */
-	function printContent()	{
-		echo $this->content;
-	}
-	
-	/**
-	 * Creates the HTML for a single group control button
-	 *
-	 * @param	string		Name of the button
-	 * @param	integer		Keynumber of the current group
-	 * @return	string		HTML for the button
-	 */
-	function groupButton($strName,$intKey) {
-        global $LANG;
-        $arrOptions = array(
-            'row_turndown' => array('gfx/turn_down.gif','table_bottom'),
-            'row_up'       => array('gfx/pil2up.gif','table_top'),
-            'row_remove'   => array('gfx/garbage.gif','table_removeRow'),
-            'row_turnup'   => array('gfx/turn_up.gif','table_up'),
-            'row_down'     => array('gfx/pil2down.gif','table_down')
-        );
-        $strOutput = '<input type="image" name="'.$this->strExtKey.'['.$strName.']['.$intKey.']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,$arrOptions[$strName][0]).t3lib_BEfunc::titleAltAttrib($LANG->getLL($arrOptions[$strName][1])).' /><br />';
-        return $strOutput;
-    }
     
-    /**
-	 * Creates the HTML for all group control buttons
-	 *
-	 * @param	integer		Keynumber of the current group
-	 * @param	integer		Amount of groups
-	 * @return	array		HTML for the control buttons
-	 */
-    function getGroupButtons($intGroupKey,$intGroups) {
-        if ($intGroups>1) {
-            if($intGroupKey==1) {
-                $arrOutput[] = $this->groupButton('row_turndown',$intGroupKey);
-            } else {
-                $arrOutput[] = $this->groupButton('row_up',$intGroupKey);
-            }
-        }
-        $arrOutput[] = $this->groupButton('row_remove',$intGroupKey);
-        if ($intGroups>1) {
-            if($intGroupKey==$intGroups) {
-                $arrOutput[] = $this->groupButton('row_turnup',$intGroupKey);
-            } else {
-                $arrOutput[] = $this->groupButton('row_down',$intGroupKey);
-            }
-        }
-        return $arrOutput;
-    }
-	
-	/**
-	 * Builds the content for each conditiongroup
-	 * 
-	 * @return	string		HTML content for the form.
-	 */
-	function groupsHTML($arrAllGroups) {
-        global $LANG;
-        $intLastGroup=0;
-        if (is_array($arrAllGroups)) {
-            $intGroups = count($arrAllGroups);
-            // Build Groups
-            foreach($arrAllGroups as $intGroupKey => $arrSingleGroup) {
-                $strOutput .= '<tr class="bgColor5">
-                            <td colspan="3"><b><em>'.$LANG->getLL("conditions_group").' ' . ($intLastGroup+1) .'</em></b></td>
-                            <td colspan="2"><b>'.$LANG->getLL("conditions_condition").'</b></td>
-                            </tr>'.chr(10);
-                $strGroupButtons = !$this->blnLocalization?implode(chr(10),$this->getGroupButtons($intGroupKey,$intGroups)):'&nbsp;';
-                // Build Rules
-                foreach($arrSingleGroup['rule'] as $intRuleKey => $arrRule) {
-                    $arrRule['field'] = stripslashes($arrRule['field']);
-                    $strOutput .= '<tr class="bgColor4">'.chr(10);
-                    if ($intRuleKey!=0) {
-                        $strOutput .= '<td align="right">'.$LANG->getLL("conditions_and").'</td>'.chr(10);
-                    } else {
-                    	$intExtraRow = !$this->blnLocalization?1:0;
-                        $strOutput .= '<td rowspan="'.(count($arrSingleGroup['rule'])+$intExtraRow).'" class="bgColor5">
-                        			'.$strGroupButtons.'
-                        			</td>
-                                    <td><b>'.$LANG->getLL("conditions_rules").'</b></td>'.chr(10);
-                    }
-                    $strOutput .= '<td style="white-space:nowrap;">';
-                    if (!$this->blnLocalization) {
-						$strOutput .= '<select name="'.$this->strExtKey.'[grps]['.$intGroupKey.'][rule]['.$intRuleKey.'][field]" onChange="submit();">
-	                    			'.implode(chr(10),$this->getFields($arrRule['field'])).'
-	                    			</select>';
-                    } else {
-                    	$arrFields = $this->getFields($arrRule['field']);
-                    	$strOutput .= '<input name="'.$this->strExtKey.'[grps]['.$intGroupKey.'][rule]['.$intRuleKey.'][field]" type="hidden" value="'.$arrFields['uid'].'" />'.$arrFields['title'];
-                    }
-					$strOutput .= '</td>
-                                <td style="white-space:nowrap;">';
-                    $strOutput .= implode(chr(10),$this->getOperators($this->strExtKey.'[grps]['.$intGroupKey.'][rule]['.$intRuleKey.']',$arrRule));
-                    $strOutput .= '</td>
-                                <td width="11">';
-                    // No trashbin when single rule in a group
-                    if (!$this->blnLocalization && count($arrSingleGroup['rule'])>1) {
-                        $strOutput .= '<input type="image" name="'.$this->strExtKey.'[rule_remove]['.$intGroupKey.']['.$intRuleKey.']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/garbage.gif').t3lib_BEfunc::titleAltAttrib($LANG->getLL("conditions_ruleRemove")).' />'.chr(10);
-                    } else {
-                    	$strOutput .='&nbsp;';
-                    }
-                    $strOutput .= '</td></tr>'.chr(10);
-                }
-                if (!$this->blnLocalization) {
-	                $strOutput .= '<tr class="bgColor4">
-	                            <td align="right">'.$LANG->getLL("conditions_and").'</td>
-	                            <td><select name="'.$this->strExtKey.'[grps]['.$intGroupKey.'][rule]['.($intRuleKey+1).'][field]" onChange="submit();">
-	                            <option value="'.$this->extKey.'_new">'.$LANG->getLL('conditions_newField').'</option>
-	                            '. implode(chr(10),$this->getFields()).'
-	                            </select></td>
-	                            <td colspan="2"></td>
-	                            </tr>'.chr(10);
-                }
-                $intLastGroup = $intGroupKey;
-            }
-        }
-        // Build New Group
-        if (!$this->blnLocalization) {
-	        $strOutput .= '<tr class="bgColor6">
-	                    <td colspan="5"><b>'.$LANG->getLL("conditions_new").'</b></td>
-	                    </tr>
-	                    <tr class="bgColor6">
-	                    <td>&nbsp;</td>
-	                    <td><b>'.$LANG->getLL("conditions_rules").'</b></td>
-	                    <td colspan="3"><select name="'.$this->strExtKey.'[grps]['.($intLastGroup+1).'][rule][0][field]" onChange="submit();">
-	                    <option value="'.$this->extKey.'_new">'.$LANG->getLL('conditions_newField').'</option>'
-	                    . implode(chr(10),$this->getFields()).'
-	                    </select></td>
-	                    </tr>'.chr(10);
-        }
-        return $strOutput;
-	}
-		
-	/**
-	 * Draw the pulldown for operators
-	 * 
-	 * @param	string		Current name
-	 * @param	array		Current rule
-	 * @return	array		HTML content for operator pulldown.
-	 */
-	function getOperators($strName,$arrRule) {
-		global $LANG;
-        $arrOptions = array(
-            'eq'        => 'equal',
-            'ne'        => 'notEqual',
-            'ss'        => 'contains',
-            'ns'        => 'notContains',
-            'gt'        => 'greater',
-            'ge'        => 'greaterEqual',
-            'lt'        => 'less',
-            'le'        => 'lessEqual',
-            'set'       => 'set',
-            'notset'    => 'notSet'
-        );
-        $arrCurQuestion = $this->arrPrevQuestions[stripslashes($arrRule['field'])];
-        if (in_array($arrCurQuestion['question_type'],array(1,3,10,14))) {
-            $arrOperators = $arrCurQuestion['options_required']?array('eq','ne','ss','ns'):array('eq','ne','ss','ns','set','notset');
-        } elseif (in_array($arrCurQuestion['question_type'],array(2,4,5))) {
-            $arrOperators = $arrCurQuestion['options_required']?array('eq','ne'):array('eq','ne','set','notset');
-        } elseif (in_array($arrCurQuestion['question_type'],array(7,15))) {
-            $arrOperators = $arrCurQuestion['options_required']?array('ss','ns'):array('ss','ns','set','notset');
-        } elseif (in_array($arrCurQuestion['question_type'],array(11,12,13))) {
-            $arrOperators = $arrCurQuestion['options_required']?array('eq','ne','gt','ge','lt','le'):array('eq','ne','gt','ge','lt','le','set','notset');
-        }
-        if (!$this->blnLocalization) {
-        	$arrOutput[] = '<select name ="'.$strName.'[operator]" onChange="submit();")>';
-			foreach($arrOperators as $strKey) {
-				$arrOutput[] = '<option value="'.$strKey.'" '.($arrRule['operator']==$strKey?'selected="selected"':'').'>'.$LANG->getLL('conditions_'.$arrOptions[$strKey]).'</option>';
-			}
-	        $arrOutput[] = '</select>';
-		} else {
-			foreach($arrOperators as $strKey) {
-				if ($arrRule['operator']==$strKey) {
-					$arrOutput[] = '<input type="hidden" name="'.$strName.'[operator]" value="'.$strKey.'" />';
-					$arrOutput[] = $LANG->getLL('conditions_'.$arrOptions[$strKey]).'<br />';
-				}
-			}
-        }
-        $arrOutput[] = ($arrRule['operator']=='set'||$arrRule['operator']=='notset')?'':implode(chr(10),$this->getAnswers($strName,$arrRule));
-		return $arrOutput;
-	}
-
-	/**
-	 * Draw the pulldown or input field for answers
-	 *
-	 * @param	string		Current name
-	 * @param	array		Current rule
-	 * @return	array      HTML content for answers pulldown or input field.
-	 */
-	function getAnswers($strName,$arrRule) {
-		global $LANG;
-		$arrCurQuestion = $this->arrPrevQuestions[stripslashes($arrRule['field'])];
-		if (in_array($arrCurQuestion['question_type'],array(1,2,3,4,5))) {
-			if (!$this->blnLocalization) {
-	            $arrOutput[] = '<select name ="'.$strName.'[value]" onChange="submit();")>';
-	            if (in_array($arrCurQuestion['question_type'],array(1,3)) && $arrCurQuestion['answers_allow_additional']) {
-	                $arrOutput[] = '<option value="">'.$LANG->getLL('conditions_none').'</option>';
-	            }
-			}
-            if (in_array($arrCurQuestion['question_type'],array(1,2,3))) {
-                $arrOptions = $this->answersArray($arrCurQuestion['answers']);
-            } elseif ($arrCurQuestion['question_type']==4) {
-                $arrOptions = array(0 => $LANG->getLL('conditions_true'),1 => $LANG->getLL('conditions_false'));
-            } else {
-                $arrOptions = array(0 => $LANG->getLL('conditions_yes'),1 => $LANG->getLL('conditions_no'));
-            }
-            foreach($arrOptions as $intKey => $strValue) {
-                if ($arrRule['value']==$intKey) {
-                    $strSelected = 'selected="selected"';
-                } else {
-                    $strSelected = '';
-                }
-                if (!$this->blnLocalization) {
-                	$arrOutput[] = '<option value="'.$intKey.'" '.$strSelected.'>'.$strValue.'</option>';
-                } else {
-                	if ($strSelected=='selected="selected"') {
-                		$arrOutput[] = '<input type="hidden" name="'.$strName.'[value]" value="'.$intKey.'" />';
-                		$arrOutput[] = $strValue;
-                	}
-                }
-            }
-            if (!$this->blnLocalization) {
-            	$arrOutput[] = '</select>';
-            }
-            if (in_array($arrCurQuestion['question_type'],array(1,3)) && $arrCurQuestion['answers_allow_additional']) {
-                $arrOutput[] = '<br />'.$LANG->getLL('conditions_or').' <input name ="'.$strName.'[value2]" type="text" value="'.$arrRule['value2'].'" />';
-            }
-        } elseif (in_array($arrCurQuestion['question_type'],array(7,10,11,12,13,14,15))) {
-            $arrOutput[] = '<input name ="'.$strName.'[value]" type="text" value="'.$arrRule['value'].'" />';
-        }
-        return $arrOutput;
-    }
-	
 	/**
 	 * Create array out of possible answers in backend answers field
 	 *
@@ -422,6 +152,46 @@ class tx_pbsurvey_conditions_wiz {
 		return $arrOutput;
 	}
 
+	/**
+	 * Create array out of serialized string in conditions backend field
+	 *
+	 * @param	string		Content of backend conditions field
+	 * @return	array		Converted conditions information to array
+	 */
+	function groupsArray($strInput)	{
+		$arrTemp = unserialize($strInput);
+		$arrOutput = $arrTemp['grps'];
+		return $arrOutput;
+	}
+	
+	/**
+	 * Outputting the accumulated content to screen
+	 *
+	 * @return	void
+	 */
+	function printContent()	{
+		echo $this->content;
+	}
+
+    /**********************************
+	 *
+	 * Checking functions
+	 *
+	 **********************************/
+
+    /**
+	 * Check if there is a reference to the record
+	 *
+	 * @return	void
+	 */
+    function checkReference() {
+		$arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
+		if (!is_array($arrRecord))	{
+			t3lib_BEfunc::typo3PrintError('Wizard Error','No reference to record',0);
+			exit;
+		}
+    }
+    	
 	/**
 	 * Perform control action when a button is pressed
 	 *
@@ -518,19 +288,165 @@ class tx_pbsurvey_conditions_wiz {
             }
         }
     }
+	
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
+	 
+	/**
+	 * Creates the HTML for the Conditions Wizard:
+	 *
+	 * @param	array		Table config array
+	 * @return	string		HTML for the table wizard
+	 */
+	function wizardHTML($arrTable)	{
+		$strOutput = $this->wizardHeader();
+		$strOutput .= $this->groupsHTML($arrTable);
+		$strOutput .= $this->wizardFooter();
+		return $strOutput;
+	}
+	
+	/**
+	 * Draw the header of the wizard
+	 *
+	 * @return	string		HTML containing the header
+	 */
+    function wizardHeader() {
+        $strOutput = '<table border="0" cellpadding="2" cellspacing="1">';
+        return $strOutput;
+    }
     
 	/**
-	 * Create array out of serialized string in conditions backend field
-	 *
-	 * @param	string		Content of backend conditions field
-	 * @return	array		Converted conditions information to array
+	 * Builds the content for each conditiongroup
+	 * 
+	 * @param	array		All conditiongroups
+	 * @return	string		HTML content for the form.
 	 */
-	function groupsArray($strInput)	{
-		$arrTemp = unserialize($strInput);
-		$arrOutput = $arrTemp['grps'];
-		return $arrOutput;
+	function groupsHTML($arrAllGroups) {
+        global $LANG;
+        $intLastGroup=0;
+        if (is_array($arrAllGroups)) {
+            $intGroups = count($arrAllGroups);
+            // Build Groups
+            foreach($arrAllGroups as $intGroupKey => $arrSingleGroup) {
+                $strOutput .= '<tr class="bgColor5">
+                            <td colspan="3"><b><em>'.$LANG->getLL("conditions_group").' ' . ($intLastGroup+1) .'</em></b></td>
+                            <td colspan="2"><b>'.$LANG->getLL("conditions_condition").'</b></td>
+                            </tr>'.chr(10);
+                $strGroupButtons = !$this->blnLocalization?implode(chr(10),$this->getGroupButtons($intGroupKey,$intGroups)):'&nbsp;';
+                // Build Rules
+                foreach($arrSingleGroup['rule'] as $intRuleKey => $arrRule) {
+                    $arrRule['field'] = stripslashes($arrRule['field']);
+                    $strOutput .= '<tr class="bgColor4">'.chr(10);
+                    if ($intRuleKey!=0) {
+                        $strOutput .= '<td align="right">'.$LANG->getLL("conditions_and").'</td>'.chr(10);
+                    } else {
+                    	$intExtraRow = !$this->blnLocalization?1:0;
+                        $strOutput .= '<td rowspan="'.(count($arrSingleGroup['rule'])+$intExtraRow).'" class="bgColor5">
+                        			'.$strGroupButtons.'
+                        			</td>
+                                    <td><b>'.$LANG->getLL("conditions_rules").'</b></td>'.chr(10);
+                    }
+                    $strOutput .= '<td style="white-space:nowrap;">';
+                    if (!$this->blnLocalization) {
+						$strOutput .= '<select name="'.$this->strExtKey.'[grps]['.$intGroupKey.'][rule]['.$intRuleKey.'][field]" onChange="submit();">
+	                    			'.implode(chr(10),$this->getFields($arrRule['field'])).'
+	                    			</select>';
+                    } else {
+                    	$arrFields = $this->getFields($arrRule['field']);
+                    	$strOutput .= '<input name="'.$this->strExtKey.'[grps]['.$intGroupKey.'][rule]['.$intRuleKey.'][field]" type="hidden" value="'.$arrFields['uid'].'" />'.$arrFields['title'];
+                    }
+					$strOutput .= '</td>
+                                <td style="white-space:nowrap;">';
+                    $strOutput .= implode(chr(10),$this->getOperators($this->strExtKey.'[grps]['.$intGroupKey.'][rule]['.$intRuleKey.']',$arrRule));
+                    $strOutput .= '</td>
+                                <td width="11">';
+                    // No trashbin when single rule in a group
+                    if (!$this->blnLocalization && count($arrSingleGroup['rule'])>1) {
+                        $strOutput .= '<input type="image" name="'.$this->strExtKey.'[rule_remove]['.$intGroupKey.']['.$intRuleKey.']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/garbage.gif').t3lib_BEfunc::titleAltAttrib($LANG->getLL("conditions_ruleRemove")).' />'.chr(10);
+                    } else {
+                    	$strOutput .='&nbsp;';
+                    }
+                    $strOutput .= '</td></tr>'.chr(10);
+                }
+                if (!$this->blnLocalization) {
+	                $strOutput .= '<tr class="bgColor4">
+	                            <td align="right">'.$LANG->getLL("conditions_and").'</td>
+	                            <td><select name="'.$this->strExtKey.'[grps]['.$intGroupKey.'][rule]['.($intRuleKey+1).'][field]" onChange="submit();">
+	                            <option value="'.$this->extKey.'_new">'.$LANG->getLL('conditions_newField').'</option>
+	                            '. implode(chr(10),$this->getFields()).'
+	                            </select></td>
+	                            <td colspan="2"></td>
+	                            </tr>'.chr(10);
+                }
+                $intLastGroup = $intGroupKey;
+            }
+        }
+        // Build New Group
+        if (!$this->blnLocalization) {
+	        $strOutput .= '<tr class="bgColor6">
+	                    <td colspan="5"><b>'.$LANG->getLL("conditions_new").'</b></td>
+	                    </tr>
+	                    <tr class="bgColor6">
+	                    <td>&nbsp;</td>
+	                    <td><b>'.$LANG->getLL("conditions_rules").'</b></td>
+	                    <td colspan="3"><select name="'.$this->strExtKey.'[grps]['.($intLastGroup+1).'][rule][0][field]" onChange="submit();">
+	                    <option value="'.$this->extKey.'_new">'.$LANG->getLL('conditions_newField').'</option>'
+	                    . implode(chr(10),$this->getFields()).'
+	                    </select></td>
+	                    </tr>'.chr(10);
+        }
+        return $strOutput;
 	}
-
+	
+    /**
+	 * Creates the HTML for all group control buttons
+	 *
+	 * @param	integer		Keynumber of the current group
+	 * @param	integer		Amount of groups
+	 * @return	array		HTML for the control buttons
+	 */
+    function getGroupButtons($intGroupKey,$intGroups) {
+        if ($intGroups>1) {
+            if($intGroupKey==1) {
+                $arrOutput[] = $this->groupButton('row_turndown',$intGroupKey);
+            } else {
+                $arrOutput[] = $this->groupButton('row_up',$intGroupKey);
+            }
+        }
+        $arrOutput[] = $this->groupButton('row_remove',$intGroupKey);
+        if ($intGroups>1) {
+            if($intGroupKey==$intGroups) {
+                $arrOutput[] = $this->groupButton('row_turnup',$intGroupKey);
+            } else {
+                $arrOutput[] = $this->groupButton('row_down',$intGroupKey);
+            }
+        }
+        return $arrOutput;
+    }
+	
+	/**
+	 * Creates the HTML for a single group control button
+	 *
+	 * @param	string		Name of the button
+	 * @param	integer		Keynumber of the current group
+	 * @return	string		HTML for the button
+	 */
+	function groupButton($strName,$intKey) {
+        global $LANG;
+        $arrOptions = array(
+            'row_turndown' => array('gfx/turn_down.gif','table_bottom'),
+            'row_up'       => array('gfx/pil2up.gif','table_top'),
+            'row_remove'   => array('gfx/garbage.gif','table_removeRow'),
+            'row_turnup'   => array('gfx/turn_up.gif','table_up'),
+            'row_down'     => array('gfx/pil2down.gif','table_down')
+        );
+        $strOutput = '<input type="image" name="'.$this->strExtKey.'['.$strName.']['.$intKey.']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,$arrOptions[$strName][0]).t3lib_BEfunc::titleAltAttrib($LANG->getLL($arrOptions[$strName][1])).' /><br />';
+        return $strOutput;
+    }
+    
 	/**
 	 * Build the HTML for each answers option field and check if it was selected
 	 * Returns 
@@ -556,6 +472,130 @@ class tx_pbsurvey_conditions_wiz {
         }
         return $arrOutput;
 	}
+	
+	/**
+	 * Draw the pulldown or input field for answers
+	 *
+	 * @param	string		Current name
+	 * @param	array		Current rule
+	 * @return	array      HTML content for answers pulldown or input field.
+	 */
+	function getAnswers($strName,$arrRule) {
+		global $LANG;
+		$arrCurQuestion = $this->arrPrevQuestions[stripslashes($arrRule['field'])];
+		if (in_array($arrCurQuestion['question_type'],array(1,2,3,4,5))) {
+			if (!$this->blnLocalization) {
+	            $arrOutput[] = '<select name ="'.$strName.'[value]" onChange="submit();")>';
+	            if (in_array($arrCurQuestion['question_type'],array(1,3)) && $arrCurQuestion['answers_allow_additional']) {
+	                $arrOutput[] = '<option value="">'.$LANG->getLL('conditions_none').'</option>';
+	            }
+			}
+            if (in_array($arrCurQuestion['question_type'],array(1,2,3))) {
+                $arrOptions = $this->answersArray($arrCurQuestion['answers']);
+            } elseif ($arrCurQuestion['question_type']==4) {
+                $arrOptions = array(0 => $LANG->getLL('conditions_true'),1 => $LANG->getLL('conditions_false'));
+            } else {
+                $arrOptions = array(0 => $LANG->getLL('conditions_yes'),1 => $LANG->getLL('conditions_no'));
+            }
+            foreach($arrOptions as $intKey => $strValue) {
+                if ($arrRule['value']==$intKey) {
+                    $strSelected = 'selected="selected"';
+                } else {
+                    $strSelected = '';
+                }
+                if (!$this->blnLocalization) {
+                	$arrOutput[] = '<option value="'.$intKey.'" '.$strSelected.'>'.$strValue.'</option>';
+                } else {
+                	if ($strSelected=='selected="selected"') {
+                		$arrOutput[] = '<input type="hidden" name="'.$strName.'[value]" value="'.$intKey.'" />';
+                		$arrOutput[] = $strValue;
+                	}
+                }
+            }
+            if (!$this->blnLocalization) {
+            	$arrOutput[] = '</select>';
+            }
+            if (in_array($arrCurQuestion['question_type'],array(1,3)) && $arrCurQuestion['answers_allow_additional']) {
+                $arrOutput[] = '<br />'.$LANG->getLL('conditions_or').' <input name ="'.$strName.'[value2]" type="text" value="'.$arrRule['value2'].'" />';
+            }
+        } elseif (in_array($arrCurQuestion['question_type'],array(7,10,11,12,13,14,15))) {
+            $arrOutput[] = '<input name ="'.$strName.'[value]" type="text" value="'.$arrRule['value'].'" />';
+        }
+        return $arrOutput;
+    }
+
+	/**
+	 * Draw the pulldown for operators
+	 * 
+	 * @param	string		Current name
+	 * @param	array		Current rule
+	 * @return	array		HTML content for operator pulldown.
+	 */
+	function getOperators($strName,$arrRule) {
+		global $LANG;
+        $arrOptions = array(
+            'eq'        => 'equal',
+            'ne'        => 'notEqual',
+            'ss'        => 'contains',
+            'ns'        => 'notContains',
+            'gt'        => 'greater',
+            'ge'        => 'greaterEqual',
+            'lt'        => 'less',
+            'le'        => 'lessEqual',
+            'set'       => 'set',
+            'notset'    => 'notSet'
+        );
+        $arrCurQuestion = $this->arrPrevQuestions[stripslashes($arrRule['field'])];
+        if (in_array($arrCurQuestion['question_type'],array(1,3,10,14))) {
+            $arrOperators = $arrCurQuestion['options_required']?array('eq','ne','ss','ns'):array('eq','ne','ss','ns','set','notset');
+        } elseif (in_array($arrCurQuestion['question_type'],array(2,4,5))) {
+            $arrOperators = $arrCurQuestion['options_required']?array('eq','ne'):array('eq','ne','set','notset');
+        } elseif (in_array($arrCurQuestion['question_type'],array(7,15))) {
+            $arrOperators = $arrCurQuestion['options_required']?array('ss','ns'):array('ss','ns','set','notset');
+        } elseif (in_array($arrCurQuestion['question_type'],array(11,12,13))) {
+            $arrOperators = $arrCurQuestion['options_required']?array('eq','ne','gt','ge','lt','le'):array('eq','ne','gt','ge','lt','le','set','notset');
+        }
+        if (!$this->blnLocalization) {
+        	$arrOutput[] = '<select name ="'.$strName.'[operator]" onChange="submit();")>';
+			foreach($arrOperators as $strKey) {
+				$arrOutput[] = '<option value="'.$strKey.'" '.($arrRule['operator']==$strKey?'selected="selected"':'').'>'.$LANG->getLL('conditions_'.$arrOptions[$strKey]).'</option>';
+			}
+	        $arrOutput[] = '</select>';
+		} else {
+			foreach($arrOperators as $strKey) {
+				if ($arrRule['operator']==$strKey) {
+					$arrOutput[] = '<input type="hidden" name="'.$strName.'[operator]" value="'.$strKey.'" />';
+					$arrOutput[] = $LANG->getLL('conditions_'.$arrOptions[$strKey]).'<br />';
+				}
+			}
+        }
+        $arrOutput[] = ($arrRule['operator']=='set'||$arrRule['operator']=='notset')?'':implode(chr(10),$this->getAnswers($strName,$arrRule));
+		return $arrOutput;
+	}
+		
+   	/**
+	 * Draw the footer of the wizard
+	 *
+	 * @return	string		HTML containing the footer
+	 */
+    function wizardFooter() {
+        global $LANG;
+        $strOutput = '
+			</table>
+			<div id="c-saveButtonPanel">
+                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[savedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/savedok.gif').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveDoc')).'" />
+                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[saveandclosedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/saveandclosedok.gif').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveCloseDoc')).'" />
+                <a href="#" onclick="'.htmlspecialchars('jumpToUrl(unescape(\''.rawurlencode($this->arrWizardParameters['returnUrl']).'\')); return false;').'"><img class="c-inputButton"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/closedok.gif').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.closeDoc')).'" /></a>
+                <input type="image" class="c-inputButton" name="_refresh"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/refresh_n.gif').t3lib_BEfunc::titleAltAttrib($LANG->getLL('forms_refresh',1)).'" />
+			</div>';
+        return $strOutput;
+   }
+
+    /**********************************
+	 *
+	 * Reading functions
+	 *
+	 **********************************/
 
 	/**
 	 * Read all questions before this pagebreak
@@ -598,7 +638,7 @@ class tx_pbsurvey_conditions_wiz {
             }
 		}
     }
-    
+
     /**
 	 * Creates language-overlay for records (where translation is found in records from the same table)
 	 * Inserted this function because couldn't find an alternative for the backend, only frontend
@@ -644,7 +684,6 @@ class tx_pbsurvey_conditions_wiz {
 		}
 		return $arrRow;
 	}
-
 }
 
 if (defined("TYPO3_MODE") && $TYPO3_CONF_VARS[TYPO3_MODE]["XCLASS"]["ext/pbsurvey/wizard2/wizard_conditions.php"])	{

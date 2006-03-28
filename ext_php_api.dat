@@ -258,131 +258,151 @@ These values are stored in the global array $this->arrValidation
 ";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Configuration array containing the question";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:3014;s:13:"content_lines";i:65;s:6:"atLine";i:1762;}i:119;a:7:{s:6:"header";s:24:"function jsFunctions()	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:57:"
 
 Build javascript for client and server side validation
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";s:0:"";s:12:"content_size";i:22;s:13:"content_lines";i:0;s:6:"atLine";i:1833;}i:121;a:6:{s:6:"header";s:43:"function validationIsDateEuropean(strDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:429;s:13:"content_lines";i:9;s:6:"atLine";i:1835;}i:123;a:6:{s:6:"header";s:77:"function pbsurveyIsFirstDateEarlier(strDelimiter,strFirstDate,strSecondDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:260;s:13:"content_lines";i:5;s:6:"atLine";i:1853;}i:125;a:6:{s:6:"header";s:76:"function pbsurveyError(intType,intGetLL,intNumber,mixInp1,mixInp2,mixInp3) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:403;s:13:"content_lines";i:13;s:6:"atLine";i:1865;}i:127;a:6:{s:6:"header";s:48:"function pbsurveyChangeValue(strName,strValue) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:161;s:13:"content_lines";i:4;s:6:"atLine";i:1891;}i:129;a:3:{s:6:"header";s:42:"function in_array(strNeedle, arrHaystack){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:6:"atLine";i:1897;}i:131;a:6:{s:6:"header";s:29:"function pbsurveyValidate() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:7267;s:13:"content_lines";i:171;s:6:"atLine";i:1908;}}}s:14:"MD5_784b5db297";a:4:{s:8:"filename";s:25:"wizard/wizard_answers.php";s:8:"filesize";i:18160;s:6:"header";N;s:3:"DAT";a:20:{i:1;a:7:{s:6:"header";s:31:"class tx_pbsurvey_answers_wiz {";s:5:"class";i:1;s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:7:"content";s:0:"";s:12:"content_size";i:733;s:13:"content_lines";i:9;s:6:"atLine";i:30;}i:3;a:7:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:30:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";s:0:"";s:12:"content_size";i:22;s:13:"content_lines";i:0;s:6:"atLine";i:1833;}i:121;a:6:{s:6:"header";s:43:"function validationIsDateEuropean(strDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:429;s:13:"content_lines";i:9;s:6:"atLine";i:1835;}i:123;a:6:{s:6:"header";s:77:"function pbsurveyIsFirstDateEarlier(strDelimiter,strFirstDate,strSecondDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:260;s:13:"content_lines";i:5;s:6:"atLine";i:1853;}i:125;a:6:{s:6:"header";s:76:"function pbsurveyError(intType,intGetLL,intNumber,mixInp1,mixInp2,mixInp3) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:403;s:13:"content_lines";i:13;s:6:"atLine";i:1865;}i:127;a:6:{s:6:"header";s:48:"function pbsurveyChangeValue(strName,strValue) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:161;s:13:"content_lines";i:4;s:6:"atLine";i:1891;}i:129;a:3:{s:6:"header";s:42:"function in_array(strNeedle, arrHaystack){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:6:"atLine";i:1897;}i:131;a:6:{s:6:"header";s:29:"function pbsurveyValidate() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:7:"content";s:0:"";s:12:"content_size";i:7267;s:13:"content_lines";i:171;s:6:"atLine";i:1908;}}}s:14:"MD5_784b5db297";a:4:{s:8:"filename";s:25:"wizard/wizard_answers.php";s:8:"filesize";i:19180;s:6:"header";a:5:{s:4:"text";s:234:"
+
+Answers wizard for the 'pbsurvey' extension.
+This wizard will help the user to add answers to a question,
+put the flag on checked with radio buttons and checkboxes
+and give points to answers for further use in statistical software.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:3:"DAT";a:20:{i:1;a:8:{s:6:"header";s:31:"class tx_pbsurvey_answers_wiz {";s:5:"class";i:1;s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:5:{s:4:"text";s:234:"
+
+Answers wizard for the 'pbsurvey' extension.
+This wizard will help the user to add answers to a question,
+put the flag on checked with radio buttons and checkboxes
+and give points to answers for further use in statistical software.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:848;s:13:"content_lines";i:15;s:6:"atLine";i:40;}i:3;a:8:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
 
 Initialization of the class
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:883;s:13:"content_lines";i:20;s:6:"atLine";i:45;}i:5;a:7:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:23:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:992;s:13:"content_lines";i:26;s:6:"atLine";i:61;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:23:"
 
 Rendering the wizard
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:528;s:13:"content_lines";i:11;s:6:"atLine";i:71;}i:7;a:7:{s:6:"header";s:24:"function answerGroup() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:62:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:528;s:13:"content_lines";i:11;s:6:"atLine";i:93;}i:7;a:7:{s:6:"header";s:24:"function answerGroup() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:62:"
 
 Fill the table if user has chosen a predefined answer group
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:425;s:13:"content_lines";i:11;s:6:"atLine";i:88;}i:9;a:7:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:46:"
-
-Check if there is a reference to the record
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:238;s:13:"content_lines";i:7;s:6:"atLine";i:105;}i:11;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:43:"
-
-Output the accumulated content to screen
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:31;s:13:"content_lines";i:3;s:6:"atLine";i:118;}i:13;a:7:{s:6:"header";s:26:"function answersWizard()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:12:"
-
-Configure
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:427;s:13:"content_lines";i:10;s:6:"atLine";i:127;}i:15;a:7:{s:6:"header";s:37:"function l18n_diffsource($strInput) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:52:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:425;s:13:"content_lines";i:11;s:6:"atLine";i:110;}i:9;a:7:{s:6:"header";s:37:"function l18n_diffsource($strInput) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:52:"
 
 Get answers from default language if localization
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:42:"serialized array containing default source";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:116;s:13:"content_lines";i:4;s:6:"atLine";i:144;}i:17;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:42:"serialized array containing default source";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:116;s:13:"content_lines";i:4;s:6:"atLine";i:128;}i:11;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
 
 Fill the table with values and check if save button has been pressed
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";s:0:"";s:12:"content_size";i:559;s:13:"content_lines";i:16;s:6:"atLine";i:155;}i:19;a:7:{s:6:"header";s:34:"function getTableHTML($arrTable)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:40:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";s:0:"";s:12:"content_size";i:559;s:13:"content_lines";i:16;s:6:"atLine";i:139;}i:13;a:7:{s:6:"header";s:26:"function answersWizard()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:95:"
 
-Creates the HTML for the wizard table
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the wizard table";}}s:7:"content";s:0:"";s:12:"content_size";i:198;s:13:"content_lines";i:7;s:6:"atLine";i:178;}i:21;a:7:{s:6:"header";s:26:"function definedGroups() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:41:"
+Get the contents of the current record, do the localisation and make a HTML table out of it.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:427;s:13:"content_lines";i:10;s:6:"atLine";i:161;}i:15;a:7:{s:6:"header";s:35:"function answersString($arrInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:58:"
 
-Draw selectbox with pre-defined values
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Containing the selectbox";}}s:7:"content";s:0:"";s:12:"content_size";i:533;s:13:"content_lines";i:13;s:6:"atLine";i:191;}i:23;a:7:{s:6:"header";s:24:"function tableHeader() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
+Converts the input array to a configuration code string
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:28:"Array of table configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:60:"Array converted into a string with line-based configuration.";}}s:7:"content";s:0:"";s:12:"content_size";i:174;s:13:"content_lines";i:7;s:6:"atLine";i:178;}i:17;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
 
-Draw the header of the wizard table
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the header";}}s:7:"content";s:0:"";s:12:"content_size";i:878;s:13:"content_lines";i:21;s:6:"atLine";i:210;}i:25;a:7:{s:6:"header";s:24:"function tableFooter() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
+Create array out of possible answers in backend answers field
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:290;s:13:"content_lines";i:10;s:6:"atLine";i:192;}i:19;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:43:"
 
-Draw the footer of the wizard table
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the footer";}}s:7:"content";s:0:"";s:12:"content_size";i:1312;s:13:"content_lines";i:14;s:6:"atLine";i:237;}i:27;a:7:{s:6:"header";s:42:"function controlPanel($intLine,$intRows) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+Output the accumulated content to screen
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:141;s:13:"content_lines";i:9;s:6:"atLine";i:208;}i:21;a:8:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
 
-Draw the Control Panel in front of every row
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:13:"$intLine: ...";}i:1;a:2:{i:0;s:6:"[type]";i:1;s:13:"$intRows: ...";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:20:"Containing the panel";}}s:7:"content";s:0:"";s:12:"content_size";i:1585;s:13:"content_lines";i:17;s:6:"atLine";i:259;}i:29;a:7:{s:6:"header";s:31:"function tableRows($arrTable) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:33:"
-
-Creates the HTML for the rows:
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";s:0:"";s:12:"content_size";i:1970;s:13:"content_lines";i:53;s:6:"atLine";i:283;}i:31;a:7:{s:6:"header";s:28:"function checkRowButtons()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:156:"
+Check if there is a reference to the record
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:238;s:13:"content_lines";i:7;s:6:"atLine";i:223;}i:23;a:7:{s:6:"header";s:28:"function checkRowButtons()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:156:"
 
 Detects if a control button (up/down/around/delete) has been pressed for an item
 and accordingly it will manipulate the internal arrTableParameters array
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1249;s:13:"content_lines";i:30;s:6:"atLine";i:343;}i:33;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:102:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1249;s:13:"content_lines";i:30;s:6:"atLine";i:237;}i:25;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:102:"
 
 Detects if a save button has been pressed
 and accordingly save the data and redirect to record page
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:687;s:13:"content_lines";i:13;s:6:"atLine";i:380;}i:35;a:7:{s:6:"header";s:35:"function answersString($arrInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:58:"
-
-Converts the input array to a configuration code string
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:28:"Array of table configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:60:"Array converted into a string with line-based configuration.";}}s:7:"content";s:0:"";s:12:"content_size";i:174;s:13:"content_lines";i:7;s:6:"atLine";i:400;}i:37;a:4:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
-
-Create array out of possible answers in backend answers field
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:6:"atLine";i:414;}i:39;a:7:{s:6:"header";s:28:"function checkTableArray() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:687;s:13:"content_lines";i:13;s:6:"atLine";i:274;}i:27;a:7:{s:6:"header";s:28:"function checkTableArray() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
 
 Check if submitted table array has 3 keys.
 if not, correct the array
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:817;s:13:"content_lines";i:23;s:6:"atLine";i:431;}}}s:14:"MD5_5b04452750";a:4:{s:8:"filename";s:29:"wizard2/wizard_conditions.php";s:8:"filesize";i:30728;s:6:"header";N;s:3:"DAT";a:22:{i:1;a:7:{s:6:"header";s:34:"class tx_pbsurvey_conditions_wiz {";s:5:"class";i:1;s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:7:"content";s:0:"";s:12:"content_size";i:620;s:13:"content_lines";i:11;s:6:"atLine";i:30;}i:3;a:7:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:30:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:440;s:13:"content_lines";i:15;s:6:"atLine";i:294;}i:29;a:8:{s:6:"header";s:34:"function getTableHTML($arrTable)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:40:"
+
+Creates the HTML for the wizard table
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the wizard table";}}s:7:"content";s:0:"";s:12:"content_size";i:198;s:13:"content_lines";i:7;s:6:"atLine";i:316;}i:31;a:7:{s:6:"header";s:26:"function definedGroups() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:41:"
+
+Draw selectbox with pre-defined values
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Containing the selectbox";}}s:7:"content";s:0:"";s:12:"content_size";i:533;s:13:"content_lines";i:13;s:6:"atLine";i:329;}i:33;a:7:{s:6:"header";s:24:"function tableHeader() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
+
+Draw the header of the wizard table
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the header";}}s:7:"content";s:0:"";s:12:"content_size";i:878;s:13:"content_lines";i:21;s:6:"atLine";i:348;}i:35;a:7:{s:6:"header";s:31:"function tableRows($arrTable) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:33:"
+
+Creates the HTML for the rows:
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";s:0:"";s:12:"content_size";i:1973;s:13:"content_lines";i:53;s:6:"atLine";i:376;}i:37;a:4:{s:6:"header";s:24:"function tableFooter() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
+
+Draw the footer of the wizard table
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the footer";}}s:6:"atLine";i:435;}i:39;a:7:{s:6:"header";s:42:"function controlPanel($intLine,$intRows) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+
+Draw the Control Panel in front of every row
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:12:"Current line";}i:1;a:2:{i:0;s:7:"integer";i:1;s:24:"Amount of available rows";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:20:"Containing the panel";}}s:7:"content";s:0:"";s:12:"content_size";i:2067;s:13:"content_lines";i:31;s:6:"atLine";i:457;}}}s:14:"MD5_5b04452750";a:4:{s:8:"filename";s:29:"wizard2/wizard_conditions.php";s:8:"filesize";i:31649;s:6:"header";a:5:{s:4:"text";s:113:"
+
+Conditions wizard for the 'pbsurvey' extension.
+This wizard will help the user to add conditions to pagebreaks
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:3:"DAT";a:22:{i:1;a:8:{s:6:"header";s:34:"class tx_pbsurvey_conditions_wiz {";s:5:"class";i:1;s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:5:{s:4:"text";s:113:"
+
+Conditions wizard for the 'pbsurvey' extension.
+This wizard will help the user to add conditions to pagebreaks
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:735;s:13:"content_lines";i:17;s:6:"atLine";i:38;}i:3;a:8:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
 
 Initialization of the class
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:768;s:13:"content_lines";i:18;s:6:"atLine";i:47;}i:5;a:7:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:29:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:877;s:13:"content_lines";i:24;s:6:"atLine";i:61;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:29:"
 
 Rendering the table wizard
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1056;s:13:"content_lines";i:16;s:6:"atLine";i:71;}i:7;a:7:{s:6:"header";s:29:"function conditionsWizard()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:12:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1056;s:13:"content_lines";i:16;s:6:"atLine";i:91;}i:7;a:7:{s:6:"header";s:29:"function conditionsWizard()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:74:"
 
-Configure
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:233;s:13:"content_lines";i:6;s:6:"atLine";i:93;}i:9;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+Get the contents of the current record and make a HTML table out of it.
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:233;s:13:"content_lines";i:6;s:6:"atLine";i:113;}i:9;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
 
 Fill the table with values and check if save button has been pressed
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";s:0:"";s:12:"content_size";i:379;s:13:"content_lines";i:11;s:6:"atLine";i:106;}i:11;a:7:{s:6:"header";s:32:"function wizardHTML($arrTable)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:46:"
-
-Creates the HTML for the Conditions Wizard:
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";s:0:"";s:12:"content_size";i:149;s:13:"content_lines";i:6;s:6:"atLine";i:124;}i:13;a:7:{s:6:"header";s:25:"function wizardHeader() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
-
-Draw the header of the wizard
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the header";}}s:7:"content";s:0:"";s:12:"content_size";i:113;s:13:"content_lines";i:4;s:6:"atLine";i:136;}i:15;a:7:{s:6:"header";s:25:"function wizardFooter() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
-
-Draw the footer of the wizard
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the footer";}}s:7:"content";s:0:"";s:12:"content_size";i:1238;s:13:"content_lines";i:12;s:6:"atLine";i:146;}i:17;a:7:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:46:"
-
-Check if there is a reference to the record
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:237;s:13:"content_lines";i:6;s:6:"atLine";i:164;}i:19;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
-
-Outputting the accumulated content to screen
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:28;s:13:"content_lines";i:3;s:6:"atLine";i:176;}i:21;a:7:{s:6:"header";s:40:"function groupButton($strName,$intKey) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:53:"
-
-Creates the HTML for a single group control button
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"Name of the button";}i:1;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:19:"HTML for the button";}}s:7:"content";s:0:"";s:12:"content_size";i:705;s:13:"content_lines";i:12;s:6:"atLine";i:187;}i:23;a:7:{s:6:"header";s:51:"function getGroupButtons($intGroupKey,$intGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:49:"
-
-Creates the HTML for all group control buttons
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}i:1;a:2:{i:0;s:7:"integer";i:1;s:16:"Amount of groups";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:28:"HTML for the control buttons";}}s:7:"content";s:0:"";s:12:"content_size";i:636;s:13:"content_lines";i:18;s:6:"atLine";i:207;}i:25;a:7:{s:6:"header";s:36:"function groupsHTML($arrAllGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:45:"
-
-Builds the content for each conditiongroup
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"[type]";i:1;s:18:"$arrAllGroups: ...";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:4682;s:13:"content_lines";i:76;s:6:"atLine";i:232;}i:27;a:7:{s:6:"header";s:42:"function getOperators($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:34:"
-
-Draw the pulldown for operators
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:35:"HTML content for operator pulldown.";}}s:7:"content";s:0:"";s:12:"content_size";i:2195;s:13:"content_lines";i:41;s:6:"atLine";i:316;}i:29;a:7:{s:6:"header";s:40:"function getAnswers($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
-
-Draw the pulldown or input field for answers
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:49:"HTML content for answers pulldown or input field.";}}s:7:"content";s:0:"";s:12:"content_size";i:2317;s:13:"content_lines";i:43;s:6:"atLine";i:365;}i:31;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";s:0:"";s:12:"content_size";i:379;s:13:"content_lines";i:11;s:6:"atLine";i:126;}i:11;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
 
 Create array out of possible answers in backend answers field
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:207;s:13:"content_lines";i:8;s:6:"atLine";i:415;}i:33;a:7:{s:6:"header";s:25:"function groupControl() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:50:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:207;s:13:"content_lines";i:8;s:6:"atLine";i:144;}i:13;a:7:{s:6:"header";s:33:"function groupsArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:68:"
+
+Create array out of serialized string in conditions backend field
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:35:"Content of backend conditions field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:41:"Converted conditions information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:96;s:13:"content_lines";i:5;s:6:"atLine";i:159;}i:15;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+
+Outputting the accumulated content to screen
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:141;s:13:"content_lines";i:9;s:6:"atLine";i:170;}i:17;a:8:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
+
+Check if there is a reference to the record
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:238;s:13:"content_lines";i:7;s:6:"atLine";i:185;}i:19;a:7:{s:6:"header";s:25:"function groupControl() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:50:"
 
 Perform control action when a button is pressed
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:3743;s:13:"content_lines";i:66;s:6:"atLine";i:429;}i:35;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:126:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:3743;s:13:"content_lines";i:66;s:6:"atLine";i:198;}i:21;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:126:"
 
 Detects if a save button (up/down/around/delete) has been pressed
 and accordingly save the data and redirect to record page
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:946;s:13:"content_lines";i:18;s:6:"atLine";i:502;}i:37;a:7:{s:6:"header";s:33:"function groupsArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:68:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1054;s:13:"content_lines";i:24;s:6:"atLine";i:271;}i:23;a:8:{s:6:"header";s:32:"function wizardHTML($arrTable)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
 
-Create array out of serialized string in conditions backend field
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:35:"Content of backend conditions field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:41:"Converted conditions information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:96;s:13:"content_lines";i:5;s:6:"atLine";i:527;}i:39;a:7:{s:6:"header";s:39:"function getFields($intQuestion=null) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:84:"
+Creates the HTML for the Conditions Wizard:
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";s:0:"";s:12:"content_size";i:149;s:13:"content_lines";i:6;s:6:"atLine";i:302;}i:25;a:7:{s:6:"header";s:25:"function wizardHeader() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
+
+Draw the header of the wizard
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the header";}}s:7:"content";s:0:"";s:12:"content_size";i:110;s:13:"content_lines";i:4;s:6:"atLine";i:314;}i:27;a:7:{s:6:"header";s:36:"function groupsHTML($arrAllGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:45:"
+
+Builds the content for each conditiongroup
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:19:"All conditiongroups";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:4685;s:13:"content_lines";i:76;s:6:"atLine";i:325;}i:29;a:7:{s:6:"header";s:51:"function getGroupButtons($intGroupKey,$intGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:49:"
+
+Creates the HTML for all group control buttons
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}i:1;a:2:{i:0;s:7:"integer";i:1;s:16:"Amount of groups";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:28:"HTML for the control buttons";}}s:7:"content";s:0:"";s:12:"content_size";i:636;s:13:"content_lines";i:18;s:6:"atLine";i:409;}i:31;a:7:{s:6:"header";s:40:"function groupButton($strName,$intKey) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:53:"
+
+Creates the HTML for a single group control button
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"Name of the button";}i:1;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:19:"HTML for the button";}}s:7:"content";s:0:"";s:12:"content_size";i:702;s:13:"content_lines";i:12;s:6:"atLine";i:435;}i:33;a:7:{s:6:"header";s:39:"function getFields($intQuestion=null) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:84:"
 
 Build the HTML for each answers option field and check if it was selected
 Returns
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:19:"uid of the question";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:33:"Option list of previous questions";}}s:7:"content";s:0:"";s:12:"content_size";i:792;s:13:"content_lines";i:18;s:6:"atLine";i:540;}i:41;a:4:{s:6:"header";s:30:"function previousQuestions() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:86:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:19:"uid of the question";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:33:"Option list of previous questions";}}s:7:"content";s:0:"";s:12:"content_size";i:792;s:13:"content_lines";i:18;s:6:"atLine";i:455;}i:35;a:7:{s:6:"header";s:40:"function getAnswers($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+
+Draw the pulldown or input field for answers
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:49:"HTML content for answers pulldown or input field.";}}s:7:"content";s:0:"";s:12:"content_size";i:2317;s:13:"content_lines";i:43;s:6:"atLine";i:481;}i:37;a:7:{s:6:"header";s:42:"function getOperators($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:34:"
+
+Draw the pulldown for operators
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:35:"HTML content for operator pulldown.";}}s:7:"content";s:0:"";s:12:"content_size";i:2198;s:13:"content_lines";i:41;s:6:"atLine";i:532;}i:39;a:7:{s:6:"header";s:25:"function wizardFooter() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
+
+Draw the footer of the wizard
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the footer";}}s:7:"content";s:0:"";s:12:"content_size";i:1344;s:13:"content_lines";i:18;s:6:"atLine";i:579;}i:41;a:5:{s:6:"header";s:30:"function previousQuestions() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:17:"Reading functions";}s:4:"cDat";a:3:{s:4:"text";s:86:"
 
 Read all questions before this pagebreak
 Write content to $this->arrPrevQuestions[]
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:6:"atLine";i:565;}i:43;a:7:{s:6:"header";s:69:"function getRecordOverlay($strTable,$arrRow,$intSysLanguageContent)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:190:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:6:"atLine";i:604;}i:43;a:7:{s:6:"header";s:69:"function getRecordOverlay($strTable,$arrRow,$intSysLanguageContent)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:190:"
 
 Creates language-overlay for records (where translation is found in records from the same table)
 Inserted this function because couldn't find an alternative for the backend, only frontend
-";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"Table name";}i:1;a:2:{i:0;s:5:"array";i:1;s:85:"Record to overlay. Must contain uid, pid and $TCA[$strTable]['ctrl']['languageField']";}i:2;a:2:{i:0;s:7:"integer";i:1;s:66:"Pointer to the sys_language uid for content of the current record.";}}s:6:"return";a:2:{i:0;s:5:"mixed";i:1;s:63:"Returns the input record, possibly overlaid with a translation.";}}s:7:"content";s:0:"";s:12:"content_size";i:2114;s:13:"content_lines";i:50;s:6:"atLine";i:610;}}}}}
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"Table name";}i:1;a:2:{i:0;s:5:"array";i:1;s:85:"Record to overlay. Must contain uid, pid and $TCA[$strTable]['ctrl']['languageField']";}i:2;a:2:{i:0;s:7:"integer";i:1;s:66:"Pointer to the sys_language uid for content of the current record.";}}s:6:"return";a:2:{i:0;s:5:"mixed";i:1;s:63:"Returns the input record, possibly overlaid with a translation.";}}s:7:"content";s:0:"";s:12:"content_size";i:2113;s:13:"content_lines";i:49;s:6:"atLine";i:649;}}}}}

@@ -1,30 +1,27 @@
-2006-03-23  Patrick Broens	<patrick@patrickbroens.nl>
-	* pi1: server-side validation ended
-	* pi1: Some code cleaning, moving and adding sections
-	* pi1: Changed the way the value 'stage' is processed in the form.
-	* pi1: Added function previousStage because you couldn't go back more than 1 stage.
+2006-03-23 - Patrick Broens <patrick@patrickbroens.nl>
+ + pi1\class.tx_pbsurvey_pi1.php: Added server-side validation
+ ~ pi1\class.tx_pbsurvey_pi1.php: Some code cleaning, moving and adding sections
+ ~ pi1\class.tx_pbsurvey_pi1.php: Changed the way the value 'stage' is processed in the form.
+ + pi1\class.tx_pbsurvey_pi1.php: Added function previousStage because you couldn't go back more than 1 stage.
 
-2006-03-10  Patrick Broens	<patrick@patrickbroens.nl>
-	* Put Captcha option from sheet Security to sheet Access in plugin FlexForm
-	* Deleted sheet Security from plugin FlexForm
-	* Changed CSS to static template file
-	* Changed HTML template. Now using <fieldset> and <legend>
-	* pi1: All session data changed to real session data instead of choice between 'ses' and 'user'
-	* pi1: start with server-side validation
+2006-03-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Put Captcha option from sheet Security to sheet Access in plugin FlexForm
+ - Deleted sheet Security from plugin FlexForm
+ ~ Changed CSS to static template file
+ ~ Changed HTML template. Now using <fieldset> and <legend>
+ ~ pi1\class.tx_pbsurvey_pi1.php: All session data changed to real session data instead of choice between 'ses' and 'user'
 
-2006-03-09  Patrick Broens	<patrick@patrickbroens.nl>
-	* pi1\class.tx_pbsurvey_pi1.php: Added function array_htmlspecialchars and the calls in readPreviousUser and readSurvey
-	* discovered it is not possible without writing classes to exclude some fields in plugin as Flexform like you can do in $TCA.
-	  This is so simple in TCA, why not in FlexForm
+2006-03-09 - Patrick Broens <patrick@patrickbroens.nl>
+ + pi1\class.tx_pbsurvey_pi1.php: Added function array_htmlspecialchars and the calls in readPreviousUser and readSurvey
 
-2006-03-08  Patrick Broens	<patrick@patrickbroens.nl>
-	* Changed the 'types' for tx_pbsurvey_items in $TCA to show sys_language_uid, fields hidden, l18n_parent
+2006-03-08 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Changed the 'types' for tx_pbsurvey_items in $TCA to show sys_language_uid, fields hidden, l18n_parent
 
-2006-03-07  Patrick Broens	<patrick@patrickbroens.nl>
-	* Changed the order of pulldown options in the FlexForm of the backend plugin
-	* Added missing CSH in tx_pbsurvey_item, tx_pbsurvey_results and tx_pbsurvey_answers
+2006-03-07 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Changed the order of pulldown options in the FlexForm of the backend plugin
+ + Added missing CSH in tx_pbsurvey_item, tx_pbsurvey_results and tx_pbsurvey_answers
 
-2006-03-02  Patrick Broens	<patrick@patrickbroens.nl>
-	* Added ChangeLog to pbsurvey
-	* Changed Context Sensitive Help of mod1
-	* Changed Context Sensitive Help of modfunc1
+2006-03-02 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added ChangeLog to pbsurvey
+ ~ Changed Context Sensitive Help of mod1
+ ~ Changed Context Sensitive Help of modfunc1

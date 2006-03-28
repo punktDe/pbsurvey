@@ -29,6 +29,16 @@ require ($BACK_PATH."template.php");
 $LANG->includeLLFile('EXT:pbsurvey/lang/locallang_wiz.xml');
 require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php');
 
+/**
+ * Answers wizard for the 'pbsurvey' extension.
+ * This wizard will help the user to add answers to a question,
+ * put the flag on checked with radio buttons and checkboxes
+ * and give points to answers for further use in statistical software.
+ *
+ * @author Patrick Broens <patrick@patrickbroens.nl>
+ * @package TYPO3
+ * @subpackage pbsurvey
+ */
 class tx_pbsurvey_answers_wiz {
 	var $objDoc; // Document template object
 	var $strContent; // Content accumulation for the module.
@@ -39,6 +49,12 @@ class tx_pbsurvey_answers_wiz {
 	var $blnLocalization = FALSE; // If true, record is localization.
 	var $arrl18n_diffsource = array(); // Answers from the default language
 	
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+	 
 	/**
 	 * Initialization of the class
 	 *
@@ -64,6 +80,12 @@ class tx_pbsurvey_answers_wiz {
 			$this->include_once[] = PATH_t3lib.'class.t3lib_tcemain.php';
 		}
 	}
+	
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
 
 	/**
 	 * Rendering the wizard
@@ -98,44 +120,6 @@ class tx_pbsurvey_answers_wiz {
 			}
 		}
     }
-    
-	/**
-	 * Check if there is a reference to the record
-	 *
-	 * @return	void
-	 */
-    function checkReference() {
-		$arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
-		if (!is_array($arrRecord))	{
-			t3lib_BEfunc::typo3PrintError('Wizard Error','No reference to record',0);
-			exit;
-		}
-    }
-
-	/**
-	 * Output the accumulated content to screen
-	 *
-	 * @return	void
-	 */
-	function printContent()	{
-		echo $this->strContent;
-	}
-
-	/**
-	 * Configure
-	 *
-	 * @return	string		HTML content for the form.
-	 */
-	function answersWizard()	{
-        $arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
-        if (!in_array(intval($arrRecord['sys_language_uid']),array(-1,0))) {
-        	$this->blnLocalization = TRUE;
-        	 $this->l18n_diffsource($arrRecord['l18n_diffsource']);
-        }
-		$arrTable = $this->getTableCode($arrRecord);
-		$strOutput = $this->getTableHTML($arrTable);
-		return $strOutput;
-	}
 	
 	/**
 	 * Get answers from default language if localization
@@ -170,6 +154,160 @@ class tx_pbsurvey_answers_wiz {
 		}
 		return $arrOutput;
 	}
+	
+	/**
+	 * Get the contents of the current record, do the localisation and make a HTML table out of it.
+	 *
+	 * @return	string		HTML content for the form.
+	 */
+	function answersWizard()	{
+        $arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
+        if (!in_array(intval($arrRecord['sys_language_uid']),array(-1,0))) {
+        	$this->blnLocalization = TRUE;
+        	 $this->l18n_diffsource($arrRecord['l18n_diffsource']);
+        }
+		$arrTable = $this->getTableCode($arrRecord);
+		$strOutput = $this->getTableHTML($arrTable);
+		return $strOutput;
+	}
+	
+	/**
+	 * Converts the input array to a configuration code string
+	 *
+	 * @param	array		Array of table configuration
+	 * @return	string		Array converted into a string with line-based configuration.
+	 */
+	function answersString($arrInput)	{
+        foreach($arrInput as $strRow) {
+            $arrLines[] = implode("|", $strRow);
+        }
+        $strOutput = implode(chr(10),$arrLines);
+		return $strOutput;
+	}
+
+	/**
+	 * Create array out of possible answers in backend answers field
+	 *
+	 * @param	string		Content of backend answers field
+	 * @return	array		Converted answers information to array
+	 */
+	function answersArray($strInput)	{
+		$strLine=explode(chr(10),$strInput);
+		foreach($strLine as $intKey => $strLineValue)	{
+			$strValue = explode('|',$strLineValue);
+			for ($intCounter=0;$intCounter<3;$intCounter++)	{
+				$arrOutput[$intKey][$intCounter]=trim($strValue[$intCounter]);
+			}
+		}
+		return $arrOutput;
+	} 
+    
+    /**
+	 * Output the accumulated content to screen
+	 *
+	 * @return	void
+	 */
+	function printContent()	{
+		echo $this->strContent;
+	}
+    
+    /**********************************
+	 *
+	 * Checking functions
+	 *
+	 **********************************/
+    
+	/**
+	 * Check if there is a reference to the record
+	 *
+	 * @return	void
+	 */
+    function checkReference() {
+		$arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
+		if (!is_array($arrRecord))	{
+			t3lib_BEfunc::typo3PrintError('Wizard Error','No reference to record',0);
+			exit;
+		}
+    }
+    
+	/**
+	 * Detects if a control button (up/down/around/delete) has been pressed for an item
+     * and accordingly it will manipulate the internal arrTableParameters array
+	 *
+	 * @return	void
+	 */
+	function checkRowButtons()	{
+		$intTemp = 0;
+        $arrFunctions = array(
+            'row_remove' => '',
+            'row_add' => '$intKey+1',
+            'row_top' => '1',
+            'row_bottom' => '10000000',
+            'row_up' => '$intKey-3',
+            'row_down' => '$intKey+3'
+        );
+        foreach ($arrFunctions as $strKey => $strValue) {
+            if (is_array($this->arrTableParameters[$strKey])) {
+                $intKey = key($this->arrTableParameters[$strKey]);
+                if ($this->arrTableParameters[$strKey] && t3lib_div::testInt($intKey)) {
+                    if ($strKey<>'row_remove') {
+                    	eval("\$intTemp=".$strValue.";");
+                        if ($strKey<>'row_add') {
+                            $this->arrTableParameters['answer'][$intTemp] = $this->arrTableParameters['answer'][$intKey];
+                        } else {
+                            $this->arrTableParameters['answer'][$intTemp] = array();
+                        }
+                    }
+                    if ($strKey<>'row_add') {
+                        unset($this->arrTableParameters['answer'][$intKey]);
+                    }
+                    ksort($this->arrTableParameters['answer']);
+                }
+            }
+        }
+	}
+	
+	/**
+	 * Detects if a save button has been pressed
+     * and accordingly save the data and redirect to record page
+	 *
+	 * @return	void
+	 */
+	function checkSaveButtons() {
+        if ($this->arrTableParameters['savedok'] || $this->arrTableParameters['saveandclosedok'])	{
+            $tce = t3lib_div::makeInstance('t3lib_TCEmain');
+            $tce->stripslashes_values=0;
+            $arrData[$this->arrWizardParameters['table']][$this->arrWizardParameters['uid']][$this->arrWizardParameters['field']] = $this->answersString($this->arrTableParameters['answer']);
+            $tce->start($arrData,array());
+            $tce->process_datamap();
+            if ($this->arrTableParameters['saveandclosedok'])	{
+                header('Location: '.t3lib_div::locationHeaderUrl($this->arrWizardParameters['returnUrl']));
+				exit;
+            }
+        }
+    }
+    
+	/**
+	 * Check if submitted table array has 3 keys.
+     * if not, correct the array
+	 *
+	 * @return	void
+	 */
+	function checkTableArray() {
+        foreach($this->arrTableParameters['answer'] as $intKey => $strValue) {
+			for ($intCount=2;$intCount<=6;$intCount = $intCount + 2) {
+                if (!$this->arrTableParameters['answer'][$intKey][$intCount]) {
+				    $this->arrTableParameters['answer'][$intKey][$intCount] = '';
+                }
+			}
+        }
+    }
+    
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
 
 	/**
 	 * Creates the HTML for the wizard table
@@ -231,49 +369,6 @@ class tx_pbsurvey_answers_wiz {
         return $strOutput;
     }
     
-   	/**
-	 * Draw the footer of the wizard table
-	 *
-	 * @return	string		Containing the footer
-	 */
-    function tableFooter() {
-        global $LANG;
-        $strOutput = '
-			</table>
-			<div id="c-saveButtonPanel">
-                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[savedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/savedok.gif','').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveDoc',1)).' />
-                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[saveandclosedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/saveandclosedok.gif','').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveCloseDoc',1)).' />
-                <a href="#" onclick="'.htmlspecialchars('jumpToUrl(unescape(\''.rawurlencode($this->arrWizardParameters['returnUrl']).'\')); return false;').'">
-                <img'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/closedok.gif','width="21" height="16"').' class="c-inputButton"'.t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.closeDoc',1)).' />
-                </a>
-                <input type="image" class="c-inputButton" name="_refresh"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/refresh_n.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('forms_refresh',1)).' />
-			</div>';
-        return $strOutput;
-    }
-    
-   	/**
-	 * Draw the Control Panel in front of every row
-	 *
-	 * @return	array		Containing the panel
-	 */
-    function controlPanel($intLine,$intRows) {
-        global $LANG;
-			if ($intLine!=0)	{
-				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_up]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/pil2up.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_up',1)).' />';
-			} else {
-				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_bottom]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/turn_down.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_bottom',1)).' />';
-			}
-			$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_remove]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/garbage.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_removeRow',1)).' />';
-
-			if (($intLine+1)!=$intRows)	{
-				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_down]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/pil2down.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_down',1)).' />';
-			} else {
-				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_top]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/turn_up.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_top',1)).' />';
-			}
-        $arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_add]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/add.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_addRow',1)).' />';
-        return $arrOutput;
-    }
-
     /**
 	 * Creates the HTML for the rows:
 	 *
@@ -333,110 +428,51 @@ class tx_pbsurvey_answers_wiz {
 		$strOutput = implode(chr(10),$arrRows);
 		return $strOutput;
     }
-
-	/**
-	 * Detects if a control button (up/down/around/delete) has been pressed for an item
-     * and accordingly it will manipulate the internal arrTableParameters array
+    
+   	/**
+	 * Draw the footer of the wizard table
 	 *
-	 * @return	void
+	 * @return	string		Containing the footer
 	 */
-	function checkRowButtons()	{
-		$intTemp = 0;
-        $arrFunctions = array(
-            'row_remove' => '',
-            'row_add' => '$intKey+1',
-            'row_top' => '1',
-            'row_bottom' => '10000000',
-            'row_up' => '$intKey-3',
-            'row_down' => '$intKey+3'
-        );
-        foreach ($arrFunctions as $strKey => $strValue) {
-            if (is_array($this->arrTableParameters[$strKey])) {
-                $intKey = key($this->arrTableParameters[$strKey]);
-                if ($this->arrTableParameters[$strKey] && t3lib_div::testInt($intKey)) {
-                    if ($strKey<>'row_remove') {
-                    	eval("\$intTemp=".$strValue.";");
-                        if ($strKey<>'row_add') {
-                            $this->arrTableParameters['answer'][$intTemp] = $this->arrTableParameters['answer'][$intKey];
-                        } else {
-                            $this->arrTableParameters['answer'][$intTemp] = array();
-                        }
-                    }
-                    if ($strKey<>'row_add') {
-                        unset($this->arrTableParameters['answer'][$intKey]);
-                    }
-                    ksort($this->arrTableParameters['answer']);
-                }
-            }
-        }
-	}
-	
-	/**
-	 * Detects if a save button has been pressed
-     * and accordingly save the data and redirect to record page
-	 *
-	 * @return	void
-	 */
-	function checkSaveButtons() {
-        if ($this->arrTableParameters['savedok'] || $this->arrTableParameters['saveandclosedok'])	{
-            $tce = t3lib_div::makeInstance('t3lib_TCEmain');
-            $tce->stripslashes_values=0;
-            $arrData[$this->arrWizardParameters['table']][$this->arrWizardParameters['uid']][$this->arrWizardParameters['field']] = $this->answersString($this->arrTableParameters['answer']);
-            $tce->start($arrData,array());
-            $tce->process_datamap();
-            if ($this->arrTableParameters['saveandclosedok'])	{
-                header('Location: '.t3lib_div::locationHeaderUrl($this->arrWizardParameters['returnUrl']));
-				exit;
-            }
-        }
+    function tableFooter() {
+        global $LANG;
+        $strOutput = '
+			</table>
+			<div id="c-saveButtonPanel">
+                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[savedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/savedok.gif','').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveDoc',1)).' />
+                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[saveandclosedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/saveandclosedok.gif','').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveCloseDoc',1)).' />
+                <a href="#" onclick="'.htmlspecialchars('jumpToUrl(unescape(\''.rawurlencode($this->arrWizardParameters['returnUrl']).'\')); return false;').'">
+                <img'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/closedok.gif','width="21" height="16"').' class="c-inputButton"'.t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.closeDoc',1)).' />
+                </a>
+                <input type="image" class="c-inputButton" name="_refresh"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/refresh_n.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('forms_refresh',1)).' />
+			</div>';
+        return $strOutput;
     }
-
-	/**
-	 * Converts the input array to a configuration code string
+    
+   	/**
+	 * Draw the Control Panel in front of every row
 	 *
-	 * @param	array		Array of table configuration
-	 * @return	string		Array converted into a string with line-based configuration.
+	 * @param	integer		Current line
+	 * @param	integer		Amount of available rows
+	 * @return	array		Containing the panel
 	 */
-	function answersString($arrInput)	{
-        foreach($arrInput as $strRow) {
-            $arrLines[] = implode("|", $strRow);
-        }
-        $strOutput = implode(chr(10),$arrLines);
-		return $strOutput;
-	}
-
-	/**
-	 * Create array out of possible answers in backend answers field
-	 *
-	 * @param	string		Content of backend answers field
-	 * @return	array		Converted answers information to array
-	 */
-	function answersArray($strInput)	{
-		$strLine=explode(chr(10),$strInput);
-		foreach($strLine as $intKey => $strLineValue)	{
-			$strValue = explode('|',$strLineValue);
-			for ($intCounter=0;$intCounter<3;$intCounter++)	{
-				$arrOutput[$intKey][$intCounter]=trim($strValue[$intCounter]);
+    function controlPanel($intLine,$intRows) {
+        global $LANG;
+			if ($intLine!=0)	{
+				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_up]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/pil2up.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_up',1)).' />';
+			} else {
+				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_bottom]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/turn_down.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_bottom',1)).' />';
 			}
-		}
-		return $arrOutput;
-	}
-	
-	/**
-	 * Check if submitted table array has 3 keys.
-     * if not, correct the array
-	 *
-	 * @return	void
-	 */
-	function checkTableArray() {
-        foreach($this->arrTableParameters['answer'] as $intKey => $strValue) {
-			for ($intCount=2;$intCount<=6;$intCount = $intCount + 2) {
-                if (!$this->arrTableParameters['answer'][$intKey][$intCount]) {
-				    $this->arrTableParameters['answer'][$intKey][$intCount] = '';
-                }
+			$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_remove]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/garbage.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_removeRow',1)).' />';
+
+			if (($intLine+1)!=$intRows)	{
+				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_down]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/pil2down.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_down',1)).' />';
+			} else {
+				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_top]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/turn_up.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_top',1)).' />';
 			}
-        }
-    }   
+        $arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_add]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/add.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_addRow',1)).' />';
+        return $arrOutput;
+    }  
 }
 
 if (defined("TYPO3_MODE") && $TYPO3_CONF_VARS[TYPO3_MODE]["XCLASS"]["ext/pbsurvey/wizard/wizard_answers.php"])    {
