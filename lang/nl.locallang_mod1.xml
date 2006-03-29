@@ -4,31 +4,9 @@
 		<languageKey index="nl" type="array">
 			<label index="mlang_tabs_tab">Enquete</label>
 			<label index="mlang_labels_tabdescr">Deze module geeft u de mogelijkheid om enquetestatistieken te bekijken of te eporteren als een CSV bestand voor verdere analyse in statistische software als SPSS.</label>
-			<label index="mlang_labels_tablabel">Enquetetools, zoals exporteren van resultates, statistieken etc.</label>
+			<label index="mlang_labels_tablabel">Enquetetools, zoals exporteren van resultaten, statistieken etc.</label>
 			<label index="no_results">Er bevinden zich geen enqueteresultaten op deze pagina.</label>
 			<label index="error">FOUT:</label>
-			<label index="title">Enquete resultaten</label>
-			<label index="stats">Enquete statistieken</label>
-			<label index="number_questions">Aantal vragen</label>
-			<label index="number_forms">Aantal ingestuurde formulieren</label>
-			<label index="csv_export">CSV export</label>
-			<label index="csv_submit">Exporteer CSV-bestand</label>
-			<label index="csv_clean">CSV-bestand opschonen voor SPSS</label>
-			<label index="csv_user">Deelnemersresultaten: Exporteert een bestand waarin iedere deelname in een rij wordt geplaatst, met één kolom voor elk mogelijk antwoord op iedere vraag. Bij veel vragen met veel antwoordmogelijkheden zullen er veel kolommen aangemaakt worden in het CSV-bestand.</label>
-			<label index="csv_spss">SPSS-formaat: Iedere deelname wordt in een aparte rij geplaatst. Voor vragen waar maar één enkel antwoord mogelijk is, wordt maar één kolom gemaakt. SPSS laat niet alle karakters toe in de kolomnaam. In dit formaat worden de karakters verwijderd uit deze namen.</label>
-			<label index="list_questions">Lijst van vragen</label>
-			<label index="additional">additioneel</label>
-			<label index="value_true">Waar</label>
-			<label index="value_false">Onwaar</label>
-			<label index="value_yes">Ja</label>
-			<label index="value_no">Nee</label>
-			<label index="crdate">Gemaakt op</label>
-			<label index="tstamp">Gewijzigd op</label>
-			<label index="name">Naam</label>
-			<label index="address">Adres</label>
-			<label index="zip">Postcode</label>
-			<label index="city">Stad</label>
-			<label index="email">E-mail</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">

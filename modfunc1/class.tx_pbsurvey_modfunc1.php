@@ -36,7 +36,13 @@ require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php');
  * @subpackage pbsurvey
  */
 class tx_pbsurvey_modfunc1 extends t3lib_extobjbase {
-	
+
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+	 	
 	/**
 	 * Initialization of the class
 	 *
@@ -52,6 +58,12 @@ class tx_pbsurvey_modfunc1 extends t3lib_extobjbase {
 		list($strRequestUri) = explode('#',t3lib_div::getIndpEnv('REQUEST_URI'));
 	}
 
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+	
 	/**
 	 * Main function of the module. Check access of user and call function to build content
 	 *
@@ -75,6 +87,12 @@ class tx_pbsurvey_modfunc1 extends t3lib_extobjbase {
 		$strOutput .= $this->sectionQuestions();			
 		return $strOutput;
 	}	
+
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
 	
 	/**
 	 * Build section to show some simple statistics like number of results

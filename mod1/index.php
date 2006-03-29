@@ -43,7 +43,13 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	var $strExtKey;
 	var $strItemsTable;
 	var $arrSurveyItems = array();
-	
+
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+	 
 	/**
 	 * Initialization of the class
 	 *
@@ -60,7 +66,13 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 		$this->strUserTable = 'fe_users';
 		$this->readSurvey();
 	}
-	
+
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+	 	
 	/**
 	 * Main function of the module. Write the content to $this->content
 	 *
@@ -74,20 +86,16 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 			$this->objDoc = t3lib_div::makeInstance("mediumDoc");
 			$this->objDoc->backPath = $BACK_PATH;
 			$this->objDoc->form='<form action="" method="POST">';
-			$this->objDoc->JScode = '
-				<script language="javascript" type="text/javascript">
-					script_ended = 0;
-					function jumpToUrl(URL)	{
-						document.location = URL;
-					}
-				</script>
-			';
-			$this->objDoc->postCode='
-				<script language="javascript" type="text/javascript">
+			$this->objDoc->JScode = $this->objDoc->wrapScriptTags('
+				script_ended = 0;
+				function jumpToUrl(URL)	{	//
+					document.location = URL;
+				}
+			');
+			$this->objDoc->postCode = $this->objDoc->wrapScriptTags('
 					script_ended = 1;
 					if (top.fsMod) top.fsMod.recentIds["web"] = '.intval($this->id).';
-				</script>
-			';
+			');
 			$strHeaderSection = $this->objDoc->getHeader("pages",$arrPageInfo,$arrPageInfo["_thePath"])."<br>".$LANG->sL("LLL:EXT:lang/locallang_core.php:labels.path").": ".t3lib_div::fixed_lgd_pre($arrPageInfo["_thePath"],50);
 			$this->content.=$this->objDoc->startPage($LANG->getLL("title"));
 			$this->content.=$this->objDoc->header($LANG->getLL("title"));
@@ -124,6 +132,30 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	}
 	
 	/**
+	 * Create array out of possible answers in backend answers field
+	 *
+	 * @param	string		Content of backend answers field
+	 * @return	array		Converted answers information to array
+	 */
+	function answersArray($strInput) {
+		$arrKeys = array('answer','points');
+		$strLine=explode(chr(10),$strInput);
+		foreach($strLine as $intKey => $strLineValue)	{
+			$strValue = explode('|',$strLineValue);
+			for ($intCounter=0;$intCounter<2;$intCounter++)	{
+				$arrOutput[$intKey+1][$arrKeys[$intCounter]]=trim($strValue[$intCounter]);
+			}
+		}
+		return $arrOutput;
+	}
+
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
+	 		
+	/**
 	 * Build section to show error text if no questions are available on page
 	 *
 	 * @return	string	HTML containing the section
@@ -134,7 +166,13 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 		$strOutput = $this->objDoc->section($LANG->getLL('error'),$strTemp,0,1);
 		return $strOutput;
 	}
-	
+
+    /**********************************
+	 *
+	 * Reading functions
+	 *
+	 **********************************/
+	 	
 	/**
 	 * Read all questions in the selected page and filter unneccessary content
 	 * Write content to $this->arrSurveyItems[]
@@ -188,24 +226,6 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 		$dbRes=$GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strResultsTable,$arrSelectConf['where']);
 		$arrOutput['finished'] = $GLOBALS['TYPO3_DB']->sql_num_rows($dbRes);
 		$arrOutput['unfinished'] = $arrOutput['all'] - $arrOutput['finished'];
-		return $arrOutput;
-	}
-	
-	/**
-	 * Create array out of possible answers in backend answers field
-	 *
-	 * @param	string		Content of backend answers field
-	 * @return	array		Converted answers information to array
-	 */
-	function answersArray($strInput) {
-		$arrKeys = array('answer','points');
-		$strLine=explode(chr(10),$strInput);
-		foreach($strLine as $intKey => $strLineValue)	{
-			$strValue = explode('|',$strLineValue);
-			for ($intCounter=0;$intCounter<2;$intCounter++)	{
-				$arrOutput[$intKey+1][$arrKeys[$intCounter]]=trim($strValue[$intCounter]);
-			}
-		}
 		return $arrOutput;
 	}
 }

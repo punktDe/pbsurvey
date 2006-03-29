@@ -16,8 +16,6 @@
 			<label index="pbsurveyModfunc1.description">This page gives you an overview of the questions and results available on the selected page.</label>
 			<label index="pbsurveyModfunc1.details">This is just a simple overview which only shows the amount of results, finished and unfinished, and the questions available on this page for a reference of the survey.</label>
 			<label index="pbsurveyModfunc1.seeAlso">xEXT_pbsurvey</label>
-			<label index="pbsurveyModfunc1.image"></label>
-			<label index="pbsurveyModfunc1.image_descr"></label>
 		</languageKey>
 	</data>
 </T3locallang>

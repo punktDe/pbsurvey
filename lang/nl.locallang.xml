@@ -16,7 +16,6 @@
 			<label index="pi_flexform.action0">Sluit browser</label>
 			<label index="pi_flexform.action1">Toon bericht</label>
 			<label index="pi_flexform.action2">Verwijs naar andere pagina</label>
-			<label index="pi_flexform.sheet_security">Beveiliging</label>
 			<label index="pi_flexform.captcha_page">Toon Captcha voor enquete</label>
 			<label index="pi_flexform.completion_message">Bericht na voltooiing</label>
 			<label index="pi_flexform.completion_url">Pagina na voltooiing</label>
@@ -25,8 +24,8 @@
 			<label index="pi_flexform.view_reports_button">Bekijk rapportage knop</label>
 			<label index="pi_flexform.sheet_navigation">Navigatie</label>
 			<label index="pi_flexform.navigation_back">Terug-knop</label>
-			<label index="pi_flexform.back0">Toon</label>
-			<label index="pi_flexform.back1">Niet tonen</label>
+			<label index="pi_flexform.back0">Niet tonen</label>
+			<label index="pi_flexform.back1">Toon</label>
 			<label index="pi_flexform.navigation_cancel">Annuleer-knop</label>
 			<label index="pi_flexform.cancel0">Niet tonen</label>
 			<label index="pi_flexform.cancel1">Sluit browser</label>
@@ -47,6 +46,10 @@
 			<label index="pi_flexform.maximum_responses">Maximum aantal deelnames</label>
 			<label index="pi_flexform.responses_per_user">Deelnames per bezoeker</label>
 			<label index="pi_flexform.days_for_update">Dagen voor actualiseren</label>
+			<label index="pi_flexform.validation">Formulier validatie</label>
+			<label index="pi_flexform.validation0">Middels JavaScript aan bezoekerskant</label>
+			<label index="pi_flexform.validation1">Middels PHP op de webserver (Accessibility)</label>
+			<label index="pi_flexform.sheet_security">Beveiliging</label>
 			<label index="pi_flexform.access_level3">Handmatig invullen respons</label>
 			<label index="pi_flexform.action3">Sluit de browser</label>
 		</languageKey>
@@ -68,7 +71,7 @@
 			<label index="pi_flexform.action1" type="integer">200162756</label>
 			<label index="pi_flexform.action2" type="integer">29776300</label>
 			<label index="pi_flexform.sheet_security" type="integer">49996582</label>
-			<label index="pi_flexform.captcha_page" type="integer">89709653</label>
+			<label index="pi_flexform.captcha_page" type="integer">205755058</label>
 			<label index="pi_flexform.completion_message" type="integer">213902031</label>
 			<label index="pi_flexform.completion_url" type="integer">114661263</label>
 			<label index="pi_flexform.close_button" type="integer">52300346</label>
@@ -98,6 +101,9 @@
 			<label index="pi_flexform.maximum_responses" type="integer">218747109</label>
 			<label index="pi_flexform.responses_per_user" type="integer">163120207</label>
 			<label index="pi_flexform.days_for_update" type="integer">122631216</label>
+			<label index="pi_flexform.validation" type="integer">171367318</label>
+			<label index="pi_flexform.validation0" type="integer">173662885</label>
+			<label index="pi_flexform.validation1" type="integer">22671143</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">

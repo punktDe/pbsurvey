@@ -14,10 +14,6 @@
 		<languageKey index="default" type="array">
 			<label index=".alttitle">Web &gt; Questionaire module</label>
 			<label index=".description">The idea of the Web&gt;Questionaire module is to be a host module for backend applications that wish to present information / analysis of results of the Questionaire extension.</label>
-			<label index=".details"></label>
-			<label index="_.seeAlso"></label>
-			<label index="_.image"></label>
-			<label index=".image_descr"></label>
 		</languageKey>
 	</data>
 </T3locallang>

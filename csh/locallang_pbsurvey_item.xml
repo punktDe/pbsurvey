@@ -15,8 +15,10 @@
 			<label index="_.seeAlso">tx_pbsurvey_results</label>
 			<label index="hidden.description">Hide item from display in the questionaire.</label>
 			<label index="hidden.details">Setting this option is practical while testing the questionaire. Do not change this option in a questionaire that is already online. It will influence the reliability of the results.</label>
-			<label index="sys_language_uid.description">Select the system language of this element. &lt;strong&gt;Notice&lt;/strong&gt; this will affect whether the element is visible.</label>
-			<label index="sys_language_uid.details">This allows you to assign a specific language to the question type. If you select anything but the default value, the element will not be visible unless the language assigned is also configured by the TypoScript template.
+			<label index="sys_language_uid.description">Select the system language of this element. 
+
+&lt;strong&gt;Notice:&lt;/strong&gt; This will affect whether the element is visible.</label>
+			<label index="sys_language_uid.details">This allows you to assign a specific language to the question type. If you select anything but the "All" value, the element will not be visible unless the language assigned is also configured by the TypoScript template.
 The available system languages are created by the administrator..
 
 &lt;strong&gt;Note:&lt;/strong&gt; To get reliable results of a multiple language survey, you must translate all items in this survey.</label>

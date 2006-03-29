@@ -1834,7 +1834,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
 	function jsFunctions()	{
 $arrJsFunctions[0] = "
-function validationIsDateEuropean(strDate){
+function validationIsDateEuropean(strDate){	//
 	var expDate=/^(\d{1,2})(\/|-|.)(\d{1,2})(\/|-|.)(\d{4})$/
 	var arrDate=strDate.match(expDate);
     if (arrDate==null) return '1';
@@ -1852,7 +1852,7 @@ function validationIsDateEuropean(strDate){
 }
 ";
 $arrJsFunctions[1] = "
-function pbsurveyIsFirstDateEarlier(strDelimiter,strFirstDate,strSecondDate){
+function pbsurveyIsFirstDateEarlier(strDelimiter,strFirstDate,strSecondDate){	//
 	var arrDate=strFirstDate.split(strDelimiter),dateFirst=new Date(arrDate[2],arrDate[1]-1,arrDate[0]);
 	arrDate=strSecondDate.split(strDelimiter);
 	var dateSecond=new Date(arrDate[2],arrDate[1]-1,arrDate[0]);
@@ -1864,7 +1864,7 @@ function pbsurveyIsFirstDateEarlier(strDelimiter,strFirstDate,strSecondDate){
 }
 ";
 $arrJsFunctions[2] = "
-function pbsurveyError(intType,intGetLL,intNumber,mixInp1,mixInp2,mixInp3) {
+function pbsurveyError(intType,intGetLL,intNumber,mixInp1,mixInp2,mixInp3) {	//
 	var strTemp=pbsurveyGetErrorMsg(intGetLL);
 	if (intGetLL!=0) {
 		var expValue=/%q/gi;
@@ -1890,13 +1890,13 @@ function pbsurveyError(intType,intGetLL,intNumber,mixInp1,mixInp2,mixInp3) {
 	return strTemp;
 }";
 $arrJsFunctions[3] = "
-function pbsurveyChangeValue(strName,strValue) {
+function pbsurveyChangeValue(strName,strValue) {	//
 	eval(\"document.getElementById('\"+strName+\"').value=strValue\");
 	eval(\"document.getElementById('\"+strName+\"').checked=true\");
 }			
 ";
 $arrJsFunctions[4] = "
-function in_array(strNeedle, arrHaystack){
+function in_array(strNeedle, arrHaystack){	//
 	var boolMatched=false;
 	for (intCounter=0;intCounter<arrHaystack.length;intCounter++) {
 		if (arrHaystack[intCounter]==strNeedle) {
@@ -1907,7 +1907,7 @@ function in_array(strNeedle, arrHaystack){
 }
 ";
 $arrJsFunctions[5] = "
-function pbsurveyValidate() {
+function pbsurveyValidate() {	//
 	var args=pbsurveyValidate.arguments,objForm=document.forms['frmPbSurvey']
 	var intArgsCount,intCounter,intIndex,intNumber,intQuestion,intTempQuestion,intType,intValueHigh,intValueLow
 	var strErrors='',strEuropeanDate,strTemp,strTest,strValue

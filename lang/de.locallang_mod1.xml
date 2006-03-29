@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3locallangExt>
-    <data type="array">
+	<data type="array">
 		<languageKey index="de" type="array">
 			<label index="mlang_tabs_tab">Umfrage</label>
 			<label index="mlang_labels_tabdescr">Umfrage Statistiken ansehen und Ergebnisse als CSV exportieren.</label>
 			<label index="mlang_labels_tablabel">Umfrage Statistiken</label>
-			<label index="title">Umfrage Ergebnisse</label>
-			<label index="stats">Umfrage Statistiken</label>
-			<label index="number_questions">Anzahl an Fragen</label>
-			<label index="number_forms">Anzahl an abgeschickten Formularen</label>
-			<label index="csv_export">CSV Export</label>
-			<label index="csv_submit">CSV Datei exportieren</label>
-			<label index="csv_clean">CSV Datei für SPSS bereinigen</label>
-			<label index="csv_user">Benutzer Antworten: Jede Antwort als eine Zeile, mit einer Spalte für jede mögliche Antwort zu jeder Frage.</label>
-			<label index="csv_spss">SPSS-Format: Wie Benutzer Antworten, bis auf Radio-Buttons in einer Zeile.</label>
 			<label index="no_results">Auf dieser Seite gibt es keine Umfrage Ergebnisse.</label>
 			<label index="error">Fehler:</label>
-			<label index="list_questions">Liste der Fragen</label>
-			<label index="additional">Ergänzung</label>
-			<label index="value_true">Wahr</label>
-			<label index="value_false">Falsch</label>
-			<label index="value_yes">Ja</label>
-			<label index="value_no">Nein</label>
-			<label index="crdate">Erstellungsdatum</label>
-			<label index="tstamp">Letste Änderung</label>
-			<label index="name">Name</label>
-			<label index="address">Adresse</label>
-			<label index="zip">Postleitzahl</label>
-			<label index="city">Stadt</label>
-			<label index="email">E-Mail</label>
 		</languageKey>
 	</data>
+	<orig_hash type="array">
+		<languageKey index="de" type="array">
+			<label index="mlang_tabs_tab" type="integer">195136475</label>
+			<label index="mlang_labels_tabdescr" type="integer">18218660</label>
+			<label index="mlang_labels_tablabel" type="integer">43726921</label>
+			<label index="no_results" type="integer">167311142</label>
+			<label index="error" type="integer">151171285</label>
+		</languageKey>
+	</orig_hash>
+	<orig_text type="array">
+		<languageKey index="de" type="array">
+		</languageKey>
+	</orig_text>
 </T3locallangExt>

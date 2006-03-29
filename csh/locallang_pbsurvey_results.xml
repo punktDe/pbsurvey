@@ -12,7 +12,7 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index=".description">Questionaire results.</label>
-			<label index=".details">Displays all results from the questionaire that have been finished.</label>
+			<label index=".details">Contains all results from the questionaire, even if they are not finished.</label>
 			<label index="_.seeAlso">tx_pbsurvey_item</label>
 			<label index="hidden.description">Use this to temporarily exclude this result from display and export to csv file with the module Web &gt; Questionaire.</label>
 			<label index="hidden.details">Setting this option is practical when exporting the results to a csv file. You can, for instance, exclude this result that was meant for testing purposes only.</label>
