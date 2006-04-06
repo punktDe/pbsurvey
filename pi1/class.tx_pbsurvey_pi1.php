@@ -88,7 +88,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
             'pid'                 => array('pages', 'sDEF', 'pid',2),
             'captcha_page'        => array('captcha', 'sACCESS', 'security.captcha', 2),
             'access_level'        => array('access_level', 'sACCESS', 'accessLevel', 2),
-            'completion_action'   => array('completion_action', 'sACOMPLETTION', 'completion.action', 2),
+            'completion_action'   => array('completion_action', 'sCOMPLETION', 'completion.action', 2),
             'completion_url'      => array('completion_url', 'sCOMPLETION', 'completion.redirectPid', 2),
             'completion_message'  => array('completion_message', 'sCOMPLETION', 'completion.message', 2),
             'close_button'        => array('close_button', 'sCOMPLETION', 'completion.button.close', 2),
@@ -122,7 +122,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
             if ($arrItem[3]==1) {
                 $arrOutput[$strKey] = $this->cObj->fileResource($strFFValue ? 'uploads/tx_pbsurvey/'.$strFFValue : $strTemp);
             } else {
-                $arrOutput[$strKey] = isset($strFFValue) ? $strFFValue : $strTemp;
+                $arrOutput[$strKey] = ($strFFValue!='') ? $strFFValue : $strTemp;
             }
         }
         return $arrOutput;
@@ -483,10 +483,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     function checkAccessLevel() {
 		$this->arrSessionData['begintstamp'] = time();
         $arrPrevious = $this->readPreviousUser();
-        // Check on multiple responses
-		if ((int)$this->arrConfig['access_level']) {
-			$this->arrUserData=$arrPrevious[0]?$arrPrevious[0]:array();
-			$this->arrSessionData['rid']=$arrPrevious[2]['uid'];
+        $this->arrUserData=$arrPrevious[0]?$arrPrevious[0]:array();
+		$this->arrSessionData['rid']=$arrPrevious[2]['uid'];
+		if ((int)$this->arrConfig['access_level']) { // Single response
 			if (!$this->piVars['stage']) {
 				// Time is expired for updateable response
 				if ($this->arrConfig['access_level']==1 && ($arrPrevious[2]['crdate']+($this->arrConfig['days_for_update']*(3600*24))<$GLOBALS['EXEC_TIME']) && $this->arrConfig['days_for_update']<>0 && $arrPrevious[1]<>0) {
@@ -496,9 +495,11 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					$strOutput = 'access_single_no_update';
 				}
 			}
-		// User reached maximum number of responses
-		} elseif (($arrPrevious[1] > $this->arrConfig['responses_per_user']) && $this->arrConfig['responses_per_user']!=0) {
+		} else { // Multiple responses
+			// User reached maximum number of responses
+			if (($arrPrevious[1] > $this->arrConfig['responses_per_user']) && $this->arrConfig['responses_per_user']!=0) {
 				$strOutput = 'access_user_maximum';
+			}
 		}
 		return $strOutput;
     }
@@ -1294,6 +1295,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     	} else {
     		$arrSelectConf['where'] .= ' AND ip=\'' . $this->arrSessionData['uip'] . '\'';
     	}
+    	if ($this->arrConfig['access_level']==0) {
+    		$arrSelectConf['where'] .= ' AND finished=0';
+    	}
     	$arrSelectConf['where'] .= $this->cObj->enableFields($this->strResultsTable);  		
         $dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strResultsTable,$arrSelectConf['where'],'','','');
 		$arrRes = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes);
@@ -1339,7 +1343,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strItemsTable,$arrSelectConf['where'],'',$arrSelectConf['orderBy'],'');
 		while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
             if ($GLOBALS['TSFE']->sys_language_content) {
-				$arrRow = $GLOBALS['TSFE']->sys_page->getRecordOverlay($this->strItemsTable, $arrRow, $GLOBALS['TSFE']->sys_language_content, $GLOBALS['TSFE']->sys_language_contentOL, '');
+				$arrRow = $GLOBALS['TSFE']->sys_page->getRecordOverlay($this->strItemsTable, $arrRow, $GLOBALS['TSFE']->sys_language_content, '');
 			}
 			array_walk($arrRow, array($this,'array_htmlspecialchars'));
             $this->arrSurveyItems[] = $arrRow;
@@ -1494,7 +1498,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      */
     function validateForm() {
     	$boolOutput = TRUE;
-    	if ($this->arrConfig['validation']==1 && $this->piVars['validation']) { // Server side validation and something to validate
+    	if ($this->arrConfig['validation']==1 && $this->piVars['validation'] && !isset($this->piVars['back'])) { // Server side validation and something to validate and no Back button
     		$arrValidation = unserialize(base64_decode($this->piVars['validation']));
     		if (is_array($arrValidation)) {
 	    		foreach($arrValidation as $intKey => $arrQuestionValidation) {

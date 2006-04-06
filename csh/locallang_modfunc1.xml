@@ -17,5 +17,6 @@
 			<label index="pbsurveyModfunc1.details">This is just a simple overview which only shows the amount of results, finished and unfinished, and the questions available on this page for a reference of the survey.</label>
 			<label index="pbsurveyModfunc1.seeAlso">xEXT_pbsurvey</label>
 		</languageKey>
+		<languageKey index="nl">EXT:pbsurvey/csh/nl.locallang_modfunc1.xml</languageKey>
 	</data>
 </T3locallang>

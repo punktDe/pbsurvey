@@ -12,6 +12,8 @@ plugin.tx_pbsurvey_pi1{
   userResponses = 0
   # cat=plugin.questionaire/other; type=int+; label=Days for Update: Only necessary when plugin.tx_pbsurvey_pi.accessLevel=0. Timespan in which the participant can change his answers.
   daysForUpdate = 60
+  # cat=plugin.questionaire/other; type=int+; label=Form Validation: Defines the way the form is validated: 0=Client Side JavaScript / 1= Server Side PHP (Accessibility)
+  validation = 0
   
   security {
   	# cat=plugin.questionaire/other; type=boolean; label=Security - Show Captcha before completion: A captcha is a type of challenge-response test to determine whether or not the user is human. It can be used to prevent automated participation in a survey.

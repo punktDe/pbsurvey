@@ -15,5 +15,6 @@
 			<label index=".alttitle">Web &gt; Questionaire module</label>
 			<label index=".description">The idea of the Web&gt;Questionaire module is to be a host module for backend applications that wish to present information / analysis of results of the Questionaire extension.</label>
 		</languageKey>
+		<languageKey index="nl">EXT:pbsurvey/csh/nl.locallang_mod1.xml</languageKey>
 	</data>
 </T3locallang>
