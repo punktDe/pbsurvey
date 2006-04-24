@@ -15,6 +15,13 @@ plugin.tx_pbsurvey_pi1{
   # cat=plugin.questionaire/other; type=int+; label=Form Validation: Defines the way the form is validated: 0=Client Side JavaScript / 1= Server Side PHP (Accessibility)
   validation = 0
   
+  anonymous {
+    # cat=plugin.questionaire/other; type=int[0-1]; label=Anonymous - Mode: Enter the method of checking the access when having an anonymous survey. 0=IP-address / 1=Cookie.
+	mode = 0
+    # cat=plugin.questionaire/other; type=int[0-9999]; label=Cookie Lifetime: The amount of days after the cookie will expire.  
+	cookie_lifetime = 30
+  }
+  
   security {
   	# cat=plugin.questionaire/other; type=boolean; label=Security - Show Captcha before completion: A captcha is a type of challenge-response test to determine whether or not the user is human. It can be used to prevent automated participation in a survey.
 	captcha = 0
@@ -28,7 +35,7 @@ plugin.tx_pbsurvey_pi1{
 	# cat=plugin.questionaire/other; type=int+; label=Completion - Page: If the Completion Action is 'Display Message' or 'Redirect to another page', you can select a page here to redirect to or go to when 'Continue'-button is shown.
 	redirectPid = 
 	button {
-	  # cat=plugin.questionaire/other; type=boolean; label=Completion - Close Button: If the Completion Action is 'Display Message' you can enter here if the 'Close' button has to be shown.
+	  # cat=plugin.questionaire/other; type=boolean; label=Completion - Close Button: Show a button to close the current window.
 	  close = 0
 	  # cat=plugin.questionaire/other; type=boolean; label=Completion - Continue Button: If the Completion Action is 'Display Message' you can enter here if the 'Continue' button has to be shown.
 	  continue = 0

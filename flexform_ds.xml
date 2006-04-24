@@ -89,6 +89,33 @@
 						</config>
 						</TCEforms>
 					</access_level>
+					<anonymous_mode>
+						<TCEforms>
+						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.anonymous_mode</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.anonymous_mode0</numIndex>
+									<numIndex index="1">0</numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.anonymous_mode1</numIndex>
+									<numIndex index="1">1</numIndex>
+								</numIndex>
+							</items>
+						</config>
+						</TCEforms>
+					</anonymous_mode>
+					<cookie_lifetime>
+						<TCEforms>			
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.cookie_lifetime</label>
+							<config>
+								<type>input</type>
+								<size>4</size>
+							</config>
+						</TCEforms>
+					</cookie_lifetime>
 				</el>
 			</ROOT>
 		</sACCESS>

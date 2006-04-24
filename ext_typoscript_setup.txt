@@ -8,6 +8,11 @@ plugin.tx_pbsurvey_pi1{
   daysForUpdate = {$plugin.tx_pbsurvey_pi1.daysForUpdate}
   validation = {$plugin.tx_pbsurvey_pi1.validation}
   
+  anonymous {
+	mode = {$plugin.tx_pbsurvey_pi1.anonymous.mode}
+	cookie_lifetime = {$plugin.tx_pbsurvey_pi1.anonymous.cookie_lifetime}
+  }
+  
   security {
   	captcha = {$plugin.tx_pbsurvey_pi1.security.captcha}
   }

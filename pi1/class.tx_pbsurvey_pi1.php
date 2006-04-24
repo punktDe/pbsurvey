@@ -88,6 +88,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
             'pid'                 => array('pages', 'sDEF', 'pid',2),
             'captcha_page'        => array('captcha', 'sACCESS', 'security.captcha', 2),
             'access_level'        => array('access_level', 'sACCESS', 'accessLevel', 2),
+            'anonymous_mode'      => array('anonymous_mode', 'sACCESS', 'anonymous.mode', 2),
+            'cookie_lifetime'     => array('cookie_lifetime', 'sACCESS', 'anonymous.cookie_lifetime', 2),
             'completion_action'   => array('completion_action', 'sCOMPLETION', 'completion.action', 2),
             'completion_url'      => array('completion_url', 'sCOMPLETION', 'completion.redirectPid', 2),
             'completion_message'  => array('completion_message', 'sCOMPLETION', 'completion.message', 2),
@@ -158,8 +160,11 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
     function setUserName() {
     	$this->arrSessionData = $GLOBALS['TSFE']->fe_user->getKey('ses','surveyData');
-    	$this->arrSessionData['uip'] = t3lib_div::getIndpEnv('REMOTE_ADDR');
     	$this->arrSessionData['uid'] = $GLOBALS['TSFE']->loginUser?$GLOBALS['TSFE']->fe_user->user['uid']:0;
+    	$this->arrSessionData['uip'] = t3lib_div::getIndpEnv('REMOTE_ADDR');
+    	if (isset($_COOKIE['pbsurvey'])) {
+    		$this->arrSessionData['rid'] = $_COOKIE[$this->extKey];
+    	}
     }
     
 	/**
@@ -336,7 +341,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 						$intFound++;
 					}
 				}
-				if (count($arrRuleCond)==array_sum($arrRuleCond)) {
+				if (is_array($arrRuleCond) && count($arrRuleCond)==array_sum($arrRuleCond)) {
 					$arrGrpCond[$intGroup]=true;
 				} else { 
 					$arrGrpCond[$intGroup]=false;
@@ -496,7 +501,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 			}
 		} else { // Multiple responses
-			// User reached maximum number of responses
+			// User reached maximum number of responses, not possible with anonymous surveys
 			if (($arrPrevious[1] > $this->arrConfig['responses_per_user']) && $this->arrConfig['responses_per_user']!=0) {
 				$strOutput = 'access_user_maximum';
 			}
@@ -1282,7 +1287,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 **********************************/
 	 
 	/**
-	 * Read the previous response from user if there is any
+	 * Read the previous response from user if there is any from database and add the latest piVars to it
 	 *
 	 * @return	array		Answers found, total number of rows found, row of the first result
 	 */
@@ -1290,10 +1295,12 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     	$arrSelectConf['selectFields'] = '*';
     	$arrSelectConf['where'] = '1=1';
     	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
-    	if ($this->arrSessionData['uid']) {
+    	if ($this->arrSessionData['uid']) { // We have a frontend user
     		$arrSelectConf['where'] .= ' AND user=' . $this->arrSessionData['uid'];
-    	} else {
+    	} elseif ($this->arrConfig['anonymous_mode']==0) { // Anonymous, IP Check
     		$arrSelectConf['where'] .= ' AND ip=\'' . $this->arrSessionData['uip'] . '\'';
+    	} else { // Anonymous, Cookie check
+    		$arrSelectConf['where'] .= ' AND uid=\'' . $this->arrSessionData['rid'] . '\'';
     	}
     	if ($this->arrConfig['access_level']==0) {
     		$arrSelectConf['where'] .= ' AND finished=0';
@@ -1322,10 +1329,28 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 			}
 		}
+		foreach($this->piVars as $mixQuestion => $arrValue) {
+			if (is_int($mixQuestion)) {
+				unset($arrAnswers[$mixQuestion]);
+				foreach($arrValue as $intRow => $arrRow) {
+					foreach($arrRow as $intCol => $strPiAnswer) {
+						if ($intRow) {
+							if ($intCol) {
+								$arrAnswers[$mixQuestion][$intRow][$intCol] = $strPiAnswer;
+							} else {
+								$arrAnswers[$mixQuestion][$intRow] = $strPiAnswer;
+							}
+						} else {
+							$arrAnswers[$mixQuestion] = $strPiAnswer;
+						}
+					}
+				}
+			}
+		}
 		$arrOutput = array($arrAnswers,$intRowCount,$arrRes);
 		return $arrOutput;
     }
-    
+   
    	/**
 	 * Read all questions from database
 	 * Frontend user has to do all question no mather what language, so sys_language_mode != 'strict'
@@ -1376,6 +1401,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     	if ($boolFinished) {
 			$arrDb['finished'] = 1;
 			$arrDb['endtstamp'] = time();
+			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode'] && $this->arrConfig['access_level']==2) { // Anonymous survey, cookie checked, multiple response
+				setcookie($this->extKey, 0, time() - 1); // delete the cookie
+			}
     	}
 		$arrDb['user'] = $this->arrSessionData['uid'];
 		$arrDb['begintstamp'] = $this->arrSessionData['begintstamp'];
@@ -1388,6 +1416,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$arrDb['crdate'] = time();
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable,$arrDb); // Insert result
 			$this->arrSessionData['rid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
+			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) { // Anonymous survey, check acces by cookie
+				setcookie($this->extKey, $this->arrSessionData['rid'], (time()+60*60*24*$this->arrConfig['cookie_lifetime']));
+			}
 		}
 		if ($GLOBALS['TYPO3_DB']->sql_error()) {
 			$strOutput = $this->surveyError('failed_saving_data');
