@@ -22,7 +22,6 @@
 ***************************************************************/
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
-require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php'); // debugregel
 
 /**
  * Frontend Module for the 'pbsurvey' extension.
@@ -92,7 +91,6 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
             'cookie_lifetime'     => array('cookie_lifetime', 'sACCESS', 'anonymous.cookie_lifetime', 2),
             'completion_action'   => array('completion_action', 'sCOMPLETION', 'completion.action', 2),
             'completion_url'      => array('completion_url', 'sCOMPLETION', 'completion.redirectPid', 2),
-            'completion_message'  => array('completion_message', 'sCOMPLETION', 'completion.message', 2),
             'close_button'        => array('close_button', 'sCOMPLETION', 'completion.button.close', 2),
             'continue_button'     => array('continue_button', 'sCOMPLETION', 'completion.button.continue', 2),
             'navigation_back'     => array('navigation_back', 'sNAVIGATION', 'navigation.back', 2),
@@ -162,8 +160,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     	$this->arrSessionData = $GLOBALS['TSFE']->fe_user->getKey('ses','surveyData');
     	$this->arrSessionData['uid'] = $GLOBALS['TSFE']->loginUser?$GLOBALS['TSFE']->fe_user->user['uid']:0;
     	$this->arrSessionData['uip'] = t3lib_div::getIndpEnv('REMOTE_ADDR');
-    	if (isset($_COOKIE['pbsurvey'])) {
-    		$this->arrSessionData['rid'] = $_COOKIE[$this->extKey];
+    	if (isset($_COOKIE[$this->extKey])&& $this->arrConfig['anonymous_mode'] && !$GLOBALS['TSFE']->fe_user->user['uid']) {
+    		foreach ($_COOKIE[$this->extKey] as $strName => $mixValue) {
+      			$this->arrSessionData[$strName] = $mixValue;
+   			}
     	}
     }
     
@@ -410,7 +410,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			break;
 			case 1: // Display message
 				$completionArray['message_buttons'] = $this->setButton('close').$this->setButton('continue');
-				$completionArray['message_text'] = $this->arrConfig['completion_message'];
+				$completionArray['message_text'] = $this->pi_getLL('completion_message');
 				$strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'COMPLETION'),$completionArray,'###|###',1);
 			break;
 			case 2: // Redirect to another page
@@ -501,8 +501,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 			}
 		} else { // Multiple responses
-			// User reached maximum number of responses, not possible with anonymous surveys
-			if (($arrPrevious[1] > $this->arrConfig['responses_per_user']) && $this->arrConfig['responses_per_user']!=0) {
+			// User reached maximum number of responses, not possible with anonymous surveys 
+			if (($arrPrevious[1] >= $this->arrConfig['responses_per_user']) && $this->arrConfig['responses_per_user']!=0) {
 				$strOutput = 'access_user_maximum';
 			}
 		}
@@ -964,6 +964,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        List of possible answers
      */
     function markerList($arrQuestion,$strTemplate) {
+    	$arrHtml = array();
         if (in_array($arrQuestion['question_type'],array(1,2,3))) {
 			$arrVars = $this->answersArray($arrQuestion['answers']);
             foreach($arrVars as $intKey => $arrItem){
@@ -979,7 +980,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 				$arrQuestion['value'] = $arrItem[0];
 				$arrQuestion['counter'] = $intKey;
-				$strOutput .= $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###ENTRY###'), $arrQuestion, '###|###', 1);
+				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrQuestion, '###|###', 1);
 			}
         } elseif (in_array($arrQuestion['question_type'],array(4,5))) {
             if ($arrQuestion['question_type']==4) {
@@ -1000,9 +1001,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					$arrQuestion['checked'] = 'checked="checked"';
 					$arrQuestion['selected'] = 'selected="selected"';
 				}
-				$strOutput .= $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###ENTRY###'), $arrQuestion, '###|###', 1);
+				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrQuestion, '###|###', 1);
             }
         }
+        $strOutput = implode(chr(13),$arrHtml);
         $arrOutput = array($strOutput,$blnChecked);
         return $arrOutput;
     }
@@ -1016,19 +1018,21 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        Header row
      */
     function markerHeader($arrQuestion,$strTemplate) {
+    	$arrHtml = array();
         $arrAllowed = array(6,7,8);
         if (in_array($arrQuestion['question_type'],$arrAllowed)) {
             $arrVars = $this->answersArray($arrQuestion['answers']);
     		foreach ($arrVars as $arrCol){
     			$arrQuestion['value'] = $arrCol[0];
-    			$strOutput.=$this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###ENTRY###'), $arrQuestion, '###|###', 1);
+    			$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###HEADER###'), $arrQuestion, '###|###', 1);
     		}
         } elseif ($arrQuestion['question_type']==9) {
     		for ($intCounter=$arrQuestion['beginning_number'];$intCounter<=$arrQuestion['ending_number'];$intCounter++){
     			$arrQuestion['value'] = $intCounter;
-    			$strOutput.=$this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###ENTRY###'), $arrQuestion, '###|###', 1);
+    			$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###HEADER###'), $arrQuestion, '###|###', 1);
     		}
         }
+        $strOutput = implode(chr(13),$arrHtml);
         return $strOutput;
     }
 
@@ -1041,6 +1045,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        Answer rows
      */
     function markerRows($arrQuestion,$strTemplate) {
+    	$arrHtmlRows = array();
         $strClass = "surveyrow_odd";
         $arrCols = $this->answersArray($arrQuestion['answers']);
 		$arrRows = explode("\n",$arrQuestion['rows']);
@@ -1054,7 +1059,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$arrQuestion['rowcounter'] = $intRowKey + 1;
 			$arrMarkerArray['###ROWCOUNTER###'] = $arrQuestion['rowcounter'];
 			$arrMarkerArray['###ROW###'] = $arrQuestion['row'];
-			$strCols = '';
+			$arrHtmlCols = array();
 			if (in_array($arrQuestion['question_type'],array(6,7,8))) {
     			foreach ($arrCols as $intColKey => $arrCol){
                     unset($arrQuestion['checked']);
@@ -1084,7 +1089,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                             }
                         }
     				}
-    				$strCols .= $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###COL_ENTRY###'), $arrQuestion, '###|###', 1);
+    				$arrHtmlCols[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###COLUMNS###'), $arrQuestion, '###|###', 1);
     			}
             } elseif ($arrQuestion['question_type']==9) {
     			for ($intCounter=$arrQuestion['beginning_number'];$intCounter<=$arrQuestion['ending_number'];$intCounter++){
@@ -1099,7 +1104,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     					   $arrQuestion['checked'] = 'checked="checked"';
     					}
     				}
-    				$strCols .=$this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###COL_ENTRY###'), $arrQuestion, '###|###', 1);
+    				$arrHtmlCols[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###COLUMNS###'), $arrQuestion, '###|###', 1);
     			}
             } elseif (in_array($arrQuestion['question_type'],array(11,15,16))) {
                 if ($this->checkUpdate($arrQuestion['uid'])) {
@@ -1108,9 +1113,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                     $arrMarkerArray['###VALUE###'] = '';
                 }
             }
-			$arrSubpartArray['###COLUMNS###'] = $strCols;
-			$strOutput .= $this->cObj->substituteMarkerArrayCached($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###ROW_ENTRY###'), $arrMarkerArray, $arrSubpartArray, array());
+			$arrSubpartArray['###COLUMNS###'] = implode(chr(13),$arrHtmlCols);
+			$arrHtmlRows[] = $this->cObj->substituteMarkerArrayCached($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###ROWS###'), $arrMarkerArray, $arrSubpartArray, array());
 		}
+		$strOutput = implode(chr(13),$arrHtmlRows);
 		return $strOutput;
     }
     
@@ -1329,6 +1335,11 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 			}
 		}
+		// If anonymous set $intRowCount to the amount of responses from the cookie
+		if ($this->arrSessionData['responses'] && $this->arrConfig['anonymous_mode']) {
+			$intRowCount = $this->arrSessionData['responses'];
+		}
+		// Add the previously submitted answers, especially important with server side validation
 		foreach($this->piVars as $mixQuestion => $arrValue) {
 			if (is_int($mixQuestion)) {
 				unset($arrAnswers[$mixQuestion]);
@@ -1401,8 +1412,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     	if ($boolFinished) {
 			$arrDb['finished'] = 1;
 			$arrDb['endtstamp'] = time();
-			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode'] && $this->arrConfig['access_level']==2) { // Anonymous survey, cookie checked, multiple response
-				setcookie($this->extKey, 0, time() - 1); // delete the cookie
+			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) {
+				setcookie($this->extKey."[responses]", $this->arrSessionData['responses']+1, (time()+60*60*24*$this->arrConfig['cookie_lifetime'])); // add 1 to the amount of responses		
 			}
     	}
 		$arrDb['user'] = $this->arrSessionData['uid'];
@@ -1417,7 +1428,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable,$arrDb); // Insert result
 			$this->arrSessionData['rid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
 			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) { // Anonymous survey, check acces by cookie
-				setcookie($this->extKey, $this->arrSessionData['rid'], (time()+60*60*24*$this->arrConfig['cookie_lifetime']));
+				setcookie($this->extKey."[rid]", $this->arrSessionData['rid'], (time()+60*60*24*$this->arrConfig['cookie_lifetime']));
 			}
 		}
 		if ($GLOBALS['TYPO3_DB']->sql_error()) {

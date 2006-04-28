@@ -149,15 +149,6 @@
 						</config>
 						</TCEforms>
 					</completion_action>
-					<completion_message>
-						<TCEforms>			
-							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.completion_message</label>
-							<config>
-								<type>input</type>
-								<size>25</size>
-							</config>
-						</TCEforms>
-					</completion_message>
 					<completion_url>
 						<TCEforms>
 						<exclude>1</exclude>

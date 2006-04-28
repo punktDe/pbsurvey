@@ -19,7 +19,6 @@ plugin.tx_pbsurvey_pi1{
   
   completion {
     action = {$plugin.tx_pbsurvey_pi1.completion.action}
-	message = {$plugin.tx_pbsurvey_pi1.completion.message}
 	redirectPid = {$plugin.tx_pbsurvey_pi1.completion.redirectPid}
 	button {
 	  close = {$plugin.tx_pbsurvey_pi1.completion.button.close}

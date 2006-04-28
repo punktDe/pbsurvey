@@ -1,3 +1,13 @@
+2006-04-27 - Patrick Broens <patrick@patrickbroens.nl>
+ - pi1/template.html: Deleted some unnecessary subpartmarkers
+ ~ pi1\class.tx_pbsurvey_pi1.php: Changed some markerfunctions because of deletion unnecessary subpartmarkers.
+
+2006-04-25 - Patrick Broens <patrick@patrickbroens.nl>
+ + pi1\class.tx_pbsurvey_pi1.php: Added Cookie check on anonymous survey
+ ~ pi1\class.tx_pbsurvey_pi1.php: ReadPreviousUser didn't add the latest piVars. Solved. Important with server side validation.
+ - Deleted config variable completion_message from FlexForm and TS.
+ + completion_message configurable in locallang.
+
 2006-03-30 - Patrick Broens <patrick@patrickbroens.nl>
  ~ Manual: Corrections and additions to the manual according to the new version
 

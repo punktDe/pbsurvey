@@ -1,4 +1,4 @@
-a:2:{s:4:"meta";a:3:{s:5:"title";s:12:"Questionaire";s:5:"descr";s:33:"Versatile Survey System for TYPO3";s:7:"options";a:2:{s:10:"usageCount";N;s:19:"includeCodeAbstract";N;}}s:5:"files";a:5:{s:14:"MD5_19aaeae789";a:4:{s:8:"filename";s:14:"mod1/index.php";s:8:"filesize";i:9359;s:6:"header";a:5:{s:4:"text";s:193:"
+a:2:{s:4:"meta";a:3:{s:5:"title";s:12:"Questionaire";s:5:"descr";s:33:"Versatile Survey System for TYPO3";s:7:"options";a:2:{s:10:"usageCount";s:1:"1";s:19:"includeCodeAbstract";s:1:"1";}}s:5:"files";a:5:{s:14:"MD5_19aaeae789";a:5:{s:8:"filename";s:14:"mod1/index.php";s:8:"filesize";i:9359;s:6:"header";a:5:{s:4:"text";s:193:"
 
 Backend Module 'pbsurvey' extension.
 The idea of this module is to be a host module for backend applications that wish to present information / analysis of results of the pbsurvey extension.
@@ -6,259 +6,1130 @@ The idea of this module is to be a host module for backend applications that wis
 
 Backend Module 'pbsurvey' extension.
 The idea of this module is to be a host module for backend applications that wish to present information / analysis of results of the pbsurvey extension.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:187;s:13:"content_lines";i:10;s:6:"atLine";i:40;}i:3;a:8:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";a:2:{i:0;s:187:"	var $strExtKey;
+	var $strItemsTable;
+	var $arrSurveyItems = array();
+
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+
+	";i:1;i:-1;}s:12:"content_size";i:187;s:13:"content_lines";i:10;s:6:"atLine";i:40;}i:3;a:8:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
 
 Initialization of the class
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:479;s:13:"content_lines";i:17;s:6:"atLine";i:56;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:67:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:479:"		global $BACK_PATH;
+		parent::init();
+		$this->strExtKey = 'tx_pbsurvey';
+		$this->arrModParameters = t3lib_div::_GP($this->strExtKey);
+		$this->strResultsTable = $this->strExtKey . '_results';
+		$this->strItemsTable = $this->strExtKey . '_item';
+		$this->strAnswersTable = $this->strExtKey . '_answers';
+		$this->strUserTable = 'fe_users';
+		$this->readSurvey();
+	}
+
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+
+	";i:1;i:0;}s:12:"content_size";i:479;s:13:"content_lines";i:17;s:6:"atLine";i:56;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:67:"
 
 Main function of the module. Write the content to $this->content
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:2085;s:13:"content_lines";i:42;s:6:"atLine";i:79;}i:7;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:29:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		global $BE_USER,$LANG,$BACK_PATH;
+		$arrPageInfo = t3lib_BEfunc::readPageAccess($this->id,$this->perms_clause);
+		$intAccess = is_array($arrPageInfo) ? 1 : 0;
+		if (($this->id && $intAccess) || ($BE_USER->user["admin"] && !$this->id))	{
+			$this->objDoc = t3lib_div::makeInstance("mediumDoc");
+			$this->objDoc->backPath = $BACK_PATH;
+			$this->objDoc->form='<form action="
+[...]
+($LANG->getLL("title"));
+			$this->content.=$this->objDoc->spacer(5);
+			$this->content.=$this->objDoc->spacer(10);
+		}
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:2085;s:13:"content_lines";i:42;s:6:"atLine";i:79;}i:7;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:29:"
 
 Prints out the module HTML
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:72;s:13:"content_lines";i:4;s:6:"atLine";i:127;}i:9;a:7:{s:6:"header";s:34:"function answersArray($strInput) {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:64:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:72:"		$this->content.=$this->objDoc->endPage();
+		echo $this->content;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:72;s:13:"content_lines";i:4;s:6:"atLine";i:127;}i:9;a:7:{s:6:"header";s:34:"function answersArray($strInput) {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:64:"
 
 Create array out of possible answers in backend answers field
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:446;s:13:"content_lines";i:17;s:6:"atLine";i:138;}i:11;a:8:{s:6:"header";s:25:"function sectionError() {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:73:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";a:2:{i:0;s:446:"		$arrKeys = array('answer','points');
+		$strLine=explode(chr(10),$strInput);
+		foreach($strLine as $intKey => $strLineValue)	{
+			$strValue = explode('|',$strLineValue);
+			for ($intCounter=0;$intCounter<2;$intCounter++)	{
+				$arrOutput[$intKey+1][$arrKeys[$intCounter]]=trim($strValue[$intCounter]);
+			}
+		}
+		return $arrOutput;
+	}
+
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
+
+	";i:1;i:0;}s:12:"content_size";i:446;s:13:"content_lines";i:17;s:6:"atLine";i:138;}i:11;a:8:{s:6:"header";s:25:"function sectionError() {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:73:"
 
 Build section to show error text if no questions are available on page
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:27:"HTML containing the section";}}s:7:"content";s:0:"";s:12:"content_size";i:311;s:13:"content_lines";i:12;s:6:"atLine";i:161;}i:13;a:5:{s:6:"header";s:23:"function readSurvey() {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:11:"sectionText";a:1:{i:0;s:17:"Reading functions";}s:4:"cDat";a:3:{s:4:"text";s:115:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:27:"HTML containing the section";}}s:7:"content";a:2:{i:0;s:311:"		global $LANG;
+		$strTemp = '<p><span class="typo3-red">'.$LANG->getLL('no_results').'</span></p>';
+		$strOutput = $this->objDoc->section($LANG->getLL('error'),$strTemp,0,1);
+		return $strOutput;
+	}
+
+    /**********************************
+	 *
+	 * Reading functions
+	 *
+	 **********************************/
+
+	";i:1;i:0;}s:12:"content_size";i:311;s:13:"content_lines";i:12;s:6:"atLine";i:161;}i:13;a:5:{s:6:"header";s:23:"function readSurvey() {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:11:"sectionText";a:1:{i:0;s:17:"Reading functions";}s:4:"cDat";a:3:{s:4:"text";s:115:"
 
 Read all questions in the selected page and filter unneccessary content
 Write content to $this->arrSurveyItems[]
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:6:"atLine";i:180;}i:15;a:7:{s:6:"header";s:25:"function countResults() {";s:11:"parentClass";s:19:"tx_pbsurvey_module1";s:4:"cDat";a:3:{s:4:"text";s:33:"
 
 Count the results on this page
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:42:"Numbers of finished and unfinished results";}}s:7:"content";s:0:"";s:12:"content_size";i:1328;s:13:"content_lines";i:27;s:6:"atLine";i:215;}}}s:14:"MD5_86f0b1d572";a:4:{s:8:"filename";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:8:"filesize";i:4912;s:6:"header";a:5:{s:4:"text";s:67:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:42:"Numbers of finished and unfinished results";}}s:7:"content";a:2:{i:0;s:507:"		$arrSelectConf['selectFields'] = '*';
+		$arrSelectConf['where'] = '1=1';
+    	$arrSelectConf['where'] .= ' AND pid=' . intval($this->id);
+		$arrSelectConf['where'] .= t3lib_BEfunc::BEenableFields($this->strResultsTable);
+		$arrSelectConf['where'] .= t3lib_BEfunc::deleteClause($this->strResultsTable);
+		$dbRes=$GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectF
+[...]
+($SOBE->include_once as $INC_FILE)	include_once($INC_FILE);
+$SOBE->checkSubExtObj();
+$SOBE->main();
+$SOBE->printContent();
+?>";i:1;i:1;}s:12:"content_size";i:1328;s:13:"content_lines";i:27;s:6:"atLine";i:215;}}s:10:"usageCount";a:8:{s:12:"H_5a40ea16ec";a:4:{s:3:"ALL";a:2:{s:12:"makeinstance";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:12:"makeinstance";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:181;s:15:"_functionHeader";s:48:"class tx_pbsurvey_module1 extends t3lib_SCbase {";}s:12:"H_7c6ff40199";a:10:{s:3:"ALL";a:3:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:8;s:14:"nonObjectUsage";i:2;}s:14:"MD5_19aaeae789";a:4:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:2;s:14:"nonObjectUsage";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_451ba283ad";a:3:{s:8:"fileName";s:15:"wizard/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_0bf51677e8";a:3:{s:8:"fileName";s:16:"wizard2/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:17:"function init()	{";}s:12:"H_9c2550bb82";a:6:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:17:"function main()	{";}s:12:"H_a337945941";a:6:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:25:"function printContent()	{";}s:12:"H_3b9ce59b89";a:7:{s:3:"ALL";a:2:{s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:25;s:15:"_functionHeader";s:34:"function answersArray($strInput) {";}s:12:"H_6a9644bf44";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:25:"function sectionError() {";}s:12:"H_3ff3fed0af";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:23:"function readSurvey() {";}s:12:"H_83b02605e1";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:25:"function countResults() {";}}}s:14:"MD5_86f0b1d572";a:5:{s:8:"filename";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:8:"filesize";i:4912;s:6:"header";a:5:{s:4:"text";s:67:"
 
 Backend Module Function 'Overview' for the 'pbsurvey' extension.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:3:"DAT";a:6:{i:1;a:8:{s:6:"header";s:53:"class tx_pbsurvey_modfunc1 extends t3lib_extobjbase {";s:5:"class";i:1;s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:5:{s:4:"text";s:67:"
 
 Backend Module Function 'Overview' for the 'pbsurvey' extension.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:117;s:13:"content_lines";i:7;s:6:"atLine";i:36;}i:3;a:8:{s:6:"header";s:29:"function init(&$pObj,$conf)	{";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";a:2:{i:0;s:117:"
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+
+	";i:1;i:-1;}s:12:"content_size";i:117;s:13:"content_lines";i:7;s:6:"atLine";i:36;}i:3;a:8:{s:6:"header";s:29:"function init(&$pObj,$conf)	{";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
 
 Initialization of the class
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"object";i:1;s:13:"Parent Object";}i:1;a:2:{i:0;s:5:"array";i:1;s:37:"Configuration array for the extension";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:370;s:13:"content_lines";i:13;s:6:"atLine";i:51;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:87:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"object";i:1;s:13:"Parent Object";}i:1;a:2:{i:0;s:5:"array";i:1;s:37:"Configuration array for the extension";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:370:"		global $BACK_PATH;
+		parent::init($pObj,$conf);
+		$this->handleExternalFunctionValue();
+		$this->arrPageInfo = t3lib_BEfunc::readPageAccess($this->pObj->id,$this->perms_clause);
+		list($strRequestUri) = explode('#',t3lib_div::getIndpEnv('REQUEST_URI'));
+	}
+
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+
+	";i:1;i:0;}s:12:"content_size";i:370;s:13:"content_lines";i:13;s:6:"atLine";i:51;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:87:"
 
 Main function of the module. Check access of user and call function to build content
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"HTML of this function";}}s:7:"content";s:0:"";s:12:"content_size";i:198;s:13:"content_lines";i:7;s:6:"atLine";i:70;}i:7;a:7:{s:6:"header";s:26:"function moduleContent() {";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:3:{s:4:"text";s:31:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"HTML of this function";}}s:7:"content";a:2:{i:0;s:198:"		global $BE_USER;
+		if (($this->pObj->id && is_array($this->arrPageInfo)) || ($BE_USER->user['admin'] && !$this->pObj->id))	{
+			$strOutput .= $this->moduleContent();
+		}
+		return $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:198;s:13:"content_lines";i:7;s:6:"atLine";i:70;}i:7;a:7:{s:6:"header";s:26:"function moduleContent() {";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:3:{s:4:"text";s:31:"
 
 Generates the module content
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:29:"HTML Content of this function";}}s:7:"content";s:0:"";s:12:"content_size";i:218;s:13:"content_lines";i:11;s:6:"atLine";i:83;}i:9;a:5:{s:6:"header";s:27:"function sectionResults() {";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:70:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:29:"HTML Content of this function";}}s:7:"content";a:2:{i:0;s:218:"		$strOutput .= $this->sectionResults();
+		$strOutput .= $this->sectionQuestions();
+		return $strOutput;
+	}
+
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
+
+	";i:1;i:0;}s:12:"content_size";i:218;s:13:"content_lines";i:11;s:6:"atLine";i:83;}i:9;a:5:{s:6:"header";s:27:"function sectionResults() {";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:70:"
 
 Build section to show some simple statistics like number of results
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:27:"HTML containing the section";}}s:6:"atLine";i:100;}i:11;a:7:{s:6:"header";s:29:"function sectionQuestions() {";s:11:"parentClass";s:20:"tx_pbsurvey_modfunc1";s:4:"cDat";a:3:{s:4:"text";s:50:"
 
 Build section to show list of questions on page
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:27:"HTML containing the section";}}s:7:"content";s:0:"";s:12:"content_size";i:639;s:13:"content_lines";i:13;s:6:"atLine";i:128;}}}s:14:"MD5_84e37bc76b";a:4:{s:8:"filename";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:8:"filesize";i:92100;s:6:"header";a:5:{s:4:"text";s:48:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:27:"HTML containing the section";}}s:7:"content";a:2:{i:0;s:507:"		global $LANG;
+		foreach ($this->pObj->arrSurveyItems as $arrItem) {
+			$arrTemp[] = '<li>'.$arrItem['question'].'</li>';
+		}
+		$strOutput .= $this->pObj->objDoc->section($LANG->getLL('list_questions'),'<ul>'.implode(chr(13),$arrTemp).'</ul>',0,0);
+		$strOutput .= '<p><strong>'.$LANG->getLL('number_questions').': '.count($this->pObj->arrSurveyItems).'</strong></p>';
+		ret
+[...]
+.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pbsurvey/modfunc1/class.tx_pbsurvey_modfunc1.php']);
+}
+?>";i:1;i:1;}s:12:"content_size";i:639;s:13:"content_lines";i:13;s:6:"atLine";i:128;}}s:10:"usageCount";a:6:{s:12:"H_6cf69b12da";a:2:{s:24:"_searchtime_milliseconds";d:170;s:15:"_functionHeader";s:53:"class tx_pbsurvey_modfunc1 extends t3lib_extobjbase {";}s:12:"H_ed4be881b2";a:10:{s:3:"ALL";a:3:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:8;s:14:"nonObjectUsage";i:2;}s:14:"MD5_19aaeae789";a:4:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:2;s:14:"nonObjectUsage";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_451ba283ad";a:3:{s:8:"fileName";s:15:"wizard/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_0bf51677e8";a:3:{s:8:"fileName";s:16:"wizard2/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:29:"function init(&$pObj,$conf)	{";}s:12:"H_9c2550bb82";a:6:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:17:"function main()	{";}s:12:"H_ba89952816";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:26:"function moduleContent() {";}s:12:"H_47c8033a86";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:27:"function sectionResults() {";}s:12:"H_28a20f9435";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:29:"function sectionQuestions() {";}}}s:14:"MD5_84e37bc76b";a:5:{s:8:"filename";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:8:"filesize";i:94458;s:6:"header";a:5:{s:4:"text";s:48:"
 
 Frontend Module for the 'pbsurvey' extension.
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:3:"DAT";a:60:{i:1;a:8:{s:6:"header";s:44:"class tx_pbsurvey_pi1 extends tslib_pibase {";s:5:"class";i:1;s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:5:{s:4:"text";s:48:"
 
 Frontend Module for the 'pbsurvey' extension.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:960;s:13:"content_lines";i:28;s:6:"atLine";i:32;}i:3;a:8:{s:6:"header";s:22:"function init($conf) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:150:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";a:2:{i:0;s:960:"	var $prefixId = 'tx_pbsurvey_pi1';
+	var $scriptRelPath = 'pi1/class.tx_pbsurvey_pi1.php';
+	var $extKey = 'pbsurvey';
+	var $strResultsTable = 'tx_pbsurvey_results';
+	var $strItemsTable = 'tx_pbsurvey_item';
+	var $strAnswersTable = 'tx_pbsurvey_answers';
+    var $arrConfig=array(); // Configuration Array
+    var $arrUserData=array(); // Previous answers from user
+    var $arrSessionData=array(); // User data stored in session
+    var $arrSurveyItems=array(); // Survey Items
+    var $arrJsItems=array(); // Javascript Items
+    var $arrValidation=array(); // Validation values
+    var $arrValidationErrors=array(); // Errorlines during server side validation
+    var $intStage;
+    var $arrPage=array();
+    var $intPastItems;
+    var $intCurrentItem;
+    var $intPageItem;
+    var $intNextPages;
+    var $strOutItems;
+    var $strJsCalls;
+
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+
+	";i:1;i:-1;}s:12:"content_size";i:960;s:13:"content_lines";i:28;s:6:"atLine";i:31;}i:3;a:8:{s:6:"header";s:22:"function init($conf) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:150:"
 
 All needed configuration values are stored in the member variable $this->arrConfig and the template code goes in $this->arrConfig['templateCode'] .
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:27:"Configuration array from TS";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:629;s:13:"content_lines";i:10;s:6:"atLine";i:67;}i:5;a:7:{s:6:"header";s:24:"function setFFconfig() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:59:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:27:"Configuration array from TS";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$this->conf = $conf; // Storing configuration as a member var
+		$this->pi_loadLL();
+		$this->pi_USER_INT_obj=1;	// Configuring so caching is not expected. This value means that no cHash params are ever set. We do this, because it's a USER_INT object!
+		$this->pi_setPiVarDefaults(); // Set default piVars from TS
+		$this->pi_initPIflexForm(); // Init FlexForm configuration
+[...]
+ $this->setFFconfig();
+		$this->objFreeCap = $this->checkCaptcha(); // Check on sr_freecap and load object if available
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:629;s:13:"content_lines";i:10;s:6:"atLine";i:66;}i:5;a:7:{s:6:"header";s:24:"function setFFconfig() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:59:"
 
 Define all possible fields from TypoScript and FlexForm.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";s:0:"";s:12:"content_size";i:1861;s:13:"content_lines";i:23;s:6:"atLine";i:83;}i:7;a:7:{s:6:"header";s:36:"function getFFconfig($arrFFConfig) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:91:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";a:2:{i:0;s:507:"        $arrFFConfig = array(
+            'templateCode'        => array('template_file', 'sDEF', 'templateFile',1),
+            'pid'                 => array('pages', 'sDEF', 'pid',2),
+            'captcha_page'        => array('captcha', 'sACCESS', 'security.captcha', 2),
+            'access_level'        => array('access_level', 'sACCESS', 'accessLevel', 2),
+          
+[...]
+validation', 'sOTHER', 'validation', 2),
+        );
+        return $arrOutput = $this->getFFconfig($arrFFConfig);
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:1953;s:13:"content_lines";i:24;s:6:"atLine";i:82;}i:7;a:7:{s:6:"header";s:36:"function getFFconfig($arrFFConfig) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:91:"
 
 Check configuration in TypoScript and FlexForm.
 FlexForm has precendence over TypoScript
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Definition array for TypoScipt and FlexForm";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";s:0:"";s:12:"content_size";i:768;s:13:"content_lines";i:20;s:6:"atLine";i:114;}i:9;a:8:{s:6:"header";s:37:"function main($strContent,$arrConf)	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:100:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Definition array for TypoScipt and FlexForm";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";a:2:{i:0;s:507:"    	$strTemp = '';
+        foreach ($arrFFConfig as $strKey => $arrItem) {
+                $strFFValue = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $arrItem[0], $arrItem[1]);
+                $arrItem[2] = "['" . str_replace('.',".']['",$arrItem[2]) . "']";
+                eval("\$strTemp = \$this->conf".$arrItem[2].";");
+            if ($arrItem[3]==1) {
+     
+[...]
+Output;
+    }
+
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+
+	";i:1;i:1;}s:12:"content_size";i:767;s:13:"content_lines";i:20;s:6:"atLine";i:114;}i:9;a:8:{s:6:"header";s:37:"function main($strContent,$arrConf)	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:100:"
 
 Calls the init() function to setup the configuration,
 checks access levels and outputs the survey
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Function output is added to this";}i:1;a:2:{i:0;s:5:"array";i:1;s:19:"Configuration array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:40:"Complete content generated by the plugin";}}s:7:"content";s:0:"";s:12:"content_size";i:305;s:13:"content_lines";i:8;s:6:"atLine";i:143;}i:11;a:7:{s:6:"header";s:24:"function setUserName() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:51:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Function output is added to this";}i:1;a:2:{i:0;s:5:"array";i:1;s:19:"Configuration array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:40:"Complete content generated by the plugin";}}s:7:"content";a:2:{i:0;s:305:"		$this->init($arrConf);
+		$strOutput = $this->checkResponses();
+        $this->setUserName();
+        $strOutput = $strOutput?$strOutput:$this->checkAccessLevel();
+        $strOutput = $this->pi_wrapInBaseClass($strOutput?$this->surveyError($strOutput):$this->processSurvey());
+		return $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:305;s:13:"content_lines";i:8;s:6:"atLine";i:143;}i:11;a:7:{s:6:"header";s:24:"function setUserName() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:51:"
 
 Declare username according to login or anonymous
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:272;s:13:"content_lines";i:5;s:6:"atLine";i:157;}i:13;a:7:{s:6:"header";s:26:"function processSurvey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:50:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:531:"    	$this->arrSessionData = $GLOBALS['TSFE']->fe_user->getKey('ses','surveyData');
+    	$this->arrSessionData['uid'] = $GLOBALS['TSFE']->loginUser?$GLOBALS['TSFE']->fe_user->user['uid']:0;
+    	$this->arrSessionData['uip'] = t3lib_div::getIndpEnv('REMOTE_ADDR');
+    	if (isset($_COOKIE[$this->extKey])&& $this->arrConfig['anonymous_mode'] && !$GLOBALS['TSFE']->fe_user->user['uid']) {
+    		foreach ($_COOKIE[$this->extKey] as $strName => $mixValue) {
+      			$this->arrSessionData[$strName] = $mixValue;
+   			}
+    	}
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:531;s:13:"content_lines";i:10;s:6:"atLine";i:157;}i:13;a:7:{s:6:"header";s:26:"function processSurvey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:50:"
 
 Builds the survey with all the parts necessary.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:13:"Output string";}}s:7:"content";s:0:"";s:12:"content_size";i:2138;s:13:"content_lines";i:45;s:6:"atLine";i:168;}i:15;a:7:{s:6:"header";s:25:"function processItems() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:13:"Output string";}}s:7:"content";a:2:{i:0;s:507:"        $this->readSurvey();
+		if (!$this->arrSurveyItems){
+			$strOutput = $this->surveyError('no_items');
+		} else {
+			if ($this->arrConfig['captcha_page'] && is_object($this->objFreeCap) && !$this->arrSessionData['captcha'] && !$this->objFreeCap->checkWord($this->piVars['captcha_response'])) {
+            	$strOutput = $this->loadCaptcha();
+			} else {
+				$this->arrSe
+[...]
+	                $strOutput = $this->surveyCompletion();
+	            }
+			}
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:2138;s:13:"content_lines";i:45;s:6:"atLine";i:173;}i:15;a:7:{s:6:"header";s:25:"function processItems() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
 
 Find the current page by stage and condition and process all items on it.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1899;s:13:"content_lines";i:54;s:6:"atLine";i:219;}i:17;a:7:{s:6:"header";s:36:"function previousStage($boolInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:60:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"    	$intCounter = 0;
+    	$blnPageCondition = FALSE;
+		foreach ($this->arrSurveyItems as $arrItem){
+          	if ($intCounter < $this->intStage){ // Read past items
+				if ($arrItem['question_type']==22){
+					$this->arrPage=$arrItem;
+		  			if ($arrItem['uid']<>$this->arrSurveyItems[0]['uid']) {
+                        $intCounter++;
+                    }
+					if ($intC
+[...]
+ss_level']!=2) {
+                    unset($this->arrUserData[$item['uid']]);
+                }
+            }
+	    }
+    }
+
+	";i:1;i:1;}s:12:"content_size";i:1899;s:13:"content_lines";i:54;s:6:"atLine";i:224;}i:17;a:7:{s:6:"header";s:36:"function previousStage($boolInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:60:"
 
 Fills the question history and returns the previous stage
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"boolean";i:1;s:41:"True when the submitted form is validated";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:283;s:13:"content_lines";i:11;s:6:"atLine";i:280;}i:19;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:64:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"boolean";i:1;s:41:"True when the submitted form is validated";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";a:2:{i:0;s:283:"		if (!isset($this->piVars['back'])) { // Forward
+			$intOutput = $this->piVars['stage'];
+			if ($boolInput) {
+				$this->arrSessionData['history'][] = $intOutput;
+			}
+		} else { // Backward
+			$intOutput = array_pop($this->arrSessionData['history']);
+		}
+		return $intOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:283;s:13:"content_lines";i:11;s:6:"atLine";i:285;}i:19;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:64:"
 
 Create array out of possible answers in backend answers field
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:289;s:13:"content_lines";i:10;s:6:"atLine";i:298;}i:21;a:7:{s:6:"header";s:41:"function processCondition($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:39:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";a:2:{i:0;s:289:"		$arrLine=explode(chr(10),$strInput);
+		foreach($arrLine as $intKey => $strLineValue)	{
+			$strValue = explode('|',$strLineValue);
+			for ($intCounter=0;$intCounter<3;$intCounter++)	{
+				$arrOutput[$intKey+1][$intCounter]=trim($strValue[$intCounter]);
+			}
+		}
+		return $arrOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:289;s:13:"content_lines";i:10;s:6:"atLine";i:303;}i:21;a:7:{s:6:"header";s:41:"function processCondition($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:39:"
 
 Process each conditiongroup and rule
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:57:"Configuration array containing the type page & conditions";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:37:"If this is true the page is displayed";}}s:7:"content";s:0:"";s:12:"content_size";i:1043;s:13:"content_lines";i:35;s:6:"atLine";i:315;}i:23;a:7:{s:6:"header";s:49:"function conditionAnswers($mixAnswers,$arrRule) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:88:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:57:"Configuration array containing the type page & conditions";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:37:"If this is true the page is displayed";}}s:7:"content";a:2:{i:0;s:507:"		$intFound = 0;
+		$intGroup = 0;
+		$arrConditions = unserialize($arrQuestion['conditions']);
+		if ($arrConditions) {
+			foreach ($arrConditions['grps'] as $arrGrp ) { // Groups is OR
+				$intRule = 0;
+				foreach ($arrGrp['rule'] as $arrRule) { // Rule is AND
+					if ($this->arrUserData[$arrRule['field']]) { // Found a question that is in the condition
+						$arrRuleCond[
+[...]
+	$blnOutput = ($intFound==0?true:in_array(true,$arrGrpCond));
+		} else {
+			$blnOutput = true;
+		}
+		return $blnOutput;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:1069;s:13:"content_lines";i:35;s:6:"atLine";i:320;}i:23;a:7:{s:6:"header";s:49:"function conditionAnswers($mixAnswers,$arrRule) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:88:"
 
 Check if $answers is array or string and call function checkCondition for each answer
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"mixed";i:1;s:20:"Given answer by user";}i:1;a:2:{i:0;s:5:"array";i:1;s:28:"Rule to check answer against";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:23:"Condition true or false";}}s:7:"content";s:0:"";s:12:"content_size";i:1105;s:13:"content_lines";i:34;s:6:"atLine";i:358;}i:25;a:7:{s:6:"header";s:29:"function surveyCompletion() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:65:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"mixed";i:1;s:20:"Given answer by user";}i:1;a:2:{i:0;s:5:"array";i:1;s:28:"Rule to check answer against";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:23:"Condition true or false";}}s:7:"content";a:2:{i:0;s:507:"		$intCount = 0;
+		if (is_array($mixAnswers)) {
+            $arrAnswers = $mixAnswers;
+			foreach ($this->arrSurveyItems as $arrItem){ // Check if type is constant_sum.
+				if ($arrItem['uid']==$arrRule['field'] && $arrItem['question_type']=='11') {
+					$arrConditions[$intCount] = $this->checkCondition(array_sum($arrAnswers),$arrRule);
+					$blnConstantSum = true;
+				}
+	
+[...]
+,$arrRule);
+		}
+		if (in_array(true,$arrConditions)) {
+            $blnOutput = true;
+        }
+		return $blnOutput;
+	}
+
+   	";i:1;i:1;}s:12:"content_size";i:1105;s:13:"content_lines";i:34;s:6:"atLine";i:363;}i:25;a:7:{s:6:"header";s:29:"function surveyCompletion() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:65:"
 
 Give output according to configuration
 when survey is finished
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:13:"Output string";}}s:7:"content";s:0:"";s:12:"content_size";i:676;s:13:"content_lines";i:16;s:6:"atLine";i:399;}i:27;a:7:{s:6:"header";s:32:"function callHeader($strInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:45:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:13:"Output string";}}s:7:"content";a:2:{i:0;s:507:"		switch($this->arrConfig['completion_action']) {
+			case 0: // Close the browser
+				$strOutput = '<img src="clear.gif" alt="" onLoad="javascript:window.close();" />';
+			break;
+			case 1: // Display message
+				$completionArray['message_buttons'] = $this->setButton('close').$this->setButton('continue');
+				$completionArray['message_text'] = $this->pi_getLL('completion_m
+[...]
+		case 2: // Redirect to another page
+				$this->callHeader('completion_url');
+			break;
+		}
+		return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:675;s:13:"content_lines";i:16;s:6:"atLine";i:404;}i:27;a:7:{s:6:"header";s:32:"function callHeader($strInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:45:"
 
 Set page header when jumping to other page
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:50:"String according to configuration to set page link";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:122;s:13:"content_lines";i:3;s:6:"atLine";i:422;}i:29;a:7:{s:6:"header";s:55:"function array_htmlspecialchars(&$mixInput, &$intKey) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:138:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:50:"String according to configuration to set page link";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:122:"        header('Location: '.t3lib_div::locationHeaderUrl($this->pi_getPageLink($this->arrConfig[$strInput])));
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:122;s:13:"content_lines";i:3;s:6:"atLine";i:427;}i:29;a:7:{s:6:"header";s:55:"function array_htmlspecialchars(&$mixInput, &$intKey) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:138:"
 
 Do a trim and htmlspecialchars on input
 This function is usefull when reading data from input fields from the database to display again
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"mixed";i:1;s:57:"Input field or array to do a trim and htmlspecialchars on";}i:1;a:2:{i:0;s:7:"integer";i:1;s:27:"Key from the Input variable";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:111;s:13:"content_lines";i:5;s:6:"atLine";i:434;}i:31;a:7:{s:6:"header";s:35:"function surveyError($strMessage) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"mixed";i:1;s:57:"Input field or array to do a trim and htmlspecialchars on";}i:1;a:2:{i:0;s:7:"integer";i:1;s:27:"Key from the Input variable";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:111:"    	if ($intKey!='conditions') {
+			$mixInput = trim(htmlspecialchars($mixInput, ENT_QUOTES));
+    	}
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:111;s:13:"content_lines";i:5;s:6:"atLine";i:439;}i:31;a:7:{s:6:"header";s:35:"function surveyError($strMessage) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:25:"
 
 Displays error message
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Message that has to be displayed";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:40:"Complete content generated by the plugin";}}s:7:"content";s:0:"";s:12:"content_size";i:357;s:13:"content_lines";i:11;s:6:"atLine";i:446;}i:33;a:8:{s:6:"header";s:27:"function checkResponses() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:48:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Message that has to be displayed";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:40:"Complete content generated by the plugin";}}s:7:"content";a:2:{i:0;s:357:"        $arrError['message_text'] = $this->pi_getLL($strMessage);
+        $strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'ERROR'),$arrError,'###|###',1);
+        return $strOutput;
+    }
+
+    /**********************************
+	 *
+	 * Checking functions
+	 *
+	 **********************************/
+
+	";i:1;i:0;}s:12:"content_size";i:357;s:13:"content_lines";i:11;s:6:"atLine";i:451;}i:33;a:8:{s:6:"header";s:27:"function checkResponses() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:48:"
 
 Do check if maximum responses is not exceeded
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Locallang label if error";}}s:7:"content";s:0:"";s:12:"content_size";i:539;s:13:"content_lines";i:11;s:6:"atLine";i:463;}i:35;a:7:{s:6:"header";s:29:"function checkAccessLevel() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Locallang label if error";}}s:7:"content";a:2:{i:0;s:539:"        if ($this->arrConfig['maximum_responses']<>0) {
+			$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*',$this->strResultsTable,'pid='. $this->arrConfig['pid'] . $this->cObj->enableFields($this->strResultsTable),'','','');
+			$intRow = $GLOBALS['TYPO3_DB']->sql_num_rows($dbRes);
+			// Survey reached maximum number of responses, only check at beginning of survey
+			if ($intRow >= $this->arrConfig['maximum_responses'] && !$this->piVars['stage']) {
+				$strOutput = 'access_survey_maximum';
+			}
+		}
+		return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:539;s:13:"content_lines";i:11;s:6:"atLine";i:468;}i:35;a:7:{s:6:"header";s:29:"function checkAccessLevel() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
 
 Check the Access Level of the user
 If Anonymous user then check on IP-address
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Locallang label if error";}}s:7:"content";s:0:"";s:12:"content_size";i:1052;s:13:"content_lines";i:22;s:6:"atLine";i:481;}i:37;a:7:{s:6:"header";s:25:"function checkCaptcha() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:72:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Locallang label if error";}}s:7:"content";a:2:{i:0;s:507:"		$this->arrSessionData['begintstamp'] = time();
+        $arrPrevious = $this->readPreviousUser();
+        $this->arrUserData=$arrPrevious[0]?$arrPrevious[0]:array();
+		$this->arrSessionData['rid']=$arrPrevious[2]['uid'];
+		if ((int)$this->arrConfig['access_level']) { // Single response
+			if (!$this->piVars['stage']) {
+				// Time is expired for updateable response
+				if
+[...]
+& $this->arrConfig['responses_per_user']!=0) {
+				$strOutput = 'access_user_maximum';
+			}
+		}
+		return $strOutput;
+    }
+
+	";i:1;i:1;}s:12:"content_size";i:1108;s:13:"content_lines";i:23;s:6:"atLine";i:486;}i:37;a:7:{s:6:"header";s:25:"function checkCaptcha() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:72:"
 
 Check if freeCap CAPTCHA (sr_freecap) is loaded and make object of it
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"object";i:1;s:20:"Object of sr_freecap";}}s:7:"content";s:0:"";s:12:"content_size";i:222;s:13:"content_lines";i:7;s:6:"atLine";i:509;}i:39;a:7:{s:6:"header";s:33:"function checkUpdate($intInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:44:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"object";i:1;s:20:"Object of sr_freecap";}}s:7:"content";a:2:{i:0;s:222:"		if (t3lib_extMgm::isLoaded('sr_freecap') ) {
+			require_once(t3lib_extMgm::extPath('sr_freecap').'pi2/class.tx_srfreecap_pi2.php');
+			$objOut = t3lib_div::makeInstance('tx_srfreecap_pi2');
+		}
+		return $objOut;
+	}
+
+    ";i:1;i:0;}s:12:"content_size";i:222;s:13:"content_lines";i:7;s:6:"atLine";i:515;}i:39;a:7:{s:6:"header";s:33:"function checkUpdate($intInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:44:"
 
 Return true if question has to be updated
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:19:"Uid of the question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:23:"True if it is an update";}}s:7:"content";s:0:"";s:12:"content_size";i:121;s:13:"content_lines";i:6;s:6:"atLine";i:523;}i:41;a:7:{s:6:"header";s:45:"function checkCondition($strAnswer,$arrRule){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:57:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:19:"Uid of the question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:23:"True if it is an update";}}s:7:"content";a:2:{i:0;s:121:"        if ($this->arrUserData[$intInput]) {
+            $blnOutput = true;
+        }
+        return $blnOutput;
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:121;s:13:"content_lines";i:6;s:6:"atLine";i:529;}i:41;a:7:{s:6:"header";s:45:"function checkCondition($strAnswer,$arrRule){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:57:"
 
 Check if a single answer corresponds to the rule given
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:33:"Single answer given in the survey";}i:1;a:2:{i:0;s:5:"array";i:1;s:14:"Condition rule";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:23:"Condition true or false";}}s:7:"content";s:0:"";s:12:"content_size";i:2329;s:13:"content_lines";i:64;s:6:"atLine";i:537;}i:43;a:8:{s:6:"header";s:32:"function pageNumber($intInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:51:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:33:"Single answer given in the survey";}i:1;a:2:{i:0;s:5:"array";i:1;s:14:"Condition rule";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:23:"Condition true or false";}}s:7:"content";a:2:{i:0;s:507:"		switch($arrRule['operator']) {
+			case 'eq': // Equals to
+				if ($strAnswer==$arrRule['value'] || $strAnswer==$arrRule['value2']) {
+                     $blnOutput=true;
+                }
+			break;
+			case 'ne': // Not Equal to
+				if ($arrRule['value']!='' && $arrRule['value2']=='' && $strAnswer!=$arrRule['value']) {
+                    $blnOutput=true;
+				} else if (
+[...]
+nOutput;
+	}
+
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
+
+    ";i:1;i:1;}s:12:"content_size";i:2329;s:13:"content_lines";i:64;s:6:"atLine";i:543;}i:43;a:8:{s:6:"header";s:32:"function pageNumber($intInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:51:"
 
 Show page numbers according to the configuration
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:35:"Stored configuration for pagenumber";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:52:"String containing all contents for pagenumber marker";}}s:7:"content";s:0:"";s:12:"content_size";i:1064;s:13:"content_lines";i:21;s:6:"atLine";i:608;}i:45;a:7:{s:6:"header";s:31:"function setButton($strInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:40:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:35:"Stored configuration for pagenumber";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:52:"String containing all contents for pagenumber marker";}}s:7:"content";a:2:{i:0;s:507:"		switch($intInput) {
+			case 0: // Do not display page numbers
+				$strOutput = '';
+			break;
+			case 1: // Display progress as a progress bar
+				$arrBar['percent'] = intval(($this->intStage+1) * 100/ ($this->intStage+1+$this->intNextPages));
+				$arrBar['bartext'] = $this->cObj->substituteMarker($this->pi_getLL('page_xy'),'%x',($this->intStage+1));
+				$arrBar['bartext'
+[...]
+ach page
+				$strOutput = $this->pi_getLL('page') . ' ' . ($this->intStage+1);
+			break;
+		}
+		return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:1064;s:13:"content_lines";i:21;s:6:"atLine";i:614;}i:45;a:7:{s:6:"header";s:31:"function setButton($strInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:40:"
 
 Show button according to input string
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"Name of the button";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:48:"String containing all contents for button marker";}}s:7:"content";s:0:"";s:12:"content_size";i:2179;s:13:"content_lines";i:43;s:6:"atLine";i:636;}i:47;a:7:{s:6:"header";s:23:"function setMarkers() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:54:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"Name of the button";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:48:"String containing all contents for button marker";}}s:7:"content";a:2:{i:0;s:507:"        switch($strInput) {
+            case 'cancel':
+                if ($this->arrConfig['navigation_cancel']!=0) {
+            		$arrCancel['cancel'] = $this->pi_getLL('cancel');
+            		if ($this->arrConfig['navigation_cancel']==1) {
+                        $arrCancel['canceltype'] = 'button';
+                        $arrCancel['cancelscript'] = 'onclick="javasc
+[...]
+NUE_BUTTON'),$arrContinue,'###|###',1);
+                }
+            break;
+        }
+        return $strOutput;
+    }
+
+   	";i:1;i:1;}s:12:"content_size";i:2179;s:13:"content_lines";i:43;s:6:"atLine";i:642;}i:47;a:7:{s:6:"header";s:23:"function setMarkers() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:54:"
 
 Define all possible markers in the survey template.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:38:"String containing the filled template.";}}s:7:"content";s:0:"";s:12:"content_size";i:933;s:13:"content_lines";i:18;s:6:"atLine";i:685;}i:49;a:7:{s:6:"header";s:34:"function getMarkers($arrMarkers) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:28:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:38:"String containing the filled template.";}}s:7:"content";a:2:{i:0;s:507:"        $arrMarkers = array(
+            'url'             => '$this->url',
+            'pagenumbering'   => '$this->pageNumber($this->arrConfig["page_numbering"])',
+            'backbutton'      => '$this->setButton("back")',
+            'cancelbutton'    => '$this->setButton("cancel")',
+            'submit'          => '$this->setButton("submit")',
+            'items'   
+[...]
+idationError($this->arrValidationErrors)',
+        );
+        return $strOutput = $this->getMarkers($arrMarkers);
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:933;s:13:"content_lines";i:18;s:6:"atLine";i:691;}i:49;a:7:{s:6:"header";s:34:"function getMarkers($arrMarkers) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:28:"
 
 Process the marker array.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Definition array for TypoScipt and FlexForm";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";s:0:"";s:12:"content_size";i:470;s:13:"content_lines";i:13;s:6:"atLine";i:710;}i:51;a:7:{s:6:"header";s:63:"function questionTemplate($intType,$intAlignment,$intDisplay) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:74:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Definition array for TypoScipt and FlexForm";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:53:"Configuration array made from TypoScript and FlexForm";}}s:7:"content";a:2:{i:0;s:470:"    	$strEmpty = '';
+    	$arrTemp = array();
+        foreach ($arrMarkers as $strKey => $strItem) {
+        	if (!$strItem) {
+        		$strItem = '$strEmpty';
+        	}
+            eval("\$arrTemp['".$strKey."'] = ".$strItem.";");
+        }
+        $strTemplate = $this->cObj->getSubpart($this->arrConfig['templateCode'],'SURVEYFORM');
+        $strOutput =  $this->cObj->substituteMarkerArray($strTemplate,$arrTemp,'###|###',1);
+        return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:470;s:13:"content_lines";i:13;s:6:"atLine";i:716;}i:51;a:7:{s:6:"header";s:63:"function questionTemplate($intType,$intAlignment,$intDisplay) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:74:"
 
 Select the question template according to alignment or type of display.
-";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:7:"integer";i:1;s:17:"Type of alignment";}i:2;a:2:{i:0;s:7:"integer";i:1;s:12:"Display type";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Template string";}}s:7:"content";s:0:"";s:12:"content_size";i:602;s:13:"content_lines";i:18;s:6:"atLine";i:732;}i:53;a:7:{s:6:"header";s:38:"function markerCurrentItem($intType) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:7:"integer";i:1;s:17:"Type of alignment";}i:2;a:2:{i:0;s:7:"integer";i:1;s:12:"Display type";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Template string";}}s:7:"content";a:2:{i:0;s:507:"  		switch($intType){
+			case 1:
+			case 3:
+				$arrAlign=array('VER','HOR');
+				$strOutput = $GLOBALS['TSFE']->cObj->getSubpart($this->arrConfig['templateCode'], '###'.$intType.'_'.$arrAlign[$intAlignment].'###');
+			break;
+			case 4:
+			case 5:
+				$arrAlign=array('DROP','HOR','VER');
+				$strOutput = $GLOBALS['TSFE']->cObj->getSubpart($this->arrConfig['templateCode'], 
+[...]
+E']->cObj->getSubpart($this->arrConfig['templateCode'], '###'.$intType.'###');
+			break;
+		}
+		return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:602;s:13:"content_lines";i:18;s:6:"atLine";i:738;}i:53;a:7:{s:6:"header";s:38:"function markerCurrentItem($intType) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
 
 Generate question number by configuration.
 in question type 1-16
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Question number";}}s:7:"content";s:0:"";s:12:"content_size";i:310;s:13:"content_lines";i:10;s:6:"atLine";i:758;}i:55;a:7:{s:6:"header";s:48:"function markerQuestion($intType,$strQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:50:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Question number";}}s:7:"content";a:2:{i:0;s:310:"        if ($intType>= 1 && $intType<=16) {
+            if ($this->arrConfig['question_numbering']==1) {
+    			$strOutput = $this->intCurrentItem . '.';
+    		} elseif ($this->arrConfig['question_numbering']<>0){
+    			$strOutput = $this->intPageItem . '.';
+    		}
+        }
+		return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:310;s:13:"content_lines";i:10;s:6:"atLine";i:764;}i:55;a:7:{s:6:"header";s:48:"function markerQuestion($intType,$strQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:50:"
 
 Fill marker with question
 in question type 1-16
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:6:"string";i:1;s:19:"The question itself";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:14:"Question asked";}}s:7:"content";s:0:"";s:12:"content_size";i:131;s:13:"content_lines";i:6;s:6:"atLine";i:777;}i:57;a:7:{s:6:"header";s:55:"function markerSub($intType,$arrSubText,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:6:"string";i:1;s:19:"The question itself";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:14:"Question asked";}}s:7:"content";a:2:{i:0;s:131:"        if ($intType>= 1 && $intType<=16) {
+            $strOutput = $strQuestion;
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:131;s:13:"content_lines";i:6;s:6:"atLine";i:783;}i:57;a:7:{s:6:"header";s:55:"function markerSub($intType,$arrSubText,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
 
 Generate subtext of question if available.
 in question type 1-16
-";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"The subtext";}i:2;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Subtext placed in marker";}}s:7:"content";s:0:"";s:12:"content_size";i:292;s:13:"content_lines";i:8;s:6:"atLine";i:793;}i:59;a:7:{s:6:"header";s:61:"function markerRequired($intType,$intRequired,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:5:"array";i:1;s:11:"The subtext";}i:2;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Subtext placed in marker";}}s:7:"content";a:2:{i:0;s:292:"        if ($intType>= 1 && $intType<=16) {
+            if ($arrSubText) {
+                $strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###SUB###'), $arrSubText, '###|###', 1);
+            }
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:292;s:13:"content_lines";i:8;s:6:"atLine";i:799;}i:59;a:7:{s:6:"header";s:61:"function markerRequired($intType,$intRequired,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:80:"
 
 Put a sign behind the question if question is required.
 in question type 1-16
-";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:7:"integer";i:1;s:24:"Is the question required";}i:2;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:4:"Sign";}}s:7:"content";s:0:"";s:12:"content_size";i:294;s:13:"content_lines";i:8;s:6:"atLine";i:811;}i:61;a:7:{s:6:"header";s:51:"function markerComment($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:108:"
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:7:"integer";i:1;s:24:"Is the question required";}i:2;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:4:"Sign";}}s:7:"content";a:2:{i:0;s:294:"        if ($intType>= 1 && $intType<=16) {
+            if ($intRequired) {
+                $strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###REQUIRED###'), array(), '###|###', 1);
+            }
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:294;s:13:"content_lines";i:8;s:6:"atLine";i:817;}i:61;a:7:{s:6:"header";s:51:"function markerComment($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:108:"
 
 Add extra text below the question to explain minimum and maximum values
 in question type 1,11,12,13,15,16
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:16:"Explanation text";}}s:7:"content";s:0:"";s:12:"content_size";i:3497;s:13:"content_lines";i:57;s:6:"atLine";i:828;}i:63;a:7:{s:6:"header";s:55:"function markerAdditionals($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:69:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:16:"Explanation text";}}s:7:"content";a:2:{i:0;s:507:"        $arrAllowed = array(1,11,12,13,15,16);
+        if (in_array($arrQuestion['question_type'],$arrAllowed)) {
+            switch($arrQuestion['question_type']) {
+    			case 1:
+                    if ($arrQuestion['options_minimum_responses']&&$arrQuestion['options_maximum_responses']) {
+        				$strComment = 	$this->pi_getLL('comment_responses_both');
+            
+[...]
+ubpart($strTemplate, '###COMMENT###'), '###QUESTION_COMMENT###',$strMarker);
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:3497;s:13:"content_lines";i:57;s:6:"atLine";i:834;}i:63;a:7:{s:6:"header";s:55:"function markerAdditionals($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:69:"
 
 Add additional open type field to the answers
 in question type 1,3
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"Additional field and text";}}s:7:"content";s:0:"";s:12:"content_size";i:1927;s:13:"content_lines";i:21;s:6:"atLine";i:894;}i:65;a:7:{s:6:"header";s:38:"function markerColspan($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:64:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"Additional field and text";}}s:7:"content";a:2:{i:0;s:507:"        $arrAllowed = array(1,3);
+        if (in_array($arrQuestion['question_type'],$arrAllowed) && $arrQuestion['answers_allow_additional']) {
+            if ($arrQuestion['question_type']==1) {
+        		if ($this->arrUserData[$arrQuestion['uid']]['-1']) {
+                    $arrQuestion['checked'] = 'checked="checked"';
+                    $arrQuestion['value'] = $thi
+[...]
+###'), $arrQuestion, '###|###', 1);
+            $this->arrJsItems[3] = true;
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:1927;s:13:"content_lines";i:21;s:6:"atLine";i:900;}i:65;a:7:{s:6:"header";s:38:"function markerColspan($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:64:"
 
 Calculate Colspan of matrix question
 in question type 6,7,8,9
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:16:"Calculated value";}}s:7:"content";s:0:"";s:12:"content_size";i:373;s:13:"content_lines";i:9;s:6:"atLine";i:923;}i:67;a:7:{s:6:"header";s:39:"function markerColwidth($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:86:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:16:"Calculated value";}}s:7:"content";a:2:{i:0;s:373:"        $arrAllowed = array(6,7,8);
+        if (in_array($arrQuestion['question_type'],$arrAllowed)) {
+            $intOutput = count($this->answersArray($arrQuestion['answers']));
+        } elseif ($arrQuestion['question_type']==9) {
+        	$intOutput = $arrQuestion['ending_number'] - $arrQuestion['beginning_number']+1;
+        }
+        return $intOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:373;s:13:"content_lines";i:9;s:6:"atLine";i:929;}i:67;a:7:{s:6:"header";s:39:"function markerColwidth($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:86:"
 
 Calculate width of column of matrix question in percentage
 in question type 6,7,8,9
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:16:"Calculated value";}}s:7:"content";s:0:"";s:12:"content_size";i:413;s:13:"content_lines";i:9;s:6:"atLine";i:940;}i:69;a:7:{s:6:"header";s:48:"function markerList($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:62:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:16:"Calculated value";}}s:7:"content";a:2:{i:0;s:413:"        $arrAllowed = array(6,7,8);
+        if (in_array($arrQuestion['question_type'],$arrAllowed)) {
+  		    $intOutput = intval(100/(count($this->answersArray($arrQuestion['answers'])) + 1)) . '%';
+        } elseif ($arrQuestion['question_type']==9) {
+        	$intOutput = intval(100/($arrQuestion['ending_number'] - $arrQuestion['beginning_number']+2)) . '%';
+        }
+        return $intOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:413;s:13:"content_lines";i:9;s:6:"atLine";i:946;}i:69;a:7:{s:6:"header";s:48:"function markerList($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:62:"
 
 Build a list of possible answers
 in question type 1,2,3,4,5
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"List of possible answers";}}s:7:"content";s:0:"";s:12:"content_size";i:2237;s:13:"content_lines";i:43;s:6:"atLine";i:958;}i:71;a:7:{s:6:"header";s:50:"function markerHeader($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:73:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"List of possible answers";}}s:7:"content";a:2:{i:0;s:507:"    	$arrHtml = array();
+        if (in_array($arrQuestion['question_type'],array(1,2,3))) {
+			$arrVars = $this->answersArray($arrQuestion['answers']);
+            foreach($arrVars as $intKey => $arrItem){
+            	unset($arrQuestion['checked']);
+            	unset($arrQuestion['selected']);
+				if ($this->checkUpdate($arrQuestion['uid'])) {
+					if ((in_array($arrQue
+[...]
+utput = implode(chr(13),$arrHtml);
+        $arrOutput = array($strOutput,$blnChecked);
+        return $arrOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:2306;s:13:"content_lines";i:45;s:6:"atLine";i:964;}i:71;a:7:{s:6:"header";s:50:"function markerHeader($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:73:"
 
 Build the header row of matrix type questions
 in question type 6,7,8,9
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:10:"Header row";}}s:7:"content";s:0:"";s:12:"content_size";i:825;s:13:"content_lines";i:16;s:6:"atLine";i:1010;}i:73;a:7:{s:6:"header";s:48:"function markerRows($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:127:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:10:"Header row";}}s:7:"content";a:2:{i:0;s:507:"    	$arrHtml = array();
+        $arrAllowed = array(6,7,8);
+        if (in_array($arrQuestion['question_type'],$arrAllowed)) {
+            $arrVars = $this->answersArray($arrQuestion['answers']);
+    		foreach ($arrVars as $arrCol){
+    			$arrQuestion['value'] = $arrCol[0];
+    			$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemp
+[...]
+tion, '###|###', 1);
+    		}
+        }
+        $strOutput = implode(chr(13),$arrHtml);
+        return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:902;s:13:"content_lines";i:18;s:6:"atLine";i:1018;}i:73;a:7:{s:6:"header";s:48:"function markerRows($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:127:"
 
 Build the answer rows of matrix type questions and answers not configured by Answer Wizard
 in question type 6,7,8,9,11,15,16
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:11:"Answer rows";}}s:7:"content";s:0:"";s:12:"content_size";i:4097;s:13:"content_lines";i:73;s:6:"atLine";i:1035;}i:75;a:7:{s:6:"header";s:36:"function markerValue($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:72:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:11:"Answer rows";}}s:7:"content";a:2:{i:0;s:507:"    	$arrHtmlRows = array();
+        $strClass = "surveyrow_odd";
+        $arrCols = $this->answersArray($arrQuestion['answers']);
+		$arrRows = explode("\n",$arrQuestion['rows']);
+		$arrRows = array_map('trim', $arrRows);
+		$arrMarkerArray['###UID###'] = $arrQuestion['uid'];
+		$arrMarkerArray['###QUESTION###'] = $arrQuestion['question'];
+		foreach ($arrRows as $intRowKey =
+[...]
+rrMarkerArray, $arrSubpartArray, array());
+		}
+		$strOutput = implode(chr(13),$arrHtmlRows);
+		return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:4207;s:13:"content_lines";i:75;s:6:"atLine";i:1045;}i:75;a:7:{s:6:"header";s:36:"function markerValue($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:72:"
 
 Return default value for marker
 in question type 10,12,13,14,17,19,21
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:5:"Value";}}s:7:"content";s:0:"";s:12:"content_size";i:1063;s:13:"content_lines";i:22;s:6:"atLine";i:1116;}i:77;a:7:{s:6:"header";s:36:"function markerValueNone($intType) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:5:"Value";}}s:7:"content";a:2:{i:0;s:507:"        if (in_array($arrQuestion['question_type'],array(10,12,13,14))) {
+            if ($this->checkUpdate($arrQuestion['uid'])) {
+                $strOutput = $this->arrUserData[$arrQuestion['uid']];
+            } else {
+                if (in_array($arrQuestion['question_type'],array(10,14))) {
+                    $strOutput = $arrQuestion['default_value_txt'];
+       
+[...]
+on['question_type']==21) {
+            $strOutput = $arrQuestion['message'];
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:1063;s:13:"content_lines";i:22;s:6:"atLine";i:1128;}i:77;a:7:{s:6:"header";s:36:"function markerValueNone($intType) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:67:"
 
 Return locallang value for value --None--
 in question type 2,4,5
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Locallang Value";}}s:7:"content";s:0:"";s:12:"content_size";i:151;s:13:"content_lines";i:6;s:6:"atLine";i:1146;}i:79;a:7:{s:6:"header";s:49:"function markerTitle($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Locallang Value";}}s:7:"content";a:2:{i:0;s:151:"        if (in_array($intType,array(2,4,5))) {
+            $strOutput = $this->pi_getLL('value_none');
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:151;s:13:"content_lines";i:6;s:6:"atLine";i:1158;}i:79;a:7:{s:6:"header";s:49:"function markerTitle($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:23:"
 
 Build the page title
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:10:"Page title";}}s:7:"content";s:0:"";s:12:"content_size";i:229;s:13:"content_lines";i:6;s:6:"atLine";i:1160;}i:81;a:7:{s:6:"header";s:56:"function markerIntroduction($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:30:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:10:"Page title";}}s:7:"content";a:2:{i:0;s:229:"    	if ($arrQuestion['page_title']) {
+    		$strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###TITLE###'), $arrQuestion, '###|###', 1);
+    	}
+    	return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:229;s:13:"content_lines";i:6;s:6:"atLine";i:1172;}i:81;a:7:{s:6:"header";s:56:"function markerIntroduction($arrQuestion,$strTemplate) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:30:"
 
 Build the page introduction
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:17:"Page introduction";}}s:7:"content";s:0:"";s:12:"content_size";i:243;s:13:"content_lines";i:6;s:6:"atLine";i:1174;}i:83;a:7:{s:6:"header";s:36:"function markerImage($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:49:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}i:1;a:2:{i:0;s:6:"string";i:1;s:49:"Template string where marker has to be taken from";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:17:"Page introduction";}}s:7:"content";a:2:{i:0;s:243:"    	if ($arrQuestion['page_introduction']) {
+    		$strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###INTRODUCTION###'), $arrQuestion, '###|###', 1);
+    	}
+    	return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:243;s:13:"content_lines";i:6;s:6:"atLine";i:1186;}i:83;a:7:{s:6:"header";s:36:"function markerImage($arrQuestion) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:49:"
 
 Build the image according to the configuration
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:30:"<img> tag, if any image found.";}}s:7:"content";s:0:"";s:12:"content_size";i:381;s:13:"content_lines";i:9;s:6:"atLine";i:1187;}i:85;a:7:{s:6:"header";s:33:"function markerAlign($intAlign) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:29:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:37:"Question and all of its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:30:"<img> tag, if any image found.";}}s:7:"content";a:2:{i:0;s:381:"    	if ($arrQuestion['image']) {
+			$arrConf['image.']['file'] = 'uploads/tx_pbsurvey/' . $arrQuestion['image'];
+			$arrConf['image.']['file.']['maxH'] = $arrQuestion['image_height'];
+			$arrConf['image.']['file.']['maxW'] = $arrQuestion['image_width'];
+			$strOutput = $this->cObj->cIMAGE($arrConf['image.']['file'],$arrConf['image.']);
+    	}
+    	return $strOutput;
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:381;s:13:"content_lines";i:9;s:6:"atLine";i:1199;}i:85;a:7:{s:6:"header";s:33:"function markerAlign($intAlign) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:29:"
 
 Return the image alignment
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:26:"Configuration of alignment";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:9:"Alignment";}}s:7:"content";s:0:"";s:12:"content_size";i:208;s:13:"content_lines";i:12;s:6:"atLine";i:1203;}i:87;a:7:{s:6:"header";s:39:"function processQuestion($arrQuestion){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:75:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"integer";i:1;s:26:"Configuration of alignment";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:9:"Alignment";}}s:7:"content";a:2:{i:0;s:208:"    	if ($intAlign) {
+			if ($intAlign<=1) {
+				$strOutput = 'left';
+			} elseif ($intAlign==2) {
+				$strOutput = 'center';
+			} else {
+				$strOutput = 'right';
+			}
+    	}
+    	return $strOutput;
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:208;s:13:"content_lines";i:12;s:6:"atLine";i:1215;}i:87;a:7:{s:6:"header";s:39:"function processQuestion($arrQuestion){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:75:"
 
 Process the question and substitute markers in template
 for screenoutput
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:34:"The question and its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:17:"Rendered question";}}s:7:"content";s:0:"";s:12:"content_size";i:2085;s:13:"content_lines";i:28;s:6:"atLine";i:1223;}i:89;a:7:{s:6:"header";s:24:"function loadCaptcha() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:38:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:34:"The question and its configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:17:"Rendered question";}}s:7:"content";a:2:{i:0;s:507:"        $strTemplate = $this->questionTemplate($arrQuestion['question_type'],$arrQuestion['options_alignment'],$arrQuestion['display_type']);
+
+		$markerArray['###CURRENTITEM###'] = $this->markerCurrentItem($arrQuestion['question_type']);
+		$markerArray['###UID###'] = $this->markerQuestion($arrQuestion['question_type'],$arrQuestion['uid']);
+		$markerArray['###QUESTION###'] 
+[...]
+subpartArray, array());
+		$strOutput = ereg_replace('###[A-Za-z_1234567890]+###', '', $strOutput);
+		return $strOutput;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:2085;s:13:"content_lines";i:28;s:6:"atLine";i:1235;}i:89;a:7:{s:6:"header";s:24:"function loadCaptcha() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:38:"
 
 Build the HTML for the captcha page
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:32:"HTML containing the captcha page";}}s:7:"content";s:0:"";s:12:"content_size";i:798;s:13:"content_lines";i:23;s:6:"atLine";i:1257;}i:91;a:8:{s:6:"header";s:29:"function readPreviousUser() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"Reading functions";}s:4:"cDat";a:3:{s:4:"text";s:55:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:32:"HTML containing the captcha page";}}s:7:"content";a:2:{i:0;s:507:"		$this->strOutItems = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'CAPTCHA'),$this->objFreeCap->makeCaptcha(),'',1);
+		$arrMarkers = array(
+            'url'             => '$this->url',
+            'submit'          => '$this->setButton("submit")',
+            'items'           => '$this->strOutItems',
+            'stage'  
+[...]
+strOutput;
+	}
 
-Read the previous response from user if there is any
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:66:"Answers found, total number of rows found, row of the first result";}}s:7:"content";s:0:"";s:12:"content_size";i:1738;s:13:"content_lines";i:36;s:6:"atLine";i:1286;}i:93;a:7:{s:6:"header";s:23:"function readSurvey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:243:"
+    /**********************************
+	 *
+	 * Reading functions
+	 *
+	 **********************************/
+
+	";i:1;i:1;}s:12:"content_size";i:798;s:13:"content_lines";i:23;s:6:"atLine";i:1269;}i:91;a:8:{s:6:"header";s:29:"function readPreviousUser() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"Reading functions";}s:4:"cDat";a:3:{s:4:"text";s:101:"
+
+Read the previous response from user if there is any from database and add the latest piVars to it
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:66:"Answers found, total number of rows found, row of the first result";}}s:7:"content";a:2:{i:0;s:507:"    	$arrSelectConf['selectFields'] = '*';
+    	$arrSelectConf['where'] = '1=1';
+    	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
+    	if ($this->arrSessionData['uid']) { // We have a frontend user
+    		$arrSelectConf['where'] .= ' AND user=' . $this->arrSessionData['uid'];
+    	} elseif ($this->arrConfig['anonymous_mode']==0) { // Anonymous, IP Chec
+[...]
+nswer;
+						}
+					}
+				}
+			}
+		}
+		$arrOutput = array($arrAnswers,$intRowCount,$arrRes);
+		return $arrOutput;
+    }
+
+   	";i:1;i:1;}s:12:"content_size";i:2886;s:13:"content_lines";i:64;s:6:"atLine";i:1298;}i:93;a:7:{s:6:"header";s:23:"function readSurvey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:243:"
 
 Read all questions from database
 Frontend user has to do all question no mather what language, so sys_language_mode != 'strict'
 Thanks to Rupert Germann, who probably doesn't know it anymore we discussed this during TYCON3 2005 in Karlsruhe
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1065;s:13:"content_lines";i:22;s:6:"atLine";i:1330;}i:95;a:8:{s:6:"header";s:23:"function userSetKey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"Storing functions";}s:4:"cDat";a:3:{s:4:"text";s:27:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"    	$arrSelectConf['selectFields'] = '*';
+    	$arrSelectConf['where'] = '1=1';
+    	$arrSelectConf['where'] .= ' AND pid=' . $this->arrConfig['pid'];
+		$arrSelectConf['where'] .= ' AND ' . $this->strItemsTable . '.sys_language_uid IN (0,-1)';
+		$arrSelectConf['where'] .= $this->cObj->enableFields($this->strItemsTable);
+		$arrSelectConf['orderBy'] = 'sorting ASC';
+		$dbRe
+[...]
+ow;
+		}
+    }
+
+    /**********************************
+	 *
+	 * Storing functions
+	 *
+	 **********************************/
+
+	";i:1;i:1;}s:12:"content_size";i:1023;s:13:"content_lines";i:22;s:6:"atLine";i:1370;}i:95;a:8:{s:6:"header";s:23:"function userSetKey() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:17:"Storing functions";}s:4:"cDat";a:3:{s:4:"text";s:27:"
 
 Transfer data to FE_user
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:97;s:13:"content_lines";i:3;s:6:"atLine";i:1358;}i:97;a:7:{s:6:"header";s:38:"function storeResults($boolFinished) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:162:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:97:"        $GLOBALS['TSFE']->fe_user->setKey('ses','surveyData', $this->arrSessionData);
+    }
+
+    ";i:1;i:0;}s:12:"content_size";i:97;s:13:"content_lines";i:3;s:6:"atLine";i:1398;}i:97;a:7:{s:6:"header";s:38:"function storeResults($boolFinished) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:162:"
 
 Store new result in database or, if update, update the previous one, in the beginning of the survey.
 Set finished and endtsstamp when survey has been finished.
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"boolean";i:1;s:30:"True if the survey is finished";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:41:"Error message if query to database failed";}}s:7:"content";s:0:"";s:12:"content_size";i:966;s:13:"content_lines";i:22;s:6:"atLine";i:1369;}i:99;a:7:{s:6:"header";s:34:"function storeAnswers($arrInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:130:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:7:"boolean";i:1;s:30:"True if the survey is finished";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:41:"Error message if query to database failed";}}s:7:"content";a:2:{i:0;s:507:"    	if ($boolFinished) {
+			$arrDb['finished'] = 1;
+			$arrDb['endtstamp'] = time();
+			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) {
+				setcookie($this->extKey."[responses]", $this->arrSessionData['responses']+1, (time()+60*60*24*$this->arrConfig['cookie_lifetime'])); // add 1 to the amount of responses
+			}
+    	}
+		$arrDb['user'] = $this->
+[...]
+']->sql_error()) {
+			$strOutput = $this->surveyError('failed_saving_data');
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:1471;s:13:"content_lines";i:28;s:6:"atLine";i:1409;}i:99;a:7:{s:6:"header";s:34:"function storeAnswers($arrInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:130:"
 
 Store the answers in the database
 Updates old answers, inserts new ones or deletes previous answers not given again by the user
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:20:"Answers to be stored";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:41:"Error message if query to database failed";}}s:7:"content";s:0:"";s:12:"content_size";i:2709;s:13:"content_lines";i:70;s:6:"atLine";i:1399;}i:101;a:8:{s:6:"header";s:29:"function validationString() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:20:"Validation functions";}s:4:"cDat";a:3:{s:4:"text";s:76:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:20:"Answers to be stored";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:41:"Error message if query to database failed";}}s:7:"content";a:2:{i:0;s:507:"    	$intResult = $this->arrSessionData['rid'];
+    	$intPage = $this->arrConfig['pid'];
+		$arrSelectConf['selectFields'] = '*';
+	    $arrSelectConf['where'] = '1=1';
+	    $arrSelectConf['where'] .= ' AND pid=' . $intPage;
+	    $arrSelectConf['where'] .= ' AND result=' . $intResult;
+
+    	foreach($arrInput as $mixQuestion => $mixQuestionValue) {
+			unset($this->arrUserData
+[...]
+Output;
+    }
+
+	/**********************************
+	 *
+	 * Validation functions
+	 *
+	 **********************************/
+
+	";i:1;i:1;}s:12:"content_size";i:2709;s:13:"content_lines";i:70;s:6:"atLine";i:1445;}i:101;a:8:{s:6:"header";s:29:"function validationString() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:11:"sectionText";a:1:{i:0;s:20:"Validation functions";}s:4:"cDat";a:3:{s:4:"text";s:76:"
 
 Create the validation string for use in client or server side validation.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";s:0:"";s:12:"content_size";i:595;s:13:"content_lines";i:12;s:6:"atLine";i:1475;}i:103;a:7:{s:6:"header";s:25:"function validateForm() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:90:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";a:2:{i:0;s:595:"		if (is_array($this->arrValidation)) {
+		    if ($this->arrConfig['validation']==0) { // Client side
+	    		foreach($this->arrValidation as $intUid => $arrQuestion) {
+	    			$arrCsCalls[] = "'".$intUid."','".$arrQuestion['number']."','".$arrQuestion['type'].":".($arrQuestion['required']?'R':'').":".$arrQuestion['values'][1].":".$arrQuestion['values'][2]."'";
+	    		}
+	    		$this->strCsCalls = "pbsurveyValidate(".implode(",",$arrCsCalls).");return document.pbsurveyReturnValue";
+		    } else {
+		    	$this->strSsCalls = base64_encode(serialize($this->arrValidation));
+		    }
+	    }
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:595;s:13:"content_lines";i:12;s:6:"atLine";i:1521;}i:103;a:7:{s:6:"header";s:25:"function validateForm() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:90:"
 
 Do a server side validation of the form according to the configuration of each question
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:53:"True if validation is ok or no server side validation";}}s:7:"content";s:0:"";s:12:"content_size";i:8928;s:13:"content_lines";i:120;s:6:"atLine";i:1493;}i:105;a:7:{s:6:"header";s:96:"function validationErrorMarker($intType,$intGetLL,$intNumber,$mixInp1=0,$mixInp2=0,$mixInp3=0) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:53:"True if validation is ok or no server side validation";}}s:7:"content";a:2:{i:0;s:507:"    	$boolOutput = TRUE;
+    	if ($this->arrConfig['validation']==1 && $this->piVars['validation'] && !isset($this->piVars['back'])) { // Server side validation and something to validate and no Back button
+    		$arrValidation = unserialize(base64_decode($this->piVars['validation']));
+    		if (is_array($arrValidation)) {
+	    		foreach($arrValidation as $intKey => $arrQue
+[...]
+rror)) {
+    		$this->arrValidationErrors = $arrError;
+    		$boolOutput = FALSE;
+    	}
+    	return $boolOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:8980;s:13:"content_lines";i:120;s:6:"atLine";i:1539;}i:105;a:7:{s:6:"header";s:96:"function validationErrorMarker($intType,$intGetLL,$intNumber,$mixInp1=0,$mixInp2=0,$mixInp3=0) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:77:"
 
 Takes the locallang validation errorstring and fills it with given values.
-";s:5:"param";a:6:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:6:"string";i:1;s:9:"LL string";}i:2;a:2:{i:0;s:7:"integer";i:1;s:22:"Number of the question";}i:3;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}i:4;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}i:5;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Template string";}}s:7:"content";s:0:"";s:12:"content_size";i:624;s:13:"content_lines";i:17;s:6:"atLine";i:1625;}i:107;a:7:{s:6:"header";s:45:"function validationIsDateEuropean($strInput){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:68:"
+";s:5:"param";a:6:{i:0;a:2:{i:0;s:7:"integer";i:1;s:16:"Type of question";}i:1;a:2:{i:0;s:6:"string";i:1;s:9:"LL string";}i:2;a:2:{i:0;s:7:"integer";i:1;s:22:"Number of the question";}i:3;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}i:4;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}i:5;a:2:{i:0;s:5:"mixed";i:1;s:29:"Value to fill in in LL string";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:15:"Template string";}}s:7:"content";a:2:{i:0;s:507:"    	$arrLocallang = $this->validationLocalLang();
+		$strOutput = '- ' . $this->pi_getLL($arrLocallang[$intGetLL]);
+		$strOutput = str_replace('%q', $intNumber, $strOutput);
+		if (in_array($intType,array(1,3,11,13,15,16)) && $mixInp1!='') {
+			$strOutput = str_replace('%v', $mixInp1, $strOutput);
+		}
+		if ($intType==11 && $mixInp2!='') {
+			$strOutput = str_replace('%t', $
+[...]
+_replace('%m', $mixInp2, $strOutput);
+			$strOutput = str_replace('%y', $mixInp3, $strOutput);
+		}
+		return $strOutput;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:624;s:13:"content_lines";i:17;s:6:"atLine";i:1671;}i:107;a:7:{s:6:"header";s:45:"function validationIsDateEuropean($strInput){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:68:"
 
 Checks for a valid date and returns an integer according to error
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:8:"The date";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:13:"Error integer";}}s:7:"content";s:0:"";s:12:"content_size";i:517;s:13:"content_lines";i:12;s:6:"atLine";i:1649;}i:109;a:7:{s:6:"header";s:68:"function validationIsFirstDateEarlier($strFirstDate,$strSecondDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:54:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:8:"The date";}}s:6:"return";a:2:{i:0;s:7:"integer";i:1;s:13:"Error integer";}}s:7:"content";a:2:{i:0;s:517:"		$arrDate = array();
+		if (ereg('([0-9]{1,2})[-,/]([0-9]{1,2})[-,/](([0-9]{2})|([0-9]{4}))', $strInput, $arrDate)) {
+		    if ($arrDate[2]<1 || $arrDate[2]>12) return '2';
+		    if ($arrDate[1]<1 || $arrDate[1]>31) return '3';
+		    if ($arrDate[1]>30+(($arrDate[2]>7)^($arrDate[2]&1))) return '4::'.$arrDate[2];
+		    if (($arrDate[2]==2) && ($arrDate[1]>28+(!($arrDate[3]%4))-(!($arrDate[3]%100))+(!($arrDate[3]%400)))) return '5:'.$arrDate[1].'::'.$arrDate[3];
+		} else {
+			return '1';
+		}
+	    return '0';
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:517;s:13:"content_lines";i:12;s:6:"atLine";i:1695;}i:109;a:7:{s:6:"header";s:68:"function validationIsFirstDateEarlier($strFirstDate,$strSecondDate){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:54:"
 
 Checks if first date is earlier than the second one
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:36:"Date supposed to be the earliest one";}i:1;a:2:{i:0;s:6:"string";i:1;s:34:"Date supposed to be the latest one";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:29:"true if first date is earlier";}}s:7:"content";s:0:"";s:12:"content_size";i:389;s:13:"content_lines";i:11;s:6:"atLine";i:1669;}i:111;a:7:{s:6:"header";s:37:"function validationError($arrInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:36:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:36:"Date supposed to be the earliest one";}i:1;a:2:{i:0;s:6:"string";i:1;s:34:"Date supposed to be the latest one";}}s:6:"return";a:2:{i:0;s:7:"boolean";i:1;s:29:"true if first date is earlier";}}s:7:"content";a:2:{i:0;s:389:"		list($intDay[1], $intMonth[1], $intYear[1]) = split('[-,/]', $strFirstDate);
+		list($intDay[2], $intMonth[2], $intYear[2]) = split('[-,/]', $strSecondDate);
+		$intDateFirst = mktime(0,0,0,$intMonth[1],$intDay[1],$intYear[1]);
+		$intDateSecond = mktime(0,0,0,$intMonth[2],$intDay[2],$intYear[2]);
+		if ($intDateFirst<$intDateSecond) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:389;s:13:"content_lines";i:11;s:6:"atLine";i:1715;}i:111;a:7:{s:6:"header";s:37:"function validationError($arrInput) {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:36:"
 
 Displays validation error message
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Message that has to be displayed";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:31:"Content generated by the plugin";}}s:7:"content";s:0:"";s:12:"content_size";i:372;s:13:"content_lines";i:7;s:6:"atLine";i:1687;}i:113;a:7:{s:6:"header";s:32:"function validationLocalLang() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Message that has to be displayed";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:31:"Content generated by the plugin";}}s:7:"content";a:2:{i:0;s:372:"		if (!empty($arrInput)) {
+	        $arrError['message_text'] = '<p><strong>'.$this->pi_getLL('js_errors_occurred').'</strong><br />'.chr(10).implode('<br />'.chr(10),$arrInput).'</p>';
+	        $strOutput = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'ERROR'),$arrError,'###|###',1);
+		}
+        return $strOutput;
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:372;s:13:"content_lines";i:7;s:6:"atLine";i:1733;}i:113;a:7:{s:6:"header";s:32:"function validationLocalLang() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:76:"
 
 Define the locallang keys for form validation server side and client side
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:7:"LL Keys";}}s:7:"content";s:0:"";s:12:"content_size";i:866;s:13:"content_lines";i:32;s:6:"atLine";i:1700;}i:115;a:7:{s:6:"header";s:24:"function jsLocallang() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:115:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:7:"LL Keys";}}s:7:"content";a:2:{i:0;s:507:"		$arrOutput = array(
+			'js_errors_occurred', // 0
+			'js_required_select', // 1
+			'js_required_enter', // 2
+			'js_required_date', // 3
+			'js_required_matrix_check', // 4
+			'js_required_matrix_value', // 5
+			'js_required_matrix_radio', //6
+			'js_required_numeric', // 7
+			'js_required_enter_multiple', // 8
+			'js_minimum_value', // 9
+			'js_maximum_value', // 10
+			
+[...]
+
+			'js_sum', // 23
+			'js_email', // 24
+			'js_ranking_double', // 25
+			'js_ranking', // 26
+		);
+		return $arrOutput;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:866;s:13:"content_lines";i:32;s:6:"atLine";i:1746;}i:115;a:7:{s:6:"header";s:24:"function jsLocallang() {";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:115:"
 
 Create javascript function containing array of the errors produced by the javascript functions in local language
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";s:0:"";s:12:"content_size";i:521;s:13:"content_lines";i:14;s:6:"atLine";i:1738;}i:117;a:4:{s:6:"header";s:38:"function jsProcessCalls($arrQuestion){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:327:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";a:2:{i:0;s:521:"		$arrJsLocallang = $this->validationLocalLang();
+		$arrFunction[] = 'function ' . $this->extKey . 'GetErrorMsg(intInput) {';
+		$arrFunction[] = 'var $arrErrors = new Array(27);';
+		foreach($arrJsLocallang as $intKey=>$strJsLocallang) {
+			if ($intKey!=0) {
+				$arrFunction[] = "arrErrors[" . $intKey . "]='-" . addslashes($this->pi_getLL($strJsLocallang)) . "';";
+			}
+		}
+		$arrFunction[] = 'return arrErrors[intInput];';
+		$arrFunction[] = '}';
+		$strOutput = implode(chr(10),$arrFunction);
+		return $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:521;s:13:"content_lines";i:14;s:6:"atLine";i:1784;}i:117;a:4:{s:6:"header";s:38:"function jsProcessCalls($arrQuestion){";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:327:"
 
 Create array with all the values needed for form validation according to questiontype and related options.
 This is used by both the Client Side JavaScript as Server Side PHP validation
 Besides turn on parts of the javascriptfunction according to questiontype.
 These values are stored in the global array $this->arrValidation
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Configuration array containing the question";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:6:"atLine";i:1762;}i:119;a:7:{s:6:"header";s:24:"function jsFunctions()	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:57:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:43:"Configuration array containing the question";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:6:"atLine";i:1808;}i:119;a:7:{s:6:"header";s:24:"function jsFunctions()	{";s:11:"parentClass";s:15:"tx_pbsurvey_pi1";s:4:"cDat";a:3:{s:4:"text";s:57:"
 
 Build javascript for client and server side validation
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";s:0:"";s:12:"content_size";i:9613;s:13:"content_lines";i:246;s:6:"atLine";i:1833;}}}s:14:"MD5_784b5db297";a:4:{s:8:"filename";s:25:"wizard/wizard_answers.php";s:8:"filesize";i:19180;s:6:"header";a:5:{s:4:"text";s:234:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:37:"Contains complete JavaScript Function";}}s:7:"content";a:2:{i:0;s:507:"$arrJsFunctions[0] = "
+function validationIsDateEuropean(strDate){	//
+	var expDate=/^(\d{1,2})(\/|-|.)(\d{1,2})(\/|-|.)(\d{4})$/
+	var arrDate=strDate.match(expDate);
+    if (arrDate==null) return '1';
+    var intDay=arrDate[1];
+    var intMonth=arrDate[3];
+    var intYear=arrDate[5];
+    if (intMonth<1 || intMonth>12) return '2';
+    if (intDay<1 || intDay>31) return '3';
+
+[...]
+survey_pi1.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/pbsurvey/pi1/class.tx_pbsurvey_pi1.php']);
+}
+?>";i:1;i:1;}s:12:"content_size";i:9613;s:13:"content_lines";i:246;s:6:"atLine";i:1879;}}s:10:"usageCount";a:60:{s:12:"H_9db2de8e91";a:2:{s:24:"_searchtime_milliseconds";d:153;s:15:"_functionHeader";s:44:"class tx_pbsurvey_pi1 extends tslib_pibase {";}s:12:"H_2199b34fe8";a:10:{s:3:"ALL";a:3:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:8;s:14:"nonObjectUsage";i:2;}s:14:"MD5_19aaeae789";a:4:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:2;s:14:"nonObjectUsage";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_451ba283ad";a:3:{s:8:"fileName";s:15:"wizard/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_0bf51677e8";a:3:{s:8:"fileName";s:16:"wizard2/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:22:"function init($conf) {";}s:12:"H_0cff4a7a2a";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:24:"function setFFconfig() {";}s:12:"H_a0b5c136cc";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:36:"function getFFconfig($arrFFConfig) {";}s:12:"H_0c5e73c51b";a:6:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:26;s:15:"_functionHeader";s:37:"function main($strContent,$arrConf)	{";}s:12:"H_2354f069cc";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:24:"function setUserName() {";}s:12:"H_054f1147dd";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:26:"function processSurvey() {";}s:12:"H_76f4998de6";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:8;s:15:"_functionHeader";s:25:"function processItems() {";}s:12:"H_2ebb71a1e2";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:36:"function previousStage($boolInput) {";}s:12:"H_6284c228e4";a:7:{s:3:"ALL";a:2:{s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:26;s:15:"_functionHeader";s:34:"function answersArray($strInput)	{";}s:12:"H_b844d71103";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:41:"function processCondition($arrQuestion) {";}s:12:"H_92bc32a9ef";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:49:"function conditionAnswers($mixAnswers,$arrRule) {";}s:12:"H_f538f42f38";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:29:"function surveyCompletion() {";}s:12:"H_373468793d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:32:"function callHeader($strInput) {";}s:12:"H_8560f7d4c6";a:2:{s:24:"_searchtime_milliseconds";d:3;s:15:"_functionHeader";s:55:"function array_htmlspecialchars(&$mixInput, &$intKey) {";}s:12:"H_75b523afce";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:35:"function surveyError($strMessage) {";}s:12:"H_439a892327";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:27:"function checkResponses() {";}s:12:"H_74b769ef0f";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:29:"function checkAccessLevel() {";}s:12:"H_65f2cead37";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:25:"function checkCaptcha() {";}s:12:"H_ed261caff3";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:7;s:5:"TOTAL";i:7;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:7;s:5:"TOTAL";i:7;}s:24:"_searchtime_milliseconds";d:17;s:15:"_functionHeader";s:33:"function checkUpdate($intInput) {";}s:12:"H_6c215a8269";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:9;s:15:"_functionHeader";s:45:"function checkCondition($strAnswer,$arrRule){";}s:12:"H_57168c0879";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:32:"function pageNumber($intInput) {";}s:12:"H_092784644b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:6;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:6;s:5:"TOTAL";i:6;}s:24:"_searchtime_milliseconds";d:17;s:15:"_functionHeader";s:31:"function setButton($strInput) {";}s:12:"H_8cecfe8426";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:23:"function setMarkers() {";}s:12:"H_9986143745";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:34:"function getMarkers($arrMarkers) {";}s:12:"H_d874633787";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:63:"function questionTemplate($intType,$intAlignment,$intDisplay) {";}s:12:"H_6527a1312f";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:21;s:15:"_functionHeader";s:38:"function markerCurrentItem($intType) {";}s:12:"H_077f8a159a";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:48:"function markerQuestion($intType,$strQuestion) {";}s:12:"H_a28abc1bea";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:15;s:15:"_functionHeader";s:55:"function markerSub($intType,$arrSubText,$strTemplate) {";}s:12:"H_4c083a9bb0";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:61:"function markerRequired($intType,$intRequired,$strTemplate) {";}s:12:"H_3b58909cdc";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:18;s:15:"_functionHeader";s:51:"function markerComment($arrQuestion,$strTemplate) {";}s:12:"H_b330220fdc";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:21;s:15:"_functionHeader";s:55:"function markerAdditionals($arrQuestion,$strTemplate) {";}s:12:"H_6eec36978f";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:18;s:15:"_functionHeader";s:38:"function markerColspan($arrQuestion) {";}s:12:"H_c843c97fd4";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:18;s:15:"_functionHeader";s:39:"function markerColwidth($arrQuestion) {";}s:12:"H_d14938bda4";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:16;s:15:"_functionHeader";s:48:"function markerList($arrQuestion,$strTemplate) {";}s:12:"H_4dfdc33c98";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:17;s:15:"_functionHeader";s:50:"function markerHeader($arrQuestion,$strTemplate) {";}s:12:"H_1d210149a9";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:17;s:15:"_functionHeader";s:48:"function markerRows($arrQuestion,$strTemplate) {";}s:12:"H_dbd9b3c5d4";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:29;s:15:"_functionHeader";s:36:"function markerValue($arrQuestion) {";}s:12:"H_abfd49fdc8";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:36:"function markerValueNone($intType) {";}s:12:"H_9f0d320378";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:17;s:15:"_functionHeader";s:49:"function markerTitle($arrQuestion,$strTemplate) {";}s:12:"H_ee6d36a11d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:22;s:15:"_functionHeader";s:56:"function markerIntroduction($arrQuestion,$strTemplate) {";}s:12:"H_8502eab564";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:17;s:15:"_functionHeader";s:36:"function markerImage($arrQuestion) {";}s:12:"H_da4df70b58";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:17;s:15:"_functionHeader";s:33:"function markerAlign($intAlign) {";}s:12:"H_cfb92eb4cd";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:13;s:15:"_functionHeader";s:39:"function processQuestion($arrQuestion){";}s:12:"H_59d26addce";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:24:"function loadCaptcha() {";}s:12:"H_f0a79f4490";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:9;s:15:"_functionHeader";s:29:"function readPreviousUser() {";}s:12:"H_3ff3fed0af";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:23:"function readSurvey() {";}s:12:"H_438fa0cab5";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:23:"function userSetKey() {";}s:12:"H_9520be3847";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:38:"function storeResults($boolFinished) {";}s:12:"H_3af287bca7";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:34:"function storeAnswers($arrInput) {";}s:12:"H_e4e5808b32";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:29:"function validationString() {";}s:12:"H_3fb0fa095c";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:25:"function validateForm() {";}s:12:"H_2b659b238a";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:28;s:5:"TOTAL";i:28;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:28;s:5:"TOTAL";i:28;}s:24:"_searchtime_milliseconds";d:32;s:15:"_functionHeader";s:96:"function validationErrorMarker($intType,$intGetLL,$intNumber,$mixInp1=0,$mixInp2=0,$mixInp3=0) {";}s:12:"H_1bb21dcfa0";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:44;s:15:"_functionHeader";s:45:"function validationIsDateEuropean($strInput){";}s:12:"H_51f67a6b8a";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:49;s:15:"_functionHeader";s:68:"function validationIsFirstDateEarlier($strFirstDate,$strSecondDate){";}s:12:"H_5888448b87";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:34;s:15:"_functionHeader";s:37:"function validationError($arrInput) {";}s:12:"H_0ce4cf2210";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:24:"_searchtime_milliseconds";d:31;s:15:"_functionHeader";s:32:"function validationLocalLang() {";}s:12:"H_27eb33134e";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:27;s:15:"_functionHeader";s:24:"function jsLocallang() {";}s:12:"H_d2a7c76c29";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:38:"function jsProcessCalls($arrQuestion){";}s:12:"H_3a3e9306d0";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:24:"function jsFunctions()	{";}}}s:14:"MD5_784b5db297";a:5:{s:8:"filename";s:25:"wizard/wizard_answers.php";s:8:"filesize";i:19180;s:6:"header";a:5:{s:4:"text";s:234:"
 
 Answers wizard for the 'pbsurvey' extension.
 This wizard will help the user to add answers to a question,
@@ -270,67 +1141,297 @@ Answers wizard for the 'pbsurvey' extension.
 This wizard will help the user to add answers to a question,
 put the flag on checked with radio buttons and checkboxes
 and give points to answers for further use in statistical software.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:848;s:13:"content_lines";i:15;s:6:"atLine";i:40;}i:3;a:8:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";a:2:{i:0;s:848:"	var $objDoc; // Document template object
+	var $strContent; // Content accumulation for the module.
+	var $include_once=array(); // List of files to include.
+	var $blnXmlStorage=0; // If set, the string version of the content is interpreted/written as XML instead of the original linebased kind. This variable still needs binding to the wizard parameters - but support is ready!
+    var $arrWizardParameters; // Wizard parameters, coming from TCEforms linking to the wizard.
+    var $arrTableParameters; // The array which is constantly submitted by the multidimensional form of this wizard.
+	var $blnLocalization = FALSE; // If true, record is localization.
+	var $arrl18n_diffsource = array(); // Answers from the default language
+
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+
+	";i:1;i:-1;}s:12:"content_size";i:848;s:13:"content_lines";i:15;s:6:"atLine";i:40;}i:3;a:8:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
 
 Initialization of the class
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:992;s:13:"content_lines";i:26;s:6:"atLine";i:61;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:23:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		global $BACK_PATH;
+		$this->strExtKey = 'tx_pbsurvey';
+		$this->arrWizardParameters = t3lib_div::_GP('P');
+		$this->arrTableParameters = t3lib_div::_GP($this->strExtKey);
+		$this->blnXmlStorage = $this->arrWizardParameters['params']['xmlOutput'];
+		$this->objDoc = t3lib_div::makeInstance('mediumDoc');
+		$this->objDoc->docType = 'xhtml_trans';
+		$this->objDoc->backPath = 
+[...]
+.php';
+		}
+	}
+
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+
+	";i:1;i:1;}s:12:"content_size";i:992;s:13:"content_lines";i:26;s:6:"atLine";i:61;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:23:"
 
 Rendering the wizard
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:528;s:13:"content_lines";i:11;s:6:"atLine";i:93;}i:7;a:7:{s:6:"header";s:24:"function answerGroup() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:62:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:528:"        global $LANG;
+        $strOutput = $this->objDoc->startPage('Table');
+		if ($this->arrWizardParameters['table'] && $this->arrWizardParameters['field'] && $this->arrWizardParameters['uid'])	{
+			$strOutput.=$this->objDoc->section($LANG->getLL('table_title'),$this->answersWizard(),0,1);
+		} else {
+			$strOutput.=$this->objDoc->section($LANG->getLL('table_title'),'<span class="typo3-red">'.$LANG->getLL('table_noData',1).'</span>',0,1);
+		}
+		$strOutput.=$this->objDoc->endPage();
+		$this->strContent = $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:528;s:13:"content_lines";i:11;s:6:"atLine";i:93;}i:7;a:7:{s:6:"header";s:24:"function answerGroup() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:62:"
 
 Fill the table if user has chosen a predefined answer group
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:425;s:13:"content_lines";i:11;s:6:"atLine";i:110;}i:9;a:7:{s:6:"header";s:37:"function l18n_diffsource($strInput) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:52:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:425:"        global $LANG;
+		$intAnswerGroup = $this->arrTableParameters['answergroup'];
+		if ($intAnswerGroup) {
+			$this->arrTableParameters = array();
+			($intAnswerGroup>=1 && $intAnswerGroup<=16)?$intAnswers = 5:$intAnswers = 3;
+			for ($intCount=1;$intCount<=$intAnswers;$intCount++) {
+				$this->arrTableParameters['answer'][($intCount*2)][2] = $LANG->getLL('answer_group_'.$intAnswerGroup.'.'.$intCount);
+			}
+		}
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:425;s:13:"content_lines";i:11;s:6:"atLine";i:110;}i:9;a:7:{s:6:"header";s:37:"function l18n_diffsource($strInput) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:52:"
 
 Get answers from default language if localization
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:42:"serialized array containing default source";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:116;s:13:"content_lines";i:4;s:6:"atLine";i:128;}i:11;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:42:"serialized array containing default source";}}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:116:"		$arrInput = unserialize($strInput);
+		$this->arrl18n_diffsource = $this->answersArray($arrInput['answers']);
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:116;s:13:"content_lines";i:4;s:6:"atLine";i:128;}i:11;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
 
 Fill the table with values and check if save button has been pressed
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";s:0:"";s:12:"content_size";i:559;s:13:"content_lines";i:16;s:6:"atLine";i:139;}i:13;a:7:{s:6:"header";s:26:"function answersWizard()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:95:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";a:2:{i:0;s:559:"		if (isset($this->arrTableParameters['answer']))	{ //Data submitted
+			$this->checkRowButtons();
+			$this->checkSaveButtons();
+            $this->checkTableArray();
+			$arrOutput = $this->arrTableParameters['answer'];
+		} else {	// No data submitted
+			if ($this->blnXmlStorage)	{
+				$arrOutput = t3lib_div::xml2array($arrRow[$this->arrWizardParameters['field']]);
+			} else {
+				$arrOutput = $this->answersArray($arrRow[$this->arrWizardParameters['field']]);
+			}
+			$arrOutput = is_array($arrOutput) ? $arrOutput : array();
+		}
+		return $arrOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:559;s:13:"content_lines";i:16;s:6:"atLine";i:139;}i:13;a:7:{s:6:"header";s:26:"function answersWizard()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:95:"
 
 Get the contents of the current record, do the localisation and make a HTML table out of it.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:427;s:13:"content_lines";i:10;s:6:"atLine";i:161;}i:15;a:7:{s:6:"header";s:35:"function answersString($arrInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:58:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";a:2:{i:0;s:427:"        $arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
+        if (!in_array(intval($arrRecord['sys_language_uid']),array(-1,0))) {
+        	$this->blnLocalization = TRUE;
+        	 $this->l18n_diffsource($arrRecord['l18n_diffsource']);
+        }
+		$arrTable = $this->getTableCode($arrRecord);
+		$strOutput = $this->getTableHTML($arrTable);
+		return $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:427;s:13:"content_lines";i:10;s:6:"atLine";i:161;}i:15;a:7:{s:6:"header";s:35:"function answersString($arrInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:58:"
 
 Converts the input array to a configuration code string
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:28:"Array of table configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:60:"Array converted into a string with line-based configuration.";}}s:7:"content";s:0:"";s:12:"content_size";i:174;s:13:"content_lines";i:7;s:6:"atLine";i:178;}i:17;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:28:"Array of table configuration";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:60:"Array converted into a string with line-based configuration.";}}s:7:"content";a:2:{i:0;s:174:"        foreach($arrInput as $strRow) {
+            $arrLines[] = implode("|", $strRow);
+        }
+        $strOutput = implode(chr(10),$arrLines);
+		return $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:174;s:13:"content_lines";i:7;s:6:"atLine";i:178;}i:17;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
 
 Create array out of possible answers in backend answers field
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:290;s:13:"content_lines";i:10;s:6:"atLine";i:192;}i:19;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:43:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";a:2:{i:0;s:290:"		$strLine=explode(chr(10),$strInput);
+		foreach($strLine as $intKey => $strLineValue)	{
+			$strValue = explode('|',$strLineValue);
+			for ($intCounter=0;$intCounter<3;$intCounter++)	{
+				$arrOutput[$intKey][$intCounter]=trim($strValue[$intCounter]);
+			}
+		}
+		return $arrOutput;
+	}
+
+    ";i:1;i:0;}s:12:"content_size";i:290;s:13:"content_lines";i:10;s:6:"atLine";i:192;}i:19;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:43:"
 
 Output the accumulated content to screen
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:141;s:13:"content_lines";i:9;s:6:"atLine";i:208;}i:21;a:8:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:141:"		echo $this->strContent;
+	}
+
+    /**********************************
+	 *
+	 * Checking functions
+	 *
+	 **********************************/
+
+	";i:1;i:0;}s:12:"content_size";i:141;s:13:"content_lines";i:9;s:6:"atLine";i:208;}i:21;a:8:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
 
 Check if there is a reference to the record
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:238;s:13:"content_lines";i:7;s:6:"atLine";i:223;}i:23;a:7:{s:6:"header";s:28:"function checkRowButtons()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:156:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:238:"		$arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
+		if (!is_array($arrRecord))	{
+			t3lib_BEfunc::typo3PrintError('Wizard Error','No reference to record',0);
+			exit;
+		}
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:238;s:13:"content_lines";i:7;s:6:"atLine";i:223;}i:23;a:7:{s:6:"header";s:28:"function checkRowButtons()	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:156:"
 
 Detects if a control button (up/down/around/delete) has been pressed for an item
 and accordingly it will manipulate the internal arrTableParameters array
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1249;s:13:"content_lines";i:30;s:6:"atLine";i:237;}i:25;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:102:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		$intTemp = 0;
+        $arrFunctions = array(
+            'row_remove' => '',
+            'row_add' => '$intKey+1',
+            'row_top' => '1',
+            'row_bottom' => '10000000',
+            'row_up' => '$intKey-3',
+            'row_down' => '$intKey+3'
+        );
+        foreach ($arrFunctions as $strKey => $strValue) {
+            if (is_array($this->arrTablePara
+[...]
+            }
+                    ksort($this->arrTableParameters['answer']);
+                }
+            }
+        }
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:1249;s:13:"content_lines";i:30;s:6:"atLine";i:237;}i:25;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:102:"
 
 Detects if a save button has been pressed
 and accordingly save the data and redirect to record page
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:687;s:13:"content_lines";i:13;s:6:"atLine";i:274;}i:27;a:7:{s:6:"header";s:28:"function checkTableArray() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"        if ($this->arrTableParameters['savedok'] || $this->arrTableParameters['saveandclosedok'])	{
+            $tce = t3lib_div::makeInstance('t3lib_TCEmain');
+            $tce->stripslashes_values=0;
+            $arrData[$this->arrWizardParameters['table']][$this->arrWizardParameters['uid']][$this->arrWizardParameters['field']] = $this->answersString($this->arrTableParam
+[...]
+ocation: '.t3lib_div::locationHeaderUrl($this->arrWizardParameters['returnUrl']));
+				exit;
+            }
+        }
+    }
+
+	";i:1;i:1;}s:12:"content_size";i:687;s:13:"content_lines";i:13;s:6:"atLine";i:274;}i:27;a:7:{s:6:"header";s:28:"function checkTableArray() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
 
 Check if submitted table array has 3 keys.
 if not, correct the array
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:440;s:13:"content_lines";i:15;s:6:"atLine";i:294;}i:29;a:8:{s:6:"header";s:34:"function getTableHTML($arrTable)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:40:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:440:"        foreach($this->arrTableParameters['answer'] as $intKey => $strValue) {
+			for ($intCount=2;$intCount<=6;$intCount = $intCount + 2) {
+                if (!$this->arrTableParameters['answer'][$intKey][$intCount]) {
+				    $this->arrTableParameters['answer'][$intKey][$intCount] = '';
+                }
+			}
+        }
+    }
+
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
+
+	";i:1;i:0;}s:12:"content_size";i:440;s:13:"content_lines";i:15;s:6:"atLine";i:294;}i:29;a:8:{s:6:"header";s:34:"function getTableHTML($arrTable)	{";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:40:"
 
 Creates the HTML for the wizard table
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the wizard table";}}s:7:"content";s:0:"";s:12:"content_size";i:198;s:13:"content_lines";i:7;s:6:"atLine";i:316;}i:31;a:7:{s:6:"header";s:26:"function definedGroups() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:41:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the wizard table";}}s:7:"content";a:2:{i:0;s:198:"        $strOutput = $this->definedGroups();
+		$strOutput .= $this->tableHeader();
+		$strOutput .= $this->tableRows($arrTable);
+        $strOutput .= $this->tableFooter();
+		return $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:198;s:13:"content_lines";i:7;s:6:"atLine";i:316;}i:31;a:7:{s:6:"header";s:26:"function definedGroups() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:41:"
 
 Draw selectbox with pre-defined values
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Containing the selectbox";}}s:7:"content";s:0:"";s:12:"content_size";i:533;s:13:"content_lines";i:13;s:6:"atLine";i:329;}i:33;a:7:{s:6:"header";s:24:"function tableHeader() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:24:"Containing the selectbox";}}s:7:"content";a:2:{i:0;s:533:"        global $LANG;
+        if (!$this->blnLocalization) {
+	        $intGroups=17; // 17 predefined groups available
+			$arrGroups[] = '<select name ="'.$this->strExtKey.'[answergroup]" onChange="submit();")>';
+			for ($intCounter=0;$intCounter<=$intGroups;$intCounter++) {
+	            $arrGroups[] = '<option value="'.$intCounter.'">'.$LANG->getLL('answer_group_'.$intCounter).'</option>';
+			}
+	        $arrGroups[] = '</select>';
+	        $strOutput = implode(chr(10),$arrGroups);
+	        return $strOutput;
+        }
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:533;s:13:"content_lines";i:13;s:6:"atLine";i:329;}i:33;a:7:{s:6:"header";s:24:"function tableHeader() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
 
 Draw the header of the wizard table
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the header";}}s:7:"content";s:0:"";s:12:"content_size";i:878;s:13:"content_lines";i:21;s:6:"atLine";i:348;}i:35;a:7:{s:6:"header";s:31:"function tableRows($arrTable) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:33:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the header";}}s:7:"content";a:2:{i:0;s:507:"        global $LANG;
+        if ($this->blnLocalization) {
+        	        $strOutput = '
+            			<table border="0" cellpadding="0" cellspacing="1" id="typo3-answerswizard">
+							<tr class="bgColor4">
+                    			<td class="bgColor5">&nbsp;</td>
+                    			<td class="bgColor5">'.$LANG->getLL('table_answer').'</td>
+							</tr>';
+        } 
+[...]
+    <td class="bgColor5">'.$LANG->getLL('table_default').'</td>
+					</tr>';
+        }
+        return $strOutput;
+    }
+
+    ";i:1;i:1;}s:12:"content_size";i:878;s:13:"content_lines";i:21;s:6:"atLine";i:348;}i:35;a:7:{s:6:"header";s:31:"function tableRows($arrTable) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:33:"
 
 Creates the HTML for the rows:
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";s:0:"";s:12:"content_size";i:1973;s:13:"content_lines";i:53;s:6:"atLine";i:376;}i:37;a:4:{s:6:"header";s:24:"function tableFooter() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";a:2:{i:0;s:507:"    	$intLine = 0;
+		$intRows = count($arrTable);
+		foreach($arrTable as $intKey => $arrCell) {
+            $arrCols = array();
+            $intCounter = 0;
+			foreach($arrCell as $strContent) {
+                if ($intCounter<>2) {
+                    if ($intCounter==0) {
+                    	if ($this->blnLocalization) {
+                    		$strLocalization = $this->a
+[...]
+rCols).'</td>
+					</tr>';
+			}
+			$intLine++;
+		}
+		$strOutput = implode(chr(10),$arrRows);
+		return $strOutput;
+    }
+
+   	";i:1;i:1;}s:12:"content_size";i:1973;s:13:"content_lines";i:53;s:6:"atLine";i:376;}i:37;a:4:{s:6:"header";s:24:"function tableFooter() {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:38:"
 
 Draw the footer of the wizard table
 ";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:21:"Containing the footer";}}s:6:"atLine";i:435;}i:39;a:7:{s:6:"header";s:42:"function controlPanel($intLine,$intRows) {";s:11:"parentClass";s:23:"tx_pbsurvey_answers_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
 
 Draw the Control Panel in front of every row
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:12:"Current line";}i:1;a:2:{i:0;s:7:"integer";i:1;s:24:"Amount of available rows";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:20:"Containing the panel";}}s:7:"content";s:0:"";s:12:"content_size";i:2067;s:13:"content_lines";i:31;s:6:"atLine";i:457;}}}s:14:"MD5_5b04452750";a:4:{s:8:"filename";s:29:"wizard2/wizard_conditions.php";s:8:"filesize";i:31649;s:6:"header";a:5:{s:4:"text";s:113:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:12:"Current line";}i:1;a:2:{i:0;s:7:"integer";i:1;s:24:"Amount of available rows";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:20:"Containing the panel";}}s:7:"content";a:2:{i:0;s:507:"        global $LANG;
+			if ($intLine!=0)	{
+				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_up]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/pil2up.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_up',1)).' />';
+			} else {
+				$arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_bottom]['.(($in
+[...]
+ach($SOBE->include_once as $INC_FILE)	include_once($INC_FILE);
+$SOBE->answerGroup();
+$SOBE->main();
+$SOBE->printContent();
+?>";i:1;i:1;}s:12:"content_size";i:2067;s:13:"content_lines";i:31;s:6:"atLine";i:457;}}s:10:"usageCount";a:20:{s:12:"H_14a845a44e";a:4:{s:3:"ALL";a:2:{s:12:"makeinstance";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:12:"makeinstance";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:173;s:15:"_functionHeader";s:31:"class tx_pbsurvey_answers_wiz {";}s:12:"H_7c6ff40199";a:10:{s:3:"ALL";a:3:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:8;s:14:"nonObjectUsage";i:2;}s:14:"MD5_19aaeae789";a:4:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:2;s:14:"nonObjectUsage";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_451ba283ad";a:3:{s:8:"fileName";s:15:"wizard/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_0bf51677e8";a:3:{s:8:"fileName";s:16:"wizard2/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:17:"function init()	{";}s:12:"H_9c2550bb82";a:6:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:17:"function main()	{";}s:12:"H_16ca72163b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:8;s:15:"_functionHeader";s:24:"function answerGroup() {";}s:12:"H_0b8797b784";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:37:"function l18n_diffsource($strInput) {";}s:12:"H_3dfdbee275";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:32:"function getTableCode($arrRow)	{";}s:12:"H_d41569ed02";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:26:"function answersWizard()	{";}s:12:"H_7ca4789a54";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:35:"function answersString($arrInput)	{";}s:12:"H_6284c228e4";a:7:{s:3:"ALL";a:2:{s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:25;s:15:"_functionHeader";s:34:"function answersArray($strInput)	{";}s:12:"H_a337945941";a:6:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:25:"function printContent()	{";}s:12:"H_1e51800a00";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:27:"function checkReference() {";}s:12:"H_85587cb4d6";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:28:"function checkRowButtons()	{";}s:12:"H_61983ea6b6";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:29:"function checkSaveButtons() {";}s:12:"H_0756e7fd0c";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:28:"function checkTableArray() {";}s:12:"H_67d0ed5cf2";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:34:"function getTableHTML($arrTable)	{";}s:12:"H_0fa70edc53";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:26:"function definedGroups() {";}s:12:"H_2ea1612700";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:24:"function tableHeader() {";}s:12:"H_6348a7cbff";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:31:"function tableRows($arrTable) {";}s:12:"H_162456c924";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:24:"function tableFooter() {";}s:12:"H_6fff26d7a0";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:42:"function controlPanel($intLine,$intRows) {";}}}s:14:"MD5_5b04452750";a:5:{s:8:"filename";s:29:"wizard2/wizard_conditions.php";s:8:"filesize";i:31649;s:6:"header";a:5:{s:4:"text";s:113:"
 
 Conditions wizard for the 'pbsurvey' extension.
 This wizard will help the user to add conditions to pagebreaks
@@ -338,66 +1439,310 @@ This wizard will help the user to add conditions to pagebreaks
 
 Conditions wizard for the 'pbsurvey' extension.
 This wizard will help the user to add conditions to pagebreaks
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";s:0:"";s:12:"content_size";i:735;s:13:"content_lines";i:17;s:6:"atLine";i:38;}i:3;a:8:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"[type]";i:1;s:3:"...";}s:5:"other";a:3:{i:0;s:49:"@author Patrick Broens <patrick@patrickbroens.nl>";i:1;s:14:"@package TYPO3";i:2;s:20:"@subpackage pbsurvey";}s:11:"other_index";a:3:{s:7:"@author";a:1:{i:0;s:41:"Patrick Broens <patrick@patrickbroens.nl>";}s:8:"@package";a:1:{i:0;s:6:"TYPO3 ";}s:11:"@subpackage";a:1:{i:0;s:9:"pbsurvey ";}}}s:7:"content";a:2:{i:0;s:735:"    var $strExtKey; // Key of the extension
+   	var $objDoc; // Document template object
+	var $content; // Content accumulation for the module.
+	var $include_once=array(); // List of files to include.
+	var $strItemsTable = 'tx_pbsurvey_item';
+	var $arrWizardParameters; // Wizard parameters, coming from TCEforms linking to the wizard.
+	var $arrTableParameters; // The array which is constantly submitted by the multidimensional form of this wizard.
+  	var $arrGrps = array();
+  	var $arrFields = array();
+  	var $blnLocalization = FALSE; // Identifies if record is localization instead of 'All' or 'Default' language
+
+    /**********************************
+	 *
+	 * Configuration functions
+	 *
+	 **********************************/
+
+	";i:1;i:-1;}s:12:"content_size";i:735;s:13:"content_lines";i:17;s:6:"atLine";i:38;}i:3;a:8:{s:6:"header";s:17:"function init()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:23:"Configuration functions";}s:4:"cDat";a:3:{s:4:"text";s:30:"
 
 Initialization of the class
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:877;s:13:"content_lines";i:24;s:6:"atLine";i:61;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:29:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"		global $BACK_PATH;
+		$this->strExtKey = 'tx_pbsurvey';
+		$this->arrWizardParameters = t3lib_div::_GP('P');
+		$this->arrTableParameters = t3lib_div::_GP($this->strExtKey);
+		$this->objDoc = t3lib_div::makeInstance('mediumDoc');
+		$this->objDoc->backPath = $BACK_PATH;
+		$this->objDoc->JScode=$this->objDoc->wrapScriptTags('
+			function jumpToUrl(URL,formEl)	{	//
+				documen
+[...]
+p';
+		}
+	}
+
+    /**********************************
+	 *
+	 * General functions
+	 *
+	 **********************************/
+
+    ";i:1;i:1;}s:12:"content_size";i:877;s:13:"content_lines";i:24;s:6:"atLine";i:61;}i:5;a:8:{s:6:"header";s:17:"function main()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:17:"General functions";}s:4:"cDat";a:3:{s:4:"text";s:29:"
 
 Rendering the table wizard
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1056;s:13:"content_lines";i:16;s:6:"atLine";i:91;}i:7;a:7:{s:6:"header";s:29:"function conditionsWizard()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:74:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"        global $LANG;
+        $this->previousQuestions();
+        $strOutput = $this->objDoc->startPage($LANG->getLL('conditions_title'));
+		if ($this->arrWizardParameters['table'] && $this->arrWizardParameters['field'] && $this->arrWizardParameters['uid'] && is_array($this->arrPrevQuestions))	{
+			$strOutput.=$this->objDoc->section($LANG->getLL('conditions_title'),$this->
+[...]
+ore.php:rm.closeDoc')).'" /></a>
+			</div>';
+		}
+		$strOutput.=$this->objDoc->endPage();
+		$this->content = $strOutput;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:1056;s:13:"content_lines";i:16;s:6:"atLine";i:91;}i:7;a:7:{s:6:"header";s:29:"function conditionsWizard()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:74:"
 
 Get the contents of the current record and make a HTML table out of it.
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:233;s:13:"content_lines";i:6;s:6:"atLine";i:113;}i:9;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";a:2:{i:0;s:233:"        $arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
+		$arrTable = $this->getTableCode($arrRecord);
+		$strOutput = $this->wizardHTML($arrTable);
+		return $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:233;s:13:"content_lines";i:6;s:6:"atLine";i:113;}i:9;a:7:{s:6:"header";s:32:"function getTableCode($arrRow)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:71:"
 
 Fill the table with values and check if save button has been pressed
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";s:0:"";s:12:"content_size";i:379;s:13:"content_lines";i:11;s:6:"atLine";i:126;}i:11;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:25:"Current parent record row";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:10:"Table code";}}s:7:"content";a:2:{i:0;s:379:"		if (isset($this->arrTableParameters['grps']))	{ //Data submitted
+			$this->groupControl();
+			$this->checkSaveButtons();
+			$arrOutput = $this->arrTableParameters['grps'];
+		} else {	// No data submitted
+			$arrOutput = $this->groupsArray($arrRow[$this->arrWizardParameters['field']]);
+			$arrOutput = is_array($arrOutput) ? $arrOutput : array();
+		}
+		return $arrOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:379;s:13:"content_lines";i:11;s:6:"atLine";i:126;}i:11;a:7:{s:6:"header";s:34:"function answersArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:64:"
 
 Create array out of possible answers in backend answers field
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:207;s:13:"content_lines";i:8;s:6:"atLine";i:144;}i:13;a:7:{s:6:"header";s:33:"function groupsArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:68:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:32:"Content of backend answers field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:38:"Converted answers information to array";}}s:7:"content";a:2:{i:0;s:207:"		$strLine=explode(chr(10),$strInput);
+		foreach($strLine as $intKey => $strLineValue)	{
+			$strValue = explode('|',$strLineValue);
+			$arrOutput[$intKey+1]=trim($strValue[0]);
+		}
+		return $arrOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:207;s:13:"content_lines";i:8;s:6:"atLine";i:144;}i:13;a:7:{s:6:"header";s:33:"function groupsArray($strInput)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:68:"
 
 Create array out of serialized string in conditions backend field
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:35:"Content of backend conditions field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:41:"Converted conditions information to array";}}s:7:"content";s:0:"";s:12:"content_size";i:96;s:13:"content_lines";i:5;s:6:"atLine";i:159;}i:15;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:35:"Content of backend conditions field";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:41:"Converted conditions information to array";}}s:7:"content";a:2:{i:0;s:96:"		$arrTemp = unserialize($strInput);
+		$arrOutput = $arrTemp['grps'];
+		return $arrOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:96;s:13:"content_lines";i:5;s:6:"atLine";i:159;}i:15;a:7:{s:6:"header";s:25:"function printContent()	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
 
 Outputting the accumulated content to screen
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:141;s:13:"content_lines";i:9;s:6:"atLine";i:170;}i:17;a:8:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:141:"		echo $this->content;
+	}
+
+    /**********************************
+	 *
+	 * Checking functions
+	 *
+	 **********************************/
+
+    ";i:1;i:0;}s:12:"content_size";i:141;s:13:"content_lines";i:9;s:6:"atLine";i:170;}i:17;a:8:{s:6:"header";s:27:"function checkReference() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:18:"Checking functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
 
 Check if there is a reference to the record
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:238;s:13:"content_lines";i:7;s:6:"atLine";i:185;}i:19;a:7:{s:6:"header";s:25:"function groupControl() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:50:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:238:"		$arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
+		if (!is_array($arrRecord))	{
+			t3lib_BEfunc::typo3PrintError('Wizard Error','No reference to record',0);
+			exit;
+		}
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:238;s:13:"content_lines";i:7;s:6:"atLine";i:185;}i:19;a:7:{s:6:"header";s:25:"function groupControl() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:50:"
 
 Perform control action when a button is pressed
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:3743;s:13:"content_lines";i:66;s:6:"atLine";i:198;}i:21;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:126:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"        $arrFunctions = array(
+            'row_up'        => '$intKey-1',
+            'row_down'      => '$intKey+1',
+            'row_turndown'  => 'intGroups',
+            'row_turnup'    => '1',
+            'row_remove'    => '[$intGroups]',
+            'rule_remove'   => "[$intKey]['rule'][$grplength-1]",
+        );
+        foreach($this->arrTableParameters['grps'] as
+[...]
+ey]['rule'][count($this->arrTableParameters['grps'][$intKey]['rule'])-1]);
+                }
+            }
+        }
+    }
+
+	";i:1;i:1;}s:12:"content_size";i:3743;s:13:"content_lines";i:66;s:6:"atLine";i:198;}i:21;a:7:{s:6:"header";s:29:"function checkSaveButtons() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:126:"
 
 Detects if a save button (up/down/around/delete) has been pressed
 and accordingly save the data and redirect to record page
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";s:0:"";s:12:"content_size";i:1054;s:13:"content_lines";i:24;s:6:"atLine";i:271;}i:23;a:8:{s:6:"header";s:32:"function wizardHTML($arrTable)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:4:"void";i:1;s:0:"";}}s:7:"content";a:2:{i:0;s:507:"        if ($this->arrTableParameters['savedok'] || $this->arrTableParameters['saveandclosedok']) {
+            $tce = t3lib_div::makeInstance('t3lib_TCEmain');
+            $tce->stripslashes_values=0;
+            if (count($this->arrTableParameters['grps'])) {
+	            $arrSave['grps'] = $this->arrTableParameters['grps'];
+	            $arrData[$this->arrWizardParamete
+[...]
+       }
+    }
+
+	/**********************************
+	 *
+	 * Rendering functions
+	 *
+	 **********************************/
+
+	";i:1;i:1;}s:12:"content_size";i:1054;s:13:"content_lines";i:24;s:6:"atLine";i:271;}i:23;a:8:{s:6:"header";s:32:"function wizardHTML($arrTable)	{";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:19:"Rendering functions";}s:4:"cDat";a:3:{s:4:"text";s:46:"
 
 Creates the HTML for the Conditions Wizard:
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";s:0:"";s:12:"content_size";i:149;s:13:"content_lines";i:6;s:6:"atLine";i:302;}i:25;a:7:{s:6:"header";s:25:"function wizardHeader() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:18:"Table config array";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:25:"HTML for the table wizard";}}s:7:"content";a:2:{i:0;s:149:"		$strOutput = $this->wizardHeader();
+		$strOutput .= $this->groupsHTML($arrTable);
+		$strOutput .= $this->wizardFooter();
+		return $strOutput;
+	}
+
+	";i:1;i:0;}s:12:"content_size";i:149;s:13:"content_lines";i:6;s:6:"atLine";i:302;}i:25;a:7:{s:6:"header";s:25:"function wizardHeader() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
 
 Draw the header of the wizard
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the header";}}s:7:"content";s:0:"";s:12:"content_size";i:110;s:13:"content_lines";i:4;s:6:"atLine";i:314;}i:27;a:7:{s:6:"header";s:36:"function groupsHTML($arrAllGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:45:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the header";}}s:7:"content";a:2:{i:0;s:110:"        $strOutput = '<table border="0" cellpadding="2" cellspacing="1">';
+        return $strOutput;
+    }
+
+	";i:1;i:0;}s:12:"content_size";i:110;s:13:"content_lines";i:4;s:6:"atLine";i:314;}i:27;a:7:{s:6:"header";s:36:"function groupsHTML($arrAllGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:45:"
 
 Builds the content for each conditiongroup
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:19:"All conditiongroups";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";s:0:"";s:12:"content_size";i:4685;s:13:"content_lines";i:76;s:6:"atLine";i:325;}i:29;a:7:{s:6:"header";s:51:"function getGroupButtons($intGroupKey,$intGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:49:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:5:"array";i:1;s:19:"All conditiongroups";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML content for the form.";}}s:7:"content";a:2:{i:0;s:507:"        global $LANG;
+        $intLastGroup=0;
+        if (is_array($arrAllGroups)) {
+            $intGroups = count($arrAllGroups);
+            // Build Groups
+            foreach($arrAllGroups as $intGroupKey => $arrSingleGroup) {
+                $strOutput .= '<tr class="bgColor5">
+                            <td colspan="3"><b><em>'.$LANG->getLL("conditions_group").' '
+[...]
+s()).'
+	                    </select></td>
+	                    </tr>'.chr(10);
+        }
+        return $strOutput;
+	}
+
+    ";i:1;i:1;}s:12:"content_size";i:4685;s:13:"content_lines";i:76;s:6:"atLine";i:325;}i:29;a:7:{s:6:"header";s:51:"function getGroupButtons($intGroupKey,$intGroups) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:49:"
 
 Creates the HTML for all group control buttons
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}i:1;a:2:{i:0;s:7:"integer";i:1;s:16:"Amount of groups";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:28:"HTML for the control buttons";}}s:7:"content";s:0:"";s:12:"content_size";i:636;s:13:"content_lines";i:18;s:6:"atLine";i:409;}i:31;a:7:{s:6:"header";s:40:"function groupButton($strName,$intKey) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:53:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}i:1;a:2:{i:0;s:7:"integer";i:1;s:16:"Amount of groups";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:28:"HTML for the control buttons";}}s:7:"content";a:2:{i:0;s:507:"        if ($intGroups>1) {
+            if($intGroupKey==1) {
+                $arrOutput[] = $this->groupButton('row_turndown',$intGroupKey);
+            } else {
+                $arrOutput[] = $this->groupButton('row_up',$intGroupKey);
+            }
+        }
+        $arrOutput[] = $this->groupButton('row_remove',$intGroupKey);
+        if ($intGroups>1) {
+            if($
+[...]
+      $arrOutput[] = $this->groupButton('row_down',$intGroupKey);
+            }
+        }
+        return $arrOutput;
+    }
+
+	";i:1;i:1;}s:12:"content_size";i:636;s:13:"content_lines";i:18;s:6:"atLine";i:409;}i:31;a:7:{s:6:"header";s:40:"function groupButton($strName,$intKey) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:53:"
 
 Creates the HTML for a single group control button
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"Name of the button";}i:1;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:19:"HTML for the button";}}s:7:"content";s:0:"";s:12:"content_size";i:702;s:13:"content_lines";i:12;s:6:"atLine";i:435;}i:33;a:7:{s:6:"header";s:39:"function getFields($intQuestion=null) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:84:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:18:"Name of the button";}i:1;a:2:{i:0;s:7:"integer";i:1;s:30:"Keynumber of the current group";}}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:19:"HTML for the button";}}s:7:"content";a:2:{i:0;s:507:"        global $LANG;
+        $arrOptions = array(
+            'row_turndown' => array('gfx/turn_down.gif','table_bottom'),
+            'row_up'       => array('gfx/pil2up.gif','table_top'),
+            'row_remove'   => array('gfx/garbage.gif','table_removeRow'),
+            'row_turnup'   => array('gfx/turn_up.gif','table_up'),
+            'row_down'     => array('gfx/pi
+[...]
+me][0]).t3lib_BEfunc::titleAltAttrib($LANG->getLL($arrOptions[$strName][1])).' /><br />';
+        return $strOutput;
+    }
+
+	";i:1;i:1;}s:12:"content_size";i:702;s:13:"content_lines";i:12;s:6:"atLine";i:435;}i:33;a:7:{s:6:"header";s:39:"function getFields($intQuestion=null) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:84:"
 
 Build the HTML for each answers option field and check if it was selected
 Returns
-";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:19:"uid of the question";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:33:"Option list of previous questions";}}s:7:"content";s:0:"";s:12:"content_size";i:792;s:13:"content_lines";i:18;s:6:"atLine";i:455;}i:35;a:7:{s:6:"header";s:40:"function getAnswers($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
+";s:5:"param";a:1:{i:0;a:2:{i:0;s:6:"string";i:1;s:19:"uid of the question";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:33:"Option list of previous questions";}}s:7:"content";a:2:{i:0;s:507:"        global $LANG;
+        foreach($this->arrPrevQuestions as $arrValue) {
+            if ($intQuestion==$arrValue["uid"]) {
+                $strSelected = ' selected="selected" ';
+            } else {
+                $strSelected = '';
+            }
+            $strTitle = '['.$LANG->getLL("conditions_page").' ' . $arrValue["page"] .'] '. $arrValue["question"];
+       
+[...]
+e["uid"];
+            	$arrOutput['title'] = substr($strTitle,0,40);
+            }
+        }
+        return $arrOutput;
+	}
+
+	";i:1;i:1;}s:12:"content_size";i:792;s:13:"content_lines";i:18;s:6:"atLine";i:455;}i:35;a:7:{s:6:"header";s:40:"function getAnswers($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:47:"
 
 Draw the pulldown or input field for answers
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:49:"HTML content for answers pulldown or input field.";}}s:7:"content";s:0:"";s:12:"content_size";i:2317;s:13:"content_lines";i:43;s:6:"atLine";i:481;}i:37;a:7:{s:6:"header";s:42:"function getOperators($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:34:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:49:"HTML content for answers pulldown or input field.";}}s:7:"content";a:2:{i:0;s:507:"		global $LANG;
+		$arrCurQuestion = $this->arrPrevQuestions[stripslashes($arrRule['field'])];
+		if (in_array($arrCurQuestion['question_type'],array(1,2,3,4,5))) {
+			if (!$this->blnLocalization) {
+	            $arrOutput[] = '<select name ="'.$strName.'[value]" onChange="submit();")>';
+	            if (in_array($arrCurQuestion['question_type'],array(1,3)) && $arrCurQuestio
+[...]
+nput name ="'.$strName.'[value]" type="text" value="'.$arrRule['value'].'" />';
+        }
+        return $arrOutput;
+    }
+
+	";i:1;i:1;}s:12:"content_size";i:2317;s:13:"content_lines";i:43;s:6:"atLine";i:481;}i:37;a:7:{s:6:"header";s:42:"function getOperators($strName,$arrRule) {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:34:"
 
 Draw the pulldown for operators
-";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:35:"HTML content for operator pulldown.";}}s:7:"content";s:0:"";s:12:"content_size";i:2198;s:13:"content_lines";i:41;s:6:"atLine";i:532;}i:39;a:7:{s:6:"header";s:25:"function wizardFooter() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
+";s:5:"param";a:2:{i:0;a:2:{i:0;s:6:"string";i:1;s:12:"Current name";}i:1;a:2:{i:0;s:5:"array";i:1;s:12:"Current rule";}}s:6:"return";a:2:{i:0;s:5:"array";i:1;s:35:"HTML content for operator pulldown.";}}s:7:"content";a:2:{i:0;s:507:"		global $LANG;
+        $arrOptions = array(
+            'eq'        => 'equal',
+            'ne'        => 'notEqual',
+            'ss'        => 'contains',
+            'ns'        => 'notContains',
+            'gt'        => 'greater',
+            'ge'        => 'greaterEqual',
+            'lt'        => 'less',
+            'le'        => 'lessEqual',
+            'set' 
+[...]
+set'||$arrRule['operator']=='notset')?'':implode(chr(10),$this->getAnswers($strName,$arrRule));
+		return $arrOutput;
+	}
+
+   	";i:1;i:1;}s:12:"content_size";i:2198;s:13:"content_lines";i:41;s:6:"atLine";i:532;}i:39;a:7:{s:6:"header";s:25:"function wizardFooter() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:4:"cDat";a:3:{s:4:"text";s:32:"
 
 Draw the footer of the wizard
-";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the footer";}}s:7:"content";s:0:"";s:12:"content_size";i:1344;s:13:"content_lines";i:18;s:6:"atLine";i:579;}i:41;a:5:{s:6:"header";s:30:"function previousQuestions() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:17:"Reading functions";}s:4:"cDat";a:3:{s:4:"text";s:86:"
+";s:5:"param";a:0:{}s:6:"return";a:2:{i:0;s:6:"string";i:1;s:26:"HTML containing the footer";}}s:7:"content";a:2:{i:0;s:507:"        global $LANG;
+        $strOutput = '
+			</table>
+			<div id="c-saveButtonPanel">
+                <input type="image" class="c-inputButton" name="'.$this->strExtKey.'[savedok]"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/savedok.gif').t3lib_BEfunc::titleAltAttrib($LANG->sL('LLL:EXT:lang/locallang_core.php:rm.saveDoc')).'" />
+                <input type="i
+[...]
+rOutput;
+   }
+
+    /**********************************
+	 *
+	 * Reading functions
+	 *
+	 **********************************/
+
+	";i:1;i:1;}s:12:"content_size";i:1344;s:13:"content_lines";i:18;s:6:"atLine";i:579;}i:41;a:5:{s:6:"header";s:30:"function previousQuestions() {";s:11:"parentClass";s:26:"tx_pbsurvey_conditions_wiz";s:11:"sectionText";a:1:{i:0;s:17:"Reading functions";}s:4:"cDat";a:3:{s:4:"text";s:86:"
 
 Read all questions before this pagebreak
 Write content to $this->arrPrevQuestions[]
@@ -405,4 +1750,16 @@ Write content to $this->arrPrevQuestions[]
 
 Creates language-overlay for records (where translation is found in records from the same table)
 Inserted this function because couldn't find an alternative for the backend, only frontend
-";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"Table name";}i:1;a:2:{i:0;s:5:"array";i:1;s:85:"Record to overlay. Must contain uid, pid and $TCA[$strTable]['ctrl']['languageField']";}i:2;a:2:{i:0;s:7:"integer";i:1;s:66:"Pointer to the sys_language uid for content of the current record.";}}s:6:"return";a:2:{i:0;s:5:"mixed";i:1;s:63:"Returns the input record, possibly overlaid with a translation.";}}s:7:"content";s:0:"";s:12:"content_size";i:2113;s:13:"content_lines";i:49;s:6:"atLine";i:649;}}}}}
+";s:5:"param";a:3:{i:0;a:2:{i:0;s:6:"string";i:1;s:10:"Table name";}i:1;a:2:{i:0;s:5:"array";i:1;s:85:"Record to overlay. Must contain uid, pid and $TCA[$strTable]['ctrl']['languageField']";}i:2;a:2:{i:0;s:7:"integer";i:1;s:66:"Pointer to the sys_language uid for content of the current record.";}}s:6:"return";a:2:{i:0;s:5:"mixed";i:1;s:63:"Returns the input record, possibly overlaid with a translation.";}}s:7:"content";a:2:{i:0;s:507:"		global $TCA;
+		t3lib_div::loadTCA($strTable); // Load column information in TCA
+		if ($arrRow['uid']>0 && $arrRow['pid']>0)	{
+			if ($TCA[$strTable] && $TCA[$strTable]['ctrl']['languageField'] && $TCA[$strTable]['ctrl']['transOrigPointerField'])	{
+				if ($intSysLanguageContent>0)	{
+					if ($arrRow[$TCA[$strTable]['ctrl']['languageField']]<=0)	{
+						$strWhereConf = '1
+[...]
+// Include files?
+foreach($SOBE->include_once as $INC_FILE)	include_once($INC_FILE);
+$SOBE->main();
+$SOBE->printContent();
+?>";i:1;i:1;}s:12:"content_size";i:2113;s:13:"content_lines";i:49;s:6:"atLine";i:649;}}s:10:"usageCount";a:22:{s:12:"H_cb5bb9c9dd";a:4:{s:3:"ALL";a:2:{s:12:"makeinstance";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:12:"makeinstance";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:32;s:15:"_functionHeader";s:34:"class tx_pbsurvey_conditions_wiz {";}s:12:"H_7c6ff40199";a:10:{s:3:"ALL";a:3:{s:11:"objectUsage";i:6;s:5:"TOTAL";i:8;s:14:"nonObjectUsage";i:2;}s:14:"MD5_19aaeae789";a:4:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:2;s:14:"nonObjectUsage";i:1;}s:14:"MD5_86f0b1d572";a:3:{s:8:"fileName";s:39:"modfunc1/class.tx_pbsurvey_modfunc1.php";s:14:"nonObjectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_451ba283ad";a:3:{s:8:"fileName";s:15:"wizard/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_0bf51677e8";a:3:{s:8:"fileName";s:16:"wizard2/init.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:17:"function init()	{";}s:12:"H_9c2550bb82";a:6:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:20;s:15:"_functionHeader";s:17:"function main()	{";}s:12:"H_13706389a5";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:29:"function conditionsWizard()	{";}s:12:"H_3dfdbee275";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:32:"function getTableCode($arrRow)	{";}s:12:"H_6284c228e4";a:7:{s:3:"ALL";a:2:{s:11:"objectUsage";i:9;s:5:"TOTAL";i:9;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:25;s:15:"_functionHeader";s:34:"function answersArray($strInput)	{";}s:12:"H_324be39b1b";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:33:"function groupsArray($strInput)	{";}s:12:"H_a337945941";a:6:{s:3:"ALL";a:2:{s:11:"objectUsage";i:3;s:5:"TOTAL";i:3;}s:14:"MD5_19aaeae789";a:3:{s:8:"fileName";s:14:"mod1/index.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:19;s:15:"_functionHeader";s:25:"function printContent()	{";}s:12:"H_1e51800a00";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:18;s:15:"_functionHeader";s:27:"function checkReference() {";}s:12:"H_4b4d0014a4";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:5;s:15:"_functionHeader";s:25:"function groupControl() {";}s:12:"H_61983ea6b6";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_784b5db297";a:3:{s:8:"fileName";s:25:"wizard/wizard_answers.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:29:"function checkSaveButtons() {";}s:12:"H_087547cefb";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:32:"function wizardHTML($arrTable)	{";}s:12:"H_5ceb2b4524";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:25:"function wizardHeader() {";}s:12:"H_e145990c93";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:36:"function groupsHTML($arrAllGroups) {";}s:12:"H_aed51e72a8";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:51:"function getGroupButtons($intGroupKey,$intGroups) {";}s:12:"H_ded01b0189";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:5;s:5:"TOTAL";i:5;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:40:"function groupButton($strName,$intKey) {";}s:12:"H_970289149f";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:4;s:5:"TOTAL";i:4;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:39:"function getFields($intQuestion=null) {";}s:12:"H_45b1f7833d";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:10;s:15:"_functionHeader";s:40:"function getAnswers($strName,$arrRule) {";}s:12:"H_da5d6e381a";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:7;s:15:"_functionHeader";s:42:"function getOperators($strName,$arrRule) {";}s:12:"H_d7fa4f6e18";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:6;s:15:"_functionHeader";s:25:"function wizardFooter() {";}s:12:"H_87a5d2fd6f";a:4:{s:3:"ALL";a:2:{s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:4;s:15:"_functionHeader";s:30:"function previousQuestions() {";}s:12:"H_3efff733ec";a:5:{s:3:"ALL";a:2:{s:11:"objectUsage";i:2;s:5:"TOTAL";i:2;}s:14:"MD5_84e37bc76b";a:3:{s:8:"fileName";s:29:"pi1/class.tx_pbsurvey_pi1.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:14:"MD5_5b04452750";a:3:{s:8:"fileName";s:29:"wizard2/wizard_conditions.php";s:11:"objectUsage";i:1;s:5:"TOTAL";i:1;}s:24:"_searchtime_milliseconds";d:30;s:15:"_functionHeader";s:69:"function getRecordOverlay($strTable,$arrRow,$intSysLanguageContent)	{";}}}}}

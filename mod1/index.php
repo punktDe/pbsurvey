@@ -29,7 +29,6 @@ require ($BACK_PATH."template.php");
 $LANG->includeLLFile('EXT:pbsurvey/lang/locallang_mod1.xml');
 require_once (PATH_t3lib.'class.t3lib_scbase.php');
 $BE_USER->modAccess($MCONF,1);
-//require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php');
 
 /**
  * Backend Module 'pbsurvey' extension.

@@ -5,8 +5,8 @@
 <form action="###URL###" method="post" id="frmPbSurvey">
 ###ITEMS###
 <div class="formbuttons">
-<input type="hidden" value="###STAGE###" id="tx_pbsurvey_pi1[stage]" name="tx_pbsurvey_pi1[stage]" />
-<input type="hidden" value="###VALIDATION###" id="tx_pbsurvey_pi1[validation]" name="tx_pbsurvey_pi1[validation]" />
+<input type="hidden" value="###STAGE###" name="tx_pbsurvey_pi1[stage]" />
+<input type="hidden" value="###VALIDATION###" name="tx_pbsurvey_pi1[validation]" />
 ###BACKBUTTON###
 <input type="submit" name="Submit" value="###SUBMIT###" onclick="###SUBMITVALUES###" />
 ###CANCELBUTTON###
@@ -39,7 +39,7 @@
 	<label for="captcha_response">###SR_FREECAP_NOTICE###</label>
 	###SR_FREECAP_CANT_READ###
 	<br />
-	<input type="text" size="15" id="captcha_response" name="tx_pbsurvey_pi1[captcha_response]" title="###SR_FREECAP_NOTICE###" value="">
+	<input type="text" size="15" id="captcha_response" name="tx_pbsurvey_pi1[captcha_response]" title="###SR_FREECAP_NOTICE###" value="" />
 	###SR_FREECAP_IMAGE###
 </div>
 <!--###CAPTCHA### end -->
@@ -72,11 +72,8 @@
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span> ###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###COMMENT### begin--><span class="questionComment">###QUESTION_COMMENT###</span><!--###COMMENT### end-->
 <!--###SUB### begin--><span class="questionSubtext">###QUESTION_SUBTEXT###</span><!--###SUB### end-->
-<!--###LIST### begin--><!--###ENTRY### begin-->
-<input name="tx_pbsurvey_pi1[###UID###][###COUNTER###][0]" type="checkbox" value="###COUNTER###" ###CHECKED### />###VALUE###
-<!--###ENTRY### end--><!--###LIST### end-->
-<!--###ADDITIONALS### begin-->
-<input id="tx_pbsurvey_pi1[###UID###][-1][0]" name="tx_pbsurvey_pi1[###UID###][-1][0]" type="checkbox" value="###VALUE###" ###CHECKED### />###ANSWERS_TEXT_ADDITIONAL###<br />###ADDITIONAL###<!--###ADDITIONALS### end-->
+<!--###LIST### begin--><input name="tx_pbsurvey_pi1[###UID###][###COUNTER###][0]" type="checkbox" value="###COUNTER###" ###CHECKED### />###VALUE###<!--###LIST### end-->
+<!--###ADDITIONALS### begin--><input name="tx_pbsurvey_pi1[###UID###][-1][0]" type="checkbox" value="###VALUE###" ###CHECKED### />###ANSWERS_TEXT_ADDITIONAL###<br />###ADDITIONAL###<!--###ADDITIONALS### end-->
 </fieldset>
 <!--###1_HOR### end-->
 
@@ -85,11 +82,8 @@
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span> ###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###COMMENT### begin--><div class="questionComment">###QUESTION_COMMENT###</div><!--###COMMENT### end-->
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<!--###LIST### begin--><!--###ENTRY### begin-->
-<input name="tx_pbsurvey_pi1[###UID###][###COUNTER###][0]" type="checkbox" value="###COUNTER###" ###CHECKED### />###VALUE###<br />
-<!--###ENTRY### end--><!--###LIST### end-->
-<!--###ADDITIONALS### begin-->
-<input id="tx_pbsurvey_pi1[###UID###][-1][0]" name="tx_pbsurvey_pi1[###UID###][-1][0]" type="checkbox" value="###VALUE###" ###CHECKED### />###ANSWERS_TEXT_ADDITIONAL###<br /><div class="additional_ver">###ADDITIONAL###</div><!--###ADDITIONALS### end-->
+<!--###LIST### begin--><input name="tx_pbsurvey_pi1[###UID###][###COUNTER###][0]" type="checkbox" value="###COUNTER###" ###CHECKED### />###VALUE###<br /><!--###LIST### end-->
+<!--###ADDITIONALS### begin--><input name="tx_pbsurvey_pi1[###UID###][-1][0]" type="checkbox" value="###VALUE###" ###CHECKED### />###ANSWERS_TEXT_ADDITIONAL###<br /><div class="additional_ver">###ADDITIONAL###</div><!--###ADDITIONALS### end-->
 </fieldset>
 <!--###1_VER### end-->
 
@@ -99,9 +93,7 @@
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
 <select name="tx_pbsurvey_pi1[###UID###][0][0]" size="1">
   <option value="">###VALUE_NONE###</option>
-<!--###LIST### begin--><!--###ENTRY### begin-->
-  <option value="###COUNTER###" ###SELECTED###>###VALUE###</option>
-<!--###ENTRY### end--><!--###LIST### end-->
+<!--###LIST### begin-->  <option value="###COUNTER###" ###SELECTED###>###VALUE###</option><!--###LIST### end-->
 </select>
 </fieldset>
 <!--###2### end-->
@@ -110,10 +102,8 @@
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<!--###LIST### begin--><!--###ENTRY### begin-->
-<input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###
-<!--###ENTRY### end--><!--###LIST### end-->
-<!--###ADDITIONALS### begin--><input type="radio" id="tx_pbsurvey_pi1[###UID###][0][0]" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###VALUE###" ###CHECKED### />###ANSWERS_TEXT_ADDITIONAL###<br />###ADDITIONAL###<!--###ADDITIONALS### end-->
+<!--###LIST### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<!--###LIST### end-->
+<!--###ADDITIONALS### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###VALUE###" ###CHECKED### />###ANSWERS_TEXT_ADDITIONAL###<br />###ADDITIONAL###<!--###ADDITIONALS### end-->
 </fieldset>
 <!--###3_HOR### end-->
 
@@ -121,10 +111,8 @@
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<!--###LIST### begin--><!--###ENTRY### begin-->
-<input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<br />
-<!--###ENTRY### end--><!--###LIST### end-->
-<!--###ADDITIONALS### begin--><input type="radio" id="tx_pbsurvey_pi1[###UID###][0][0]" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###VALUE###" ###CHECKED### />###ANSWERS_TEXT_ADDITIONAL###<br /><div class="additional_ver">###ADDITIONAL###</div><!--###ADDITIONALS### end-->
+<!--###LIST### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<br /><!--###LIST### end-->
+<!--###ADDITIONALS### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###VALUE###" ###CHECKED### />###ANSWERS_TEXT_ADDITIONAL###<br /><div class="additional_ver">###ADDITIONAL###</div><!--###ADDITIONALS### end-->
 </fieldset>
 <!--###3_VER### end-->
 
@@ -132,9 +120,7 @@
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<!--###LIST### begin--><!--###ENTRY### begin-->
-<input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###
-<!--###ENTRY### end--><!--###LIST### end-->
+<!--###LIST### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<!--###LIST### end-->
 </fieldset>
 <!--###4_HOR### end-->
 
@@ -142,9 +128,7 @@
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<!--###LIST### begin--><!--###ENTRY### begin-->
-<input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<br />
-<!--###ENTRY### end--><!--###LIST### end-->
+<!--###LIST### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<br /><!--###LIST### end-->
 </fieldset>
 <!--###4_VER### end-->
 
@@ -154,9 +138,7 @@
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
 <select name="tx_pbsurvey_pi1[###UID###][0][0]" size="1">
   <option value="">###VALUE_NONE###</option>
-<!--###LIST### begin--><!--###ENTRY### begin-->
-  <option value="###COUNTER###" ###SELECTED###>###VALUE###</option>
-<!--###ENTRY### end--><!--###LIST### end-->
+<!--###LIST### begin--><option value="###COUNTER###" ###SELECTED###>###VALUE###</option><!--###LIST### end-->
 </select>
 </fieldset>
 <!--###4_DROP### end-->
@@ -165,9 +147,7 @@
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<!--###LIST### begin--><!--###ENTRY### begin-->
-<input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###
-<!--###ENTRY### end--><!--###LIST### end-->
+<!--###LIST### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<!--###LIST### end-->
 </fieldset>
 <!--###5_HOR### end-->
 
@@ -175,9 +155,7 @@
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<!--###LIST### begin--><!--###ENTRY### begin-->
-<input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<br />
-<!--###ENTRY### end--><!--###LIST### end-->
+<!--###LIST### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<br /><!--###LIST### end-->
 </fieldset>
 <!--###5_VER### end-->
 
@@ -187,9 +165,7 @@
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
 <select name="tx_pbsurvey_pi1[###UID###][0][0]" size="1">
   <option value="">###VALUE_NONE###</option>
-<!--###LIST### begin--><!--###ENTRY### begin-->
-  <option value="###COUNTER###" ###SELECTED###>###VALUE###</option>
-<!--###ENTRY### end--><!--###LIST### end-->
+<!--###LIST### begin--><option value="###COUNTER###" ###SELECTED###>###VALUE###</option><!--###LIST### end-->
 </select>
 </fieldset>
 <!--###5_DROP### end-->
@@ -205,18 +181,12 @@
   </colgroup>
   <tr class="surveyrow_odd">
     <td class="columnFirst">&nbsp;</td>
-    <!--###HEADER### begin--><!--###ENTRY### begin-->	
-    <td class="columnNext">###VALUE###</td>
-    <!--###ENTRY### end--><!--###HEADER### end-->
+    <!--###HEADER### begin--><td class="columnNext">###VALUE###</td><!--###HEADER### end-->
   </tr>
-  <!--###ROWS### begin--><!--###ROW_ENTRY### begin-->	
-  <tr class="###ROWCLASS###">
+  <!--###ROWS### begin--><tr class="###ROWCLASS###">
     <td class="columnFirst">###ROW###</td>
-	<!--###COLUMNS### begin--><!--###COL_ENTRY### begin-->	
-    <td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][###COLCOUNTER###]" type="checkbox" value="###COLCOUNTER###" ###CHECKED### /></td>
-	<!--###COL_ENTRY### end--><!--###COLUMNS### end-->	
-  </tr>
-  <!--###ROW_ENTRY### end--><!--###ROWS### end-->	
+	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][###COLCOUNTER###]" type="checkbox" value="###COLCOUNTER###" ###CHECKED### /></td><!--###COLUMNS### end-->	
+  </tr><!--###ROWS### end-->	
 </table>
 </fieldset>
 <!--###6### end-->
@@ -232,18 +202,12 @@
   </colgroup>
   <tr class="surveyrow_odd">
     <td class="columnFirst">&nbsp;</td>
-    <!--###HEADER### begin--><!--###ENTRY### begin-->	
-    <td class="columnNext">###VALUE###</td>
-    <!--###ENTRY### end--><!--###HEADER### end-->
+    <!--###HEADER### begin--><td class="columnNext">###VALUE###</td><!--###HEADER### end-->
   </tr>
-  <!--###ROWS### begin--><!--###ROW_ENTRY### begin-->	
-  <tr class="###ROWCLASS###">
+  <!--###ROWS### begin--><tr class="###ROWCLASS###">
     <td class="columnFirst">###ROW###</td>
-	<!--###COLUMNS### begin--><!--###COL_ENTRY### begin-->	
-    <td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][###COLCOUNTER###]" type="text" value="###VALUE###" size="2" /></td>
-	<!--###COL_ENTRY### end--><!--###COLUMNS### end-->	
-  </tr>
-  <!--###ROW_ENTRY### end--><!--###ROWS### end-->	
+	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][###COLCOUNTER###]" type="text" value="###VALUE###" size="2" /></td><!--###COLUMNS### end-->	
+  </tr><!--###ROWS### end-->	
 </table>
 </fieldset>
 <!--###7### end-->
@@ -259,18 +223,12 @@
   </colgroup>
   <tr class="surveyrow_odd">
     <td class="columnFirst">&nbsp;</td>
-    <!--###HEADER### begin--><!--###ENTRY### begin-->	
-    <td class="columnNext">###VALUE###</td>
-    <!--###ENTRY### end--><!--###HEADER### end-->
+    <!--###HEADER### begin--><td class="columnNext">###VALUE###</td><!--###HEADER### end-->
   </tr>
-  <!--###ROWS### begin--><!--###ROW_ENTRY### begin-->	
-  <tr class="###ROWCLASS###">
+  <!--###ROWS### begin--><tr class="###ROWCLASS###">
     <td class="columnFirst">###ROW###</td>
-	<!--###COLUMNS### begin--><!--###COL_ENTRY### begin-->	
-    <td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="radio" value="###COLCOUNTER###" ###CHECKED### /></td>
-	<!--###COL_ENTRY### end--><!--###COLUMNS### end-->	
-  </tr>
-  <!--###ROW_ENTRY### end--><!--###ROWS### end-->	
+	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="radio" value="###COLCOUNTER###" ###CHECKED### /></td><!--###COLUMNS### end-->	
+  </tr><!--###ROWS### end-->	
 </table>
 </fieldset>
 <!--###8### end-->
@@ -286,18 +244,12 @@
   </colgroup>
   <tr class="surveyrow_odd">
     <td class="columnFirst">&nbsp;</td>
-    <!--###HEADER### begin--><!--###ENTRY### begin-->	
-    <td class="columnNext">###VALUE###</td>
-    <!--###ENTRY### end--><!--###HEADER### end-->
+    <!--###HEADER### begin--><td class="columnNext">###VALUE###</td><!--###HEADER### end-->
   </tr>
-  <!--###ROWS### begin--><!--###ROW_ENTRY### begin-->	
-  <tr class="###ROWCLASS###">
+  <!--###ROWS### begin--><tr class="###ROWCLASS###">
     <td class="columnFirst">###ROW###</td>
-	<!--###COLUMNS### begin--><!--###COL_ENTRY### begin-->	
-    <td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="radio" value="###VALUE###" ###CHECKED### /></td>
-	<!--###COL_ENTRY### end--><!--###COLUMNS### end-->	
-  </tr>
-  <!--###ROW_ENTRY### end--><!--###ROWS### end-->	
+	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="radio" value="###VALUE###" ###CHECKED### /></td><!--###COLUMNS### end-->	
+  </tr><!--###ROWS### end-->	
 </table>
 </fieldset>
 <!--###9### end-->
@@ -316,12 +268,10 @@
 <!--###COMMENT### begin--><div class="questionComment">###QUESTION_COMMENT###</div><!--###COMMENT### end-->
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
 <table cellspacing="0" cellpadding="0">
-  <!--###ROWS### begin--><!--###ROW_ENTRY### begin-->	
-  <tr>
+  <!--###ROWS### begin--><tr>
     <td>###ROW###</td>
     <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="2" /></td>
-  </tr>
-  <!--###ROW_ENTRY### end--><!--###ROWS### end-->	
+  </tr><!--###ROWS### end-->	
 </table>
 </fieldset>
 <!--###11### end-->
@@ -358,12 +308,10 @@
 <!--###COMMENT### begin--><div class="questionComment">###QUESTION_COMMENT###</div><!--###COMMENT### end-->
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
 <table cellspacing="0" cellpadding="0">
-  <!--###ROWS### begin--><!--###ROW_ENTRY### begin-->	
-  <tr>
+  <!--###ROWS### begin--><tr>
     <td>###ROW###</td>
     <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="50" /></td>
-  </tr>
-  <!--###ROW_ENTRY### end--><!--###ROWS### end-->	
+  </tr><!--###ROWS### end-->	
 </table>
 </fieldset>
 <!--###15### end-->
@@ -374,12 +322,10 @@
 <!--###COMMENT### begin--><div class="questionComment">###QUESTION_COMMENT###</div><!--###COMMENT### end-->
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
 <table cellspacing="0" cellpadding="0">
-  <!--###ROWS### begin--><!--###ROW_ENTRY### begin-->	
-  <tr>
+  <!--###ROWS### begin--><tr>
     <td>###ROW###</td>
     <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="2" /></td>
-  </tr>
-  <!--###ROW_ENTRY### end--><!--###ROWS### end-->	
+  </tr><!--###ROWS### end-->	
 </table>
 </fieldset>
 <!--###16### end-->

@@ -27,7 +27,6 @@ require ("conf.php");
 require ($BACK_PATH."init.php");
 require ($BACK_PATH."template.php");
 $LANG->includeLLFile('EXT:pbsurvey/lang/locallang_wiz.xml');
-//require_once(t3lib_extMgm::extPath('cc_debug').'class.tx_ccdebug.php');
 
 /**
  * Conditions wizard for the 'pbsurvey' extension.

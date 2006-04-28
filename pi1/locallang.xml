@@ -71,6 +71,7 @@
 			<label index="page_xy">Page %x of %y</label>
 			<label index="percent">percent</label>
 			<label index="failed_saving_data">An error has occured during saving data. We are sorry.</label>
+			<label index="completion_message">Thank you for taking the survey!</label>
 		</languageKey>
 		<languageKey index="nl">EXT:pbsurvey/pi1/nl.locallang.xml</languageKey>
 		<languageKey index="de">EXT:pbsurvey/pi1/de.locallang.xml</languageKey>

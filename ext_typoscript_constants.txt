@@ -30,10 +30,9 @@ plugin.tx_pbsurvey_pi1{
   completion {
     # cat=plugin.questionaire/other; type=int[0-2]; label=Completion - Action: Action to take when questionaire is finished. 0=Show Message / 1=Redirect to page / 2=Close Browser.
     action = 0
-	# cat=plugin.questionaire/other; type=; label=Completion - Message: When plugin.tx_pbsurvey_pi.completion.action=0 (Display Message) is chosen, you can fill in the message here.
-	message = Thank you for taking the survey!
 	# cat=plugin.questionaire/other; type=int+; label=Completion - Page: If the Completion Action is 'Display Message' or 'Redirect to another page', you can select a page here to redirect to or go to when 'Continue'-button is shown.
 	redirectPid = 
+	
 	button {
 	  # cat=plugin.questionaire/other; type=boolean; label=Completion - Close Button: Show a button to close the current window.
 	  close = 0
