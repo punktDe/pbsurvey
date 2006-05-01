@@ -22,11 +22,15 @@
 			<label index="question.details">Each answer belongs to a question. Multiple answers can be given to one question, which is subject to the type of question. The value in this field is the question where this answer belongs to.</label>
 			<label index="_fe_user.seeAlso">tx_pbsurvey_item, fe_users</label>
 			<label index="row.description">Row identifier.</label>
-			<label index="row.details">This identifier is used by the Web > Questionaire module to calculate statistics and proper export results.</label>
+			<label index="row.details">This identifier is used by the Web &gt; Questionaire module to calculate statistics and proper export results.</label>
 			<label index="col.description">Column identifier.</label>
-			<label index="col.details">This identifier is used by the Web > Questionaire module to calculate statistics and proper export results.</label>
+			<label index="col.details">This identifier is used by the Web &gt; Questionaire module to calculate statistics and proper export results.</label>
 			<label index="answer.description">A single answer to a question.</label>
 			<label index="answer.details">This field represents a single answer given by the user to a question. It is however possible this field is empty. In that case the answer will be calculated by the fields 'Row' and 'Column'.</label>
 		</languageKey>
 	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
 </T3locallang>

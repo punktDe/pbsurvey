@@ -3,21 +3,21 @@
 	<data type="array">
 		<languageKey index="dk" type="array">
 			<label index="pi1_title_pbsurvey">Spørgeskema</label>
-			<label index="pi1_plus_wiz_description_pbsurvey">Indsaml information fra brugere gennem spørgeskema.</label>
-			<label index="pi_flexform.sheet_general">General</label>
+			<label index="pi1_plus_wiz_description_pbsurvey">Indsaml information fra brugere gennem spørgeskemaer.</label>
+			<label index="pi_flexform.sheet_general">Generelt</label>
 			<label index="pi_flexform.template_file">Skabelonfil</label>
 			<label index="pi_flexform.sheet_access">Adgang</label>
-			<label index="pi_flexform.access_level">Svar Adgangsniveau</label>
+			<label index="pi_flexform.access_level">Adgangsniveau for deltager</label>
 			<label index="pi_flexform.access_level0">Flere svar</label>
 			<label index="pi_flexform.access_level1">Enkelt svar</label>
 			<label index="pi_flexform.access_level2">Enkelt svar (IKKE opdaterbar)</label>
 			<label index="pi_flexform.sheet_completion">Afslut</label>
 			<label index="pi_flexform.completion_action">Afslut funktion</label>
-			<label index="pi_flexform.action0">Vis meddelelse</label>
-			<label index="pi_flexform.action1">Vis resultater</label>
+			<label index="pi_flexform.action0">Luk browservinduet</label>
+			<label index="pi_flexform.action1">Vis meddelelse</label>
 			<label index="pi_flexform.action2">Hop til anden side</label>
-			<label index="pi_flexform.completion_message">Afslut meddelelse</label>
-			<label index="pi_flexform.completion_url">Afslutside</label>
+			<label index="pi_flexform.completion_message">Afsluttende meddelelse</label>
+			<label index="pi_flexform.completion_url">Afslutningsside</label>
 			<label index="pi_flexform.close_button">Luk knap</label>
 			<label index="pi_flexform.continue_button">Forsæt knap</label>
 			<label index="pi_flexform.view_reports_button">Vis report knap</label>
@@ -36,8 +36,8 @@
 			<label index="pi_flexform.page_numbering0">Vis IKKE sidenumre</label>
 			<label index="pi_flexform.page_numbering1">Vis status som statusbar</label>
 			<label index="pi_flexform.page_numbering2">Vis status som 'Side X af Y' format</label>
-			<label index="pi_flexform.page_numbering3">Vise sidenummer på hver side</label>
-			<label index="pi_flexform.question_numbering">Spørgsmålnummer</label>
+			<label index="pi_flexform.page_numbering3">Vis sidenummer på hver side</label>
+			<label index="pi_flexform.question_numbering">Spørgsmålsnummerering</label>
 			<label index="pi_flexform.question_numbering0">Vis IKKE spørgsmålsnumre</label>
 			<label index="pi_flexform.question_numbering1">Antal spørgsmål i hele spørgeskemaet</label>
 			<label index="pi_flexform.question_numbering2">Antal spørgsmål på hver side</label>
@@ -47,6 +47,14 @@
 			<label index="pi_flexform.days_for_update">Dage før opdatering</label>
 			<label index="pi_flexform.access_level3">Manuelt svar</label>
 			<label index="pi_flexform.action3">Luk browseren</label>
+			<label index="pi_flexform.anonymous_mode">Kontrol med anonyme</label>
+			<label index="pi_flexform.anonymous_mode0">IP-adresse</label>
+			<label index="pi_flexform.anonymous_mode1">Cookie</label>
+			<label index="pi_flexform.cookie_lifetime">Cookie levetid (i dage)</label>
+			<label index="pi_flexform.captcha_page">Udfør kontrol af at afsenderen er et menneske</label>
+			<label index="pi_flexform.validation">Validering af spørgeskema</label>
+			<label index="pi_flexform.validation0">Klient-baseret Javascript</label>
+			<label index="pi_flexform.validation1">Server-baseret PHP (altid tilgængelig)</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">
@@ -94,10 +102,35 @@
 			<label index="pi_flexform.maximum_responses" type="integer">218747109</label>
 			<label index="pi_flexform.responses_per_user" type="integer">163120207</label>
 			<label index="pi_flexform.days_for_update" type="integer">122631216</label>
+			<label index="pi_flexform.anonymous_mode" type="integer">121428018</label>
+			<label index="pi_flexform.anonymous_mode0" type="integer">94340982</label>
+			<label index="pi_flexform.anonymous_mode1" type="integer">117895432</label>
+			<label index="pi_flexform.cookie_lifetime" type="integer">216238782</label>
+			<label index="pi_flexform.captcha_page" type="integer">205755058</label>
+			<label index="pi_flexform.validation" type="integer">171367318</label>
+			<label index="pi_flexform.validation0" type="integer">173662885</label>
+			<label index="pi_flexform.validation1" type="integer">22671143</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">
 		<languageKey index="dk" type="array">
+			<label index="pi1_plus_wiz_description_pbsurvey">Collect information from visitors using extensive surveys.</label>
+			<label index="pi_flexform.sheet_general">General</label>
+			<label index="pi_flexform.access_level">Respondent Access Level</label>
+			<label index="pi_flexform.anonymous_mode">Anonymous check</label>
+			<label index="pi_flexform.anonymous_mode0">IP-address</label>
+			<label index="pi_flexform.anonymous_mode1">Cookie</label>
+			<label index="pi_flexform.cookie_lifetime">Cookie lifetime (in days)</label>
+			<label index="pi_flexform.action0">Close the browser</label>
+			<label index="pi_flexform.action1">Display Message</label>
+			<label index="pi_flexform.captcha_page">Show Captcha before entering survey</label>
+			<label index="pi_flexform.completion_message">Completion Message</label>
+			<label index="pi_flexform.completion_url">Completion Page</label>
+			<label index="pi_flexform.page_numbering3">Display page number on each page</label>
+			<label index="pi_flexform.question_numbering">Question Numbering</label>
+			<label index="pi_flexform.validation">Form validation</label>
+			<label index="pi_flexform.validation0">Client-side Javascript</label>
+			<label index="pi_flexform.validation1">Server-side PHP (Accessibility)</label>
 		</languageKey>
 	</orig_text>
 </T3locallangExt>

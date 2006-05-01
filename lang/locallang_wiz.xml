@@ -165,4 +165,8 @@
 		<languageKey index="dk">EXT:pbsurvey/lang/dk.locallang_wiz.xml</languageKey>
 		<languageKey index="no">EXT:pbsurvey/lang/no.locallang_wiz.xml</languageKey>
 	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
 </T3locallang>

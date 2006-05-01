@@ -160,8 +160,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     	$this->arrSessionData = $GLOBALS['TSFE']->fe_user->getKey('ses','surveyData');
     	$this->arrSessionData['uid'] = $GLOBALS['TSFE']->loginUser?$GLOBALS['TSFE']->fe_user->user['uid']:0;
     	$this->arrSessionData['uip'] = t3lib_div::getIndpEnv('REMOTE_ADDR');
-    	if (isset($_COOKIE[$this->extKey])&& $this->arrConfig['anonymous_mode'] && !$GLOBALS['TSFE']->fe_user->user['uid']) {
-    		foreach ($_COOKIE[$this->extKey] as $strName => $mixValue) {
+    	if (isset($_COOKIE[$this->extKey][$this->arrConfig['pid']])&& $this->arrConfig['anonymous_mode'] && !$GLOBALS['TSFE']->fe_user->user['uid']) {
+    		foreach ($_COOKIE[$this->extKey][$this->arrConfig['pid']] as $strName => $mixValue) {
       			$this->arrSessionData[$strName] = $mixValue;
    			}
     	}
@@ -210,8 +210,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	                $this->userSetKey();
 	                if ($this->piVars['Cancel'] && $this->arrConfig['navigation_cancel']==3) {
 	                    $this->callHeader('cancel_url');
+	                } else {
+	                	$strOutput = $this->surveyCompletion();
 	                }
-	                $strOutput = $this->surveyCompletion();
 	            }
 			}
         }
@@ -907,13 +908,13 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                     $arrQuestion['checked'] = 'checked="checked"';
                     $arrQuestion['value'] = $this->arrUserData[$arrQuestion['uid']]['-1'];
                 }
-                $arrQuestion['additional'] = $arrQuestion['answers_type_additional']==0?'<input type="text" value="' . $arrQuestion['value'] . '" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1['.$arrQuestion['uid'].'][-1][0]\',this.value)" />':'<textarea cols="###WIDTH###" rows="###HEIGHT###" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1['.$arrQuestion['uid'].'][-1][0]\',this.value)">' . $arrQuestion['value'] . '</textarea>';
+                $arrQuestion['additional'] = $arrQuestion['answers_type_additional']==0?'<input type="text" value="' . $arrQuestion['value'] . '" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1_'.$arrQuestion['uid'].'_-1_0\',this.value)" />':'<textarea cols="'.$arrQuestion['textarea_width'].'" rows="'.$arrQuestion['textarea_height'].'" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1_'.$arrQuestion['uid'].'_-1_0\',this.value)">' . $arrQuestion['value'] . '</textarea>';
             } elseif ($arrQuestion['question_type']==3) {
     			if ($this->checkUpdate($arrQuestion['uid']) && $arrQuestion['additionalChecked']<>1) {
     				$arrQuestion['checked'] = 'checked="checked"';
     				$arrQuestion['value'] = $this->arrUserData[$arrQuestion['uid']];
     			}
-    			$arrQuestion['additional'] = $arrQuestion['answers_type_additional']==0?'<input type="text" value="' . $arrQuestion['value'] . '" name="'.$arrQuestion['uid'].' additional" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1['.$arrQuestion['uid'].'][0][0]\',this.value)" />':'<textarea cols="###WIDTH###" rows="###HEIGHT###" name="'.$arrQuestion['uid'].' additional" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1['.$arrQuestion['uid'].'][0][0]\',this.value)">' . $arrQuestion['value'] . '</textarea>';
+    			$arrQuestion['additional'] = $arrQuestion['answers_type_additional']==0?'<input type="text" value="' . $arrQuestion['value'] . '" name="'.$arrQuestion['uid'].' additional" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1_'.$arrQuestion['uid'].'_0_0\',this.value)" />':'<textarea cols="'.$arrQuestion['textarea_width'].'" rows="'.$arrQuestion['textarea_height'].'" name="'.$arrQuestion['uid'].' additional" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1_'.$arrQuestion['uid'].'_0_0\',this.value)">' . $arrQuestion['value'] . '</textarea>';
             }
             $strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###ADDITIONALS###'), $arrQuestion, '###|###', 1);
             $this->arrJsItems[3] = true;
@@ -1413,7 +1414,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$arrDb['finished'] = 1;
 			$arrDb['endtstamp'] = time();
 			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) {
-				setcookie($this->extKey."[responses]", $this->arrSessionData['responses']+1, (time()+60*60*24*$this->arrConfig['cookie_lifetime'])); // add 1 to the amount of responses		
+				setcookie($this->extKey."[".$this->arrConfig['pid']."][responses]", $this->arrSessionData['responses']+1, (time()+60*60*24*$this->arrConfig['cookie_lifetime'])); // add 1 to the amount of responses		
 			}
     	}
 		$arrDb['user'] = $this->arrSessionData['uid'];
@@ -1428,7 +1429,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable,$arrDb); // Insert result
 			$this->arrSessionData['rid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
 			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) { // Anonymous survey, check acces by cookie
-				setcookie($this->extKey."[rid]", $this->arrSessionData['rid'], (time()+60*60*24*$this->arrConfig['cookie_lifetime']));
+				setcookie($this->extKey."[".$this->arrConfig['pid']."][rid]", $this->arrSessionData['rid'], (time()+60*60*24*$this->arrConfig['cookie_lifetime']));
 			}
 		}
 		if ($GLOBALS['TYPO3_DB']->sql_error()) {

@@ -30,15 +30,18 @@ This field will be used by the module &quot;Web &gt; Questionaire&quot; to extra
 			<label index="begintstamp.description">The start date and time of this result.</label>
 			<label index="begintstamp.details">At the beginning of a survey the start time and date is written to the result record. At the end the end date and time is written to the record. With these two values you can determine how long it took for users to participate in the survey.
 			
-&lt;strong&gt;Note:&lt;/strong&gt; When the survey is updatable it is possible there is a strange difference between the start and end time. The start date can be later then the end date. This is because a user updated his own answers but didn't finish the update session.</label>			
+&lt;strong&gt;Note:&lt;/strong&gt; When the survey is updatable it is possible there is a strange difference between the start and end time. The start date can be later then the end date. This is because a user updated his own answers but didn't finish the update session.</label>
 			<label index="endtstamp.description">The end date and time of this result.</label>
 			<label index="endtstamp.details">At the end of a survey the end time and date is written to the result record. At the beginning the start date and time is written to the record. With these two values you can determine how long it took for users to participate in the survey.
 			
-&lt;strong&gt;Note:&lt;/strong&gt; When the survey is updatable it is possible there is a strange difference between the start and end time. The start date can be later then the end date. This is because a user updated his own answers but didn't finish the update session.</label>			
-
+&lt;strong&gt;Note:&lt;/strong&gt; When the survey is updatable it is possible there is a strange difference between the start and end time. The start date can be later then the end date. This is because a user updated his own answers but didn't finish the update session.</label>
 		</languageKey>
 		<languageKey index="nl">EXT:pbsurvey/csh/nl.locallang_pbsurvey_results.xml</languageKey>
 		<languageKey index="de">EXT:pbsurvey/csh/de.locallang_pbsurvey_results.xml</languageKey>
 		<languageKey index="no">EXT:pbsurvey/csh/no.locallang_pbsurvey_results.xml</languageKey>
 	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
 </T3locallang>

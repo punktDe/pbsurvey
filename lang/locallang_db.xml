@@ -58,6 +58,8 @@
 			<label index="tx_pbsurvey_item.answers_type_additional.I.0">Textbox</label>
 			<label index="tx_pbsurvey_item.answers_type_additional.I.1">Textarea</label>
 			<label index="tx_pbsurvey_item.answers_type_additional">Additional Answer Input Type</label>
+			<label index="tx_pbsurvey_item.textarea_width">Textarea width</label>
+			<label index="tx_pbsurvey_item.textarea_height">Textarea height</label>
 			<label index="tx_pbsurvey_item.display_type">Display Type</label>
 			<label index="tx_pbsurvey_item.display_type.I.0">Dropdown</label>
 			<label index="tx_pbsurvey_item.display_type.I.1">Radio Buttons - Horizontal</label>
@@ -117,4 +119,8 @@
 		<languageKey index="dk">EXT:pbsurvey/lang/dk.locallang_db.xml</languageKey>
 		<languageKey index="no">EXT:pbsurvey/lang/no.locallang_db.xml</languageKey>
 	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
 </T3locallang>

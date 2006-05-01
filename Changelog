@@ -1,3 +1,12 @@
+2006-05-01 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added id to additional fields. Were removed on 2006-04-27, but are necessary for additional fields.
+ ~ wizard2\wizard_conditions.php: Changed array for true/false, yes/no in function getAnswers. Index for these types were wrong.
+ + Added db fields textarea_width and textarea_height. Textarea in additional fields is has configurable dimensions now.
+
+2006-04-28 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ pi1\class.tx_pbsurvey_pi1.php: Changed line 213 to else because if locationheader on both cancel and completion, completion url would override the cancel url.
+ ~ pi1\class.tx_pbsurvey_pi1.php: Added the pid of the survey items to the cookiename in anonymous access. In case of multiple surveys in one website.
+ 
 2006-04-27 - Patrick Broens <patrick@patrickbroens.nl>
  - pi1/template.html: Deleted some unnecessary subpartmarkers
  ~ pi1\class.tx_pbsurvey_pi1.php: Changed some markerfunctions because of deletion unnecessary subpartmarkers.

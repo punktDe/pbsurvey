@@ -28,6 +28,8 @@ $TCA['tx_pbsurvey_item'] = array (
 			answers_allow_additional,
 			answers_text_additional,
 			answers_type_additional,
+			textarea_width,
+			textarea_height,
 			display_type,
 			default_value_tf,
 			default_value_yn,
@@ -330,6 +332,30 @@ $TCA['tx_pbsurvey_item'] = array (
                 ),
                 'size' => 1,    
                 'maxitems' => 1,
+            )
+        ),
+        'textarea_width' => array (  
+			'l10n_mode' => 'exclude',      
+            'exclude' => 0,        
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.textarea_width',        
+            'config' => array (
+                'type' => 'input',    
+                'size' => '3',       
+                'eval' => 'int',
+				'checkbox' => '0',
+				'default' => '20',
+            )
+        ),
+        'textarea_height' => array (  
+			'l10n_mode' => 'exclude',      
+            'exclude' => 0,        
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.textarea_height',        
+            'config' => array (
+                'type' => 'input',    
+                'size' => '3',       
+                'eval' => 'int',
+				'checkbox' => '0',
+				'default' => '5',
             )
         ),
 		'display_type' => array ( 
@@ -655,7 +681,7 @@ $TCA['tx_pbsurvey_item'] = array (
         '1' => array('showitem' => 'hidden,l18n_parent'),
         '2' => array('showitem' => 'options_required,question_alias'),
         '3' => array('showitem' => 'options_alignment'),
-        '4' => array('showitem' => 'answers_allow_additional, answers_type_additional'),
+        '4' => array('showitem' => 'answers_allow_additional, answers_type_additional, textarea_width, textarea_height'),
         '5' => array('showitem' => 'minimum_date, maximum_date'),
         '6' => array('showitem' => 'minimum_value, maximum_value, maximum_length'),
         '7' => array('showitem' => 'image_height, image_width, image_alignment'),

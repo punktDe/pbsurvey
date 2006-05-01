@@ -30,6 +30,8 @@ CREATE TABLE tx_pbsurvey_item (
 	answers_allow_additional tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	answers_text_additional tinytext NOT NULL,
     answers_type_additional tinyint(3) unsigned DEFAULT '0' NOT NULL,
+    textarea_width int(11) DEFAULT '0',
+    textarea_height int(11) DEFAULT '0',
 	display_type tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	default_value_tf tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	default_value_yn tinyint(3) unsigned DEFAULT '0' NOT NULL,

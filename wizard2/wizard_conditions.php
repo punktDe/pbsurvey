@@ -492,9 +492,9 @@ class tx_pbsurvey_conditions_wiz {
             if (in_array($arrCurQuestion['question_type'],array(1,2,3))) {
                 $arrOptions = $this->answersArray($arrCurQuestion['answers']);
             } elseif ($arrCurQuestion['question_type']==4) {
-                $arrOptions = array(0 => $LANG->getLL('conditions_true'),1 => $LANG->getLL('conditions_false'));
+                $arrOptions = array(1 => $LANG->getLL('conditions_false'),2 => $LANG->getLL('conditions_true'));
             } else {
-                $arrOptions = array(0 => $LANG->getLL('conditions_yes'),1 => $LANG->getLL('conditions_no'));
+                $arrOptions = array(1 => $LANG->getLL('conditions_no'),2 => $LANG->getLL('conditions_yes'));
             }
             foreach($arrOptions as $intKey => $strValue) {
                 if ($arrRule['value']==$intKey) {

@@ -4,7 +4,7 @@
 		<languageKey index="dk" type="array">
 			<label index="title">Eksempelassistent titel...</label>
 			<label index="table_title">Svarassistent</label>
-			<label index="table_noData">Ingen Data</label>
+			<label index="table_noData">Ingen data</label>
 			<label index="table_up">Flyt op</label>
 			<label index="table_bottom">Flyt til bund</label>
 			<label index="table_removeRow">Fjern række</label>
@@ -64,12 +64,12 @@
 			<label index="answer_group_8.3">Neutral</label>
 			<label index="answer_group_8.4">Ubetydeligt</label>
 			<label index="answer_group_8.5">Meget ubetydeligt</label>
-			<label index="answer_group_9">Sansynligt - Usansynligt</label>
-			<label index="answer_group_9.1">Meget sansynligt</label>
-			<label index="answer_group_9.2">Sansynligt</label>
+			<label index="answer_group_9">Sandsynligt - Usandsynligt</label>
+			<label index="answer_group_9.1">Meget sandsynligt</label>
+			<label index="answer_group_9.2">Sandsynligt</label>
 			<label index="answer_group_9.3">Neutral</label>
-			<label index="answer_group_9.4">Usansynligt</label>
-			<label index="answer_group_9.5">Meget usansynligt</label>
+			<label index="answer_group_9.4">Usandsynligt</label>
+			<label index="answer_group_9.5">Meget usandsynligt</label>
 			<label index="answer_group_10">Relevant - Irrelevant</label>
 			<label index="answer_group_10.1">Meget relevant</label>
 			<label index="answer_group_10.2">Relevant</label>
@@ -116,12 +116,12 @@
 			<label index="answer_group_17.1">Under gennemsnit</label>
 			<label index="answer_group_17.2">Gennemsnit</label>
 			<label index="answer_group_17.3">Over gennemsnit</label>
-			<label index="conditions_title">Side betingelsesassistent</label>
+			<label index="conditions_title">Sidebetingelsesassistent</label>
 			<label index="conditions_group">(ELLER) Gruppe</label>
 			<label index="conditions_not">Ikke</label>
 			<label index="conditions_field">Felt</label>
 			<label index="conditions_condition">Betingelse</label>
-			<label index="conditions_ruleRemove">Fjern regler</label>
+			<label index="conditions_ruleRemove">Fjern regel</label>
 			<label index="conditions_and">Og</label>
 			<label index="conditions_or">Eller</label>
 			<label index="conditions_rules">Regler</label>
@@ -304,6 +304,14 @@
 	</orig_hash>
 	<orig_text type="array">
 		<languageKey index="dk" type="array">
+			<label index="table_noData">No Data</label>
+			<label index="answer_group_9">Likely - Unlikely</label>
+			<label index="answer_group_9.1">Very Likely</label>
+			<label index="answer_group_9.2">Likely</label>
+			<label index="answer_group_9.4">Unlikely</label>
+			<label index="answer_group_9.5">Very Unlikely</label>
+			<label index="conditions_title">Page Conditions Wizard</label>
+			<label index="conditions_ruleRemove">Remove rule</label>
 		</languageKey>
 	</orig_text>
 </T3locallangExt>

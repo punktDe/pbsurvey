@@ -4,28 +4,28 @@
 		<languageKey index="dk" type="array">
 			<label index="tx_pbsurvey_item">Spørgeskema spørgsmål</label>
 			<label index="tx_pbsurvey_item.question_type.I.0">Valg - Database Dropdown</label>
-			<label index="tx_pbsurvey_item.question_type.I.1">Valg - Flerer svar (Checkboxes)</label>
-			<label index="tx_pbsurvey_item.question_type.I.2">Valg - Et svar (Dropdown)</label>
-			<label index="tx_pbsurvey_item.question_type.I.3">Valg - Et svar (Option knapper)</label>
+			<label index="tx_pbsurvey_item.question_type.I.1">Valg - Flerer svar (afkrydsningsfelter)</label>
+			<label index="tx_pbsurvey_item.question_type.I.2">Valg - Et svar (lokalmenu)</label>
+			<label index="tx_pbsurvey_item.question_type.I.3">Valg - Et svar (radioknapper)</label>
 			<label index="tx_pbsurvey_item.question_type.I.4">Valg - Sandt/Falsk</label>
 			<label index="tx_pbsurvey_item.question_type.I.5">Valg - Ja/Nej</label>
-			<label index="tx_pbsurvey_item.question_type.I.6">Matrix - Flerer svar pr række (Checkboxes)</label>
-			<label index="tx_pbsurvey_item.question_type.I.7">Matrix - Flerer svar pr række (Textboxes)</label>
-			<label index="tx_pbsurvey_item.question_type.I.8">Matrix - Et svar pr række (Option knapper)</label>
-			<label index="tx_pbsurvey_item.question_type.I.9">Matrix - Rating Scale (Numerisk)</label>
-			<label index="tx_pbsurvey_item.question_type.I.10">Open Ended - Kommentarboks</label>
-			<label index="tx_pbsurvey_item.question_type.I.11">Open Ended - Konstant sum</label>
-			<label index="tx_pbsurvey_item.question_type.I.12">Open Ended - Dato</label>
-			<label index="tx_pbsurvey_item.question_type.I.13">Open Ended - Nummer</label>
-			<label index="tx_pbsurvey_item.question_type.I.14">Open Ended - En linie</label>
-			<label index="tx_pbsurvey_item.question_type.I.15">Open Ended - En eller flerer linier</label>
-			<label index="tx_pbsurvey_item.question_type.I.16">Open Ended - Points</label>
-			<label index="tx_pbsurvey_item.question_type.I.17">Presentation - Overskrift</label>
-			<label index="tx_pbsurvey_item.question_type.I.18">Presentation - Vandret linie (HR)</label>
-			<label index="tx_pbsurvey_item.question_type.I.19">Presentation - HTML</label>
-			<label index="tx_pbsurvey_item.question_type.I.20">Presentation - Billede</label>
-			<label index="tx_pbsurvey_item.question_type.I.21">Presentation - Meddelelse</label>
-			<label index="tx_pbsurvey_item.question_type.I.22">Sideskift &amp; Betinglser</label>
+			<label index="tx_pbsurvey_item.question_type.I.6">Matrice - Flere svar pr. række (afkrydsningsfelter)</label>
+			<label index="tx_pbsurvey_item.question_type.I.7">Matrice - Flere svar pr. række (tekstfelter)</label>
+			<label index="tx_pbsurvey_item.question_type.I.8">Matrice - Et svar pr. række (radioknapper)</label>
+			<label index="tx_pbsurvey_item.question_type.I.9">Matrice - Bedømmelsesskala (Numerisk)</label>
+			<label index="tx_pbsurvey_item.question_type.I.10">Åbent svar - Kommentarboks</label>
+			<label index="tx_pbsurvey_item.question_type.I.11">Åbent svar - Konstant sum</label>
+			<label index="tx_pbsurvey_item.question_type.I.12">Åbent svar - Dato</label>
+			<label index="tx_pbsurvey_item.question_type.I.13">Åbent svar - Nummer</label>
+			<label index="tx_pbsurvey_item.question_type.I.14">Åbent svar - En linje</label>
+			<label index="tx_pbsurvey_item.question_type.I.15">Åbent svar - En eller flerer linjer</label>
+			<label index="tx_pbsurvey_item.question_type.I.16">Åbent svar - Point</label>
+			<label index="tx_pbsurvey_item.question_type.I.17">Præsentation - Overskrift</label>
+			<label index="tx_pbsurvey_item.question_type.I.18">Præsentation - Vandret linje (HR)</label>
+			<label index="tx_pbsurvey_item.question_type.I.19">Præsentation - HTML</label>
+			<label index="tx_pbsurvey_item.question_type.I.20">Præsentation - Billede</label>
+			<label index="tx_pbsurvey_item.question_type.I.21">Præsentation - Meddelelse</label>
+			<label index="tx_pbsurvey_item.question_type.I.22">Sideskift &amp; Betingelser</label>
 			<label index="tx_pbsurvey_item.question_type">Spørgsmålstype</label>
 			<label index="tx_pbsurvey_item.question">Spørgsmål</label>
 			<label index="tx_pbsurvey_item.question_alias">Spørgsmåls alias</label>
@@ -36,23 +36,23 @@
 			<label index="tx_pbsurvey_item.options_random">Tilfældig orden</label>
 			<label index="tx_pbsurvey_item.options_alignment.I.0">Lodret</label>
 			<label index="tx_pbsurvey_item.options_alignment.I.1">Vandret</label>
-			<label index="tx_pbsurvey_item.options_alignment">Svar placering</label>
+			<label index="tx_pbsurvey_item.options_alignment">Placering af svar</label>
 			<label index="tx_pbsurvey_item.options_minimum_responses">Minimum antal svar</label>
 			<label index="tx_pbsurvey_item.options_maximum_responses">Maksimum antal svar</label>
-			<label index="tx_pbsurvey_item.options_row_heading_width">Bredde på række overskrift</label>
+			<label index="tx_pbsurvey_item.options_row_heading_width">Bredde på rækkeoverskrift</label>
 			<label index="tx_pbsurvey_item.rows">Rækkenavne</label>
 			<label index="tx_pbsurvey_item.answers">Indtast svarene</label>
 			<label index="tx_pbsurvey_item.answers_wiz">Svarassistent</label>
 			<label index="tx_pbsurvey_item.answers_allow_additional">Tillad ekstra svar</label>
 			<label index="tx_pbsurvey_item.answers_text_additional">Ekstra svar</label>
 			<label index="tx_pbsurvey_item.answers_text_additional.default">Andet, vælg venligst</label>
-			<label index="tx_pbsurvey_item.answers_type_additional.I.0">Textbox</label>
-			<label index="tx_pbsurvey_item.answers_type_additional.I.1">Textarea</label>
+			<label index="tx_pbsurvey_item.answers_type_additional.I.0">Tekstfelt</label>
+			<label index="tx_pbsurvey_item.answers_type_additional.I.1">Tekstboks (textarea)</label>
 			<label index="tx_pbsurvey_item.answers_type_additional">Inputtype for ekstra svar</label>
 			<label index="tx_pbsurvey_item.display_type">Visningstype</label>
 			<label index="tx_pbsurvey_item.display_type.I.0">Dropdown</label>
-			<label index="tx_pbsurvey_item.display_type.I.1">Radiobuttons - Vandret</label>
-			<label index="tx_pbsurvey_item.display_type.I.2">Radiobuttons - Lodret</label>
+			<label index="tx_pbsurvey_item.display_type.I.1">Radioknapper - vandret</label>
+			<label index="tx_pbsurvey_item.display_type.I.2">Radioknapper - lodret</label>
 			<label index="tx_pbsurvey_item.default_value_tf">Valgt som startværdi</label>
 			<label index="tx_pbsurvey_item.default_value_tf.I.0">--Vælg--</label>
 			<label index="tx_pbsurvey_item.default_value_tf.I.1">Sandt</label>
@@ -62,8 +62,8 @@
 			<label index="tx_pbsurvey_item.default_value_yn.I.1">Ja</label>
 			<label index="tx_pbsurvey_item.default_value_yn.I.2">Nej</label>
 			<label index="tx_pbsurvey_item.default_value_txt">Startværdi</label>
-			<label index="tx_pbsurvey_item.default_date">Standard dato</label>
-			<label index="tx_pbsurvey_item.default_value_num">Standard nummer</label>
+			<label index="tx_pbsurvey_item.default_date">Standarddato</label>
+			<label index="tx_pbsurvey_item.default_value_num">Standardnummer</label>
 			<label index="tx_pbsurvey_item.beginning_number">Startnummer</label>
 			<label index="tx_pbsurvey_item.ending_number">Slutnummer</label>
 			<label index="tx_pbsurvey_item.total_number">Antal svar totalt</label>
@@ -73,25 +73,35 @@
 			<label index="tx_pbsurvey_item.maximum_value">Maksimum værdi</label>
 			<label index="tx_pbsurvey_item.maximum_length">Maksimum længde</label>
 			<label index="tx_pbsurvey_item.image">Billede</label>
-			<label index="tx_pbsurvey_item.image_height">Maksimum billedehøjde</label>
-			<label index="tx_pbsurvey_item.image_width">Maksimum billedebredde</label>
-			<label index="tx_pbsurvey_item.image_alignment">Billedeplacering</label>
+			<label index="tx_pbsurvey_item.image_height">Maksimum billedhøjde</label>
+			<label index="tx_pbsurvey_item.image_width">Maksimum billedbredde</label>
+			<label index="tx_pbsurvey_item.image_alignment">Billedplacering</label>
 			<label index="tx_pbsurvey_item.image_alignment.I.0">Standard</label>
 			<label index="tx_pbsurvey_item.image_alignment.I.1">Venstre</label>
-			<label index="tx_pbsurvey_item.image_alignment.I.2">Center</label>
+			<label index="tx_pbsurvey_item.image_alignment.I.2">Midt</label>
 			<label index="tx_pbsurvey_item.image_alignment.I.3">Højre</label>
 			<label index="tx_pbsurvey_item.sql">Indtast SQL</label>
-			<label index="tx_pbsurvey_item.email">Er en E-mail adresse</label>
+			<label index="tx_pbsurvey_item.email">Er en emailadresse</label>
 			<label index="tx_pbsurvey_item.heading">Indtast overskrift</label>
 			<label index="tx_pbsurvey_item.html">Indtast HTML</label>
 			<label index="tx_pbsurvey_item.message">Indtast meddelelse</label>
-			<label index="tx_pbsurvey_item.conditions">Side betingelser</label>
+			<label index="tx_pbsurvey_item.conditions">Sidebetingelser</label>
 			<label index="tx_pbsurvey_item.conditions_wiz">Betingelsesassistent</label>
-			<label index="tx_pbsurvey_results">Spørgeskema resultat</label>
-			<label index="tx_pbsurvey_results.survey">Spørgeskema side</label>
+			<label index="tx_pbsurvey_results">Spørgeskemaresultat</label>
+			<label index="tx_pbsurvey_results.survey">Spørgeskemaside</label>
 			<label index="tx_pbsurvey_results.user">Bruger</label>
 			<label index="tt_content.list_type_pi1">Spørgeskema</label>
 			<label index="tx_pbsurvey_results.results">Resultat</label>
+			<label index="tx_pbsurvey_results.ip">IP adresse</label>
+			<label index="tx_pbsurvey_results.finished">Afsluttet</label>
+			<label index="tx_pbsurvey_results.begintstamp">Start tid</label>
+			<label index="tx_pbsurvey_results.endtstamp">Slut tid</label>
+			<label index="tx_pbsurvey_answers">Svar på spørgeskema</label>
+			<label index="tx_pbsurvey_answers.result">Resultat</label>
+			<label index="tx_pbsurvey_answers.question">Spørgsmål</label>
+			<label index="tx_pbsurvey_answers.row">Række</label>
+			<label index="tx_pbsurvey_answers.column">Søjle</label>
+			<label index="tx_pbsurvey_answers.answer">Svar</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">
@@ -185,10 +195,66 @@
 			<label index="tx_pbsurvey_results.survey" type="integer">167616412</label>
 			<label index="tx_pbsurvey_results.user" type="integer">150585321</label>
 			<label index="tt_content.list_type_pi1" type="integer">195136475</label>
+			<label index="tx_pbsurvey_results.ip" type="integer">123447511</label>
+			<label index="tx_pbsurvey_results.finished" type="integer">150196494</label>
+			<label index="tx_pbsurvey_results.begintstamp" type="integer">107262259</label>
+			<label index="tx_pbsurvey_results.endtstamp" type="integer">113971828</label>
+			<label index="tx_pbsurvey_answers" type="integer">27475000</label>
+			<label index="tx_pbsurvey_answers.result" type="integer">149857824</label>
+			<label index="tx_pbsurvey_answers.question" type="integer">177728086</label>
+			<label index="tx_pbsurvey_answers.row" type="integer">175126138</label>
+			<label index="tx_pbsurvey_answers.column" type="integer">26701183</label>
+			<label index="tx_pbsurvey_answers.answer" type="integer">58005141</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">
 		<languageKey index="dk" type="array">
+			<label index="tx_pbsurvey_item.question_type.I.1">Choice - Multiple Answers (Checkboxes)</label>
+			<label index="tx_pbsurvey_item.question_type.I.2">Choice - One Answer (Dropdown)</label>
+			<label index="tx_pbsurvey_item.question_type.I.3">Choice - One Answer (Option Buttons)</label>
+			<label index="tx_pbsurvey_item.question_type.I.6">Matrix - Multiple Answers per Row (Checkboxes)</label>
+			<label index="tx_pbsurvey_item.question_type.I.7">Matrix - Multiple Answers per Row (Textboxes)</label>
+			<label index="tx_pbsurvey_item.question_type.I.8">Matrix - One Answer per Row (Option Buttons)</label>
+			<label index="tx_pbsurvey_item.question_type.I.9">Matrix - Rating Scale (Numeric)</label>
+			<label index="tx_pbsurvey_item.question_type.I.10">Open Ended - Comments Box</label>
+			<label index="tx_pbsurvey_item.question_type.I.11">Open Ended - Constant Sum</label>
+			<label index="tx_pbsurvey_item.question_type.I.12">Open Ended - Date</label>
+			<label index="tx_pbsurvey_item.question_type.I.13">Open Ended - Number</label>
+			<label index="tx_pbsurvey_item.question_type.I.14">Open Ended - One Line</label>
+			<label index="tx_pbsurvey_item.question_type.I.15">Open Ended - One or More Lines</label>
+			<label index="tx_pbsurvey_item.question_type.I.16">Open Ended - Ranking</label>
+			<label index="tx_pbsurvey_item.question_type.I.17">Presentation - Heading</label>
+			<label index="tx_pbsurvey_item.question_type.I.18">Presentation - Horizontal Rule (HR)</label>
+			<label index="tx_pbsurvey_item.question_type.I.19">Presentation - HTML</label>
+			<label index="tx_pbsurvey_item.question_type.I.20">Presentation - Image</label>
+			<label index="tx_pbsurvey_item.question_type.I.21">Presentation - Message</label>
+			<label index="tx_pbsurvey_item.question_type.I.22">Page Break &amp; Conditions</label>
+			<label index="tx_pbsurvey_item.options_alignment">Answer Alignment</label>
+			<label index="tx_pbsurvey_item.options_row_heading_width">Row Heading Width</label>
+			<label index="tx_pbsurvey_item.answers_type_additional.I.0">Textbox</label>
+			<label index="tx_pbsurvey_item.answers_type_additional.I.1">Textarea</label>
+			<label index="tx_pbsurvey_item.display_type.I.1">Radio Buttons - Horizontal</label>
+			<label index="tx_pbsurvey_item.display_type.I.2">Radio Buttons - Vertical</label>
+			<label index="tx_pbsurvey_item.default_date">Default value</label>
+			<label index="tx_pbsurvey_item.default_value_num">Default value</label>
+			<label index="tx_pbsurvey_item.image_height">Maximum image height</label>
+			<label index="tx_pbsurvey_item.image_width">Maximum image width</label>
+			<label index="tx_pbsurvey_item.image_alignment">Image alignment</label>
+			<label index="tx_pbsurvey_item.image_alignment.I.2">Center</label>
+			<label index="tx_pbsurvey_item.email">Is E-mail Address</label>
+			<label index="tx_pbsurvey_item.conditions">Page conditions</label>
+			<label index="tx_pbsurvey_results">Questionaire Result</label>
+			<label index="tx_pbsurvey_results.survey">Survey</label>
+			<label index="tx_pbsurvey_results.ip">IP address</label>
+			<label index="tx_pbsurvey_results.finished">Finished</label>
+			<label index="tx_pbsurvey_results.begintstamp">Start time</label>
+			<label index="tx_pbsurvey_results.endtstamp">End time</label>
+			<label index="tx_pbsurvey_answers">Questionaire Answer</label>
+			<label index="tx_pbsurvey_answers.result">Result</label>
+			<label index="tx_pbsurvey_answers.question">Question</label>
+			<label index="tx_pbsurvey_answers.row">Row</label>
+			<label index="tx_pbsurvey_answers.column">Column</label>
+			<label index="tx_pbsurvey_answers.answer">Answer</label>
 		</languageKey>
 	</orig_text>
 </T3locallangExt>

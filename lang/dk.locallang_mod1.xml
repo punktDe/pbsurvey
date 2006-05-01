@@ -3,8 +3,8 @@
 	<data type="array">
 		<languageKey index="dk" type="array">
 			<label index="mlang_tabs_tab">Spørgeskema</label>
-			<label index="mlang_labels_tabdescr">Viis spørgeskemastatestik og eksporter resultater som CSV.</label>
-			<label index="mlang_labels_tablabel">Spørgeskemastatestik</label>
+			<label index="mlang_labels_tabdescr">Viis spørgeskemastatistik og eksporter resultater som CSV.</label>
+			<label index="mlang_labels_tablabel">Spørgeskemastatistik</label>
 			<label index="no_results">Der er ingen spørgsmål på denne side.</label>
 			<label index="error">Fejl</label>
 		</languageKey>
@@ -20,6 +20,8 @@
 	</orig_hash>
 	<orig_text type="array">
 		<languageKey index="dk" type="array">
+			<label index="mlang_labels_tabdescr">This module allows you to view questionaire statistics and export results as CSV for further analysis in statistical software like SPSS.</label>
+			<label index="mlang_labels_tablabel">Questionaire functions, eg. export results, statistics</label>
 		</languageKey>
 	</orig_text>
 </T3locallangExt>

@@ -6,7 +6,8 @@
 		<csh_table>tx_pbsurvey_item</csh_table>
 		<fileId>EXT:pbsurvey/csh/locallang_pbsurvey_item.xml</fileId>
 		<ext_filename_template>EXT:pbsurvey/csh/###LANGKEY###.locallang_pbsurvey_item.xml</ext_filename_template>
-		<labelContext type="array" />
+		<labelContext type="array">
+		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
@@ -18,7 +19,7 @@
 			<label index="sys_language_uid.description">Select the system language of this element. 
 
 &lt;strong&gt;Notice:&lt;/strong&gt; This will affect whether the element is visible.</label>
-			<label index="sys_language_uid.details">This allows you to assign a specific language to the question type. If you select anything but the "All" value, the element will not be visible unless the language assigned is also configured by the TypoScript template.
+			<label index="sys_language_uid.details">This allows you to assign a specific language to the question type. If you select anything but the &quot;All&quot; value, the element will not be visible unless the language assigned is also configured by the TypoScript template.
 The available system languages are created by the administrator..
 
 &lt;strong&gt;Note:&lt;/strong&gt; To get reliable results of a multiple language survey, you must translate all items in this survey.</label>
@@ -39,6 +40,8 @@ The available system languages are created by the administrator..
 			<label index="answers_allow_additional.description">Check this box if you would like an additional &quot;Other&quot; answer to allow questionaire takers to give a different answer.</label>
 			<label index="answers_text_additional.description">You may edit the text of the &quot;Other&quot; prompt in the text box below.</label>
 			<label index="answers_type_additional.description">Select the type of control that should be used to for the additional answer.</label>
+			<label index="textarea_width.description">Defines the width (cols) for the additional textarea.</label>
+			<label index="textarea_height.description">Defines the height (rows) for the additional textarea.</label>
 			<label index="display_type.description">Select the format for the response to the question.</label>
 			<label index="default_value_tf.description">This value will be selected as the default for this question.</label>
 			<label index="default_value_yn.description">This value will be selected as the default for this question.</label>
@@ -73,4 +76,8 @@ Create a page condition by selecting a question from a prior page, and then spec
 		<languageKey index="de">EXT:pbsurvey/csh/de.locallang_pbsurvey_item.xml</languageKey>
 		<languageKey index="no">EXT:pbsurvey/csh/no.locallang_pbsurvey_item.xml</languageKey>
 	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
 </T3locallang>
