@@ -1,7 +1,24 @@
+2006-05-14 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added question type 23, Choice - Multiple Answers (Selectbox)
+ - Deleted table row 'sql', which was not in use and is a reserved word for MySQL 5
+
+2006-05-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ pi1\class.tx_pbsurvey_pi1.php: function jsLocallang(): Fixed a bug that made the client side validation useless.
+ 
+2006-05-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ pi1\class.tx_pbsurvey_pi1.php: function getFFconfig: $this->arrConfig['pid'] was empty when no pid given in TS or FF. When empty it is now the current pid.
+ ~ pi1\class.tx_pbsurvey_pi1.php: function array_htmlspecialchars: html code from html type was also translated.
+
+2006-05-01 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ pi1\class.tx_pbsurvey_pi1.php: function markerSub: Subtext was not inserted.
+ 
 2006-05-01 - Patrick Broens <patrick@patrickbroens.nl>
  + Added id to additional fields. Were removed on 2006-04-27, but are necessary for additional fields.
  ~ wizard2\wizard_conditions.php: Changed array for true/false, yes/no in function getAnswers. Index for these types were wrong.
  + Added db fields textarea_width and textarea_height. Textarea in additional fields is has configurable dimensions now.
+ ~ pi1\class.tx_pbsurvey_pi1.php: function checkAccessLevel. When using cookie on single response, cookie still exists and old results were deleted resulted in "You cannot update your response anymore"
+ ~ pi1\class.tx_pbsurvey_pi1.php: moved $this->validationString() call in processSurvey() function so it's only called when there are still items;
+ ~ pi1\class.tx_pbsurvey_pi1.php: Resolved "Number questions within each page". It numbered also the presentation items.
 
 2006-04-28 - Patrick Broens <patrick@patrickbroens.nl>
  ~ pi1\class.tx_pbsurvey_pi1.php: Changed line 213 to else because if locationheader on both cancel and completion, completion url would override the cancel url.

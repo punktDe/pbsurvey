@@ -87,13 +87,24 @@
 </fieldset>
 <!--###1_VER### end-->
 
+<!--###23### begin-->
+<fieldset class="survey_item">
+<legend class="question"><span class="questionNumber">###CURRENTITEM###</span> ###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
+<!--###COMMENT### begin--><div class="questionComment">###QUESTION_COMMENT###</div><!--###COMMENT### end-->
+<!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
+<select name="tx_pbsurvey_pi1[###UID###][]" size="###SELECTBOX_HEIGHT###" multiple="multiple">
+<!--###LIST### begin--><option value="###COUNTER###" ###SELECTED###>###VALUE###</option><!--###LIST### end-->
+</select>
+</fieldset>
+<!--###23### end-->
+
 <!--###2### begin-->
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span> ###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
 <select name="tx_pbsurvey_pi1[###UID###][0][0]" size="1">
   <option value="">###VALUE_NONE###</option>
-<!--###LIST### begin-->  <option value="###COUNTER###" ###SELECTED###>###VALUE###</option><!--###LIST### end-->
+<!--###LIST### begin--><option value="###COUNTER###" ###SELECTED###>###VALUE###</option><!--###LIST### end-->
 </select>
 </fieldset>
 <!--###2### end-->

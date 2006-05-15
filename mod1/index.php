@@ -183,14 +183,14 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
     	$arrSelectConf['where'] = '1=1';
     	$arrSelectConf['where'] .= ' AND pid=' . intval($this->id);
 		$arrSelectConf['where'] .= ' AND ' . $this->strItemsTable . '.sys_language_uid IN (0,-1)';
-		$arrSelectConf['where'] .= ' AND question_type>=1 AND question_type<=16';
+		$arrSelectConf['where'] .= ' AND ((question_type>=1 AND question_type<=16) OR question_type=23)';
 		$arrSelectConf['where'] .= t3lib_BEfunc::BEenableFields($this->strItemsTable);
 		$arrSelectConf['where'] .= t3lib_BEfunc::deleteClause($this->strItemsTable);
 		$arrSelectConf['orderBy'] = 'sorting ASC';
 		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strItemsTable,$arrSelectConf['where'],'',$arrSelectConf['orderBy'],'');
 		while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
             array_walk($arrRow, 'trim');
-			if (in_array($arrRow['question_type'],array(1,2,3,6,7,8))) {
+			if (in_array($arrRow['question_type'],array(1,2,3,6,7,8,23))) {
             	$arrRow['answers'] = $this->answersArray($arrRow['answers']);
 			} else {
 				unset($arrRow['answers']);

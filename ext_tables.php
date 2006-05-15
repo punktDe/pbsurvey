@@ -45,6 +45,7 @@ $TCA['tx_pbsurvey_item'] = array (
 			'20' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_20.gif',
 			'21' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_21.gif',
 			'22' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_22.gif',
+			'23' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_23.gif',
 		),
 		'sortby' => 'sorting',	
 		'delete' => 'deleted',	

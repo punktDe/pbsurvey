@@ -14,6 +14,7 @@
 			<label index="tx_pbsurvey_item">Questionaire item</label>
 			<label index="tx_pbsurvey_item.question_type.I.0">Choice - Database Dropdown</label>
 			<label index="tx_pbsurvey_item.question_type.I.1">Choice - Multiple Answers (Checkboxes)</label>
+			<label index="tx_pbsurvey_item.question_type.I.23">Choice - Multiple Answers (Selectbox)</label>
 			<label index="tx_pbsurvey_item.question_type.I.2">Choice - One Answer (Dropdown)</label>
 			<label index="tx_pbsurvey_item.question_type.I.3">Choice - One Answer (Option Buttons)</label>
 			<label index="tx_pbsurvey_item.question_type.I.4">Choice - True/False</label>
@@ -60,6 +61,7 @@
 			<label index="tx_pbsurvey_item.answers_type_additional">Additional Answer Input Type</label>
 			<label index="tx_pbsurvey_item.textarea_width">Textarea width</label>
 			<label index="tx_pbsurvey_item.textarea_height">Textarea height</label>
+			<label index="tx_pbsurvey_item.selectbox_height">Selectbox height</label>
 			<label index="tx_pbsurvey_item.display_type">Display Type</label>
 			<label index="tx_pbsurvey_item.display_type.I.0">Dropdown</label>
 			<label index="tx_pbsurvey_item.display_type.I.1">Radio Buttons - Horizontal</label>

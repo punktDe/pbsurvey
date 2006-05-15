@@ -30,6 +30,7 @@ $TCA['tx_pbsurvey_item'] = array (
 			answers_type_additional,
 			textarea_width,
 			textarea_height,
+			selectbox_height,
 			display_type,
 			default_value_tf,
 			default_value_yn,
@@ -48,7 +49,6 @@ $TCA['tx_pbsurvey_item'] = array (
 			image_height,
 			image_width,
 			image_alignment,
-			sql,
 			email,
 			heading,
 			html,
@@ -119,6 +119,7 @@ $TCA['tx_pbsurvey_item'] = array (
                 'items' => array (
                     //array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.0', '0'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.1', '1'),
+                    array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.23', '23'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.2', '2'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.3', '3'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.4', '4'),
@@ -358,6 +359,18 @@ $TCA['tx_pbsurvey_item'] = array (
 				'default' => '5',
             )
         ),
+        'selectbox_height' => array (  
+			'l10n_mode' => 'exclude',      
+            'exclude' => 0,        
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.selectbox_height',        
+            'config' => array (
+                'type' => 'input',    
+                'size' => '3',       
+                'eval' => 'int',
+				'checkbox' => '0',
+				'default' => '5',
+            )
+        ),
 		'display_type' => array ( 
 			'l10n_mode' => 'exclude',       
             'exclude' => 0,        
@@ -582,16 +595,6 @@ $TCA['tx_pbsurvey_item'] = array (
                 'maxitems' => 1,
             )
         ),
-		'sql' => array ( 
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.sql',        
-            'config' => array (
-                'type' => 'text',
-                'cols' => '30',    
-                'rows' => '5',
-            )
-        ),
 		'email' => array ( 
 			'l10n_mode' => 'exclude',       
             'exclude' => 0,        
@@ -653,8 +656,8 @@ $TCA['tx_pbsurvey_item'] = array (
         ),
     ),
     'types' => array (
-        '0' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, sql'),
 		'1' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;3;;1-1-1, answers_text_additional;;4;;, options_minimum_responses;;;;1-1-1, options_maximum_responses'),
+		'23' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;;;1-1-1, selectbox_height, options_minimum_responses;;;;1-1-1, options_maximum_responses'),
 		'2' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;;;1-1-1'),
 		'3' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;3;;1-1-1, answers_text_additional;;4;;'),
 		'4' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_tf;;;;1-1-1, display_type'),

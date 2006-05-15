@@ -482,14 +482,14 @@ class tx_pbsurvey_conditions_wiz {
 	function getAnswers($strName,$arrRule) {
 		global $LANG;
 		$arrCurQuestion = $this->arrPrevQuestions[stripslashes($arrRule['field'])];
-		if (in_array($arrCurQuestion['question_type'],array(1,2,3,4,5))) {
+		if (in_array($arrCurQuestion['question_type'],array(1,2,3,4,5,23))) {
 			if (!$this->blnLocalization) {
 	            $arrOutput[] = '<select name ="'.$strName.'[value]" onChange="submit();")>';
 	            if (in_array($arrCurQuestion['question_type'],array(1,3)) && $arrCurQuestion['answers_allow_additional']) {
 	                $arrOutput[] = '<option value="">'.$LANG->getLL('conditions_none').'</option>';
 	            }
 			}
-            if (in_array($arrCurQuestion['question_type'],array(1,2,3))) {
+            if (in_array($arrCurQuestion['question_type'],array(1,2,3,23))) {
                 $arrOptions = $this->answersArray($arrCurQuestion['answers']);
             } elseif ($arrCurQuestion['question_type']==4) {
                 $arrOptions = array(1 => $LANG->getLL('conditions_false'),2 => $LANG->getLL('conditions_true'));
@@ -545,7 +545,7 @@ class tx_pbsurvey_conditions_wiz {
             'notset'    => 'notSet'
         );
         $arrCurQuestion = $this->arrPrevQuestions[stripslashes($arrRule['field'])];
-        if (in_array($arrCurQuestion['question_type'],array(1,3,10,14))) {
+        if (in_array($arrCurQuestion['question_type'],array(1,3,10,14,23))) {
             $arrOperators = $arrCurQuestion['options_required']?array('eq','ne','ss','ns'):array('eq','ne','ss','ns','set','notset');
         } elseif (in_array($arrCurQuestion['question_type'],array(2,4,5))) {
             $arrOperators = $arrCurQuestion['options_required']?array('eq','ne'):array('eq','ne','set','notset');
@@ -603,7 +603,7 @@ class tx_pbsurvey_conditions_wiz {
 	 * @return	void
 	 */
 	function previousQuestions() {
-		$arrValidTypes = array(1,2,3,4,5,7,10,11,12,13,14,15);
+		$arrValidTypes = array(1,2,3,4,5,7,10,11,12,13,14,15,23);
 		$arrCurRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters["table"],$this->arrWizardParameters["uid"]);
 		if (!in_array(intval($arrCurRecord['sys_language_uid']),array(-1,0))) {
 			$this->blnLocalization = TRUE;

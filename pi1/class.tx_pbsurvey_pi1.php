@@ -84,7 +84,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     function setFFconfig() {
         $arrFFConfig = array(
             'templateCode'        => array('template_file', 'sDEF', 'templateFile',1),
-            'pid'                 => array('pages', 'sDEF', 'pid',2),
+            'pid'                 => array('pages', 'sDEF', 'pid',3),
             'captcha_page'        => array('captcha', 'sACCESS', 'security.captcha', 2),
             'access_level'        => array('access_level', 'sACCESS', 'accessLevel', 2),
             'anonymous_mode'      => array('anonymous_mode', 'sACCESS', 'anonymous.mode', 2),
@@ -121,6 +121,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                 eval("\$strTemp = \$this->conf".$arrItem[2].";");
             if ($arrItem[3]==1) {
                 $arrOutput[$strKey] = $this->cObj->fileResource($strFFValue ? 'uploads/tx_pbsurvey/'.$strFFValue : $strTemp);
+            } elseif ($arrItem[3]==3) {
+            	$arrOutput[$strKey] = ($strFFValue!='') ? $strFFValue : $strTemp;
+            	$arrOutput[$strKey] = $arrOutput[$strKey] ? $arrOutput[$strKey] : $GLOBALS['TSFE']->id;
             } else {
                 $arrOutput[$strKey] = ($strFFValue!='') ? $strFFValue : $strTemp;
             }
@@ -193,8 +196,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 				$this->userSetKey();
 	            $this->processItems();
-	            $this->validationString();
             	if ($this->strOutItems && !$this->piVars['Cancel']) { // There are still questions && User didn't cancel
+            		$this->validationString();
                 	$strOutput =  $this->setMarkers();
                 	$GLOBALS['TSFE']->additionalJavaScript['pbsurvey'] = $this->jsFunctions();
 	            } else { // End of the survey || User pressed Cancel
@@ -246,7 +249,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                         unset($this->arrUserData[$item['uid']]);
                     }
 					$this->intPastItems++;
-					if ($arrItem['question_type']<=16) $this->intCurrentItem++;
+					if ($arrItem['question_type']<=16 || $arrItem['question_type']<=23) $this->intCurrentItem++;
 				}
 			} elseif ($intCounter == $this->intStage){ // Read items that belong to stage
 				if ($arrItem['question_type']==22){
@@ -257,12 +260,12 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 						$this->intNextPages++;
 					}
 				} else {
-					if ($arrItem['question_type']<=16) {
+					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23) {
                         $this->intCurrentItem++;
+                        $this->intPageItem++;
                     }
-					$this->intPageItem++;
 					$this->strOutItems .= $this->processQuestion($arrItem);
-					if ($arrItem['question_type']<=16) {
+					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23) {
 						$this->jsProcessCalls($arrItem);
 					}
 				}
@@ -440,7 +443,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      * @return	void
 	 */
     function array_htmlspecialchars(&$mixInput, &$intKey) {
-    	if ($intKey!='conditions') {
+    	if ($intKey!='conditions' && $intKey!='html') {
 			$mixInput = trim(htmlspecialchars($mixInput, ENT_QUOTES));
     	}
     }
@@ -494,7 +497,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		if ((int)$this->arrConfig['access_level']) { // Single response
 			if (!$this->piVars['stage']) {
 				// Time is expired for updateable response
-				if ($this->arrConfig['access_level']==1 && ($arrPrevious[2]['crdate']+($this->arrConfig['days_for_update']*(3600*24))<$GLOBALS['EXEC_TIME']) && $this->arrConfig['days_for_update']<>0 && $arrPrevious[1]<>0) {
+				if ($this->arrConfig['access_level']==1 && $arrPrevious[2]['crdate'] && ($arrPrevious[2]['crdate']+($this->arrConfig['days_for_update']*(3600*24))<$GLOBALS['EXEC_TIME']) && $this->arrConfig['days_for_update']<>0 && $arrPrevious[1]<>0) {
 					$strOutput = 'access_single_update_expired';
 				// Exit because update not allowed
 				} elseif ($arrPrevious[0] && $this->arrConfig['access_level']==2) {
@@ -759,13 +762,13 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     
     /**
 	 * Generate question number by configuration.
-	 * in question type 1-16
+	 * in question type 1-16,23
 	 *
 	 * @param    integer       Type of question
 	 * @return   string        Question number
      */
     function markerCurrentItem($intType) {
-        if ($intType>= 1 && $intType<=16) {
+        if (($intType>=1 && $intType<=16) ||$intType==23) {
             if ($this->arrConfig['question_numbering']==1) {
     			$strOutput = $this->intCurrentItem . '.';
     		} elseif ($this->arrConfig['question_numbering']<>0){
@@ -777,14 +780,14 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     
     /**
 	 * Fill marker with question
-	 * in question type 1-16
+	 * in question type 1-16,23
 	 *
 	 * @param    integer       Type of question
 	 * @param    string        The question itself
 	 * @return   string        Question asked
      */
     function markerQuestion($intType,$strQuestion) {
-        if ($intType>= 1 && $intType<=16) {
+        if (($intType>= 1 && $intType<=16) ||$intType==23) {
             $strOutput = $strQuestion;
         }
         return $strOutput;
@@ -792,17 +795,17 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     
     /**
 	 * Generate subtext of question if available.
-	 * in question type 1-16
+	 * in question type 1-16, 23
 	 *
 	 * @param    integer       Type of question
 	 * @param    array         The subtext
 	 * @param    string        Template string where marker has to be taken from
 	 * @return   string        Subtext placed in marker
      */
-    function markerSub($intType,$arrSubText,$strTemplate) {
-        if ($intType>= 1 && $intType<=16) {
-            if ($arrSubText) {
-                $strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###SUB###'), $arrSubText, '###|###', 1);
+    function markerSub($intType,$strSubText,$strTemplate) {
+        if (($intType>= 1 && $intType<=16) ||$intType==23) {
+            if ($strSubText) {
+                 $strOutput = $this->cObj->substituteMarker($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###SUB###'), '###QUESTION_SUBTEXT###', $strSubText);  
             }
         }
         return $strOutput;
@@ -810,7 +813,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     
     /**
 	 * Put a sign behind the question if question is required.
-	 * in question type 1-16
+	 * in question type 1-16, 23
 	 *
 	 * @param    integer       Type of question
 	 * @param    integer       Is the question required
@@ -818,7 +821,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        Sign
      */
     function markerRequired($intType,$intRequired,$strTemplate) {
-        if ($intType>= 1 && $intType<=16) {
+        if (($intType>= 1 && $intType<=16) ||$intType==23) {
             if ($intRequired) {
                 $strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###REQUIRED###'), array(), '###|###', 1);
             }
@@ -828,17 +831,18 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     
     /**
 	 * Add extra text below the question to explain minimum and maximum values
-	 * in question type 1,11,12,13,15,16
+	 * in question type 1,11,12,13,15,16,23
 	 *
 	 * @param    array         Question and all of its configuration
 	 * @param    string        Template string where marker has to be taken from
 	 * @return   string        Explanation text
      */
     function markerComment($arrQuestion,$strTemplate) {
-        $arrAllowed = array(1,11,12,13,15,16);
+        $arrAllowed = array(1,11,12,13,15,16,23);
         if (in_array($arrQuestion['question_type'],$arrAllowed)) {
             switch($arrQuestion['question_type']) {
     			case 1:
+    			case 23:
                     if ($arrQuestion['options_minimum_responses']&&$arrQuestion['options_maximum_responses']) {
         				$strComment = 	$this->pi_getLL('comment_responses_both');
                     } else if ($arrQuestion['options_minimum_responses']&&!$arrQuestion['options_maximum_responses']) {
@@ -923,6 +927,21 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     }
     
     /**
+	 * Insert the size of a selectbox
+	 * in question type 23
+	 *
+	 * @param    array         Question and all of its configuration
+	 * @return   integer       Calculated value
+     */
+    function markerSelectbox_height($arrQuestion) {
+        $arrAllowed = array(23);
+        if (in_array($arrQuestion['question_type'],$arrAllowed)) {
+        	$intOutput = $arrQuestion['selectbox_height'];
+        }
+        return $intOutput;
+    }
+    
+    /**
 	 * Calculate Colspan of matrix question
 	 * in question type 6,7,8,9
 	 *
@@ -958,7 +977,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 
     /**
 	 * Build a list of possible answers
-	 * in question type 1,2,3,4,5
+	 * in question type 1,2,3,4,5,23
 	 *
 	 * @param    array         Question and all of its configuration
 	 * @param    string        Template string where marker has to be taken from
@@ -966,14 +985,14 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      */
     function markerList($arrQuestion,$strTemplate) {
     	$arrHtml = array();
-        if (in_array($arrQuestion['question_type'],array(1,2,3))) {
+        if (in_array($arrQuestion['question_type'],array(1,2,3,23))) {
 			$arrVars = $this->answersArray($arrQuestion['answers']);
             foreach($arrVars as $intKey => $arrItem){
             	unset($arrQuestion['checked']);
             	unset($arrQuestion['selected']);
 				if ($this->checkUpdate($arrQuestion['uid'])) {
-					if ((in_array($arrQuestion['question_type'],array(2,3)) && $intKey==$this->arrUserData[$arrQuestion['uid']]) ||
-						($arrQuestion['question_type']==1 && $this->arrUserData[$arrQuestion['uid']][$intKey]!=NULL)) {
+					if ((in_array($arrQuestion['question_type'],array(2,3,23)) && $intKey==$this->arrUserData[$arrQuestion['uid']]) ||
+						(($arrQuestion['question_type']==1 || $arrQuestion['question_type']==23) && $this->arrUserData[$arrQuestion['uid']][$intKey]!=NULL)) {
                         $arrQuestion['checked'] = 'checked="checked"';
                         $arrQuestion['selected'] = 'selected="selected"';
 	                    $blnChecked = true;
@@ -1248,6 +1267,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$subpartArray['###LIST###'] = $arrList[0];
 		$arrQuestion['additionalChecked'] = $arrList[1];
 		$subpartArray['###ADDITIONALS###'] = $this->markerAdditionals($arrQuestion,$strTemplate);
+		$markerArray['###SELECTBOX_HEIGHT###'] = $this->markerSelectbox_height($arrQuestion);
 		$markerArray['###COLSPAN###'] = $this->markerColspan($arrQuestion);
 		$markerArray['###COLWIDTH###'] = $this->markerColwidth($arrQuestion);
 		$subpartArray['###HEADER###'] = $this->markerHeader($arrQuestion,$strTemplate);
@@ -1345,6 +1365,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			if (is_int($mixQuestion)) {
 				unset($arrAnswers[$mixQuestion]);
 				foreach($arrValue as $intRow => $arrRow) {
+					if (!is_array($arrRow)) { // Type 23
+						$intRow = $arrRow;
+						$arrRow = array(0 => $arrRow);
+					}
 					foreach($arrRow as $intCol => $strPiAnswer) {
 						if ($intRow) {
 							if ($intCol) {
@@ -1464,6 +1488,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					$arrPreviousAnswers[$arrRow['row']][$arrRow['col']]['uid'] = $arrRow['uid'];
 				}
 				foreach($mixQuestionValue as $intRow => $mixRowValue) {
+					if (!is_array($mixRowValue)) { // Type 23
+						$intRow = $mixRowValue;
+						$mixRowValue = array(0 => $mixRowValue);
+					}
 					foreach($mixRowValue as $intColumn => $strColumnValue) {
 						if ($strColumnValue != '') {
 							$this->arrUserData[$mixQuestion][$intRow][$intColumn] = $strColumnValue;
@@ -1556,8 +1584,12 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					$intTotalValue = 0;
 					if (isset($arrCurQuestion)) {
 						foreach($arrCurQuestion as $intRow => $arrRowValue) {
+							if (!is_array($arrRowValue)) { // Type 23
+								$intRow = $arrRowValue;
+								$arrRowValue = array(0 => $arrRowValue);
+							}
 							foreach ($arrRowValue as $intColumn => $strValue) {
-								if (in_array($arrQuestionValidation['type'],array(1,3,4,5,6,8,9)) && !empty($strValue)) {
+								if (in_array($arrQuestionValidation['type'],array(1,3,4,5,6,8,9,23)) && !empty($strValue)) {
 									$intCounter++;
 								}
 								if (in_array($arrQuestionValidation['type'],array(2,4,5,10,12,13,14,15)) && !empty($strValue)) {
@@ -1584,7 +1616,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 							}
 						}	
 					}	
-					if (in_array($arrQuestionValidation['type'],array(1,3))) {
+					if (in_array($arrQuestionValidation['type'],array(1,3,23))) {
 						if ($arrQuestionValidation['required'] && $intCounter<1) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],1,$arrQuestionValidation['number'],0,0,0);
 						if ($arrQuestionValidation['values'][1]!='' && intval($arrQuestionValidation['values'][1])>$intCounter) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],11,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
 						if ($arrQuestionValidation['values'][2]!='' && $intCounter>intval($arrQuestionValidation['values'][2])) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],12,$arrQuestionValidation['number'],$arrQuestionValidation['values'][2]);
@@ -1675,7 +1707,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     	$arrLocallang = $this->validationLocalLang();
 		$strOutput = '- ' . $this->pi_getLL($arrLocallang[$intGetLL]);
 		$strOutput = str_replace('%q', $intNumber, $strOutput);
-		if (in_array($intType,array(1,3,11,13,15,16)) && $mixInp1!='') {
+		if (in_array($intType,array(1,3,11,13,15,16,23)) && $mixInp1!='') {
 			$strOutput = str_replace('%v', $mixInp1, $strOutput);
 		}
 		if ($intType==11 && $mixInp2!='') {
@@ -1787,7 +1819,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	function jsLocallang() {
 		$arrJsLocallang = $this->validationLocalLang();
 		$arrFunction[] = 'function ' . $this->extKey . 'GetErrorMsg(intInput) {';
-		$arrFunction[] = 'var $arrErrors = new Array(27);';
+		$arrFunction[] = 'var arrErrors = new Array(27);';
 		foreach($arrJsLocallang as $intKey=>$strJsLocallang) {
 			if ($intKey!=0) {
 				$arrFunction[] = "arrErrors[" . $intKey . "]='-" . addslashes($this->pi_getLL($strJsLocallang)) . "';";
@@ -1826,6 +1858,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			14 => 15,
 			15 => 16,
 			16 => 17,
+			23 => 6,
 		);
 	    if ($this->arrConfig['question_numbering']==1) {
 			$intQuestionNumber = $this->intCurrentItem;
@@ -1842,6 +1875,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
         $this->arrValidation[$arrQuestion['uid']]['required'] = $boolRequired;
         switch($arrQuestion['question_type']){
             case 1:
+            case 23:
                 $this->arrValidation[$arrQuestion['uid']]['values'][1] = $arrQuestion['options_minimum_responses']?$arrQuestion['options_minimum_responses']:'';
 				$this->arrValidation[$arrQuestion['uid']]['values'][2]	= $arrQuestion['options_maximum_responses']?$arrQuestion['options_maximum_responses']:'';
             break;
@@ -1917,7 +1951,7 @@ function pbsurveyError(intType,intGetLL,intNumber,mixInp1,mixInp2,mixInp3) {	//
 		var expValue=/%q/gi;
 		strTemp=strTemp.replace(expValue,intNumber);
 	}
-	if (in_array(intType,arrAllowed=new Array(1,3,11,13,15,16)) && mixInp1!='') {
+	if (in_array(intType,arrAllowed=new Array(1,3,11,13,15,16,23)) && mixInp1!='') {
 		expValue=/%v/gi;
 		strTemp=strTemp.replace(expValue,mixInp1);
 	}
@@ -1961,7 +1995,6 @@ function pbsurveyValidate() {	//
 	var boolNotNumber,boolRankingDouble,boolRequired
 	var arrAllowed,arrDate,arrDateErrors,arrTest
 	var objElement
-
 	for (intArgsCount=0;intArgsCount<(args.length-2);intArgsCount+=3) { // Read the arguments
 		intCounter=0;
 		strValue='';
@@ -1979,7 +2012,7 @@ function pbsurveyValidate() {	//
 			objElement=objForm.elements[intQuestion];
 			if (objElement.name) {
 				strTemp = objElement.name;
-				if (strTemp.indexOf(args[intArgsCount])>-1) {
+				if (strTemp.indexOf('tx_pbsurvey_pi1['+args[intArgsCount]+']')>-1) {
 					if (in_array(intType,arrAllowed=new Array(1,3,4,5,6,8,9)) && (objElement.type=='checkbox' || objElement.type=='radio')) {
 						if (objElement.checked) {
 							intCounter++;
@@ -1992,7 +2025,7 @@ function pbsurveyValidate() {	//
 							objElement.value='';
 						}
 					}
-					if (objElement.value!='') {
+					if (objElement.value!='' && intType!=23) {
 						if (in_array(intType,arrAllowed=new Array(2,4,5,10,12,13,14,15)) && objElement.type!='checkbox' && objElement.type!='radio') {
 							strValue=objElement.value;
 							intCounter++;
@@ -2019,12 +2052,17 @@ function pbsurveyValidate() {	//
 								}
 							}
 						}
-					}							
+					}
+					if (intType==23) {
+						for (intOption=0;intOption<objElement.length;intOption++) {
+							if (objElement[intOption].selected) intCounter++;
+						}
+					}						
 				}
 			}
 		}";
 $arrJsFunctions[6] = "		
-		if (in_array(intType,arrAllowed=new Array(1,3))) {
+		if (in_array(intType,arrAllowed=new Array(1,3,23))) {
 			if (boolRequired && intCounter<1) strErrors+=pbsurveyError(intType,1,intNumber,0,0,0);
 			if (arrTest[2]!='' && parseInt(arrTest[2])>intCounter) strErrors+=pbsurveyError(intType,11,intNumber,arrTest[2]);
 			if (arrTest[3]!='' && intCounter>parseInt(arrTest[3])) strErrors+=pbsurveyError(intType,12,intNumber,arrTest[3]);
