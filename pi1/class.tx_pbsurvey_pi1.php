@@ -1662,10 +1662,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 						}
 					}
 					if ($arrQuestionValidation['type']==13) {
-						if ($strTotalValue!='' && is_nan($strTotalValue)) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],7,$arrQuestionValidation['number']);
+						if ($strTotalValue!='' && !is_numeric($strTotalValue)) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],7,$arrQuestionValidation['number']);
 						if ($strTotalValue=='' && $arrQuestionValidation['required']) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],2,$arrQuestionValidation['number']);
-						if ($strTotalValue!='' && floatval($strTotalValue)<$arrQuestionValidation['values'][1]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],9,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
-						if ($strTotalValue!='' && floatval($strTotalValue)>$arrQuestionValidation['values'][2]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],10,$arrQuestionValidation['number'],$arrQuestionValidation['values'][2]);
+						if ($strTotalValue!='' && floatval($strTotalValue)<$arrQuestionValidation['values'][1] && $arrQuestionValidation['values'][1]>0) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],9,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
+						if ($strTotalValue!='' && floatval($strTotalValue)>$arrQuestionValidation['values'][2] && $arrQuestionValidation['values'][2]>0) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],10,$arrQuestionValidation['number'],$arrQuestionValidation['values'][2]);
 					}
 					if ($arrQuestionValidation['type']==14) {
 						if ($strTotalValue=='' && $arrQuestionValidation['required']) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],2,$arrQuestionValidation['number']);
@@ -2116,8 +2116,8 @@ $arrJsFunctions[14] = "
 		if (intType==13) {
 			if (strValue!='' && isNaN(strValue)) strErrors+=pbsurveyError(intType,7,intNumber);
 			if (strValue=='' && boolRequired) strErrors+=pbsurveyError(intType,2,intNumber);
-			if (strValue!='' && parseFloat(strValue)<arrTest[2]) strErrors+=pbsurveyError(intType,9,intNumber,arrTest[2]);
-			if (strValue!='' && parseFloat(strValue)>arrTest[3]) strErrors+=pbsurveyError(intType,10,intNumber,arrTest[3]);
+			if (strValue!='' && parseFloat(strValue)<arrTest[2] && arrTest[2]>0) strErrors+=pbsurveyError(intType,9,intNumber,arrTest[2]);
+			if (strValue!='' && parseFloat(strValue)>arrTest[3] && arrTest[3]>0) strErrors+=pbsurveyError(intType,10,intNumber,arrTest[3]);
 		}";
 $arrJsFunctions[15] = "
 		if (intType==14) {
