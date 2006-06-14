@@ -432,6 +432,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      */
     function callHeader($strInput) {
         header('Location: '.t3lib_div::locationHeaderUrl($this->pi_getPageLink($this->arrConfig[$strInput])));
+        exit;
     }
     
     /**
@@ -500,7 +501,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				if ($this->arrConfig['access_level']==1 && $arrPrevious[2]['crdate'] && ($arrPrevious[2]['crdate']+($this->arrConfig['days_for_update']*(3600*24))<$GLOBALS['EXEC_TIME']) && $this->arrConfig['days_for_update']<>0 && $arrPrevious[1]<>0) {
 					$strOutput = 'access_single_update_expired';
 				// Exit because update not allowed
-				} elseif ($arrPrevious[0] && $this->arrConfig['access_level']==2) {
+				} elseif ($arrPrevious[0] && $this->arrConfig['access_level']==2 && !isset($this->piVars['stage'])) {
 					$strOutput = 'access_single_no_update';
 				}
 			}
