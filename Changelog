@@ -1,3 +1,12 @@
+2006-09-20 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added Italian translation to frontend plugin
+
+2006-09-18 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added remaining point notifier to question type Open Ended - Constant Sum
+
+2006-07-16 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix on question numbering
+
 2006-06-14 - Patrick Broens <patrick@patrickbroens.nl>
  ~ Bugfix on not updatable single response with only one page with questions
 

@@ -20,6 +20,7 @@
 			<label index="value_false">False</label>
 			<label index="value_yes">Yes</label>
 			<label index="value_no">No</label>
+			<label index="remaining_points">remaining points</label>
 			<label index="js_errors_occurred">The following error(s) occured:</label>
 			<label index="js_required_select">Please select a value for question number %q</label>
 			<label index="js_required_enter">Please enter a value for question number %q</label>
@@ -79,6 +80,7 @@
 		<languageKey index="dk">EXT:pbsurvey/pi1/dk.locallang.xml</languageKey>
 		<languageKey index="fi">EXT:pbsurvey/pi1/fi.locallang.xml</languageKey>
 		<languageKey index="no">EXT:pbsurvey/pi1/no.locallang.xml</languageKey>
+		<languageKey index="it">EXT:pbsurvey/pi1/it.locallang.xml</languageKey>
 	</data>
 	<orig_hash type="array">
 	</orig_hash>

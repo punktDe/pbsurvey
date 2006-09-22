@@ -249,7 +249,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                         unset($this->arrUserData[$item['uid']]);
                     }
 					$this->intPastItems++;
-					if ($arrItem['question_type']<=16 || $arrItem['question_type']<=23) $this->intCurrentItem++;
+					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23) $this->intCurrentItem++;
 				}
 			} elseif ($intCounter == $this->intStage){ // Read items that belong to stage
 				if ($arrItem['question_type']==22){
@@ -1080,6 +1080,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$arrQuestion['rowcounter'] = $intRowKey + 1;
 			$arrMarkerArray['###ROWCOUNTER###'] = $arrQuestion['rowcounter'];
 			$arrMarkerArray['###ROW###'] = $arrQuestion['row'];
+			$arrMarkerArray['###JSFUNCTION###'] = $this->markerJsFunction($arrQuestion);
 			$arrHtmlCols = array();
 			if (in_array($arrQuestion['question_type'],array(6,7,8))) {
     			foreach ($arrCols as $intColKey => $arrCol){
@@ -1248,6 +1249,37 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     	return $strOutput;
     }
     
+    /**
+	 * Build the remaining points field for Open Ended - Constant Sum
+	 *
+	 * @param    array       Question and all of its configuration
+	 * @param    string      Template string where marker has to be taken from
+	 * @return   string      The field with the remaining points
+     */
+    function markerRemaining($arrQuestion,$strTemplate) {
+		if ($arrQuestion['question_type']==11 && $arrQuestion['total_number']!=0) {
+			$this->arrJsItems[19] = true;
+			$this->arrJsItems[3] = true;
+			$arrMarkers = $arrQuestion;
+			$arrMarkers['remaining_points'] = $this->pi_getLL('remaining_points');
+			$strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###REMAINING###'),$arrMarkers,'###|###', 1);
+		}
+    	return $strOutput;
+    }
+    
+    /**
+	 * Build the remaining points javascript call
+	 *
+	 * @param    array       Question and all of its configuration
+	 * @return   string      Javascript call
+     */
+    function markerJsFunction($arrQuestion) {
+		if ($arrQuestion['question_type']==11 && $arrQuestion['total_number']!=0) {
+			$strOutput = 'onchange="pbsurveyRemaining('.$arrQuestion['uid'].','.$arrQuestion['total_number'].')"';
+		}
+    	return $strOutput;
+    }
+    
 	/**
 	 * Process the question and substitute markers in template
 	 * for screenoutput
@@ -1279,7 +1311,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$markerArray['###ALIGN###'] = $this->markerAlign($arrQuestion['image_alignment']); // Bestaat nog niet
 		$subpartArray['###TITLE###'] = $this->markerTitle($arrQuestion,$strTemplate);
 		$subpartArray['###INTRODUCTION###'] = $this->markerIntroduction($arrQuestion,$strTemplate);
-
+		$subpartArray['###REMAINING###'] = $this->markerRemaining($arrQuestion,$strTemplate);
+		
 		$strOutput = $this->cObj->substituteMarkerArrayCached($strTemplate, $markerArray, $subpartArray, array());
 		$strOutput = ereg_replace('###[A-Za-z_1234567890]+###', '', $strOutput);
 		return $strOutput;
@@ -2142,6 +2175,26 @@ $arrJsFunctions[18] = "
 	}
 	if (strErrors) alert(strErrors);
 	document.pbsurveyReturnValue = (strErrors == '');
+}
+";
+$arrJsFunctions[19] = "
+function pbsurveyRemaining(intId,intValue) {
+	var objForm=document.forms['frmPbSurvey'];
+	var intCounter = 0;
+	for (intQuestion=0;intQuestion<objForm.length;intQuestion++) {
+		objElement=objForm.elements[intQuestion];
+		if (objElement.name) {
+			strTemp = objElement.name;
+			if (strTemp.indexOf('tx_pbsurvey_pi1['+intId+']')>-1) {
+				CheckNum = parseFloat(objElement.value)
+				if(!isNaN(CheckNum)) {
+					intCounter+=CheckNum; 
+				}
+			}
+		}
+	}
+	intRemaining = intValue-intCounter;
+	pbsurveyChangeValue('tx_pbsurvey_pi1_'+intId+'_remaining',intRemaining);
 }
 ";
 	$this->arrJsItems[2] = true;

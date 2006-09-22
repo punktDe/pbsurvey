@@ -64,7 +64,7 @@
 <!--###NO_DATA### end -->
 
 <!--###0### begin-->
-<p>Nothing yet, has to be database dropdown</div>
+<p>Nothing yet, has to be database dropdown</p>
 <!--###0### end-->
 
 <!--###1_HOR### begin-->
@@ -281,9 +281,12 @@
 <table cellspacing="0" cellpadding="0">
   <!--###ROWS### begin--><tr>
     <td>###ROW###</td>
-    <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="2" /></td>
+    <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="2" ###JSFUNCTION### /></td>
   </tr><!--###ROWS### end-->	
 </table>
+<!--###REMAINING### begin -->
+<input id="tx_pbsurvey_pi1_###UID###_remaining" type="text" value="###TOTAL_NUMBER###" size="2" disabled="disabled" /> ###REMAINING_POINTS###
+<!--###REMAINING### begin -->
 </fieldset>
 <!--###11### end-->
 
