@@ -45,6 +45,7 @@ The available system languages are created by the administrator..
 			<label index="display_type.description">Select the format for the response to the question.</label>
 			<label index="default_value_tf.description">This value will be selected as the default for this question.</label>
 			<label index="default_value_yn.description">This value will be selected as the default for this question.</label>
+			<label index="negative_first.description">When checked the negative value (false/no) will be first in order of the answer list.</label>
 			<label index="default_value_txt.description">The value entered below will be displayed as the default for this question.</label>
 			<label index="default_date.description">The date entered below will be the default value. Format for the date is dd-mm-yyyy.</label>
 			<label index="default_value_num.description">The value entered below will be displayed as the default for this question.</label>
