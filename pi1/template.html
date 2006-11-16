@@ -131,7 +131,7 @@
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<!--###LIST### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" id="tx_pbsurvey_pi1_###UID###_0_0" value="###COUNTER###" ###CHECKED### />###VALUE###<!--###LIST### end-->
+<!--###LIST### begin--><input type="radio" name="tx_pbsurvey_pi1[###UID###][0][0]" value="###COUNTER###" ###CHECKED### />###VALUE###<!--###LIST### end-->
 </fieldset>
 <!--###4_HOR### end-->
 
@@ -312,7 +312,7 @@
 <fieldset class="survey_item">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<input name="tx_pbsurvey_pi1[###UID###][0][0]" type="text" value="###VALUE###" size="50" />
+<input name="tx_pbsurvey_pi1[###UID###][0][0]" type="text" value="###VALUE###" size="50" ###MAXLENGTH### />
 </fieldset>
 <!--###14### end-->
 
@@ -324,7 +324,7 @@
 <table cellspacing="0" cellpadding="0">
   <!--###ROWS### begin--><tr>
     <td>###ROW###</td>
-    <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="50" /></td>
+    <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="50" ###MAXLENGTH### /></td>
   </tr><!--###ROWS### end-->	
 </table>
 </fieldset>

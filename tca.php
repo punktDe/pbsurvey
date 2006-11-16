@@ -141,6 +141,7 @@ $TCA['tx_pbsurvey_item'] = array (
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.20', '20'),
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.21', '21'),
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.22', '22'),
+					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.99', '99'),
                 ),
 				'default' => '1',
                 'size' => 1,    
@@ -394,8 +395,8 @@ $TCA['tx_pbsurvey_item'] = array (
                 'type' => 'select',
                 'items' => array (
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf.I.0', '0'),
-                    array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf.I.1', '1'),
-					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf.I.2', '2'),
+                    array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf.I.1', '2'),
+					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf.I.2', '1'),
                 ),
                 'size' => 1,    
                 'maxitems' => 1,
@@ -409,11 +410,19 @@ $TCA['tx_pbsurvey_item'] = array (
                 'type' => 'select',
                 'items' => array (
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn.I.0', '0'),
-                    array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn.I.1', '1'),
-					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn.I.2', '2'),
+                    array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn.I.1', '2'),
+					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn.I.2', '1'),
                 ),
                 'size' => 1,    
                 'maxitems' => 1,
+            )
+        ),
+        'negative_first' => array ( 
+			'l10n_mode' => 'exclude',        
+            'exclude' => 0,        
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.negative_first',        
+            'config' => array (
+                'type' => 'check',
             )
         ),
 		'default_value_txt' => array (
@@ -656,46 +665,49 @@ $TCA['tx_pbsurvey_item'] = array (
         ),
     ),
     'types' => array (
-		'1' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;3;;1-1-1, answers_text_additional;;4;;, options_minimum_responses;;;;1-1-1, options_maximum_responses'),
-		'23' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;;;1-1-1, selectbox_height, options_minimum_responses;;;;1-1-1, options_maximum_responses'),
-		'2' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;;;1-1-1'),
-		'3' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;3;;1-1-1, answers_text_additional;;4;;'),
-		'4' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_tf;;;;1-1-1, display_type'),
-		'5' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_yn;;;;1-1-1, display_type'),
-		'6' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
-		'7' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
-		'8' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
-		'9' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, beginning_number;;;;1-1-1, ending_number'),
-		'10' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_txt;;;;1-1-1'),
-		'11' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, total_number;;;;1-1-1'),
-		'12' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, default_date;;5;;1-1-1'),
-		'13' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_num;;6;;1-1-1'),
-		'14' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_txt;;;;1-1-1, email, maximum_length'),
-		'15' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, options_minimum_responses;;;;1-1-1, options_maximum_responses, maximum_length'),
-		'16' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1'),
-		'17' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, heading;;;;1-1-1'),
-		'18' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1'),
-		'19' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, html;;;;1-1-1'),
-		'20' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, image;;7;;1-1-1'),
-		'21' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, message;;;;1-1-1'),
-		'22' => array('showitem' => 'sys_language_uid;;1;;,question_type;;9;;1-1-1, page_title;;8;;1-1-1, conditions;;;;1-1-1'),
+		'1' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;3;;1-1-1, answers_text_additional;;4;;, options_minimum_responses;;;;1-1-1, options_maximum_responses'),
+		'23' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;10;;1-1-1, selectbox_height, options_minimum_responses;;;;1-1-1, options_maximum_responses'),
+		'2' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;10;;1-1-1'),
+		'3' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;3;;1-1-1, answers_text_additional;;4;;'),
+		'4' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_tf;;9;;1-1-1, display_type'),
+		'5' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_yn;;9;;1-1-1, display_type'),
+		'6' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
+		'7' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
+		'8' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
+		'9' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, beginning_number;;;;1-1-1, ending_number'),
+		'10' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_txt;;;;1-1-1'),
+		'11' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;10;;1-1-1, total_number;;;;1-1-1'),
+		'12' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_date;;5;;1-1-1'),
+		'13' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_num;;6;;1-1-1'),
+		'14' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_txt;;;;1-1-1, email, maximum_length'),
+		'15' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, options_minimum_responses;;;;1-1-1, options_maximum_responses, maximum_length'),
+		'16' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1'),
+		'17' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, heading;;;;1-1-1'),
+		'18' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1'),
+		'19' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, html;;;;1-1-1'),
+		'20' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, image;;7;;1-1-1'),
+		'21' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, message;;;;1-1-1'),
+		'22' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, page_title;;8;;1-1-1, conditions;;;;1-1-1'),
+    	'99' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1'),
     ),
     'palettes' => array (
         '1' => array('showitem' => 'hidden,l18n_parent'),
         '2' => array('showitem' => 'options_required,question_alias'),
-        '3' => array('showitem' => 'options_alignment'),
+        '3' => array('showitem' => 'options_random,options_alignment'),
         '4' => array('showitem' => 'answers_allow_additional, answers_type_additional, textarea_width, textarea_height'),
         '5' => array('showitem' => 'minimum_date, maximum_date'),
         '6' => array('showitem' => 'minimum_value, maximum_value, maximum_length'),
         '7' => array('showitem' => 'image_height, image_width, image_alignment'),
         '8' => array('showitem' => 'page_introduction'),
+    	'9' => array('showitem' => 'negative_first'),
+    	'10' => array('showitem' => 'options_random'),
     )
 );
 
 $TCA['tx_pbsurvey_results'] = array (
 	'ctrl' => $TCA['tx_pbsurvey_results']['ctrl'],
         'interface' => array (
-		'showRecordFieldList' => 'hidden,user,ip,finished,begintstamp,endtstamp,answers'
+		'showRecordFieldList' => 'hidden,user,ip,finished,begintstamp,endtstamp,language_uid,answers'
 	),
 	'feInterface' => $TCA['tx_pbsurvey_results']['feInterface'],
 	'columns' => array (
@@ -756,6 +768,15 @@ $TCA['tx_pbsurvey_results'] = array (
                 'eval' => 'datetime',
 			)
 		),
+		'language_uid' => array (		
+			'exclude' => 1,		
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.language',		
+			'config' => array (
+                'type' => 'input',
+                'size' => '15',
+                'max' => '15',
+			)
+		),
 		/* Here we are cheating. The column answers doesn't exist in the DB. I have to find out if there is another way to do this.
 		   Typo3 knows 1-M and M-M relations, but no M-1, which is the case here. Correct me if I'm wrong.
 		   All the answers belonging to this results record are displayed by the function displayAnswers in class tx_pbsurvey_answers. 
@@ -769,7 +790,7 @@ $TCA['tx_pbsurvey_results'] = array (
 //		),
 	),
 	'types' => array (
-		'0' => array('showitem' => 'hidden;;1;;1-1-1,user,ip,finished,begintstamp,endtstamp,answers')
+		'0' => array('showitem' => 'hidden;;1;;1-1-1,user,ip,finished,begintstamp,endtstamp,language_uid,answers')
 	),
 	'palettes' => array (
 		'1' => array('showitem' => '')

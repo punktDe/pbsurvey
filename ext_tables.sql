@@ -36,6 +36,7 @@ CREATE TABLE tx_pbsurvey_item (
 	display_type tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	default_value_tf tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	default_value_yn tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	negative_first tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	default_value_txt tinytext NOT NULL,
 	default_date int(11) DEFAULT '0' NOT NULL,
 	default_value_num int(11) DEFAULT '0',
@@ -75,6 +76,7 @@ CREATE TABLE tx_pbsurvey_results (
 	finished tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	begintstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	endtstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	language_uid tinytext NOT NULL,
 	PRIMARY KEY (uid),
 	KEY parent (pid)
 );

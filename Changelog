@@ -1,3 +1,20 @@
+2006-11-08 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bug in question types 1,2,3,23 default setting
+
+2006-11-08 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added hook to insert user defined functions
+
+2006-10-27 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added random answer order for question types 1,23,2,3,11
+ + Added language field to the result records for multilanguage surveys
+
+2006-10-13 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Although field maximum_length was in question types 14 & 15, it was not put in the template
+
+2006-10-08 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added possibility to have both client and server side validation
+ ~ Changed default values of the extension configuration
+
 2006-09-20 - Patrick Broens <patrick@patrickbroens.nl>
  + Added Italian translation to frontend plugin
 

@@ -12,36 +12,36 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
-				<pages>
-					<TCEforms>
-					<exclude>1</exclude>
-					<label>LLL:EXT:lang/locallang_general.php:LGL.startingpoint</label>
-					<config>
-						<type>group</type>
-						<internal_type>db</internal_type>
-						<allowed>pages</allowed>
-						<size>1</size>
-						<maxitems>1</maxitems>
-						<minitems>0</minitems>
-						<show_thumbs>1</show_thumbs>
-					</config>
-					</TCEforms>
-				</pages>
-				<template_file>
-					<TCEforms>
-						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.template_file</label>
+					<pages>
+						<TCEforms>
+						<exclude>1</exclude>
+						<label>LLL:EXT:lang/locallang_general.php:LGL.startingpoint</label>
 						<config>
 							<type>group</type>
-							<internal_type>file</internal_type>
-							<allowed>tmpl,html</allowed>
-							<max_size>100</max_size>
-							<uploadfolder>uploads/tx_pbsurvey</uploadfolder>
-							<maxitems>1</maxitems>
+							<internal_type>db</internal_type>
+							<allowed>pages</allowed>
 							<size>1</size>
-							<selectedListStyle>Width:180px</selectedListStyle>
+							<maxitems>1</maxitems>
+							<minitems>0</minitems>
+							<show_thumbs>1</show_thumbs>
 						</config>
-					</TCEforms>
-				</template_file>
+						</TCEforms>
+					</pages>
+					<template_file>
+						<TCEforms>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.template_file</label>
+							<config>
+								<type>group</type>
+								<internal_type>file</internal_type>
+								<allowed>tmpl,html</allowed>
+								<max_size>100</max_size>
+								<uploadfolder>uploads/tx_pbsurvey</uploadfolder>
+								<maxitems>1</maxitems>
+								<size>1</size>
+								<selectedListStyle>Width:180px</selectedListStyle>
+							</config>
+						</TCEforms>
+					</template_file>
 				</el>
 			</ROOT>
 		</sDEF>
@@ -393,6 +393,10 @@
 								<numIndex index="1" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.validation1</numIndex>
 									<numIndex index="1">1</numIndex>
+								</numIndex>
+								<numIndex index="2" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.validation2</numIndex>
+									<numIndex index="1">2</numIndex>
 								</numIndex>								
 							</items>	
 							<minitems>1</minitems>
