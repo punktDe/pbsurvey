@@ -36,6 +36,7 @@
 			<label index="tx_pbsurvey_item.question_type.I.20">Presentation - Image</label>
 			<label index="tx_pbsurvey_item.question_type.I.21">Presentation - Message</label>
 			<label index="tx_pbsurvey_item.question_type.I.22">Page Break &amp; Conditions</label>
+			<label index="tx_pbsurvey_item.question_type.I.99">Call User Defined Hook</label>
 			<label index="tx_pbsurvey_item.question_type">Question Type</label>
 			<label index="tx_pbsurvey_item.question">Question</label>
 			<label index="tx_pbsurvey_item.question_alias">Question Alias</label>
@@ -74,6 +75,7 @@
 			<label index="tx_pbsurvey_item.default_value_yn.I.0">--None--</label>
 			<label index="tx_pbsurvey_item.default_value_yn.I.1">Yes</label>
 			<label index="tx_pbsurvey_item.default_value_yn.I.2">No</label>
+			<label index="tx_pbsurvey_item.negative_first">Negative value (false/no) first in order</label>
 			<label index="tx_pbsurvey_item.default_value_txt">Default value</label>
 			<label index="tx_pbsurvey_item.default_date">Default value</label>
 			<label index="tx_pbsurvey_item.default_value_num">Default value</label>
@@ -107,6 +109,7 @@
 			<label index="tx_pbsurvey_results.finished">Finished</label>
 			<label index="tx_pbsurvey_results.begintstamp">Start time</label>
 			<label index="tx_pbsurvey_results.endtstamp">End time</label>
+			<label index="tx_pbsurvey_results.language">Language</label>
 			<label index="tx_pbsurvey_answers">Questionaire Answer</label>
 			<label index="tx_pbsurvey_answers.result">Result</label>
 			<label index="tx_pbsurvey_answers.question">Question</label>
