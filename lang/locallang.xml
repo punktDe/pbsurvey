@@ -61,6 +61,7 @@
 			<label index="pi_flexform.validation">Form validation</label>
 			<label index="pi_flexform.validation0">Client-side Javascript</label>
 			<label index="pi_flexform.validation1">Server-side PHP (Accessibility)</label>
+			<label index="pi_flexform.validation2">Both Server-side and Client-side</label>
 		</languageKey>
 		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang.xml</languageKey>
 		<languageKey index="de">EXT:pbsurvey/lang/de.locallang.xml</languageKey>
