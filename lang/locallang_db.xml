@@ -102,6 +102,7 @@
 			<label index="tx_pbsurvey_item.message">Enter the message</label>
 			<label index="tx_pbsurvey_item.conditions">Page conditions</label>
 			<label index="tx_pbsurvey_item.conditions_wiz">Condition Wizard</label>
+			<label index="tx_pbsurvey_item.styleclass">Additional CSS style</label>
 			<label index="tx_pbsurvey_results">Questionaire Result</label>
 			<label index="tx_pbsurvey_results.survey">Survey</label>
 			<label index="tx_pbsurvey_results.user">User</label>

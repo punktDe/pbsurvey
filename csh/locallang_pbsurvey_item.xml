@@ -66,6 +66,7 @@ The available system languages are created by the administrator..
 			<label index="heading.description">Enter the text for the heading.</label>
 			<label index="html.description">Use this field to enter any HTML and/or content. Text will be displayed using the HTML tags you enter.</label>
 			<label index="message.description">Enter the text for the message.</label>
+			<label index="styleclass.description">Enter a CSS classname to add to the fieldset of this item.</label>
 			<label index="page_title.description">Enter a optional page title.</label>
 			<label index="page_introduction.description">Enter an optional page introduction.</label>
 			<label index="conditions.description">Click the &quot;Wizard&quot; button to enter conditions.</label>

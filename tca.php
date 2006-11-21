@@ -53,7 +53,8 @@ $TCA['tx_pbsurvey_item'] = array (
 			heading,
 			html,
 			message,
-			conditions,'
+			conditions,
+			styleclass'
     ),
     'feInterface' => $TCA['tx_pbsurvey_item']['feInterface'],
     'columns' => array (
@@ -171,11 +172,27 @@ $TCA['tx_pbsurvey_item'] = array (
         	'l10n_mode' => $strl10nMode,        
             'exclude' => 0,        
             'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_subtext',        
-            'config' => array (
+            /*'config' => array (
                 'type' => 'text',
                 'cols' => '30',    
                 'rows' => '5',
-            )
+            )*/
+        	'config' => array (
+				'type' => 'text',
+				'cols' => '48',
+				'rows' => '5',
+				'wizards' => array(
+					'_PADDING' => 4,
+					'RTE' => array(
+						'notNewRecords' => 1,
+						'RTEonly' => 1,
+						'type' => 'script',
+						'title' => 'LLL:EXT:cms/locallang_ttc.php:bodytext.W.RTE',
+						'icon' => 'wizard_rte2.gif',
+						'script' => 'wizard_rte.php',
+					),
+				)
+			)
         ),
 		'page_title' => array (   
 			'l10n_mode' => $strl10nMode,     
@@ -663,30 +680,40 @@ $TCA['tx_pbsurvey_item'] = array (
                 ),
             )
         ),
+        'styleclass' => array (  
+        	'l10n_mode' => 'exclude',      
+            'exclude' => 0,        
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.styleclass',        
+            'config' => array (
+                'type' => 'input',    
+                'size' => '10',
+        		'eval' => 'alphanum_x',
+            )
+        ),
     ),
     'types' => array (
-		'1' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;3;;1-1-1, answers_text_additional;;4;;, options_minimum_responses;;;;1-1-1, options_maximum_responses'),
-		'23' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;10;;1-1-1, selectbox_height, options_minimum_responses;;;;1-1-1, options_maximum_responses'),
-		'2' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;10;;1-1-1'),
-		'3' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, answers;;3;;1-1-1, answers_text_additional;;4;;'),
-		'4' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_tf;;9;;1-1-1, display_type'),
-		'5' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_yn;;9;;1-1-1, display_type'),
-		'6' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
-		'7' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
-		'8' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, answers;;;;1-1-1'),
-		'9' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, beginning_number;;;;1-1-1, ending_number'),
-		'10' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_txt;;;;1-1-1'),
-		'11' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;10;;1-1-1, total_number;;;;1-1-1'),
-		'12' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_date;;5;;1-1-1'),
-		'13' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_num;;6;;1-1-1'),
-		'14' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, default_value_txt;;;;1-1-1, email, maximum_length'),
-		'15' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1, options_minimum_responses;;;;1-1-1, options_maximum_responses, maximum_length'),
-		'16' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext, rows;;;;1-1-1'),
-		'17' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, heading;;;;1-1-1'),
-		'18' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1'),
-		'19' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, html;;;;1-1-1'),
-		'20' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, image;;7;;1-1-1'),
-		'21' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, message;;;;1-1-1'),
+		'1' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;3;;1-1-1, answers_text_additional;;4;;, options_minimum_responses;;;;1-1-1, options_maximum_responses, styleclass'),
+		'23' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;10;;1-1-1, selectbox_height, options_minimum_responses;;;;1-1-1, options_maximum_responses, styleclass'),
+		'2' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;10;;1-1-1, styleclass'),
+		'3' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;3;;1-1-1, answers_text_additional;;4;;, styleclass'),
+		'4' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_tf;;9;;1-1-1, display_type, styleclass'),
+		'5' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_yn;;9;;1-1-1, display_type, styleclass'),
+		'6' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, answers;;;;1-1-1, styleclass'),
+		'7' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, answers;;;;1-1-1, styleclass'),
+		'8' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, answers;;;;1-1-1, styleclass'),
+		'9' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, beginning_number;;;;1-1-1, ending_number, styleclass'),
+		'10' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_txt;;;;1-1-1, styleclass'),
+		'11' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;10;;1-1-1, total_number;;;;1-1-1, styleclass'),
+		'12' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_date;;5;;1-1-1, styleclass'),
+		'13' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_num;;6;;1-1-1, styleclass'),
+		'14' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_txt;;;;1-1-1, email, maximum_length, styleclass'),
+		'15' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, options_minimum_responses;;;;1-1-1, options_maximum_responses, maximum_length, styleclass'),
+		'16' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, styleclass'),
+		'17' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, heading;;;;1-1-1, styleclass'),
+		'18' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, styleclass'),
+		'19' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, html;;;;1-1-1, styleclass'),
+		'20' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, image;;7;;1-1-1, styleclass'),
+		'21' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, message;;;;1-1-1, styleclass'),
 		'22' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, page_title;;8;;1-1-1, conditions;;;;1-1-1'),
     	'99' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1'),
     ),

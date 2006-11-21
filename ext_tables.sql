@@ -57,6 +57,7 @@ CREATE TABLE tx_pbsurvey_item (
 	html text NOT NULL,
 	message text NOT NULL,
 	conditions text NOT NULL,
+	styleclass tinytext NOT NULL,
     PRIMARY KEY (uid),
     KEY parent (pid)
 );

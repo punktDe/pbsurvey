@@ -467,7 +467,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      * @return	void
 	 */
     function array_htmlspecialchars(&$mixInput, &$intKey) {
-    	if ($intKey!='conditions' && $intKey!='html') {
+    	if ($intKey!='conditions' && $intKey!='html' && $intKey!='question_subtext') {
 			$mixInput = trim(htmlspecialchars($mixInput, ENT_QUOTES));
     	}
     }
@@ -845,7 +845,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     function markerSub($intType,$strSubText,$strTemplate) {
         if (($intType>= 1 && $intType<=16) ||$intType==23) {
             if ($strSubText) {
-                 $strOutput = $this->cObj->substituteMarker($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###SUB###'), '###QUESTION_SUBTEXT###', $strSubText);  
+                 $strOutput = $this->cObj->substituteMarker($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###SUB###'), '###QUESTION_SUBTEXT###', $this->pi_RTEcssText($strSubText));  
             }
         }
         return $strOutput;
@@ -1335,6 +1335,19 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     }
     
     /**
+	 * Fill the marker for the additional css style class
+	 *
+	 * @param    array         Question and all of its configuration
+	 * @return   string        Maxlength
+     */
+    function markerStyleClass($arrQuestion) {
+    	if ($arrQuestion['styleclass']) {
+    		$strOutput = $arrQuestion['styleclass'];
+    	}
+    	return $strOutput;
+    }
+    
+    /**
 	 * Build the remaining points javascript call
 	 *
 	 * @param    array       Question and all of its configuration
@@ -1380,6 +1393,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$subpartArray['###INTRODUCTION###'] = $this->markerIntroduction($arrQuestion,$strTemplate);
 		$subpartArray['###REMAINING###'] = $this->markerRemaining($arrQuestion,$strTemplate);
 		$markerArray['###MAXLENGTH###'] = $this->markerMaxlength($arrQuestion,$strTemplate);
+		$markerArray['###ADDITIONALCLASS###'] = $this->markerStyleClass($arrQuestion);
 		
 		$strOutput = $this->cObj->substituteMarkerArrayCached($strTemplate, $markerArray, $subpartArray, array());
 		$strOutput = ereg_replace('###[A-Za-z_1234567890]+###', '', $strOutput);
