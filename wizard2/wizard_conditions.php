@@ -92,9 +92,10 @@ class tx_pbsurvey_conditions_wiz {
 	function main()	{
         global $LANG;
         $this->previousQuestions();
+        $arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
         $strOutput = $this->objDoc->startPage($LANG->getLL('conditions_title'));
 		if ($this->arrWizardParameters['table'] && $this->arrWizardParameters['field'] && $this->arrWizardParameters['uid'] && is_array($this->arrPrevQuestions))	{
-			$strOutput.=$this->objDoc->section($LANG->getLL('conditions_title'),$this->conditionsWizard(),0,1);
+			$strOutput.=$this->objDoc->section($LANG->getLL('conditions_title'),$this->conditionsWizard($arrRecord),0,1);
 		} else {
 			$strOutput.=$this->objDoc->section($LANG->getLL('conditions_title'),'<span class="typo3-red">'.$LANG->getLL('conditions_error',1).'</span>',0,1);
 			$strOutput.= '
@@ -111,8 +112,7 @@ class tx_pbsurvey_conditions_wiz {
 	 *
 	 * @return	string		HTML content for the form.
 	 */
-	function conditionsWizard()	{
-        $arrRecord=t3lib_BEfunc::getRecord($this->arrWizardParameters['table'],$this->arrWizardParameters['uid']);
+	function conditionsWizard($arrRecord)	{
 		$arrTable = $this->getTableCode($arrRecord);
 		$strOutput = $this->wizardHTML($arrTable);
 		return $strOutput;
@@ -153,13 +153,33 @@ class tx_pbsurvey_conditions_wiz {
 
 	/**
 	 * Create array out of serialized string in conditions backend field
+	 * and check if the conditions are still acurate according to question id's (copy?)
 	 *
 	 * @param	string		Content of backend conditions field
 	 * @return	array		Converted conditions information to array
 	 */
 	function groupsArray($strInput)	{
-		$arrTemp = unserialize($strInput);
-		$arrOutput = $arrTemp['grps'];
+		$arrConditions = unserialize($strInput);
+		if (is_array($arrConditions['grps'])) {
+			foreach($arrConditions['grps'] as $intGroup => $arrGroup) {
+	            foreach ($arrGroup['rule'] as $intRule => $arrRule) {
+	            	$blnFound = false;
+	                $arrRule['field'] = stripslashes($arrRule['field']);
+	                foreach($this->arrPrevQuestions as $aCondition) {
+	                	if ($aCondition['uid'] == $arrRule['field']) {
+	                		$blnFound = true;
+	                	}
+	                }
+	                if (!$blnFound) {
+	                	unset($arrConditions['grps'][$intGroup]['rule'][$intRule]);
+	                }
+	            }
+				if (count($arrConditions['grps'][$intGroup]['rule'])==0) {
+	                unset($arrConditions['grps'][$intGroup]);
+	            }
+	        }
+		}
+		$arrOutput = $arrConditions['grps'];
 		return $arrOutput;
 	}
 	

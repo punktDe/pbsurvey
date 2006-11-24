@@ -1,4 +1,7 @@
-2006-11-08 - Patrick Broens <patrick@patrickbroens.nl>
+2006-11-23 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix in page conditions wizard
+
+2006-11-21 - Patrick Broens <patrick@patrickbroens.nl>
  + Inserted input field in TCA to add a user defined css class to each question item
 
 2006-11-16 - Patrick Broens <patrick@patrickbroens.nl>
