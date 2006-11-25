@@ -1262,6 +1262,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      */
     function markerIntroduction($arrQuestion,$strTemplate) {
     	if ($arrQuestion['page_introduction']) {
+    		$arrQuestion['page_introduction'] = $this->pi_RTEcssText($arrQuestion['page_introduction']); 
     		$strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###INTRODUCTION###'), $arrQuestion, '###|###', 1);
     	}
     	return $strOutput;

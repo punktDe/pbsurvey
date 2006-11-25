@@ -207,11 +207,22 @@ $TCA['tx_pbsurvey_item'] = array (
 			'l10n_mode' => $strl10nMode,       
             'exclude' => 0,        
             'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.page_introduction',        
-            'config' => array (
-                'type' => 'text',
-                'cols' => '30',    
-                'rows' => '5',
-            )
+        	'config' => array (
+				'type' => 'text',
+				'cols' => '48',
+				'rows' => '5',
+				'wizards' => array(
+					'_PADDING' => 4,
+					'RTE' => array(
+						'notNewRecords' => 1,
+						'RTEonly' => 1,
+						'type' => 'script',
+						'title' => 'LLL:EXT:cms/locallang_ttc.php:bodytext.W.RTE',
+						'icon' => 'wizard_rte2.gif',
+						'script' => 'wizard_rte.php',
+					),
+				)
+			)
         ),
         'options_required' => array (
         	'l10n_mode' => 'exclude',       
@@ -714,7 +725,7 @@ $TCA['tx_pbsurvey_item'] = array (
 		'19' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, html;;;;1-1-1, styleclass'),
 		'20' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, image;;7;;1-1-1, styleclass'),
 		'21' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, message;;;;1-1-1, styleclass'),
-		'22' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, page_title;;8;;1-1-1, conditions;;;;1-1-1'),
+		'22' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, page_title;;;;1-1-1,page_introduction;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, conditions;;;;1-1-1'),
     	'99' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1'),
     ),
     'palettes' => array (
@@ -725,7 +736,7 @@ $TCA['tx_pbsurvey_item'] = array (
         '5' => array('showitem' => 'minimum_date, maximum_date'),
         '6' => array('showitem' => 'minimum_value, maximum_value, maximum_length'),
         '7' => array('showitem' => 'image_height, image_width, image_alignment'),
-        '8' => array('showitem' => 'page_introduction'),
+        //'8' => array('showitem' => 'page_introduction;;;richtext:rte_transform[flag=rte_enabled|mode=ts];'),
     	'9' => array('showitem' => 'negative_first'),
     	'10' => array('showitem' => 'options_random'),
     )
