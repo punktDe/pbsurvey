@@ -1,3 +1,7 @@
+2006-12-05 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix in page introduction with RTE
+ ~ From now when a default value is selected for a dropdown in the backend, the –None – value will not be displayed anymore.
+
 2006-11-25 - Patrick Broens <patrick@patrickbroens.nl>
  ~ Page introduction changed to RTE field
 

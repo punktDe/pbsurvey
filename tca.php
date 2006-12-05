@@ -725,7 +725,7 @@ $TCA['tx_pbsurvey_item'] = array (
 		'19' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, html;;;;1-1-1, styleclass'),
 		'20' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, image;;7;;1-1-1, styleclass'),
 		'21' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, message;;;;1-1-1, styleclass'),
-		'22' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, page_title;;;;1-1-1,page_introduction;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, conditions;;;;1-1-1'),
+		'22' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, page_title;;;;1-1-1, page_introduction;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, conditions;;;;1-1-1'),
     	'99' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1'),
     ),
     'palettes' => array (

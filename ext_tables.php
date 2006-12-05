@@ -111,7 +111,11 @@ t3lib_extMgm::addLLrefForTCAdescr('tx_pbsurvey_answers','EXT:pbsurvey/csh/locall
 t3lib_extMgm::addLLrefForTCAdescr('xEXT_pbsurvey','EXT:pbsurvey/csh/locallang_manual.xml');
 t3lib_extMgm::addLLrefForTCAdescr('_MOD_web_txpbsurveyM1','EXT:pbsurvey/csh/locallang_mod1.xml');
 t3lib_extMgm::addLLrefForTCAdescr('_MOD_web_txpbsurveyM1','EXT:pbsurvey/csh/locallang_modfunc1.xml');
-
+	// sets the transformation mode for the RTE to "ts_css" if the extension css_styled_content is installed (default is: "ts")
+if (t3lib_extMgm::isLoaded('css_styled_content')) {
+	t3lib_extMgm::addPageTSConfig('RTE.config.tx_pbsurvey_item.page_introduction.proc.overruleMode=ts_css');
+	t3lib_extMgm::addPageTSConfig('RTE.config.tx_pbsurvey_item.question_subtext.proc.overruleMode=ts_css');
+}
 if (TYPO3_MODE=='BE') {
 	$TBE_MODULES_EXT['xMOD_db_new_content_el']['addElClasses']['tx_pbsurvey_pi1_wizicon'] = t3lib_extMgm::extPath($_EXTKEY).'pi1/class.tx_pbsurvey_pi1_wizicon.php';
 	t3lib_extMgm::addModule('web','txpbsurveyM1','',t3lib_extMgm::extPath($_EXTKEY).'mod1/');

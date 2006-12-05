@@ -467,7 +467,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      * @return	void
 	 */
     function array_htmlspecialchars(&$mixInput, &$intKey) {
-    	if ($intKey!='conditions' && $intKey!='html' && $intKey!='question_subtext') {
+    	if ($intKey!='conditions' && $intKey!='html' && $intKey!='question_subtext' && $intKey!='page_introduction') {
 			$mixInput = trim(htmlspecialchars($mixInput, ENT_QUOTES));
     	}
     }
@@ -1030,6 +1030,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			if ($arrQuestion['options_random']) {
 					$arrVars = $this->shuffleArray($arrVars);
 			}
+			if ($arrQuestion['question_type'] == 2) {
+				$arrValueNone['value'] = $this->pi_getLL('value_none');
+				$arrHtml[0] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrValueNone, '###|###', 1);
+			}
             foreach($arrVars as $intKey => $arrItem){
             	unset($arrQuestion['checked']);
             	unset($arrQuestion['selected']);
@@ -1043,12 +1047,19 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				} elseif (trim($arrItem[2]=='on')) {
 					$arrQuestion['checked'] = 'checked="checked"';
 					$arrQuestion['selected'] = 'selected="selected"';
+					if ($arrQuestion['question_type'] == 2) {
+						 unset($arrHtml[0]);
+					}
 				}
 				$arrQuestion['value'] = $arrItem[0];
 				$arrQuestion['counter'] = $intKey;
 				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrQuestion, '###|###', 1);
 			}
         } elseif (in_array($arrQuestion['question_type'],array(4,5))) {
+        	if ($arrQuestion['display_type'] == 0) {
+        		$arrValueNone['value'] = $this->pi_getLL('value_none');
+				$arrHtml[0] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrValueNone, '###|###', 1);
+        	}
             if ($arrQuestion['question_type']==4) {
                 $arrLLVals = array('value_false','value_true','default_value_tf');
             } else {
@@ -1070,6 +1081,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				} elseif ($arrQuestion['counter']==$arrQuestion[$arrLLVals[2]]) {
 					$arrQuestion['checked'] = 'checked="checked"';
 					$arrQuestion['selected'] = 'selected="selected"';
+					if ($arrQuestion['display_type'] == 0) {
+						unset($arrHtml[0]);
+					}
 				}
 				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrQuestion, '###|###', 1);
             }
@@ -1260,10 +1274,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @param    string        Template string where marker has to be taken from
 	 * @return   string        Page introduction
      */
-    function markerIntroduction($arrQuestion,$strTemplate) {
-    	if ($arrQuestion['page_introduction']) {
-    		$arrQuestion['page_introduction'] = $this->pi_RTEcssText($arrQuestion['page_introduction']); 
-    		$strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###INTRODUCTION###'), $arrQuestion, '###|###', 1);
+    function markerIntroduction($strIntroduction,$strTemplate) {
+    	if ($strIntroduction) {
+    		$strOutput = $this->cObj->substituteMarker($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###INTRODUCTION###'), '###PAGE_INTRODUCTION###', $this->pi_RTEcssText($strIntroduction));
     	}
     	return $strOutput;
     }
@@ -1391,7 +1404,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$markerArray['###IMAGE###'] = $this->markerImage($arrQuestion); // Bestaat nog niet
 		$markerArray['###ALIGN###'] = $this->markerAlign($arrQuestion['image_alignment']); // Bestaat nog niet
 		$subpartArray['###TITLE###'] = $this->markerTitle($arrQuestion,$strTemplate);
-		$subpartArray['###INTRODUCTION###'] = $this->markerIntroduction($arrQuestion,$strTemplate);
+		$subpartArray['###INTRODUCTION###'] = $this->markerIntroduction($arrQuestion['page_introduction'],$strTemplate);
 		$subpartArray['###REMAINING###'] = $this->markerRemaining($arrQuestion,$strTemplate);
 		$markerArray['###MAXLENGTH###'] = $this->markerMaxlength($arrQuestion,$strTemplate);
 		$markerArray['###ADDITIONALCLASS###'] = $this->markerStyleClass($arrQuestion);
