@@ -1146,7 +1146,11 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$arrQuestion['rowcounter'] = $intRowKey + 1;
 			$arrMarkerArray['###ROWCOUNTER###'] = $arrQuestion['rowcounter'];
 			$arrMarkerArray['###ROW###'] = $arrQuestion['row'];
-			$arrMarkerArray['###MAXLENGTH###'] = 'maxlength="' . $arrQuestion['maximum_length'] . '"';
+			if ($arrQuestion['maximum_length'] != 0) {
+				$arrMarkerArray['###MAXLENGTH###'] = 'maxlength="' . intval($arrQuestion['maximum_length']) . '"';
+			} else {
+				//$arrMarkerArray['###MAXLENGTH###'] = '';
+			}
 			$arrMarkerArray['###JSFUNCTION###'] = $this->markerJsFunction($arrQuestion);
 			$arrHtmlCols = array();
 			if (in_array($arrQuestion['question_type'],array(6,7,8))) {
