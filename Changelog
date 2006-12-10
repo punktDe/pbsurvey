@@ -1,3 +1,7 @@
+2006-12-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix with all checkboxes from one question not submitted anymore
+ ~ Hook is not increasing the question numbering anymore
+
 2006-12-05 - Patrick Broens <patrick@patrickbroens.nl>
  ~ Bugfix in maxlength when empty in BE field
 

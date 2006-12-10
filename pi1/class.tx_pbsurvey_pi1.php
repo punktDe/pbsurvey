@@ -249,7 +249,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                         unset($this->arrUserData[$item['uid']]);
                     }
 					$this->intPastItems++;
-					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23 || $arrItem['question_type']==99) $this->intCurrentItem++;
+					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23) $this->intCurrentItem++;
 				}
 			} elseif ($intCounter == $this->intStage){ // Read items that belong to stage
 				if ($arrItem['question_type']==22){
@@ -260,9 +260,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 						$this->intNextPages++;
 					}
 				} else {
-					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23 || $arrItem['question_type']==99) {
+					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23) {
                         $this->intCurrentItem++;
                         $this->intPageItem++;
+                        $this->arrCurrentIds[] = $arrItem['uid'];
                     }
                     if ($arrItem['question_type']!=99) {
 						$this->strOutItems .= $this->processQuestion($arrItem);
@@ -744,6 +745,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
             'items'           => '$this->strOutItems',
             'totalitems'      => 'count($this->arrSurveyItems)',
             'doneitems'       => '$this->intPastItems',
+        	'currentids'      => '$this->markerCurrentIds()',
             'stage'           => '$this->intStage',
             'header'          => '$this->processQuestion($this->arrPage)',
             'submitvalues'    => '$this->strCsCalls',
@@ -800,6 +802,20 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		return $strOutput;
     }
     
+	/**
+	 * Fill marker with a string containing all ids of questions on the page
+	 * This is especially for checkboxes, because an empty checkbox won't return a value
+	 * and we need to know if the checkboxes are checked or unchecked
+	 * for storage reasons
+	 *
+	 * @param    integer       Type of question
+	 * @return   string        Question number
+     */
+    function markerCurrentIds() {
+        $strOutput = implode(',', $this->arrCurrentIds);
+		return $strOutput;
+    }
+    
     /**
 	 * Generate question number by configuration.
 	 * in question type 1-16,23
@@ -808,7 +824,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        Question number
      */
     function markerCurrentItem($intType) {
-        if (($intType>=1 && $intType<=16) ||$intType==23) {
+        if (($intType>=1 && $intType<=16) || $intType==23) {
             if ($this->arrConfig['question_numbering']==1) {
     			$strOutput = $this->intCurrentItem . '.';
     		} elseif ($this->arrConfig['question_numbering']<>0){
@@ -1612,6 +1628,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	    $arrSelectConf['where'] .= ' AND pid=' . $intPage;
 	    $arrSelectConf['where'] .= ' AND result=' . $intResult;
     	
+	    $arrStoreQuestions = explode(',', $arrInput['currentids']);
     	foreach($arrInput as $mixQuestion => $mixQuestionValue) {
 			unset($this->arrUserData[$mixQuestion]);
 			if(is_array($mixQuestionValue)) {
@@ -1652,18 +1669,34 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 						}
 					}
 				}
+				// Delete answer entries in the database not submitted anymore
 				if (isset($arrPreviousAnswers)) {
 					foreach($arrPreviousAnswers as $intRow => $mixRowValue) {
 				 		if (isset($mixRowValue)) {
 				 			foreach($mixRowValue as $arrAnswer) {
 				 				if (isset($arrAnswer['uid'])) {
-				 					$strWhere = '1=1';
-				 					$strWhere .= ' AND uid=' . $arrAnswer['uid'];
-				 					$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
+				 					$arrDeleteAnswers[] = $arrAnswer['uid'];
 				 				}
 				 			}			 			
 				 		}		
 					}
+				}
+    			if(is_array($arrDeleteAnswers)) {
+					$strWhere = '1=1';
+				 	$strWhere .= ' AND uid IN (' . t3lib_div::csvValues($arrDeleteAnswers,',',"'") . ')';
+				 	$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
+				}
+				// Delete question entries in the database not submitted anymore
+				$arrStoreQuestions = explode(',', $arrInput['currentids']);
+				foreach($arrStoreQuestions as $intRow) {
+					if (!isset($arrInput[$intRow])) {
+						$arrDeleteQuestions[] = $intRow;
+					}
+				}
+				if(is_array($arrDeleteQuestions)) {
+					$strWhere = '1=1';
+				 	$strWhere .= ' AND question IN (' . t3lib_div::csvValues($arrDeleteQuestions,',',"'") . ')';
+				 	$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
 				}
 			}
 		}
