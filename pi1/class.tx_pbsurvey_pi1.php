@@ -1046,7 +1046,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			if ($arrQuestion['options_random']) {
 					$arrVars = $this->shuffleArray($arrVars);
 			}
-			if ($arrQuestion['question_type'] == 2) {
+			if ($arrQuestion['question_type'] == 2 && $arrQuestion['options_required'] != 1) {
 				$arrValueNone['value'] = $this->pi_getLL('value_none');
 				$arrHtml[0] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrValueNone, '###|###', 1);
 			}
@@ -1060,10 +1060,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
                         $arrQuestion['selected'] = 'selected="selected"';
 	                    $blnChecked = true;
 					}
-				} elseif (trim($arrItem[2]=='on')) {
+				} elseif (trim($arrItem[2])=='on') {
 					$arrQuestion['checked'] = 'checked="checked"';
 					$arrQuestion['selected'] = 'selected="selected"';
-					if ($arrQuestion['question_type'] == 2) {
+					if ($arrQuestion['question_type'] == 2 && $arrQuestion['options_required'] != 1) {
 						 unset($arrHtml[0]);
 					}
 				}
@@ -1681,24 +1681,24 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				 		}		
 					}
 				}
-    			if(is_array($arrDeleteAnswers)) {
-					$strWhere = '1=1';
-				 	$strWhere .= ' AND uid IN (' . t3lib_div::csvValues($arrDeleteAnswers,',',"'") . ')';
-				 	$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
-				}
-				// Delete question entries in the database not submitted anymore
-				$arrStoreQuestions = explode(',', $arrInput['currentids']);
-				foreach($arrStoreQuestions as $intRow) {
-					if (!isset($arrInput[$intRow])) {
-						$arrDeleteQuestions[] = $intRow;
-					}
-				}
-				if(is_array($arrDeleteQuestions)) {
-					$strWhere = '1=1';
-				 	$strWhere .= ' AND question IN (' . t3lib_div::csvValues($arrDeleteQuestions,',',"'") . ')';
-				 	$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
-				}
 			}
+		}
+      	if(is_array($arrDeleteAnswers)) {
+			$strWhere = '1=1';
+		 	$strWhere .= ' AND uid IN (' . t3lib_div::csvValues($arrDeleteAnswers,',',"'") . ')';
+		 	$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
+		}
+		// Delete question entries in the database not submitted anymore
+		$arrStoreQuestions = explode(',', $arrInput['currentids']);
+		foreach($arrStoreQuestions as $intRow) {
+			if (!isset($arrInput[$intRow])) {
+				$arrDeleteQuestions[] = $intRow;
+			}
+		}
+		if(is_array($arrDeleteQuestions)) {
+			$strWhere = '1=1';
+		 	$strWhere .= ' AND question IN (' . t3lib_div::csvValues($arrDeleteQuestions,',',"'") . ')';
+		 	$dbRes = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable,$strWhere);
 		}
    		if ($GLOBALS['TYPO3_DB']->sql_error()) {
              $strOutput = $this->surveyError('failed_saving_data');

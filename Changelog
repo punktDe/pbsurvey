@@ -1,3 +1,9 @@
+2006-12-12 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Again bugfix with all checkboxes from one question not submitted anymore
+
+2006-12-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ - None - value with dropdown was configured wrong. Had to be with required questions
+
 2006-12-10 - Patrick Broens <patrick@patrickbroens.nl>
  ~ Bugfix with all checkboxes from one question not submitted anymore
  ~ Hook is not increasing the question numbering anymore
