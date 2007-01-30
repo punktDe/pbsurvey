@@ -28,6 +28,7 @@ $TCA['tx_pbsurvey_item'] = array (
 			answers_allow_additional,
 			answers_text_additional,
 			answers_type_additional,
+			answers_none,
 			textarea_width,
 			textarea_height,
 			selectbox_height,
@@ -362,6 +363,15 @@ $TCA['tx_pbsurvey_item'] = array (
                 ),
                 'size' => 1,    
                 'maxitems' => 1,
+            )
+        ),
+        'answers_none' => array ( 
+			'l10n_mode' => 'exclude',        
+            'exclude' => 0,        
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_none',        
+            'config' => array (
+                'type' => 'check',
+        		'default' => '1',
             )
         ),
         'textarea_width' => array (  
@@ -705,7 +715,7 @@ $TCA['tx_pbsurvey_item'] = array (
     'types' => array (
 		'1' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;3;;1-1-1, answers_text_additional;;4;;, options_minimum_responses;;;;1-1-1, options_maximum_responses, styleclass'),
 		'23' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;10;;1-1-1, selectbox_height, options_minimum_responses;;;;1-1-1, options_maximum_responses, styleclass'),
-		'2' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;10;;1-1-1, styleclass'),
+		'2' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;11;;1-1-1, styleclass'),
 		'3' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;3;;1-1-1, answers_text_additional;;4;;, styleclass'),
 		'4' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_tf;;9;;1-1-1, display_type, styleclass'),
 		'5' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_yn;;9;;1-1-1, display_type, styleclass'),
@@ -737,8 +747,9 @@ $TCA['tx_pbsurvey_item'] = array (
         '6' => array('showitem' => 'minimum_value, maximum_value, maximum_length'),
         '7' => array('showitem' => 'image_height, image_width, image_alignment'),
         //'8' => array('showitem' => 'page_introduction;;;richtext:rte_transform[flag=rte_enabled|mode=ts];'),
-    	'9' => array('showitem' => 'negative_first'),
+    	'9' => array('showitem' => 'negative_first, answers_none'),
     	'10' => array('showitem' => 'options_random'),
+    	'11' => array('showitem' => 'options_random, answers_none'),
     )
 );
 
