@@ -1,3 +1,6 @@
+2006-12-18 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ - None - value change again. Is now separately configurable
+
 2006-12-12 - Patrick Broens <patrick@patrickbroens.nl>
  ~ Again bugfix with all checkboxes from one question not submitted anymore
 

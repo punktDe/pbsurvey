@@ -60,6 +60,7 @@
 			<label index="tx_pbsurvey_item.answers_type_additional.I.0">Textbox</label>
 			<label index="tx_pbsurvey_item.answers_type_additional.I.1">Textarea</label>
 			<label index="tx_pbsurvey_item.answers_type_additional">Additional Answer Input Type</label>
+			<label index="tx_pbsurvey_item.answers_none">Add -none- value to answers</label>
 			<label index="tx_pbsurvey_item.textarea_width">Textarea width</label>
 			<label index="tx_pbsurvey_item.textarea_height">Textarea height</label>
 			<label index="tx_pbsurvey_item.selectbox_height">Selectbox height</label>

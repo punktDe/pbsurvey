@@ -12,6 +12,7 @@
 			<label index="value_false">Onwaar</label>
 			<label index="value_yes">Ja</label>
 			<label index="value_no">Nee</label>
+			<label index="remaining_points">resterende punten</label>
 			<label index="js_errors_occurred">De volgende fouten hebben zich voorgedaan:</label>
 			<label index="js_required_select">Selecteer aub een waarde voor vraag nummer %q</label>
 			<label index="js_required_enter">Vul aub een waarde in voor vraag nummer %q</label>

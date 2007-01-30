@@ -1046,7 +1046,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			if ($arrQuestion['options_random']) {
 					$arrVars = $this->shuffleArray($arrVars);
 			}
-			if ($arrQuestion['question_type'] == 2 && $arrQuestion['options_required'] != 1) {
+			if ($arrQuestion['question_type'] == 2 && $arrQuestion['answers_none'] == 1) {
 				$arrValueNone['value'] = $this->pi_getLL('value_none');
 				$arrHtml[0] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrValueNone, '###|###', 1);
 			}
@@ -1063,16 +1063,13 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				} elseif (trim($arrItem[2])=='on') {
 					$arrQuestion['checked'] = 'checked="checked"';
 					$arrQuestion['selected'] = 'selected="selected"';
-					if ($arrQuestion['question_type'] == 2 && $arrQuestion['options_required'] != 1) {
-						 unset($arrHtml[0]);
-					}
 				}
 				$arrQuestion['value'] = $arrItem[0];
 				$arrQuestion['counter'] = $intKey;
 				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrQuestion, '###|###', 1);
 			}
         } elseif (in_array($arrQuestion['question_type'],array(4,5))) {
-        	if ($arrQuestion['display_type'] == 0) {
+        	if ($arrQuestion['display_type'] == 0 && $arrQuestion['answers_none'] == 1) {
         		$arrValueNone['value'] = $this->pi_getLL('value_none');
 				$arrHtml[0] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrValueNone, '###|###', 1);
         	}
@@ -1097,9 +1094,6 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				} elseif ($arrQuestion['counter']==$arrQuestion[$arrLLVals[2]]) {
 					$arrQuestion['checked'] = 'checked="checked"';
 					$arrQuestion['selected'] = 'selected="selected"';
-					if ($arrQuestion['display_type'] == 0) {
-						unset($arrHtml[0]);
-					}
 				}
 				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrQuestion, '###|###', 1);
             }
@@ -1389,7 +1383,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
      */
     function markerJsFunction($arrQuestion) {
 		if ($arrQuestion['question_type']==11 && $arrQuestion['total_number']!=0) {
-			$strOutput = 'onchange="pbsurveyRemaining('.$arrQuestion['uid'].','.$arrQuestion['total_number'].')"';
+			$strOutput = 'onkeyup="pbsurveyRemaining('.$arrQuestion['uid'].','.$arrQuestion['total_number'].')"';
 		}
     	return $strOutput;
     }
