@@ -144,7 +144,11 @@
 								<numIndex index="2" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action2</numIndex>
 									<numIndex index="1">2</numIndex>
-								</numIndex>						
+								</numIndex>
+								<numIndex index="3" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action3</numIndex>
+									<numIndex index="1">3</numIndex>
+								</numIndex>							
 							</items>	
 						</config>
 						</TCEforms>
@@ -275,7 +279,7 @@
 		<sNUMBERING>
 			<ROOT>
 				<TCEforms>
-				<sheetTitle>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.sheet_numbering</sheetTitle>
+					<sheetTitle>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.sheet_numbering</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
@@ -336,6 +340,56 @@
 				</el>
 			</ROOT>
 		</sNUMBERING>
+		
+		<sSCORING>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.sheet_scoring</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+					<el>
+						<result>
+							<section>1</section>
+							<type>array</type>
+							<el>
+								<resultPart>
+									<type>array</type>
+									<tx_templavoila>
+										<title>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.score_page</title>
+									</tx_templavoila>
+									<el>
+										<score>
+											<TCEforms>
+												<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.score_max</label>
+												<config>
+													<type>input</type>
+													<size>20</size>
+													<eval>required,int</eval>
+												</config>
+											</TCEforms>
+										</score>
+										<url>
+											<TCEforms>
+												<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.score_url</label>
+												<config>
+													<type>group</type>
+													<internal_type>db</internal_type>
+													<allowed>pages</allowed>
+													<size>1</size>
+													<maxitems>1</maxitems>
+													<minitems>1</minitems>
+													<show_thumbs>1</show_thumbs>
+													<eval>required</eval>
+												</config>
+											</TCEforms>
+										</url>
+									</el>
+								</resultPart>
+							</el>
+						</result>
+					</el>
+			</ROOT>
+		</sSCORING>
 		
 		<sOTHER>
 			<ROOT>

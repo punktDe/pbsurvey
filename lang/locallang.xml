@@ -28,6 +28,7 @@
 			<label index="pi_flexform.action0">Close the browser</label>
 			<label index="pi_flexform.action1">Display Message</label>
 			<label index="pi_flexform.action2">Redirect to another page</label>
+			<label index="pi_flexform.action3">Redirect to scoring pages</label>
 			<label index="pi_flexform.captcha_page">Show Captcha before entering survey</label>
 			<label index="pi_flexform.completion_message">Completion Message</label>
 			<label index="pi_flexform.completion_url">Completion Page</label>
@@ -54,6 +55,10 @@
 			<label index="pi_flexform.question_numbering0">Do not display question numbers</label>
 			<label index="pi_flexform.question_numbering1">Number questions within entire questionaire</label>
 			<label index="pi_flexform.question_numbering2">Number questions within each page</label>
+			<label index="pi_flexform.sheet_scoring">Scoring</label>
+			<label index="pi_flexform.score_page">Scoring page</label>
+			<label index="pi_flexform.score_max">Maximum score</label>
+			<label index="pi_flexform.score_url">Redirect to page</label>
 			<label index="pi_flexform.other">Other</label>
 			<label index="pi_flexform.maximum_responses">Maximum Responses</label>
 			<label index="pi_flexform.responses_per_user">Responses per user</label>

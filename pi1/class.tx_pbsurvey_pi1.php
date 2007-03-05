@@ -102,6 +102,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
             'responses_per_user'  => array('responses_per_user', 'sOTHER', 'userResponses', 2),
             'days_for_update'     => array('days_for_update', 'sOTHER', 'daysForUpdate', 2),
             'validation'          => array('validation', 'sOTHER', 'validation', 2),
+        	'scoring'             => array('result', 'sSCORING', '', 4, 'el'),
         );
         return $arrOutput = $this->getFFconfig($arrFFConfig);
     }
@@ -116,7 +117,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     function getFFconfig($arrFFConfig) {
     	$strTemp = '';
         foreach ($arrFFConfig as $strKey => $arrItem) {
-                $strFFValue = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $arrItem[0], $arrItem[1]);
+        		$strValue = !empty($arrItem[4]) ? $arrItem[4] : 'vDEF';
+                $strFFValue = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $arrItem[0], $arrItem[1], 'lDEF', $strValue);
                 $arrItem[2] = "['" . str_replace('.',".']['",$arrItem[2]) . "']";
                 eval("\$strTemp = \$this->conf".$arrItem[2].";");
             if ($arrItem[3]==1) {
@@ -444,6 +446,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			case 2: // Redirect to another page
 				$this->callHeader('completion_url');
 			break;
+			case 3: // Redirect to scoring pages
+				$strOutput = $this->scoringPages();
+			break;
 		}
 		return $strOutput;
     }
@@ -457,6 +462,119 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
     function callHeader($strInput) {
         header('Location: '.t3lib_div::locationHeaderUrl($this->pi_getPageLink($this->arrConfig[$strInput])));
         exit;
+    }
+    
+    /**
+	 * Main scoring function
+	 * Define various variables, check if scoring fields are filled and redirect the user depending on its score
+	 *
+	 * @return   string	Error code if any        
+     */
+    function scoringPages() {
+		if(is_array($this->arrConfig['scoring'])) {
+	    	$arrParameters[$this->prefixId . '[total]'] = $this->scoringTotal();
+			$arrParameters[$this->prefixId . '[score]'] = $this->scoringUser();
+			$intUrl = $this->scoringLevel($arrParameters[$this->prefixId . '[score]']);
+		    header('Location: '.t3lib_div::locationHeaderUrl($this->pi_getPageLink($intUrl, '', $arrParameters)));
+			exit;
+		} else {
+			$strOutput = $this->surveyError('failed_scoring');
+		}
+		return $strOutput;
+    }
+    
+    /**
+	 * Get the maximum score of the survey
+	 * This function is for future purposes
+	 *
+	 * @return   integer	Maximum score       
+     */
+    function scoringTotal() {
+    	foreach($this->arrSurveyItems as $arrQuestion) {
+			$intQuestionTotal = 0;
+			$intMax = 0;
+    		$arrAllowed = array(1, 2, 3, 6, 8, 23);
+        	if (in_array($arrQuestion['question_type'], $arrAllowed)) {
+        		$arrAnswers = $this->answersArray($arrQuestion['answers']);
+        		foreach($arrAnswers as $arrAnswer) {
+        			if(!empty($arrAnswer['1']) && is_numeric($arrAnswer['1'])) {
+        				if ( ((int)$arrAnswer['1']) == ((float)$arrAnswer['1']) ) {
+        					$intQuestionTotal += (int)$arrAnswer['1'];
+        					$intMax = $intMax < $arrAnswer['1'] ? (int)$arrAnswer['1'] : $intMax;
+        				}
+        			}
+        		}
+        		switch($arrQuestion['question_type']) {
+        			// multiple
+        			case 1:
+        			case 23:
+        				$intOutput += $intQuestionTotal;
+        				break;
+        			// single
+        			case 2:
+        			case 3:
+        				$intOutput += $intMax;
+        				break;
+        			// matrix multiple
+        			case 6:
+        				$intOutput += (int)count(explode(chr(10),$arrQuestion['rows'])) * $intQuestionTotal;
+        				break;
+        			// matrix single
+        			case 8:
+        				$intOutput += (int)count(explode(chr(10),$arrQuestion['rows'])) * $intMax;
+        				break;
+        		}
+        	}
+    	}
+    	return $intOutput;
+    }
+    
+    /**
+	 * Get the score of the user
+	 *
+	 * @return   integer	User score       
+     */
+    function scoringUser() {
+    	$arrAllowed = array(1, 2, 3, 6, 8, 23);
+    	foreach($this->arrUserData as $intKey => $arrUserAnswers) {
+    		if (in_array($this->arrSurveyItems[$intKey]['question_type'], $arrAllowed)) {
+    			$arrQuestionAnswers = $this->answersArray($this->arrSurveyItems[$intKey]['answers']);
+    			foreach($arrUserAnswers as $arrUserSingle) {
+    				foreach($arrUserSingle as $intUserAnswer) {
+    					$intOutput += (int)$arrQuestionAnswers[$intUserAnswer][1];
+    				}
+    			}
+    		}
+    	}
+    	return $intOutput;
+    }
+    
+    /**
+	 * Define the level of the respondent and return the scoring page
+	 *
+	 * @param	integer	Score of the user
+	 * @return	integer	Page ID of the scoring page       
+     */
+    function scoringLevel($intUserScore) {
+    	$arrScoring = $this->arrConfig['scoring'];
+    	foreach($arrScoring as $intKey => $arrPages) {
+			$mixUrl[$intKey] = $arrPages['resultPart']['el']['url']['vDEF'];
+			$intScore[$intKey] = $arrPages['resultPart']['el']['score']['vDEF'];
+		}
+		array_multisort($intScore, SORT_ASC, $arrScoring);
+   		foreach($arrScoring as $arrPages) {
+   			$mixUrl = $arrPages['resultPart']['el']['url']['vDEF'];
+   			$intScore = $arrPages['resultPart']['el']['score']['vDEF'];
+   			if($intUserScore <= $intScore) {
+				$intOutput = $mixUrl;
+				break;
+   			}
+		}
+    	if(!isset($intOutput)) {
+			$arrMaximum = end($arrScoring);
+			$intOutput = $arrMaximum['resultPart']['el']['url']['vDEF'];
+		}
+		return $intOutput;
     }
     
     /**
@@ -1551,7 +1669,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				$arrRow = $GLOBALS['TSFE']->sys_page->getRecordOverlay($this->strItemsTable, $arrRow, $GLOBALS['TSFE']->sys_language_content, '');
 			}
 			array_walk($arrRow, array($this,'array_htmlspecialchars'));
-            $this->arrSurveyItems[] = $arrRow;
+            $this->arrSurveyItems[$arrRow['uid']] = $arrRow;
 		}
     }
 	
