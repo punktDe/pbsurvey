@@ -83,7 +83,6 @@
 		<languageKey index="no">EXT:pbsurvey/pi1/no.locallang.xml</languageKey>
 		<languageKey index="it">EXT:pbsurvey/pi1/it.locallang.xml</languageKey>
 		<languageKey index="es">EXT:pbsurvey/pi1/es.locallang.xml</languageKey>
-
 		<languageKey index="hk">EXT:pbsurvey/pi1/hk.locallang.xml</languageKey>
 	</data>
 	<orig_hash type="array">
