@@ -6,4 +6,6 @@
   Step 3: Show form according to choices.
   
   Add "unique in database" and "not unique in database" to the conditions to check, for instance, if e-mailadres is already there.
+
+Add the possibility to every question item to use its own template instead of the default
   

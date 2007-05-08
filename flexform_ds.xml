@@ -1,7 +1,6 @@
 <T3DataStructure>
     <meta>
 		<langDisable>1</langDisable> 
-		<!--  <langChildren>1</langChildren>!-->
 	</meta>
 	<sheets>
 	
@@ -104,6 +103,7 @@
 									<numIndex index="1">1</numIndex>
 								</numIndex>
 							</items>
+							<default>1</default>
 						</config>
 						</TCEforms>
 					</anonymous_mode>
@@ -113,6 +113,7 @@
 							<config>
 								<type>input</type>
 								<size>4</size>
+								<default>30</default>
 							</config>
 						</TCEforms>
 					</cookie_lifetime>

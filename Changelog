@@ -1,3 +1,9 @@
+2007-05-08 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Checks on intvals before inserts and executes on database
+ + Send the values of the current item to the hook
+ ~ Changed default value of anonymous check in flexform to Cookie
+ ~ Changed default value of cookie lifetime to 30 days
+
 2007-3-5 - Patrick Broens <patrick@patrickbroens.nl>
  + Spanish frontend language
  + Chinese Traditional frontend language
