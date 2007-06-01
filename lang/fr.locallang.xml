@@ -13,9 +13,10 @@
 			<label index="pi_flexform.access_level2">Réponse unique (sans mise à jour possible)</label>
 			<label index="pi_flexform.sheet_completion">Accomplissement</label>
 			<label index="pi_flexform.completion_action">Action après accomplissement</label>
-			<label index="pi_flexform.action0">Afficher le message</label>
-			<label index="pi_flexform.action1">Afficher le résultat immédiatement</label>
+			<label index="pi_flexform.action0">Fermer le navigateur</label>
+			<label index="pi_flexform.action1">Afficher le message</label>
 			<label index="pi_flexform.action2">Redirection sur une autre page</label>
+			<label index="pi_flexform.action3">Afficher le résultat immédiatement</label>
 			<label index="pi_flexform.completion_message">Message à la fin de l'accomplissement</label>
 			<label index="pi_flexform.completion_url">Page après accomplissement</label>
 			<label index="pi_flexform.close_button">Bouton Fermer</label>
@@ -46,7 +47,6 @@
 			<label index="pi_flexform.responses_per_user">Résponses par utilisateurs</label>
 			<label index="pi_flexform.days_for_update">Jours pour la mise à jours</label>
 			<label index="pi_flexform.access_level3">Manual Response Entry</label>
-			<label index="pi_flexform.action3">Fermer le navigateur</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">
@@ -94,6 +94,7 @@
 			<label index="pi_flexform.maximum_responses" type="integer">218747109</label>
 			<label index="pi_flexform.responses_per_user" type="integer">163120207</label>
 			<label index="pi_flexform.days_for_update" type="integer">122631216</label>
+			<label index="pi_flexform.action3" type="integer">155915095</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">

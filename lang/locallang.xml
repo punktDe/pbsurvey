@@ -74,8 +74,4 @@
 		<languageKey index="dk">EXT:pbsurvey/lang/dk.locallang.xml</languageKey>
 		<languageKey index="no">EXT:pbsurvey/lang/no.locallang.xml</languageKey>
 	</data>
-	<orig_hash type="array">
-	</orig_hash>
-	<orig_text type="array">
-	</orig_text>
 </T3locallang>

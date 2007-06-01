@@ -2,25 +2,36 @@
 <div class="pagenumbering">###PAGENUMBERING###</div>
 ###VALIDATIONERR###
 ###HEADER###
-<form action="###URL###" method="post" id="frmPbSurvey">
+<form action="###URL###" method="post" id="frmPbSurvey" ###SUBMITVALUES### ###FORMSTYLE###>
 ###ITEMS###
 <div class="formbuttons">
 <input type="hidden" value="###STAGE###" name="tx_pbsurvey_pi1[stage]" />
 <input type="hidden" value="###VALIDATION###" name="tx_pbsurvey_pi1[validation]" />
 <input type="hidden" value="###CURRENTIDS###" name="tx_pbsurvey_pi1[currentids]" />
 ###BACKBUTTON###
-<input type="submit" name="Submit" value="###SUBMIT###" onclick="###SUBMITVALUES###" />
+###SUBMITBUTTON###
 ###CANCELBUTTON###
 </div>
 </form>
+###NOSCRIPT###
 <!--###SURVEYFORM### end-->
+
+<!--###NO_SCRIPT### begin-->
+<noscript>
+<p>###NOSCRIPTTEXT###</p>
+</noscript>
+<!--###NO_SCRIPT### end-->
 
 <!--###PROGRESSBAR### begin-->
 <div class="barcontainer"><div class="bar" style="width:###PERCENT###%"></div><div class="bartext">###BARTEXT###</div></div>
 <!--###PROGRESSBAR### begin-->
 
+<!--###SUBMIT_BUTTON### begin-->
+<input type="submit" name="Submit" value="###SUBMIT###" ###SUBMITSCRIPT### />
+<!--###SUBMIT_BUTTON### end-->
+
 <!--###BACK_BUTTON### begin-->
-<input type="submit" name="tx_pbsurvey_pi1[back]" value="###BACK###" />
+<input type="submit" name="tx_pbsurvey_pi1[back]" value="###BACK###" ###BACKSCRIPT### />
 <!--###BACK_BUTTON### end-->
 
 <!--###CANCEL_BUTTON### begin-->
@@ -302,7 +313,7 @@
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
 <!--###COMMENT### begin--><div class="questionComment">###QUESTION_COMMENT###</div><!--###COMMENT### end-->
 <!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
-<input name="tx_pbsurvey_pi1[###UID###][0][0]" type="text" value="###VALUE###" size="10" />
+<input name="tx_pbsurvey_pi1[###UID###][0][0]" type="text" value="###VALUE###" size="10" ###MAXLENGTH### />
 </fieldset>
 <!--###13### end-->
 

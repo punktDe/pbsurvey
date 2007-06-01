@@ -150,7 +150,8 @@
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action3</numIndex>
 									<numIndex index="1">3</numIndex>
 								</numIndex>							
-							</items>	
+							</items>
+							<default>1</default>	
 						</config>
 						</TCEforms>
 					</completion_action>
@@ -306,7 +307,8 @@
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.page_numbering3</numIndex>
 									<numIndex index="1">3</numIndex>
 								</numIndex>				
-							</items>	
+							</items>
+							<default>1</default>	
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>
@@ -331,7 +333,8 @@
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.question_numbering2</numIndex>
 									<numIndex index="1">2</numIndex>
 								</numIndex>				
-							</items>	
+							</items>
+							<default>1</default>
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>
@@ -453,7 +456,8 @@
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.validation2</numIndex>
 									<numIndex index="1">2</numIndex>
 								</numIndex>								
-							</items>	
+							</items>
+							<default>1</default>	
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>

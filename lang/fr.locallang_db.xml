@@ -5,6 +5,7 @@
 			<label index="tx_pbsurvey_item">Items du questionnaire</label>
 			<label index="tx_pbsurvey_item.question_type.I.0">Choix - Menu déroulant Database</label>
 			<label index="tx_pbsurvey_item.question_type.I.1">Choix - Réponses multiples (Cases à cocher)</label>
+			<label index="tx_pbsurvey_item.question_type.I.23">Choix - Réponses multiples (Liste de sélections)</label>
 			<label index="tx_pbsurvey_item.question_type.I.2">Choix - Une réponse (Menu déroulant)</label>
 			<label index="tx_pbsurvey_item.question_type.I.3">Choix - Une réponse (Boutons d'option)</label>
 			<label index="tx_pbsurvey_item.question_type.I.4">Choix - Vrai / Faux</label>
@@ -49,6 +50,7 @@
 			<label index="tx_pbsurvey_item.answers_type_additional.I.0">Champs texte</label>
 			<label index="tx_pbsurvey_item.answers_type_additional.I.1">Boîte de texte</label>
 			<label index="tx_pbsurvey_item.answers_type_additional">Type de champs pour la réponse additionnelle</label>
+			<label index="tx_pbsurvey_item.selectbox_height">Taille de la liste de</label>
 			<label index="tx_pbsurvey_item.display_type">Type d'affichage</label>
 			<label index="tx_pbsurvey_item.display_type.I.0">Menu déroulant</label>
 			<label index="tx_pbsurvey_item.display_type.I.1">Boutons radio - Horizontal</label>
@@ -185,6 +187,8 @@
 			<label index="tx_pbsurvey_results.survey" type="integer">167616412</label>
 			<label index="tx_pbsurvey_results.user" type="integer">150585321</label>
 			<label index="tt_content.list_type_pi1" type="integer">195136475</label>
+			<label index="tx_pbsurvey_item.question_type.I.23" type="integer">246931939</label>
+			<label index="tx_pbsurvey_item.selectbox_height" type="integer">207642110</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">

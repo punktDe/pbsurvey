@@ -1,3 +1,20 @@
+2007-06-01 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Moved JS validation from button to form
+
+2007-05-30 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added <noscript> tag when only client side validation. Just a simple bypass. Can be avoided by switching off CSS.
+ ~ Changed default value Form validation to PHP Server Side
+ ~ Changed default value completion action to "display message"
+ ~ Changed default value Page Numbering to "Display progress as progress bar"
+ ~ Changed default value Question Numbering to "Number questions within entire questionaire"
+
+2007-05-25 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix to critical #5179: All answers from all users to a question were deleted when using radiobuttons and answering was not required to the question
+ ~ Change in storage of arrUserData. Answers read from database were stored differently from answers read from piVars
+ ~ Bugfix in conditions. Wrong variablenames in "Not Equal" part
+ + Added some French translations in locallang_db
+ ~ Maxlength for Open Question - Number was not available in HTML template
+
 2007-05-08 - Patrick Broens <patrick@patrickbroens.nl>
  ~ Checks on intvals before inserts and executes on database
  + Send the values of the current item to the hook
