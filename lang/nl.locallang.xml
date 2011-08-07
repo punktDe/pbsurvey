@@ -52,6 +52,16 @@
 			<label index="pi_flexform.sheet_security">Beveiliging</label>
 			<label index="pi_flexform.access_level3">Handmatig invullen respons</label>
 			<label index="pi_flexform.action3">Sluit de browser</label>
+			<label index="pi_flexform.menu.mail">Mail</label>
+			<label index="pi_flexform.email">Verstuur mail</label>
+			<label index="pi_flexform.subject">Onderwerp</label>
+			<label index="pi_flexform.email.nomail">Geen mail</label>
+			<label index="pi_flexform.email.qa">Versturen : Vraag / Antwoord</label>
+			<label index="pi_flexform.email.message">Versturen : Standaard bericht</label>
+			<label index="pi_flexform.from">Afzender :</label>
+			<label index="pi_flexform.to">Ontvanger :</label>
+			<label index="pi_flexform.cc">Cc :</label>
+			<label index="pi_flexform.message">Bericht :</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">

@@ -1,9 +1,9 @@
 <T3DataStructure>
     <meta>
-		<langDisable>1</langDisable> 
+		<langDisable>1</langDisable>
 	</meta>
 	<sheets>
-	
+
 		<sDEF>
 			<ROOT>
 				<TCEforms>
@@ -44,7 +44,94 @@
 				</el>
 			</ROOT>
 		</sDEF>
-		
+		<sMAIL>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.menu.mail</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<YNemail>
+						<TCEforms>
+						<onChange>reload</onChange>
+						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.email</label>
+						<config>
+							<type>select</type>
+							<items type="array">
+								<numIndex index="0" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.email.nomail</numIndex>
+									<numIndex index="1">0</numIndex>
+								</numIndex>
+								<numIndex index="1" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.email.qa</numIndex>
+									<numIndex index="1">1</numIndex>
+								</numIndex>
+									<numIndex index="2" type="array">
+									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.email.message</numIndex>
+									<numIndex index="1">2</numIndex>
+								</numIndex>
+							</items>
+							<default>0</default>
+							<minitems>1</minitems>
+							<maxitems>1</maxitems>
+							<size>1</size>
+						</config>
+						</TCEforms>
+					</YNemail>
+					<Subject>
+						<TCEforms>
+						<displayCond>FIELD:YNemail:!=:0</displayCond>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.subject</label>
+							<config>
+								<type>input</type>
+								<size>25</size>
+								<default>Survey !</default>
+							</config>
+						</TCEforms>
+					</Subject>
+					<FromEmail>
+						<TCEforms>
+						<displayCond>FIELD:YNemail:!=:0</displayCond>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.from</label>
+							<config>
+								<type>input</type>
+								<size>25</size>
+							</config>
+						</TCEforms>
+					</FromEmail>
+					<ToEmail>
+						<TCEforms>
+						<displayCond>FIELD:YNemail:!=:0</displayCond>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.to</label>
+							<config>
+								<type>input</type>
+								<size>25</size>
+							</config>
+						</TCEforms>
+					</ToEmail>
+					<CcEmail>
+						<TCEforms>
+						<displayCond>FIELD:YNemail:!=:0</displayCond>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.cc</label>
+							<config>
+								<type>input</type>
+								<size>25</size>
+							</config>
+						</TCEforms>
+					</CcEmail>
+					<MessageBox>
+						<TCEforms>
+						<displayCond>FIELD:YNemail:=:2</displayCond>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.message</label>
+							<config>
+								<type>input</type>
+								<size>50</size>
+							</config>
+						</TCEforms>
+					</MessageBox>
+				</el>
+			</ROOT>
+		</sMAIL>
 		<sACCESS>
 			<ROOT>
 				<TCEforms>
@@ -108,7 +195,7 @@
 						</TCEforms>
 					</anonymous_mode>
 					<cookie_lifetime>
-						<TCEforms>			
+						<TCEforms>
 							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.cookie_lifetime</label>
 							<config>
 								<type>input</type>
@@ -120,7 +207,7 @@
 				</el>
 			</ROOT>
 		</sACCESS>
-		
+
 		<sCOMPLETION>
 			<ROOT>
 				<TCEforms>
@@ -129,7 +216,7 @@
 				<type>array</type>
 				<el>
 					<completion_action>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.completion_action</label>
 						<config>
 							<type>select</type>
@@ -141,7 +228,7 @@
 								<numIndex index="1" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action1</numIndex>
 									<numIndex index="1">1</numIndex>
-								</numIndex>				
+								</numIndex>
 								<numIndex index="2" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action2</numIndex>
 									<numIndex index="1">2</numIndex>
@@ -149,9 +236,9 @@
 								<numIndex index="3" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.action3</numIndex>
 									<numIndex index="1">3</numIndex>
-								</numIndex>							
+								</numIndex>
 							</items>
-							<default>1</default>	
+							<default>1</default>
 						</config>
 						</TCEforms>
 					</completion_action>
@@ -169,7 +256,7 @@
 							<show_thumbs>1</show_thumbs>
 						</config>
 						</TCEforms>
-					</completion_url>					
+					</completion_url>
 					<close_button>
 						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.close_button</label>
@@ -201,7 +288,7 @@
 				</el>
 			</ROOT>
 		</sCOMPLETION>
-		
+
 		<sNAVIGATION>
 			<ROOT>
 				<TCEforms>
@@ -210,7 +297,7 @@
 				<type>array</type>
 				<el>
 					<navigation_back>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.navigation_back</label>
 						<config>
 							<type>select</type>
@@ -218,12 +305,12 @@
 								<numIndex index="0" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.back0</numIndex>
 									<numIndex index="1">0</numIndex>
-								</numIndex>	
+								</numIndex>
 								<numIndex index="1" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.back1</numIndex>
 									<numIndex index="1">1</numIndex>
-								</numIndex>							
-							</items>	
+								</numIndex>
+							</items>
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>
@@ -231,7 +318,7 @@
 						</TCEforms>
 					</navigation_back>
 					<navigation_cancel>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.navigation_cancel</label>
 						<config>
 							<type>select</type>
@@ -243,7 +330,7 @@
 								<numIndex index="1" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.cancel1</numIndex>
 									<numIndex index="1">1</numIndex>
-								</numIndex>				
+								</numIndex>
 								<numIndex index="2" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.cancel2</numIndex>
 									<numIndex index="1">2</numIndex>
@@ -251,8 +338,8 @@
 								<numIndex index="3" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.cancel3</numIndex>
 									<numIndex index="1">3</numIndex>
-								</numIndex>				
-							</items>	
+								</numIndex>
+							</items>
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>
@@ -273,11 +360,11 @@
 							<show_thumbs>1</show_thumbs>
 						</config>
 						</TCEforms>
-					</cancel_url>	
+					</cancel_url>
 				</el>
 			</ROOT>
 		</sNAVIGATION>
-		
+
 		<sNUMBERING>
 			<ROOT>
 				<TCEforms>
@@ -286,7 +373,7 @@
 				<type>array</type>
 				<el>
 					<page_numbering>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.page_numbering</label>
 						<config>
 							<type>select</type>
@@ -298,7 +385,7 @@
 								<numIndex index="1" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.page_numbering1</numIndex>
 									<numIndex index="1">1</numIndex>
-								</numIndex>				
+								</numIndex>
 								<numIndex index="2" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.page_numbering2</numIndex>
 									<numIndex index="1">2</numIndex>
@@ -306,9 +393,9 @@
 								<numIndex index="3" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.page_numbering3</numIndex>
 									<numIndex index="1">3</numIndex>
-								</numIndex>				
+								</numIndex>
 							</items>
-							<default>1</default>	
+							<default>1</default>
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>
@@ -316,7 +403,7 @@
 						</TCEforms>
 					</page_numbering>
 					<question_numbering>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.question_numbering</label>
 						<config>
 							<type>select</type>
@@ -328,11 +415,11 @@
 								<numIndex index="1" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.question_numbering1</numIndex>
 									<numIndex index="1">1</numIndex>
-								</numIndex>				
+								</numIndex>
 								<numIndex index="2" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.question_numbering2</numIndex>
 									<numIndex index="1">2</numIndex>
-								</numIndex>				
+								</numIndex>
 							</items>
 							<default>1</default>
 							<minitems>1</minitems>
@@ -344,7 +431,7 @@
 				</el>
 			</ROOT>
 		</sNUMBERING>
-		
+
 		<sSCORING>
 			<ROOT>
 				<TCEforms>
@@ -394,7 +481,7 @@
 					</el>
 			</ROOT>
 		</sSCORING>
-		
+
 		<sOTHER>
 			<ROOT>
 				<TCEforms>
@@ -403,7 +490,7 @@
 				<type>array</type>
 				<el>
 					<maximum_responses>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.maximum_responses</label>
 						<config>
 							<type>input</type>
@@ -415,7 +502,7 @@
 						</TCEforms>
 					</maximum_responses>
 					<responses_per_user>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.responses_per_user</label>
 						<config>
 							<type>input</type>
@@ -427,7 +514,7 @@
 						</TCEforms>
 					</responses_per_user>
 					<days_for_update>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.days_for_update</label>
 						<config>
 							<type>input</type>
@@ -439,7 +526,7 @@
 						</TCEforms>
 					</days_for_update>
 					<validation>
-						<TCEforms>	
+						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.validation</label>
 						<config>
 							<type>select</type>
@@ -455,9 +542,9 @@
 								<numIndex index="2" type="array">
 									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.validation2</numIndex>
 									<numIndex index="1">2</numIndex>
-								</numIndex>								
+								</numIndex>
 							</items>
-							<default>1</default>	
+							<default>1</default>
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<size>1</size>

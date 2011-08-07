@@ -8,15 +8,20 @@
 			<label index="pi_flexform.template_file">Fichier de gabarit</label>
 			<label index="pi_flexform.sheet_access">Accessibilité</label>
 			<label index="pi_flexform.access_level">Niveau d'accès des répondants</label>
-			<label index="pi_flexform.access_level0">Réponses multiples</label>
+			<label index="pi_flexform.access_level0">réponses multiples</label>
 			<label index="pi_flexform.access_level1">Réponse unique</label>
 			<label index="pi_flexform.access_level2">Réponse unique (sans mise à jour possible)</label>
+			<label index="pi_flexform.anonymous_mode">Vérification des anonymes</label>
+			<label index="pi_flexform.anonymous_mode0">Adresse IP</label>
+			<label index="pi_flexform.anonymous_mode1">Cookie (fichiers témoins)</label>
+			<label index="pi_flexform.cookie_lifetime">Durée des cookies (en jour)</label>
 			<label index="pi_flexform.sheet_completion">Accomplissement</label>
 			<label index="pi_flexform.completion_action">Action après accomplissement</label>
 			<label index="pi_flexform.action0">Fermer le navigateur</label>
 			<label index="pi_flexform.action1">Afficher le message</label>
 			<label index="pi_flexform.action2">Redirection sur une autre page</label>
 			<label index="pi_flexform.action3">Afficher le résultat immédiatement</label>
+			<label index="pi_flexform.captcha_page">Afficher le captcha</label>
 			<label index="pi_flexform.completion_message">Message à la fin de l'accomplissement</label>
 			<label index="pi_flexform.completion_url">Page après accomplissement</label>
 			<label index="pi_flexform.close_button">Bouton Fermer</label>
@@ -42,11 +47,29 @@
 			<label index="pi_flexform.question_numbering0">Ne pas afficher les numéros de question</label>
 			<label index="pi_flexform.question_numbering1">Numérotation sur la totalité du questionnaire</label>
 			<label index="pi_flexform.question_numbering2">Numérotation de 1 à X sur chaque page</label>
+			<label index="pi_flexform.sheet_scoring">Pointage</label>
+			<label index="pi_flexform.score_page">Page de pointage</label>
+			<label index="pi_flexform.score_max">Pointage maximum</label>
+			<label index="pi_flexform.score_url">Rediriger vers la page</label>
 			<label index="pi_flexform.other">Autre</label>
 			<label index="pi_flexform.maximum_responses">Nombre maximum de réponses</label>
-			<label index="pi_flexform.responses_per_user">Résponses par utilisateurs</label>
-			<label index="pi_flexform.days_for_update">Jours pour la mise à jours</label>
+			<label index="pi_flexform.responses_per_user">réponses par utilisateurs</label>
+			<label index="pi_flexform.days_for_update">Jours pour la mise à jour</label>
+			<label index="pi_flexform.validation">Validation du formulaire</label>
+			<label index="pi_flexform.validation0">Javascript (client)</label>
+			<label index="pi_flexform.validation1">Serveur (PHP, plus accessible)</label>
+			<label index="pi_flexform.validation2">Javascript client ET serveur</label>
 			<label index="pi_flexform.access_level3">Manual Response Entry</label>
+			<label index="pi_flexform.menu.mail">Courriel</label>
+			<label index="pi_flexform.email">Envoi de courriel</label>
+			<label index="pi_flexform.subject">Sujet</label>
+				<label index="pi_flexform.email.nomail">Pas de courriel</label>
+				<label index="pi_flexform.email.qa">Envoi : Question / Réponse</label>
+				<label index="pi_flexform.email.message">Envoi : Message par défaut</label>
+			<label index="pi_flexform.from">De :</label>	
+			<label index="pi_flexform.to">À :</label>
+			<label index="pi_flexform.cc">Cc :</label>
+			<label index="pi_flexform.message">Message retourné :</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">
@@ -95,10 +118,80 @@
 			<label index="pi_flexform.responses_per_user" type="integer">163120207</label>
 			<label index="pi_flexform.days_for_update" type="integer">122631216</label>
 			<label index="pi_flexform.action3" type="integer">155915095</label>
+			<label index="pi_flexform.anonymous_mode" type="integer">121428018</label>
+			<label index="pi_flexform.anonymous_mode0" type="integer">94340982</label>
+			<label index="pi_flexform.anonymous_mode1" type="integer">117895432</label>
+			<label index="pi_flexform.cookie_lifetime" type="integer">216238782</label>
+			<label index="pi_flexform.captcha_page" type="integer">205755058</label>
+			<label index="pi_flexform.sheet_scoring" type="integer">159642948</label>
+			<label index="pi_flexform.score_page" type="integer">110909805</label>
+			<label index="pi_flexform.score_max" type="integer">175477144</label>
+			<label index="pi_flexform.score_url" type="integer">140246708</label>
+			<label index="pi_flexform.validation" type="integer">171367318</label>
+			<label index="pi_flexform.validation0" type="integer">173662885</label>
+			<label index="pi_flexform.validation1" type="integer">22671143</label>
+			<label index="pi_flexform.validation2" type="integer">227139445</label>
 		</languageKey>
 	</orig_hash>
 	<orig_text type="array">
 		<languageKey index="fr" type="array">
+			<label index="pi1_title_pbsurvey">Questionaire</label>
+			<label index="pi1_plus_wiz_description_pbsurvey">Collect information from visitors using extensive surveys.</label>
+			<label index="pi_flexform.sheet_general">General</label>
+			<label index="pi_flexform.template_file">Template file</label>
+			<label index="pi_flexform.sheet_access">Access</label>
+			<label index="pi_flexform.access_level">Respondent Access Level</label>
+			<label index="pi_flexform.access_level0">Multiple Response</label>
+			<label index="pi_flexform.access_level1">Single Response</label>
+			<label index="pi_flexform.access_level2">Single Response (Not Updateable)</label>
+			<label index="pi_flexform.anonymous_mode">Anonymous check</label>
+			<label index="pi_flexform.anonymous_mode0">IP-address</label>
+			<label index="pi_flexform.anonymous_mode1">Cookie</label>
+			<label index="pi_flexform.cookie_lifetime">Cookie lifetime (in days)</label>
+			<label index="pi_flexform.sheet_completion">Completion</label>
+			<label index="pi_flexform.completion_action">Completion Action</label>
+			<label index="pi_flexform.action0">Close the browser</label>
+			<label index="pi_flexform.action1">Display Message</label>
+			<label index="pi_flexform.action2">Redirect to another page</label>
+			<label index="pi_flexform.action3">Redirect to scoring pages</label>
+			<label index="pi_flexform.captcha_page">Show Captcha before entering survey</label>
+			<label index="pi_flexform.completion_message">Completion Message</label>
+			<label index="pi_flexform.completion_url">Completion Page</label>
+			<label index="pi_flexform.close_button">Close Button</label>
+			<label index="pi_flexform.continue_button">Continue Button</label>
+			<label index="pi_flexform.view_reports_button">View reports Button</label>
+			<label index="pi_flexform.sheet_navigation">Navigation</label>
+			<label index="pi_flexform.navigation_back">Back Button</label>
+			<label index="pi_flexform.back0">Do not display</label>
+			<label index="pi_flexform.back1">Display</label>
+			<label index="pi_flexform.navigation_cancel">Cancel Button</label>
+			<label index="pi_flexform.cancel0">Do not display</label>
+			<label index="pi_flexform.cancel1">Close browser</label>
+			<label index="pi_flexform.cancel2">Redirect to end of questionaire</label>
+			<label index="pi_flexform.cancel3">Redirect to custom page (entered below)</label>
+			<label index="pi_flexform.cancel_url">Cancel Button Page</label>
+			<label index="pi_flexform.sheet_numbering">Numbering</label>
+			<label index="pi_flexform.page_numbering">Page Numbering</label>
+			<label index="pi_flexform.page_numbering0">Do not display page numbers</label>
+			<label index="pi_flexform.page_numbering1">Display progress as a progress bar</label>
+			<label index="pi_flexform.page_numbering2">Display progress in 'Page X of Y' format</label>
+			<label index="pi_flexform.page_numbering3">Display page number on each page</label>
+			<label index="pi_flexform.question_numbering">Question Numbering</label>
+			<label index="pi_flexform.question_numbering0">Do not display question numbers</label>
+			<label index="pi_flexform.question_numbering1">Number questions within entire questionaire</label>
+			<label index="pi_flexform.question_numbering2">Number questions within each page</label>
+			<label index="pi_flexform.sheet_scoring">Scoring</label>
+			<label index="pi_flexform.score_page">Scoring page</label>
+			<label index="pi_flexform.score_max">Maximum score</label>
+			<label index="pi_flexform.score_url">Redirect to page</label>
+			<label index="pi_flexform.other">Other</label>
+			<label index="pi_flexform.maximum_responses">Maximum Responses</label>
+			<label index="pi_flexform.responses_per_user">Responses per user</label>
+			<label index="pi_flexform.days_for_update">Days for Update</label>
+			<label index="pi_flexform.validation">Form validation</label>
+			<label index="pi_flexform.validation0">Client-side Javascript</label>
+			<label index="pi_flexform.validation1">Server-side PHP (Accessibility)</label>
+			<label index="pi_flexform.validation2">Both Server-side and Client-side</label>
 		</languageKey>
 	</orig_text>
 </T3locallangExt>

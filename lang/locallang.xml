@@ -67,6 +67,17 @@
 			<label index="pi_flexform.validation0">Client-side Javascript</label>
 			<label index="pi_flexform.validation1">Server-side PHP (Accessibility)</label>
 			<label index="pi_flexform.validation2">Both Server-side and Client-side</label>
+			<label index="pi_flexform.access_level3">Manual Response Entry</label>
+			<label index="pi_flexform.menu.mail">Mail</label>
+			<label index="pi_flexform.email">Send mail</label>
+			<label index="pi_flexform.subject">Subject</label>
+			<label index="pi_flexform.email.nomail">No mail</label>
+			<label index="pi_flexform.email.qa">Send : Question / Answer</label>
+			<label index="pi_flexform.email.message">Send : Default message</label>
+			<label index="pi_flexform.from">From :</label>
+			<label index="pi_flexform.to">To :</label>
+			<label index="pi_flexform.cc">Cc :</label>
+			<label index="pi_flexform.message">Return message :</label>
 		</languageKey>
 		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang.xml</languageKey>
 		<languageKey index="de">EXT:pbsurvey/lang/de.locallang.xml</languageKey>
