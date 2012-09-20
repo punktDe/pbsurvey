@@ -748,56 +748,60 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	function checkCondition($strAnswer,$arrRule){
 		switch($arrRule['operator']) {
 			case 'eq': // Equals to
-				if ($strAnswer==$arrRule['value'] || $strAnswer==$arrRule['value2']) {
-					 $blnOutput=true;
+				if ($strAnswer == $arrRule['value'] || $strAnswer == $arrRule['value2']) {
+					 $blnOutput = TRUE;
 				}
 			break;
 			case 'ne': // Not Equal to
-				if ($arrRule['value']!='' && $arrRule['value2']=='' && $strAnswer!=$arrRule['value']) {
-					$blnOutput=true;
-				} else if ($arrRule['value']=='' && $arrRule['value2']!='' && $strAnswer!=$arrRule['value2']) {
-					$blnOutput=true;
-				} else if ($strAnswer!=$arrRule['value'] || $strAnswer!=$arrRule['value2']) {
-					$blnOutput=true;
+				if ($arrRule['value'] != '' && $arrRule['value2'] == '' && $strAnswer != $arrRule['value']) {
+					$blnOutput = TRUE;
+				} else if ($arrRule['value'] == '' && (isset($arrRule['value2']) && $arrRule['value2'] != '' && $strAnswer != $arrRule['value2'])) {
+					$blnOutput = TRUE;
+				} else if ($strAnswer != $arrRule['value'] && ($strAnswer != $arrRule['value2'] && isset($arrRule['value2']))) {
+					$blnOutput=  TRUE;
 				}
 			break;
 			case 'ss': // Contains
-				if ($arrRule['value2']) {
-					$blnContains2 = stristr($strAnswer,$arrRule['value2']);
+				$blnContains2 = FALSE;
+
+				if (isset($arrRule['value2'])) {
+					$blnContains2 = (boolean) stristr($strAnswer, $arrRule['value2']);
 				}
-				if (stristr($strAnswer,$arrRule['value']) || $blnContains2) {
-					$blnOutput=true;
+				if ((boolean) stristr($strAnswer, $arrRule['value']) || $blnContains2) {
+					$blnOutput = TRUE;
 				}
 			break;
 			case 'ns': // Does Not Contain
-				if ($arrRule['value2']) {
-					$blnContains2 = !stristr($strAnswer,$arrRule['value2']);
+				$blnContains2 = FALSE;
+
+				if (isset($arrRule['value2'])) {
+					$blnContains2 = (boolean) stristr($strAnswer, $arrRule['value2']);
 				}
-				if (!stristr($strAnswer,$arrRule['value']) || $blnContains2) {
-					$blnOutput=true;
+				if (!((boolean) stristr($strAnswer, $arrRule['value'])) && !$blnContains2) {
+					$blnOutput = TRUE;
 				}
 			break;
 			case 'gt': // Is Greater Than
 			case 'ge': // Is Greater Or Equal Than
 			case 'lt': // Is Less Than
 			case 'le': // Is Less Or Equal Than
-				$arrAnswerParts=explode('-',$strAnswer);
-				$arrRuleParts=explode('-',$arrRule['value']);
-				if (count($arrAnswerParts)==2 && count($arrRuleParts)==2) {
+				$arrAnswerParts = explode('-', $strAnswer);
+				$arrRuleParts = explode('-', $arrRule['value']);
+				if (count($arrAnswerParts) == 2 && count($arrRuleParts) == 2) {
 					$dtAnswer = mktime(0, 0, 0, $arrAnswerParts[1], $arrAnswerParts[0], $arrAnswerParts[2]);
 					$dtRule = mktime(0, 0, 0, $arrRuleParts[1], $arrRuleParts[0], $arrRuleParts[2]);
 					if ($this->compareNumber($dtAnswer, $arrRule['operator'], $dtRule)) {
-						$blnOutput=true;
+						$blnOutput = TRUE;
 					}
 				} elseif ($this->compareNumber($strAnswer, $arrRule['operator'], $arrRule['value'])) {
-					$blnOutput=true;
+					$blnOutput = TRUE;
 				}
 			break;
 			case 'set': // Provided An Answer
-				if ($strAnswer) $blnOutput=true;
+				if ($strAnswer) $blnOutput = TRUE;
 			break;
 			case 'notset': // Did Not Provide An Answer
-				if ($strAnswer=='') $blnOutput=true;
+				if ($strAnswer == '') $blnOutput = TRUE;
 			break;
 		}
 		return $blnOutput;
