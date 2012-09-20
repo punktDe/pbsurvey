@@ -130,8 +130,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		foreach ($arrFFConfig as $strKey => $arrItem) {
 				$strValue = !empty($arrItem[4]) ? $arrItem[4] : 'vDEF';
 				$strFFValue = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $arrItem[0], $arrItem[1], 'lDEF', $strValue);
-				$arrItem[2] = "['" . str_replace('.',".']['",$arrItem[2]) . "']";
-				eval("\$strTemp = \$this->conf".$arrItem[2].";");
+				$strTemp = $this->getConfigurationByPath(explode('.', $arrItem[2]));
 			if ($arrItem[3]==1) {
 				$arrOutput[$strKey] = $this->cObj->fileResource($strFFValue ? 'uploads/tx_pbsurvey/'.$strFFValue : $strTemp);
 			} elseif ($arrItem[3]==3) {
@@ -142,6 +141,28 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			}
 		}
 		return $arrOutput;
+	}
+
+	/**
+	 * Gets configuration properties by path.
+	 *
+	 * @param array $path
+	 * @return mixed
+	 */
+	protected function getConfigurationByPath(array $path) {
+		$result = $this->conf;
+
+		$lastIndex = count($path) - 1;
+		foreach ($path as $index => $step) {
+			$stepName = $step . ($index < $lastIndex ? '.' : '');
+			if (isset($result[$stepName])) {
+				$result = $result[$stepName];
+			} else {
+				return NULL;
+			}
+		}
+
+		return $result;
 	}
 
 	/**********************************
@@ -760,16 +781,15 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			case 'ge': // Is Greater Or Equal Than
 			case 'lt': // Is Less Than
 			case 'le': // Is Less Or Equal Than
-				$arrOperator = array('gt' => '>','ge' => '>=','lt' => '<','le' => '<=');
 				$arrAnswerParts=explode('-',$strAnswer);
 				$arrRuleParts=explode('-',$arrRule['value']);
 				if (count($arrAnswerParts)==2 && count($arrRuleParts)==2) {
 					$dtAnswer = mktime(0, 0, 0, $arrAnswerParts[1], $arrAnswerParts[0], $arrAnswerParts[2]);
 					$dtRule = mktime(0, 0, 0, $arrRuleParts[1], $arrRuleParts[0], $arrRuleParts[2]);
-					if (eval("\$dtAnswer" . $arrOperator[$arrRule['operator']] . "\$dtRule;")) {
+					if ($this->compareNumber($dtAnswer, $arrRule['operator'], $dtRule)) {
 						$blnOutput=true;
 					}
-				} elseif (eval("\$strAnswer" . $arrOperator[$arrRule['operator']] . "\$arrRule['value'];")) {
+				} elseif ($this->compareNumber($strAnswer, $arrRule['operator'], $arrRule['value'])) {
 					$blnOutput=true;
 				}
 			break;
@@ -781,6 +801,35 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			break;
 		}
 		return $blnOutput;
+	}
+
+	/**
+	 * Compares numbers.
+	 *
+	 * @param mixed $left
+	 * @param string $operator
+	 * @param mixed $right
+	 * @return boolean
+	 */
+	protected function compareNumber($left, $operator, $right) {
+		$result = FALSE;
+
+		switch ($operator) {
+			case 'gt':
+				$result = (doubleval($left) > doubleval($right));
+				break;
+			case 'ge':
+				$result = (doubleval($left) >= doubleval($right));
+				break;
+			case 'lt':
+				$result = (doubleval($left) < doubleval($right));
+				break;
+			case 'le';
+				$result = (doubleval($left) <= doubleval($right));
+				break;
+		}
+
+		return $result;
 	}
 
 	/**********************************
@@ -916,24 +965,24 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
 	function setMarkers() {
 		$arrMarkers = array(
-			'url'             => '$this->url',
-			'pagenumbering'   => '$this->pageNumber($this->arrConfig["page_numbering"])',
-			'backbutton'      => '$this->setButton("back")',
-			'cancelbutton'    => '$this->setButton("cancel")',
-			'submitbutton'    => '$this->setButton("submit")',
-			'items'           => '$this->strOutItems',
-			'totalitems'      => 'count($this->arrSurveyItems)',
-			'doneitems'       => '$this->intPastItems',
-			'currentids'      => '$this->markerCurrentIds()',
-			'stage'           => '$this->intStage',
-			'header'          => '$this->processQuestion($this->arrPage)',
-			'submitvalues'    => '$this->strCsCalls',
-			'validation'      => '$this->strSsCalls',
-			'validationerr'   => '$this->validationError($this->arrValidationErrors)',
-			'formstyle'       => '$this->formStyle()',
-			'noscript'        => '$this->noScript()',
+			'url'             => $this->url,
+			'pagenumbering'   => $this->pageNumber($this->arrConfig["page_numbering"]),
+			'backbutton'      => $this->setButton("back"),
+			'cancelbutton'    => $this->setButton("cancel"),
+			'submitbutton'    => $this->setButton("submit"),
+			'items'           => $this->strOutItems,
+			'totalitems'      => count($this->arrSurveyItems),
+			'doneitems'       => $this->intPastItems,
+			'currentids'      => $this->markerCurrentIds(),
+			'stage'           => $this->intStage,
+			'header'          => $this->processQuestion($this->arrPage),
+			'submitvalues'    => $this->strCsCalls,
+			'validation'      => $this->strSsCalls,
+			'validationerr'   => $this->validationError($this->arrValidationErrors),
+			'formstyle'       => $this->formStyle(),
+			'noscript'        => $this->noScript(),
 		);
-		return $strOutput = $this->getMarkers($arrMarkers);
+		return $strOutput = $this->applyMarkers($arrMarkers);
 	}
 
 	/**
@@ -941,19 +990,22 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 *
 	 * @param	array		Definition array for TypoScipt and FlexForm
 	 * @return	array       Configuration array made from TypoScript and FlexForm
+	 * @deprecated Use applyMarkers() instead
 	 */
 	function getMarkers($arrMarkers) {
-		$strEmpty = '';
-		$arrTemp = array();
-		foreach ($arrMarkers as $strKey => $strItem) {
-			if (!$strItem) {
-				$strItem = '$strEmpty';
-			}
-			eval("\$arrTemp['".$strKey."'] = ".$strItem.";");
-		}
-		$strTemplate = $this->cObj->getSubpart($this->arrConfig['templateCode'],'SURVEYFORM');
-		$strOutput =  $this->cObj->substituteMarkerArray($strTemplate,$arrTemp,'###|###',1);
-		return $strOutput;
+		return $this->applyMarkers($arrMarkers);
+	}
+
+	/**
+	 * Applies defined markers in template.
+	 *
+	 * @param array $markers
+	 * @return string
+	 */
+	protected function applyMarkers(array $markers) {
+		$template = $this->cObj->getSubpart($this->arrConfig['templateCode'],'SURVEYFORM');
+		$result = $this->cObj->substituteMarkerArray($template, $markers, '###|###', TRUE);
+		return $result;
 	}
 
 	/**
@@ -1150,13 +1202,13 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			if ($arrQuestion['question_type']==1) {
 				if ($this->arrUserData[$arrQuestion['uid']]['-1']) {
 					$arrQuestion['checked'] = 'checked="checked"';
-					$arrQuestion['value'] = $this->arrUserData[$arrQuestion['uid']]['-1'][0];
+					$arrQuestion['value'] = htmlspecialchars($this->arrUserData[$arrQuestion['uid']]['-1'][0]);
 				}
 				$arrQuestion['additional'] = $arrQuestion['answers_type_additional']==0?'<input type="text" value="' . $arrQuestion['value'] . '" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1_'.$arrQuestion['uid'].'_-1_0\',this.value)" />':'<textarea cols="'.$arrQuestion['textarea_width'].'" rows="'.$arrQuestion['textarea_height'].'" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1_'.$arrQuestion['uid'].'_-1_0\',this.value)">' . $arrQuestion['value'] . '</textarea>';
 			} elseif ($arrQuestion['question_type']==3) {
 				if ($this->checkUpdate($arrQuestion['uid']) && $arrQuestion['additionalChecked']<>1) {
 					$arrQuestion['checked'] = 'checked="checked"';
-					$arrQuestion['value'] = $this->arrUserData[$arrQuestion['uid']][0][0];
+					$arrQuestion['value'] = htmlspecialchars($this->arrUserData[$arrQuestion['uid']][0][0]);
 				}
 				$arrQuestion['additional'] = $arrQuestion['answers_type_additional']==0?'<input type="text" value="' . $arrQuestion['value'] . '" name="'.$arrQuestion['uid'].' additional" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1_'.$arrQuestion['uid'].'_0_0\',this.value)" />':'<textarea cols="'.$arrQuestion['textarea_width'].'" rows="'.$arrQuestion['textarea_height'].'" name="'.$arrQuestion['uid'].' additional" onchange="pbsurveyChangeValue(\'tx_pbsurvey_pi1_'.$arrQuestion['uid'].'_0_0\',this.value)">' . $arrQuestion['value'] . '</textarea>';
 			}
@@ -1363,7 +1415,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 								$arrQuestion['checked'] = 'checked="checked"';
 							}
 						} elseif ($arrQuestion['question_type']==7) {
-							$arrQuestion['value'] = $this->arrUserData[$arrQuestion['uid']][$arrQuestion['rowcounter']][$arrQuestion['colcounter']];
+							$arrQuestion['value'] = htmlspecialchars($this->arrUserData[$arrQuestion['uid']][$arrQuestion['rowcounter']][$arrQuestion['colcounter']]);
 						} elseif ($arrQuestion['question_type']==8) {
 							if ($intColKey==$this->arrUserData[$arrQuestion['uid']][$arrQuestion['rowcounter']][0]) {
 								$arrQuestion['checked'] = 'checked="checked"';
@@ -1395,7 +1447,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 			} elseif (in_array($arrQuestion['question_type'],array(11,15,16))) {
 				if ($this->checkUpdate($arrQuestion['uid'])) {
-					$arrMarkerArray['###VALUE###'] = $this->arrUserData[$arrQuestion['uid']][$arrQuestion['rowcounter']][0];
+					$arrMarkerArray['###VALUE###'] = htmlspecialchars($this->arrUserData[$arrQuestion['uid']][$arrQuestion['rowcounter']][0]);
 				} else {
 					$arrMarkerArray['###VALUE###'] = '';
 				}
@@ -1417,7 +1469,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	function markerValue($arrQuestion) {
 		if (in_array($arrQuestion['question_type'],array(10,12,13,14))) {
 			if ($this->checkUpdate($arrQuestion['uid'])) {
-				$strOutput = $this->arrUserData[$arrQuestion['uid']][0][0];
+				$strOutput = htmlspecialchars($this->arrUserData[$arrQuestion['uid']][0][0]);
 			} else {
 				if (in_array($arrQuestion['question_type'],array(10,14))) {
 					$strOutput = $arrQuestion['default_value_txt'];
@@ -1608,7 +1660,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$markerArray['###ADDITIONALCLASS###'] = $this->markerStyleClass($arrQuestion);
 
 		$strOutput = $this->cObj->substituteMarkerArrayCached($strTemplate, $markerArray, $subpartArray, array());
-		$strOutput = ereg_replace('###[A-Za-z_1234567890]+###', '', $strOutput);
+		$strOutput = preg_replace('/###[^#]+###/', '', $strOutput);
 		return $strOutput;
 	}
 
@@ -1620,9 +1672,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	function loadCaptcha() {
 		$this->strOutItems = $this->cObj->substituteMarkerArray($this->cObj->getSubpart($this->arrConfig['templateCode'],'CAPTCHA'),$this->objFreeCap->makeCaptcha(),'',1);
 		$arrMarkers = array(
-			'url'             => '$this->url',
-			'submitbutton'    => '$this->setButton("submit")',
-			'items'           => '$this->strOutItems',
+			'url'             => $this->url,
+			'submitbutton'    => $this->setButton("submit"),
+			'items'           => $this->strOutItems,
 			'stage'           => '',
 			'pagenumbering'   => '',
 			'backbutton'      => '',
@@ -1631,7 +1683,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			'submitvalues'    => '',
 			'validationerr' => '',
 		);
-		$strOutput = $this->getMarkers($arrMarkers);
+		$strOutput = $this->applyMarkers($arrMarkers);
 		return $strOutput;
 	}
 
@@ -1656,9 +1708,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		if ($this->arrSessionData['uid']) { // We have a frontend user
 			$arrSelectConf['where'] .= ' AND user=' . intval($this->arrSessionData['uid']);
 		} elseif ($this->arrConfig['anonymous_mode']==0) { // Anonymous, IP Check
-			$arrSelectConf['where'] .= ' AND ip=\'' . $this->arrSessionData['uip'] . '\'';
+			$arrSelectConf['where'] .= ' AND ip=' . $GLOBALS['TYPO3_DB']->fullQuoteStr($this->arrSessionData['uip'], $this->strResultsTable);
 		} else { // Anonymous, Cookie check
-			$arrSelectConf['where'] .= ' AND uid=\'' . intval($this->arrSessionData['rid']) . '\'';
+			$arrSelectConf['where'] .= ' AND uid=' . intval($this->arrSessionData['rid']);
 		}
 		if ($this->arrConfig['access_level']==0) {
 			$arrSelectConf['where'] .= ' AND finished=0';
@@ -1926,10 +1978,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$nbrQuestion = 1;
 			foreach($question as $key => $value){
 				$prepare_mail .= '#' . $nbrQuestion++ . ' :' . "\r\n";
-				$prepare_mail .= $this->readValue('uid = ' . $key, $this->strItemsTable, 'question,  question_alias,  question_subtext, page_title, page_introduction');
+				$prepare_mail .= $this->readValue('uid = ' . intval($key), $this->strItemsTable, 'question,  question_alias,  question_subtext, page_title, page_introduction');
 				foreach($value as $answer){
 					if (is_numeric($answer))
-						$prepare_mail .= $answer . ' - ' . $this->readValue('uid = ' . $key, $this->strItemsTable, 'answers', $answer);
+						$prepare_mail .= $answer . ' - ' . $this->readValue('uid = ' . intval($key), $this->strItemsTable, 'answers', $answer);
 					else
 						$prepare_mail .= $answer;
 				}
@@ -2023,9 +2075,39 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				$this->strCsCalls = 'onsubmit="pbsurveyValidate('.implode(',',$arrCsCalls).');return document.pbsurveyReturnValue;"';
 			}
 			if (in_array($this->arrConfig['validation'],array(1,2))) { // Server side
-				$this->strSsCalls = base64_encode(serialize($this->arrValidation));
+				$this->strSsCalls = $this->encodeValidationData($this->arrValidation);
 			}
 		}
+	}
+
+	/**
+	 * Encodes the validation data.
+	 *
+	 * @param array $validation
+	 * @return string
+	 */
+	protected function encodeValidationData(array $validation) {
+		$encodedValidation = base64_encode(serialize($this->arrValidation));
+		$encodedValidationHash = t3lib_div::hmac($encodedValidation);
+		return $encodedValidationHash . '__' . $encodedValidation;
+	}
+
+	/**
+	 * Decodes the validation data.
+	 *
+	 * @param string $data
+	 * @return array
+	 */
+	protected function decodeValidationData($data) {
+		$validation = NULL;
+
+			// Check hash on validation data:
+		$dataParts = t3lib_div::trimExplode('__', (string) $data);
+		if (count($dataParts) === 2 && $dataParts[0] === t3lib_div::hmac($dataParts[1])) {
+			$validation = unserialize(base64_decode($dataParts[1]));
+		}
+
+		return $validation;
 	}
 
 	/**
@@ -2036,7 +2118,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	function validateForm() {
 		$boolOutput = TRUE;
 		if (in_array($this->arrConfig['validation'],array(1,2)) && $this->piVars['validation'] && !isset($this->piVars['back'])) { // Server side validation and something to validate and no Back button
-			$arrValidation = unserialize(base64_decode($this->piVars['validation']));
+			$arrValidation = $this->decodeValidationData($this->piVars['validation']);
 			if (is_array($arrValidation)) {
 				foreach($arrValidation as $intKey => $arrQuestionValidation) {
 					$arrUnique = array();
