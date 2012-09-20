@@ -1,11 +1,11 @@
 <?php
 /***************************************************************
 *  Copyright notice
-*  
+*
 *  (c) 2005 Patrick Broens (patrick@patrickbroens.nl)
 *  All rights reserved
 *
-*  This script is part of the TYPO3 project. The TYPO3 project is 
+*  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
 *  the Free Software Foundation; either version 2 of the License, or
@@ -13,7 +13,7 @@
 *
 *  The GNU General Public License can be found at
 *  http://www.gnu.org/copyleft/gpl.html.
-* 
+*
 *  This script is distributed in the hope that it will be useful,
 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -22,7 +22,7 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-unset($MCONF);	
+unset($MCONF);
 require ("conf.php");
 require ($BACK_PATH."init.php");
 require ($BACK_PATH."template.php");
@@ -48,7 +48,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 * Configuration functions
 	 *
 	 **********************************/
-	 
+
 	/**
 	 * Initialization of the class
 	 *
@@ -71,7 +71,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 * General functions
 	 *
 	 **********************************/
-	 	
+
 	/**
 	 * Main function of the module. Write the content to $this->content
 	 *
@@ -95,7 +95,11 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 					script_ended = 1;
 					if (top.fsMod) top.fsMod.recentIds["web"] = '.intval($this->id).';
 			');
-			$strHeaderSection = $this->objDoc->getHeader("pages",$arrPageInfo,$arrPageInfo["_thePath"])."<br>".$LANG->sL("LLL:EXT:lang/locallang_core.php:labels.path").": ".t3lib_div::fixed_lgd_pre($arrPageInfo["_thePath"],50);
+			$strHeaderSection = $this->objDoc->getHeader(
+				'pages',
+				$arrPageInfo,
+				$arrPageInfo['_thePath']
+			) . '<br>' . $LANG->sL('LLL:EXT:lang/locallang_core.php:labels.path') . ': ' . t3lib_div::fixed_lgd_cs($arrPageInfo['_thePath'], 50);
 			$this->content.=$this->objDoc->startPage($LANG->getLL("title"));
 			$this->content.=$this->objDoc->header($LANG->getLL("title"));
 			$this->content.=$this->objDoc->spacer(5);
@@ -122,14 +126,14 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 
 	/**
 	 * Prints out the module HTML
-	 * 
+	 *
 	 * @return   void
 	 */
 	function printContent()	{
 		$this->content.=$this->objDoc->endPage();
 		echo $this->content;
 	}
-	
+
 	/**
 	 * Create array out of possible answers in backend answers field
 	 *
@@ -153,7 +157,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 * Rendering functions
 	 *
 	 **********************************/
-	 		
+
 	/**
 	 * Build section to show error text if no questions are available on page
 	 *
@@ -161,7 +165,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 */
 	function sectionError() {
 		global $LANG;
-		$strTemp = '<p><span class="typo3-red">'.$LANG->getLL('no_results').'</span></p>'; 
+		$strTemp = '<p><span class="typo3-red">'.$LANG->getLL('no_results').'</span></p>';
 		$strOutput = $this->objDoc->section($LANG->getLL('error'),$strTemp,0,1);
 		return $strOutput;
 	}
@@ -171,7 +175,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 * Reading functions
 	 *
 	 **********************************/
-	 	
+
 	/**
 	 * Read all questions in the selected page and filter unneccessary content
 	 * Write content to $this->arrSurveyItems[]
@@ -205,9 +209,9 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
             	unset($arrRow['answers_allow_additional']);
             }
             $this->arrSurveyItems[$arrRow['uid']] = $arrRow;
-		}	
+		}
     }
-    
+
     /**
 	 * Count the results on this page
 	 *
