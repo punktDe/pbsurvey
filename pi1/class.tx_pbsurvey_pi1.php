@@ -2083,7 +2083,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$headers .= 'Cc: ' . $CcEmail . "\n";
 		}
 		// *************** TEXT ***************
-		$headers .= 'Content-Type: text/plain; charset="UTF-8"' . "\n";
+		$headers .= 'Content-Type: text/plain; charset="' . $GLOBALS['TSFE']->renderCharset . '"' . "\n";
 		$headers .= 'Content-Transfer-Encoding: 8bit' . "\n";
 		// *************** HTML ***************
 		#$headers = "MIME-Version: 1.0" . "\r\n";
