@@ -325,15 +325,6 @@ $TCA['tx_pbsurvey_item'] = array (
                 ),
             )
         ),
-        /*'answers' => array (
-        	'l10n_mode' => $strl10nMode,
-            'exclude' => 0,
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers',
-            'config' => array (
-            	'type' => 'user',
-				'userFunc' => 'tx_pbsurvey_answersWizard->main',
-            ),
-        ),*/
 		'answers_allow_additional' => array (
 			'l10n_mode' => 'exclude',
             'exclude' => 0,
@@ -752,6 +743,10 @@ $TCA['tx_pbsurvey_item'] = array (
     	'11' => array('showitem' => 'options_random, answers_none'),
     )
 );
+
+if ($arrConfiguration['answersEditable']) {
+	unset($TCA['tx_pbsurvey_item']['columns']['answers']['config']['wizards']['forms']['hideParent']);
+}
 
 $TCA['tx_pbsurvey_results'] = array (
 	'ctrl' => $TCA['tx_pbsurvey_results']['ctrl'],
