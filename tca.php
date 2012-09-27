@@ -59,8 +59,8 @@ $TCA['tx_pbsurvey_item'] = array (
     ),
     'feInterface' => $TCA['tx_pbsurvey_item']['feInterface'],
     'columns' => array (
-        'hidden' => array ( 
-        	'l10n_mode' => $strHideNewLocalizations,     
+        'hidden' => array (
+        	'l10n_mode' => $strHideNewLocalizations,
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
             'config' => array (
@@ -95,7 +95,7 @@ $TCA['tx_pbsurvey_item'] = array (
 				'wizards' => array(
 					'_PADDING' => 2,
 					'_VERTICAL' => 1,
-					
+
 					'edit' => array(
 							'type' => 'popup',
 							'title' => 'edit default language version of this record ',
@@ -112,10 +112,10 @@ $TCA['tx_pbsurvey_item'] = array (
 				'type'=>'passthrough'
 			)
 		),
-        'question_type' => array (  
-        	'displayCond' => 'FIELD:sys_language_uid:=:0',     
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type',        
+        'question_type' => array (
+        	'displayCond' => 'FIELD:sys_language_uid:=:0',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type',
             'config' => array (
                 'type' => 'select',
                 'items' => array (
@@ -146,36 +146,36 @@ $TCA['tx_pbsurvey_item'] = array (
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.99', '99'),
                 ),
 				'default' => '1',
-                'size' => 1,    
+                'size' => 1,
                 'maxitems' => 1,
             )
         ),
         'question' => array (
-        	'l10n_mode' => $strl10nMode,        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question',        
+        	'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question',
             'config' => array (
-                'type' => 'input',    
-                'size' => '30',    
+                'type' => 'input',
+                'size' => '30',
                 'eval' => 'required',
             )
         ),
-        'question_alias' => array (  
-        	'l10n_mode' => 'exclude',      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_alias',        
+        'question_alias' => array (
+        	'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_alias',
             'config' => array (
-                'type' => 'input',    
+                'type' => 'input',
                 'size' => '30',
             )
         ),
         'question_subtext' => array (
-        	'l10n_mode' => $strl10nMode,        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_subtext',        
+        	'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_subtext',
             /*'config' => array (
                 'type' => 'text',
-                'cols' => '30',    
+                'cols' => '30',
                 'rows' => '5',
             )*/
         	'config' => array (
@@ -195,19 +195,19 @@ $TCA['tx_pbsurvey_item'] = array (
 				)
 			)
         ),
-		'page_title' => array (   
-			'l10n_mode' => $strl10nMode,     
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.page_title',        
+		'page_title' => array (
+			'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.page_title',
             'config' => array (
-                'type' => 'input',    
-                'size' => '30',    
+                'type' => 'input',
+                'size' => '30',
             )
         ),
-		'page_introduction' => array ( 
-			'l10n_mode' => $strl10nMode,       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.page_introduction',        
+		'page_introduction' => array (
+			'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.page_introduction',
         	'config' => array (
 				'type' => 'text',
 				'cols' => '48',
@@ -226,89 +226,89 @@ $TCA['tx_pbsurvey_item'] = array (
 			)
         ),
         'options_required' => array (
-        	'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_required',        
+        	'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_required',
             'config' => array (
                 'type' => 'check',
             )
         ),
-        'options_random' => array (  
-        	'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_random',        
+        'options_random' => array (
+        	'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_random',
             'config' => array (
                 'type' => 'check',
             )
         ),
-        'options_alignment' => array ( 
-        	'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_alignment',        
+        'options_alignment' => array (
+        	'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_alignment',
             'config' => array (
                 'type' => 'select',
                 'items' => array (
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_alignment.I.0', '0'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_alignment.I.1', '1'),
                 ),
-                'size' => 1,    
+                'size' => 1,
                 'maxitems' => 1,
             )
         ),
-        'options_minimum_responses' => array ( 
-        	'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_minimum_responses',        
+        'options_minimum_responses' => array (
+        	'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_minimum_responses',
             'config' => array (
-                'type' => 'input',    
-                'size' => '4',      
+                'type' => 'input',
+                'size' => '4',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
         'options_maximum_responses' => array (
-        	'l10n_mode' => 'exclude',         
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_maximum_responses',        
+        	'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_maximum_responses',
             'config' => array (
-                'type' => 'input',    
-                'size' => '4',     
+                'type' => 'input',
+                'size' => '4',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
-		'options_row_heading_width' => array ( 
-			'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_row_heading_width',        
+		'options_row_heading_width' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.options_row_heading_width',
             'config' => array (
-                'type' => 'input',    
-                'size' => '4',    
-                'range' => array ('lower'=>1,'upper'=>1000),    
+                'type' => 'input',
+                'size' => '4',
+                'range' => array ('lower'=>1,'upper'=>1000),
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
-		'rows' => array ( 
-			'l10n_mode' => $strl10nMode,        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.rows',        
+		'rows' => array (
+			'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.rows',
             'config' => array (
                 'type' => 'text',
-                'cols' => '30',    
+                'cols' => '30',
                 'rows' => '5',
                 'eval' => 'required',
             )
         ),
-        'answers' => array (    
-        	'l10n_mode' => $strl10nMode,     
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers',        
+        'answers' => array (
+        	'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers',
             'config' => array (
                 'type' => 'text',
-                'cols' => '30',    
-                'rows' => '5', 
-                'eval' => 'required',   
+                'cols' => '30',
+                'rows' => '5',
+                'eval' => 'required',
                 'wizards' => array(
                     '_PADDING' => 2,
                     'forms' => array(
@@ -325,95 +325,95 @@ $TCA['tx_pbsurvey_item'] = array (
                 ),
             )
         ),
-        /*'answers' => array (    
-        	'l10n_mode' => $strl10nMode,     
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers',        
+        /*'answers' => array (
+        	'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers',
             'config' => array (
             	'type' => 'user',
 				'userFunc' => 'tx_pbsurvey_answersWizard->main',
             ),
         ),*/
-		'answers_allow_additional' => array ( 
-			'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_allow_additional',        
+		'answers_allow_additional' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_allow_additional',
             'config' => array (
                 'type' => 'check',
             )
         ),
 		'answers_text_additional' => array (
-			'l10n_mode' => $strl10nMode,       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_text_additional',        
+			'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_text_additional',
             'config' => array (
-                'type' => 'input',    
+                'type' => 'input',
                 'size' => '30',
             )
         ),
-        'answers_type_additional' => array ( 
-        	'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_type_additional',        
+        'answers_type_additional' => array (
+        	'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_type_additional',
             'config' => array (
                 'type' => 'select',
                 'items' => array (
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_type_additional.I.0', '0'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_type_additional.I.1', '1'),
                 ),
-                'size' => 1,    
+                'size' => 1,
                 'maxitems' => 1,
             )
         ),
-        'answers_none' => array ( 
-			'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_none',        
+        'answers_none' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.answers_none',
             'config' => array (
                 'type' => 'check',
         		'default' => '1',
             )
         ),
-        'textarea_width' => array (  
-			'l10n_mode' => 'exclude',      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.textarea_width',        
+        'textarea_width' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.textarea_width',
             'config' => array (
-                'type' => 'input',    
-                'size' => '3',       
+                'type' => 'input',
+                'size' => '3',
                 'eval' => 'int',
 				'checkbox' => '0',
 				'default' => '20',
             )
         ),
-        'textarea_height' => array (  
-			'l10n_mode' => 'exclude',      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.textarea_height',        
+        'textarea_height' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.textarea_height',
             'config' => array (
-                'type' => 'input',    
-                'size' => '3',       
+                'type' => 'input',
+                'size' => '3',
                 'eval' => 'int',
 				'checkbox' => '0',
 				'default' => '5',
             )
         ),
-        'selectbox_height' => array (  
-			'l10n_mode' => 'exclude',      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.selectbox_height',        
+        'selectbox_height' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.selectbox_height',
             'config' => array (
-                'type' => 'input',    
-                'size' => '3',       
+                'type' => 'input',
+                'size' => '3',
                 'eval' => 'int',
 				'checkbox' => '0',
 				'default' => '5',
             )
         ),
-		'display_type' => array ( 
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.display_type',        
+		'display_type' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.display_type',
             'config' => array (
                 'type' => 'select',
                 'items' => array (
@@ -421,14 +421,14 @@ $TCA['tx_pbsurvey_item'] = array (
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.display_type.I.1', '1'),
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.display_type.I.2', '2'),
                 ),
-                'size' => 1,    
+                'size' => 1,
                 'maxitems' => 1,
             )
         ),
-		'default_value_tf' => array ( 
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf',        
+		'default_value_tf' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf',
             'config' => array (
                 'type' => 'select',
                 'items' => array (
@@ -436,14 +436,14 @@ $TCA['tx_pbsurvey_item'] = array (
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf.I.1', '2'),
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_tf.I.2', '1'),
                 ),
-                'size' => 1,    
+                'size' => 1,
                 'maxitems' => 1,
             )
         ),
 		'default_value_yn' => array (
-			'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn',        
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn',
             'config' => array (
                 'type' => 'select',
                 'items' => array (
@@ -451,31 +451,31 @@ $TCA['tx_pbsurvey_item'] = array (
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn.I.1', '2'),
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_yn.I.2', '1'),
                 ),
-                'size' => 1,    
+                'size' => 1,
                 'maxitems' => 1,
             )
         ),
-        'negative_first' => array ( 
-			'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.negative_first',        
+        'negative_first' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.negative_first',
             'config' => array (
                 'type' => 'check',
             )
         ),
 		'default_value_txt' => array (
-			'l10n_mode' => $strl10nMode,        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_txt',        
+			'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_txt',
             'config' => array (
-                'type' => 'input',    
+                'type' => 'input',
                 'size' => '30',
             )
         ),
-		'default_date' => array ( 
-			'l10n_mode' => 'exclude',     
-            'exclude' => 1,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_date',        
+		'default_date' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_date',
             'config' => array (
                 'type' => 'input',
                 'size' => '8',
@@ -485,54 +485,54 @@ $TCA['tx_pbsurvey_item'] = array (
                 'default' => '0'
             )
         ),
-		'default_value_num' => array ( 
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_num',        
+		'default_value_num' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.default_value_num',
             'config' => array (
-                'type' => 'input',    
-                'size' => '8',       
+                'type' => 'input',
+                'size' => '8',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
-		'beginning_number' => array ( 
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.beginning_number',        
+		'beginning_number' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.beginning_number',
             'config' => array (
-                'type' => 'input',    
-                'size' => '8',       
+                'type' => 'input',
+                'size' => '8',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
 		'ending_number' => array (
-			'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.ending_number',        
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.ending_number',
             'config' => array (
-                'type' => 'input',    
-                'size' => '8',       
+                'type' => 'input',
+                'size' => '8',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
-		'total_number' => array ( 
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.total_number',        
+		'total_number' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.total_number',
             'config' => array (
-                'type' => 'input',    
-                'size' => '8',       
+                'type' => 'input',
+                'size' => '8',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
 		'minimum_date' => array (
-			'l10n_mode' => 'exclude',        
-            'exclude' => 1,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.minimum_date',        
+			'l10n_mode' => 'exclude',
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.minimum_date',
             'config' => array (
                 'type' => 'input',
                 'size' => '8',
@@ -542,10 +542,10 @@ $TCA['tx_pbsurvey_item'] = array (
                 'default' => '0'
             )
         ),
-		'maximum_date' => array (  
-			'l10n_mode' => 'exclude',      
-            'exclude' => 1,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.maximum_date',        
+		'maximum_date' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.maximum_date',
             'config' => array (
                 'type' => 'input',
                 'size' => '8',
@@ -556,80 +556,80 @@ $TCA['tx_pbsurvey_item'] = array (
             )
         ),
 		'minimum_value' => array (
-			'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.minimum_value',        
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.minimum_value',
             'config' => array (
-                'type' => 'input',    
-                'size' => '8',       
+                'type' => 'input',
+                'size' => '8',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
 		'maximum_value' => array (
-			'l10n_mode' => 'exclude',        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.maximum_value',        
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.maximum_value',
             'config' => array (
-                'type' => 'input',    
-                'size' => '8',       
+                'type' => 'input',
+                'size' => '8',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
 		'maximum_length' => array (
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.maximum_length',        
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.maximum_length',
             'config' => array (
-                'type' => 'input',    
-                'size' => '8',       
+                'type' => 'input',
+                'size' => '8',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
-		'image' => array (   
-			'l10n_mode' => 'mergeIfNotBlank',      
-            'exclude' => 1,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image',        
+		'image' => array (
+			'l10n_mode' => 'mergeIfNotBlank',
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image',
             'config' => array (
                 'type' => 'group',
                 'internal_type' => 'file',
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],    
-                'max_size' => 500,    
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+                'max_size' => 500,
                 'uploadfolder' => 'uploads/tx_pbsurvey',
-                'show_thumbs' => 1,    
-                'size' => 1,    
+                'show_thumbs' => 1,
+                'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,
             )
         ),
-		'image_height' => array (  
-			'l10n_mode' => 'exclude',      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image_height',        
+		'image_height' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image_height',
             'config' => array (
-                'type' => 'input',    
-                'size' => '3',       
+                'type' => 'input',
+                'size' => '3',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
-		'image_width' => array (  
-			'l10n_mode' => 'exclude',      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image_width',        
+		'image_width' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image_width',
             'config' => array (
-                'type' => 'input',    
-                'size' => '3',       
+                'type' => 'input',
+                'size' => '3',
                 'eval' => 'int',
 				'checkbox' => '0',
             )
         ),
-		'image_alignment' => array ( 
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image_alignment',        
+		'image_alignment' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image_alignment',
             'config' => array (
                 'type' => 'select',
                 'items' => array (
@@ -638,53 +638,53 @@ $TCA['tx_pbsurvey_item'] = array (
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image_alignment.I.2', '2'),
 					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.image_alignment.I.3', '3'),
                 ),
-                'size' => 1,    
+                'size' => 1,
                 'maxitems' => 1,
             )
         ),
-		'email' => array ( 
-			'l10n_mode' => 'exclude',       
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.email',        
+		'email' => array (
+			'l10n_mode' => 'exclude',
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.email',
             'config' => array (
                 'type' => 'check',
             )
         ),
-		'heading' => array (  
-			'l10n_mode' => $strl10nMode,      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.heading',        
+		'heading' => array (
+			'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.heading',
             'config' => array (
-                'type' => 'input',    
+                'type' => 'input',
                 'size' => '30',
             )
         ),
-		'html' => array (        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.html',        
+		'html' => array (
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.html',
             'config' => array (
                 'type' => 'text',
-                'cols' => '30',    
+                'cols' => '30',
                 'rows' => '5',
             )
         ),
-		'message' => array (  
-			'l10n_mode' => $strl10nMode,      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.message',        
+		'message' => array (
+			'l10n_mode' => $strl10nMode,
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.message',
             'config' => array (
                 'type' => 'text',
-                'cols' => '30',    
+                'cols' => '30',
                 'rows' => '5',
             )
         ),
-		'conditions' => array (        
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.conditions',        
+		'conditions' => array (
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.conditions',
             'config' => array (
                 'type' => 'text',
-                'cols' => '30',    
-                'rows' => '5',    
+                'cols' => '30',
+                'rows' => '5',
                 'wizards' => array(
                     '_PADDING' => 2,
                     'forms' => array(
@@ -701,12 +701,12 @@ $TCA['tx_pbsurvey_item'] = array (
                 ),
             )
         ),
-        'styleclass' => array (  
-        	'l10n_mode' => 'exclude',      
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.styleclass',        
+        'styleclass' => array (
+        	'l10n_mode' => 'exclude',
+            'exclude' => 1,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.styleclass',
             'config' => array (
-                'type' => 'input',    
+                'type' => 'input',
                 'size' => '10',
         		'eval' => 'alphanum_x',
             )
@@ -760,46 +760,46 @@ $TCA['tx_pbsurvey_results'] = array (
 	),
 	'feInterface' => $TCA['tx_pbsurvey_results']['feInterface'],
 	'columns' => array (
-		'hidden' => array (		
-			'exclude' => 1,	
+		'hidden' => array (
+			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
 			'config' => array (
 				'type' => 'check',
 				'default' => '0',
 			)
 		),
-		'user' => array (		
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.user',		
+		'user' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.user',
 			'config' => array (
-				'type' => 'group',	
-				'internal_type' => 'db',	
-				'allowed' => 'fe_users',	
-				'size' => 1,	
+				'type' => 'group',
+				'internal_type' => 'db',
+				'allowed' => 'fe_users',
+				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
 			)
 		),
-		'ip' => array (		
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.ip',		
+		'ip' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.ip',
 			'config' => array (
                 'type' => 'input',
                 'size' => '15',
                 'max' => '15',
 			)
 		),
-		'finished' => array (		
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.finished',		
+		'finished' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.finished',
 			'config' => array (
 				'type' => 'check',
 				'default' => '0',
 			)
 		),
-		'begintstamp' => array (		
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.begintstamp',		
+		'begintstamp' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.begintstamp',
 			'config' => array (
                 'type' => 'input',
                 'size' => '8',
@@ -807,9 +807,9 @@ $TCA['tx_pbsurvey_results'] = array (
                 'eval' => 'datetime',
 			)
 		),
-		'endtstamp' => array (		
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.endtstamp',		
+		'endtstamp' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.endtstamp',
 			'config' => array (
                 'type' => 'input',
                 'size' => '8',
@@ -817,9 +817,9 @@ $TCA['tx_pbsurvey_results'] = array (
                 'eval' => 'datetime',
 			)
 		),
-		'language_uid' => array (		
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.language',		
+		'language_uid' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.language',
 			'config' => array (
                 'type' => 'input',
                 'size' => '15',
@@ -828,7 +828,7 @@ $TCA['tx_pbsurvey_results'] = array (
 		),
 		/* Here we are cheating. The column answers doesn't exist in the DB. I have to find out if there is another way to do this.
 		   Typo3 knows 1-M and M-M relations, but no M-1, which is the case here. Correct me if I'm wrong.
-		   All the answers belonging to this results record are displayed by the function displayAnswers in class tx_pbsurvey_answers. 
+		   All the answers belonging to this results record are displayed by the function displayAnswers in class tx_pbsurvey_answers.
 		*/
 //		'answers' => array (
 //			'label' => 'TEST: ',
@@ -853,64 +853,64 @@ $TCA['tx_pbsurvey_answers'] = array (
 	),
 	'feInterface' => $TCA['tx_pbsurvey_answers']['feInterface'],
 	'columns' => array (
-		'hidden' => array (		
-			'exclude' => 1,	
+		'hidden' => array (
+			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
 			'config' => array (
 				'type' => 'check',
 				'default' => '0',
 			)
 		),
-		'result' => array (		
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.result',		
+		'result' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.result',
 			'config' => array (
-				'type' => 'group',	
-				'internal_type' => 'db',	
-				'allowed' => 'tx_pbsurvey_results',	
-				'size' => 1,	
+				'type' => 'group',
+				'internal_type' => 'db',
+				'allowed' => 'tx_pbsurvey_results',
+				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
 			)
 		),
 		'question' => array (
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.question',		
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.question',
 			'config' => array (
-				'type' => 'group',	
-				'internal_type' => 'db',	
-				'allowed' => 'tx_pbsurvey_item',	
-				'size' => 1,	
+				'type' => 'group',
+				'internal_type' => 'db',
+				'allowed' => 'tx_pbsurvey_item',
+				'size' => 1,
 				'minitems' => 0,
 				'maxitems' => 1,
 			)
 		),
 		'row' => array (
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.row',        
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.row',
             'config' => array (
-                'type' => 'input',    
-                'size' => '3',       
+                'type' => 'input',
+                'size' => '3',
                 'eval' => 'int',
 				'checkbox' => '0',
 			)
 		),
 		'col' => array (
-            'exclude' => 0,        
-            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.column',        
+            'exclude' => 0,
+            'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.column',
             'config' => array (
-                'type' => 'input',    
-                'size' => '3',       
+                'type' => 'input',
+                'size' => '3',
                 'eval' => 'int',
 				'checkbox' => '0',
 			)
 		),
-		'answer' => array (		
-			'exclude' => 1,		
-			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.answer',		
+		'answer' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers.answer',
 			'config' => array (
 				'type' => 'text',
-				'cols' => '30',	
+				'cols' => '30',
 				'rows' => '5',
 			)
 		),
