@@ -99,6 +99,17 @@
 							</config>
 						</TCEforms>
 					</FromEmail>
+					<FromName>
+						<TCEforms>
+						<displayCond>FIELD:YNemail:!=:0</displayCond>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.from_name</label>
+							<config>
+								<type>input</type>
+								<size>25</size>
+								<default>Survey</default>
+							</config>
+						</TCEforms>
+					</FromName>
 					<ToEmail>
 						<TCEforms>
 						<displayCond>FIELD:YNemail:!=:0</displayCond>

@@ -87,6 +87,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			'pid'                 => array('pages', 'sDEF', 'pid',3),
 			'YNemail' 	          => array('YNemail', 'sMAIL', 'mail', 2),
 			'FromEmail'           => array('FromEmail', 'sMAIL', 'pbsurvey.from', 2),
+			'FromName'            => array('FromName', 'sMAIL', 'pbsurvey.fromName', 2),
 			'Subject'          	  => array('Subject', 'sMAIL', 'pbsurvey.Subject', 2),
 			'ToEmail'      		  => array('ToEmail', 'sMAIL', 'pbsurvey.courriel', 2),
 			'CcEmail'    		  => array('CcEmail', 'sMAIL', 'pbsurvey.cc', 2),
@@ -2071,11 +2072,12 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$id=$GLOBALS['TSFE']->id;
 		$YNemail = $this->arrConfig['YNemail'];
 		$FromEmail = $this->arrConfig['FromEmail'];
+		$fromName = $this->arrConfig['FromName'] != '' ? $this->arrConfig['FromName'] : 'Survey';
 		$ToEmail = $this->arrConfig['ToEmail'];
 		$CcEmail = $this->arrConfig['CcEmail'];
 		$MessageBox = $this->arrConfig['MessageBox'];
 		$Subject  = $this->arrConfig['Subject'];
-		$headers = 'From: "Survey" <' . $FromEmail . '>' . "\n";
+		$headers = 'From: "' . $fromName . '" <' . $FromEmail . '>' . "\n";
 		$headers .= 'Reply-To: ' . $ToEmail . "\n";
 		if(!empty($CcEmail)) {
 			$headers .= 'Cc: ' . $CcEmail . "\n";
