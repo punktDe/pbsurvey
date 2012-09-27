@@ -1610,6 +1610,15 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$this->arrJsItems[3] = true;
 			$arrMarkers = $arrQuestion;
 			$arrMarkers['remaining_points'] = $this->pi_getLL('remaining_points');
+
+			$currentTotal = 0;
+			if (is_array($this->arrUserData[$arrQuestion['uid']])) {
+				foreach ($this->arrUserData[$arrQuestion['uid']] as $value) {
+					$currentTotal += $value[0];
+				}
+				$arrMarkers['total_number'] = $arrQuestion['total_number'] - $currentTotal;
+			}
+
 			$strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###REMAINING###'),$arrMarkers,'###|###', 1);
 		}
 		return $strOutput;
