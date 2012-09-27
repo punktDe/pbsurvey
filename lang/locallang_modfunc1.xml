@@ -5,7 +5,6 @@
 		<type>module</type>
 		<csh_table></csh_table>
 		<fileId>EXT:pbsurvey/lang/locallang_modfunc1.xml</fileId>
-		<ext_filename_template>EXT:pbsurvey/lang/###LANGKEY###.locallang_modfunc1.xml</ext_filename_template>
 		<labelContext type="array">
 		</labelContext>
 	</meta>
@@ -19,10 +18,5 @@
 			<label index="number_results_all">Total number of responses</label>
 			<label index="list_questions">List of questions</label>
 		</languageKey>
-		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang_modfunc1.xml</languageKey>
 	</data>
-	<orig_hash type="array">
-	</orig_hash>
-	<orig_text type="array">
-	</orig_text>
 </T3locallang>

@@ -4,7 +4,6 @@
 		<description>Language labels of Questionaire Flexform </description>
 		<type>module</type>
 		<fileId>EXT:pbsurvey/lang/locallang.xml</fileId>
-		<ext_filename_template>EXT:pbsurvey/lang/###LANGKEY###.locallang.xml</ext_filename_template>
 		<labelContext type="array">
 		</labelContext>
 	</meta>
@@ -82,10 +81,5 @@
 			<label index="pi_flexform.cc">Cc :</label>
 			<label index="pi_flexform.message">Return message :</label>
 		</languageKey>
-		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang.xml</languageKey>
-		<languageKey index="de">EXT:pbsurvey/lang/de.locallang.xml</languageKey>
-		<languageKey index="fr">EXT:pbsurvey/lang/fr.locallang.xml</languageKey>
-		<languageKey index="dk">EXT:pbsurvey/lang/dk.locallang.xml</languageKey>
-		<languageKey index="no">EXT:pbsurvey/lang/no.locallang.xml</languageKey>
 	</data>
 </T3locallang>

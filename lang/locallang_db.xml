@@ -5,7 +5,6 @@
 		<type>database</type>
 		<csh_table></csh_table>
 		<fileId>EXT:pbsurvey/lang/locallang_db.xml</fileId>
-		<ext_filename_template>EXT:pbsurvey/lang/###LANGKEY###.locallang_db.xml</ext_filename_template>
 		<labelContext type="array">
 		</labelContext>
 	</meta>
@@ -120,10 +119,5 @@
 			<label index="tx_pbsurvey_answers.answer">Answer</label>
 			<label index="tt_content.list_type_pi1">Questionaire</label>
 		</languageKey>
-		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang_db.xml</languageKey>
-		<languageKey index="de">EXT:pbsurvey/lang/de.locallang_db.xml</languageKey>
-		<languageKey index="fr">EXT:pbsurvey/lang/fr.locallang_db.xml</languageKey>
-		<languageKey index="dk">EXT:pbsurvey/lang/dk.locallang_db.xml</languageKey>
-		<languageKey index="no">EXT:pbsurvey/lang/no.locallang_db.xml</languageKey>
 	</data>
 </T3locallang>
