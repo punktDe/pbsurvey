@@ -93,6 +93,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			'MessageBox'    	  => array('MessageBox', 'sMAIL', 'pbsurvey.msb', 2),
 			'captcha_page'        => array('captcha', 'sACCESS', 'security.captcha', 2),
 			'access_level'        => array('access_level', 'sACCESS', 'accessLevel', 2),
+			'entering_stage'      => array('entering_stage', 'sACCESS', 'enteringStage', 2),
 			'anonymous_mode'      => array('anonymous_mode', 'sACCESS', 'anonymous.mode', 2),
 			'cookie_lifetime'     => array('cookie_lifetime', 'sACCESS', 'anonymous.cookie_lifetime', 2),
 			'completion_action'   => array('completion_action', 'sCOMPLETION', 'completion.action', 2),
@@ -218,7 +219,14 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				$strOutput = $this->loadCaptcha();
 			} else {
 				$this->arrSessionData['captcha'] = 1;
-				$this->intStage = $this->piVars['stage']!=''?intval($this->piVars['stage']):-1;
+
+				// Set entering stage if allowed
+				if (!isset($this->piVars['stage']) && $this->arrConfig['entering_stage'] == 1) {
+					$this->intStage = $this->calculateEnteringStage();
+				} else {
+					$this->intStage = $this->piVars['stage'] != '' ? intval($this->piVars['stage']) : -1;
+				}
+
 				$boolValidated = $this->validateForm();
 				$this->intPreviousStage = $this->previousStage($boolValidated);
 				if ($boolValidated && !isset($this->piVars['back'])) { //No server side validation or validation is ok
@@ -323,6 +331,25 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Calculates the point where the user left the survey
+	 *
+	 * @return int The stage where the survey has to start again
+	 */
+	protected function calculateEnteringStage() {
+		$currentStage = $enteringStage = -1;
+
+		foreach ($this->arrSurveyItems as $key => $surveyItem) {
+			if ($surveyItem['question_type'] == 22) {
+				$currentStage++;
+			} elseif (array_key_exists($key, $this->arrUserData)) {
+				$enteringStage = $currentStage;
+			}
+		}
+
+		return $enteringStage;
 	}
 
 	/**

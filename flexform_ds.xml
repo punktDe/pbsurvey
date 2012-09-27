@@ -155,26 +155,46 @@
 					</captcha>
 					<access_level>
 						<TCEforms>
-						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level</label>
-						<config>
-							<type>select</type>
-							<items type="array">
-								<numIndex index="0" type="array">
-									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level0</numIndex>
-									<numIndex index="1">0</numIndex>
-								</numIndex>
-								<numIndex index="1" type="array">
-									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level1</numIndex>
-									<numIndex index="1">1</numIndex>
-								</numIndex>
-								<numIndex index="2" type="array">
-									<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level2</numIndex>
-									<numIndex index="1">2</numIndex>
-								</numIndex>
-							</items>
-						</config>
+							<onChange>reload</onChange>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level0</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level1</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.access_level2</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
 						</TCEforms>
 					</access_level>
+					<entering_stage>
+						<TCEforms>
+							<displayCond>FIELD:access_level:=:1</displayCond>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.entering_stage</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.entering_stage0</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.entering_stage1</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</entering_stage>
 					<anonymous_mode>
 						<TCEforms>
 						<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.anonymous_mode</label>
