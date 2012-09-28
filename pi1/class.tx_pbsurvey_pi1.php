@@ -717,7 +717,6 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return	string		Locallang label if error
 	 */
 	function checkAccessLevel() {
-		$this->arrSessionData['begintstamp'] = time();
 		$arrPrevious = $this->readPreviousUser();
 		$this->arrUserData=$arrPrevious[0]?$arrPrevious[0]:array();
 		$this->arrSessionData['rid']=$arrPrevious[2]['uid'];
@@ -1860,7 +1859,6 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			}
 		}
 		$arrDb['user'] = intval($this->arrSessionData['uid']);
-		$arrDb['begintstamp'] = intval($this->arrSessionData['begintstamp']);
 		$arrDb['ip'] = $this->arrSessionData['uip'];
 		$arrDb['pid'] = intval($this->arrConfig['pid']);
 		$arrDb['language_uid'] = $GLOBALS['TSFE']->config['config']['language'];
@@ -1868,7 +1866,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$strWhere = 'uid=' . intval($this->arrSessionData['rid']);
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($this->strResultsTable,$strWhere,$arrDb);
 		} elseif ($this->intStage==0) {
-			$arrDb['crdate'] = time();
+			$arrDb['crdate'] = $arrDb['begintstamp'] = time();
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable,$arrDb); // Insert result
 			$this->arrSessionData['rid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
 			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) { // Anonymous survey, check acces by cookie
