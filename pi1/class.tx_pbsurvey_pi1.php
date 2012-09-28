@@ -499,7 +499,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
 	function surveyCompletion($rid) {
 		if($this->arrConfig['YNemail'] != 0) {
-			$this->prepareMail($rid);
+			$this->prepareMail();
 		}
 
 		switch($this->arrConfig['completion_action']) {
@@ -1987,56 +1987,99 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		return $strOutput;
 	}
 
-	/**********************************
-	 * prepare_mail function
-	 *DMR : Charles Bureau, Bruno Tavara
-	 ***********************************
-	 * Prepare text to be send by mail and call mailto function
-	 * @return	void
+	/**
+	 * Prepare the content of the mail
+	 *
+	 * @return void
 	 */
+	function prepareMail() {
+		$questionNumber = 1;
+		$mailContent = '';
 
-	function prepareMail($rid){
-		$intPage = $this->arrConfig['pid'];
-		$arrSelectConf['selectFields'] = '*';
-		$arrSelectConf['where'] = '1=1';
-		$arrSelectConf['where'] .= ' AND pid=' . intval($intPage);
-		$arrSelectConf['where'] .= ' AND result=' . intval($rid);
-		$arrSelectConf['orderBy'] = 'uid ASC';
-		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'], $this->strAnswersTable,$arrSelectConf['where'], '', $arrSelectConf['orderBy'], '');
-		$counter = 0;
-		//Loop threw the answers and build a new array containing question sand answers only
-		while ($arrRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
-			$counter++;
-			$arrPreviousAnswers[$counter][$arrRow['row']][$arrRow['col']]['answer'] = $arrRow['answer'];
-			$arrPreviousAnswers[$counter][$arrRow['row']][$arrRow['col']]['question'] = $arrRow['question'];
-		}
+		foreach($this->arrSurveyItems as $itemUid => $item) {
+			if (array_key_exists($itemUid, $this->arrUserData)) {
 
-		foreach($arrPreviousAnswers as $intRow => $mixRowValue) {
-			foreach($mixRowValue as $intRow2 => $mixRowValue2) {
-				foreach($mixRowValue2 as $intRow3 => $mixRowValue3) {
-						$intRowQ = $arrPreviousAnswers[$intRow][$intRow2][$intRow3]['question'];	//Get question uid
-						$question[$intRowQ][$intRow2] = $arrPreviousAnswers[$intRow][$intRow2][$intRow3]['answer'];	//Get answer value
+				// Set the question number and the question
+				$answerHeader = '#' . $questionNumber . ': ' . $item['question'];
+				$answerHeaderDivider = str_repeat('-', strlen($answerHeader));
+				$mailContent .= $answerHeaderDivider . "\r\n" . $answerHeader . "\r\n" . $answerHeaderDivider . "\r\n";
+
+				$userAnswers = $this->arrUserData[$itemUid];
+				$itemAnswers = $this->answersArray($item['answers']);
+				$itemRows = explode("\n", $item['rows']);
+
+				switch((integer) $item['question_type']) {
+					case 1:
+					case 2:
+					case 3:
+					case 23:
+						foreach ($userAnswers as $rowKey => $row) {
+							if ($rowKey != -1 && array_key_exists($row[0], $itemAnswers)) {
+								$mailContent .= $itemAnswers[$row[0]][0] . "\r\n";
+							} else {
+								$mailContent .= $row[0] . "\r\n";
+							}
+						}
+						break;
+					case 4:
+						$labelIndex = array(
+							1 => 'value_false',
+							2 => 'value_true'
+						);
+						$mailContent .= $this->pi_getLL($labelIndex[$userAnswers[0][0]]) . "\r\n";
+						break;
+					case 5:
+						$labelIndex = array(
+							1 => 'value_no',
+							2 => 'value_yes'
+						);
+						$mailContent .= $this->pi_getLL($labelIndex[$userAnswers[0][0]]) . "\r\n";
+						break;
+					case 6:
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= trim($itemRows[$rowKey - 1]) . ':' . "\r\n";
+							foreach ($row as $answer) {
+								$mailContent .= '- ' . $itemAnswers[$answer][0] . "\r\n";
+							}
+						}
+						break;
+					case 7:
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= trim($itemRows[$rowKey - 1]) . ':' . "\r\n";
+							foreach ($row as $answer) {
+								$mailContent .= '- ' . $answer . "\r\n";
+							}
+						}
+						break;
+					case 8:
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= trim($itemRows[$rowKey - 1]) . ': ' . $itemAnswers[$row[0]][0] . "\r\n";
+						}
+						break;
+					case 9:
+					case 11:
+					case 15:
+					case 16:
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= trim($itemRows[$rowKey - 1]) . ': ' . $row[0] . "\r\n";
+						}
+						break;
+					case 10:
+					case 12:
+					case 13:
+					case 14:
+						$mailContent .= $userAnswers[0][0] . "\r\n";
+						break;
 				}
+
+				// Add two blank lines between questions
+				$mailContent .= "\r\n\r\n";
 			}
+
+			$questionNumber++;
 		}
 
-		unset($arrPreviousAnswers);
-
-		if($question){
-			$nbrQuestion = 1;
-			foreach($question as $key => $value){
-				$prepare_mail .= '#' . $nbrQuestion++ . ' :' . "\r\n";
-				$prepare_mail .= $this->readValue('uid = ' . intval($key), $this->strItemsTable, 'question,  question_alias,  question_subtext, page_title, page_introduction');
-				foreach($value as $answer){
-					if (is_numeric($answer))
-						$prepare_mail .= $answer . ' - ' . $this->readValue('uid = ' . intval($key), $this->strItemsTable, 'answers', $answer);
-					else
-						$prepare_mail .= $answer;
-				}
-				$prepare_mail .= "\r\n-----------\r\n\r\n";
-			}
-			$this->mailto($prepare_mail);
-		}
+		$this->mailto($mailContent);
 	}
 
 	/**********************************
