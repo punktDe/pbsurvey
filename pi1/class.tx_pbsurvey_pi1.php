@@ -110,6 +110,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			'responses_per_user'  => array('responses_per_user', 'sOTHER', 'userResponses', 2),
 			'days_for_update'     => array('days_for_update', 'sOTHER', 'daysForUpdate', 2),
 			'validation'          => array('validation', 'sOTHER', 'validation', 2),
+			'firstColumnWidth'    => array('first_column_width', 'sOTHER', 'matrix.firstColumnWidth', 2),
 			'scoring'             => array('result', 'sSCORING', '', 4, 'el'),
 		);
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey][$this->prefixId]['setFFconfig'])) {
@@ -1290,15 +1291,36 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   integer       Calculated value
 	 */
 	function markerColwidth($arrQuestion) {
-		$arrAllowed = array(6,7,8);
-		if (in_array($arrQuestion['question_type'],$arrAllowed)) {
-  		    $intOutput = intval(100/(count($this->answersArray($arrQuestion['answers'])) + 1)) . '%';
-		} elseif ($arrQuestion['question_type']==9) {
-			$intOutput = intval(100/(
-				max($arrQuestion['beginning_number'], $arrQuestion['ending_number']) -
-				min($arrQuestion['beginning_number'], $arrQuestion['ending_number']) + 2
-			)) . '%';
+		$arrAllowed = array(6, 7, 8);
+		$firstColumnWidth = intval($this->arrConfig['firstColumnWidth']);
+		$firstColumnModifier = 0;
+
+			// First column not set correctly
+		if($firstColumnWidth >= 100 or $firstColumnWidth <= 0) {
+			$firstColumnWidth = 0;
+
+			// First column set, so we need to extract first column from calculation
+		} else {
+			$firstColumnModifier = -1;
 		}
+
+		if (in_array($arrQuestion['question_type'], $arrAllowed)) {
+			$intOutput = (100 - $firstColumnWidth) / (
+				count($this->answersArray($arrQuestion['answers'])) +
+				1 +
+				$firstColumnModifier
+			);
+		} elseif ($arrQuestion['question_type'] == 9) {
+			$intOutput = (100 - $firstColumnWidth) / (
+				max($arrQuestion['beginning_number'], $arrQuestion['ending_number']) -
+				min($arrQuestion['beginning_number'], $arrQuestion['ending_number']) +
+				2 +
+				$firstColumnModifier
+			);
+		}
+
+		$intOutput = intval($intOutput) . '%';
+
 		return $intOutput;
 	}
 

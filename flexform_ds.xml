@@ -582,6 +582,15 @@
 						</config>
 						</TCEforms>
 					</validation>
+					<first_column_width>
+						<TCEforms>
+							<label>LLL:EXT:pbsurvey/lang/locallang.xml:pi_flexform.first_column_width</label>
+							<config>
+								<type>input</type>
+								<size>3</size>
+							</config>
+						</TCEforms>
+					</first_column_width>
 				</el>
 			</ROOT>
 		</sOTHER>

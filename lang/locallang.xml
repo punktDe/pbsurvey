@@ -81,6 +81,7 @@
 			<label index="pi_flexform.to">To :</label>
 			<label index="pi_flexform.cc">Cc :</label>
 			<label index="pi_flexform.message">Return message :</label>
+			<label index="pi_flexform.first_column_width">First column width for matrix questions (percentage):</label>
 		</languageKey>
 	</data>
 </T3locallang>
