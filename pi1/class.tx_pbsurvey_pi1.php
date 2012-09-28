@@ -1276,7 +1276,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		if (in_array($arrQuestion['question_type'],$arrAllowed)) {
 			$intOutput = count($this->answersArray($arrQuestion['answers']));
 		} elseif ($arrQuestion['question_type']==9) {
-			$intOutput = $arrQuestion['ending_number'] - $arrQuestion['beginning_number']+1;
+			$intOutput = max($arrQuestion['beginning_number'], $arrQuestion['ending_number']) -
+				min($arrQuestion['beginning_number'], $arrQuestion['ending_number']) + 1;
 		}
 		return $intOutput;
 	}
@@ -1293,7 +1294,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		if (in_array($arrQuestion['question_type'],$arrAllowed)) {
   		    $intOutput = intval(100/(count($this->answersArray($arrQuestion['answers'])) + 1)) . '%';
 		} elseif ($arrQuestion['question_type']==9) {
-			$intOutput = intval(100/($arrQuestion['ending_number'] - $arrQuestion['beginning_number']+2)) . '%';
+			$intOutput = intval(100/(
+				max($arrQuestion['beginning_number'], $arrQuestion['ending_number']) -
+				min($arrQuestion['beginning_number'], $arrQuestion['ending_number']) + 2
+			)) . '%';
 		}
 		return $intOutput;
 	}
@@ -1387,10 +1391,15 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				$arrQuestion['value'] = $arrCol[0];
 				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###HEADER###'), $arrQuestion, '###|###', 1);
 			}
-		} elseif ($arrQuestion['question_type']==9) {
-			for ($intCounter=$arrQuestion['beginning_number'];$intCounter<=$arrQuestion['ending_number'];$intCounter++){
+		} elseif ($arrQuestion['question_type'] == 9) {
+			foreach (range($arrQuestion['beginning_number'], $arrQuestion['ending_number']) as $intCounter) {
 				$arrQuestion['value'] = $intCounter;
-				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###HEADER###'), $arrQuestion, '###|###', 1);
+				$arrHtml[] = $this->cObj->substituteMarkerArray(
+					$GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###HEADER###'),
+					$arrQuestion,
+					'###|###',
+					1
+				);
 			}
 		}
 		$strOutput = implode(chr(13),$arrHtml);
@@ -1461,8 +1470,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					}
 					$arrHtmlCols[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###COLUMNS###'), $arrQuestion, '###|###', 1);
 				}
-			} elseif ($arrQuestion['question_type']==9) {
-				for ($intCounter=$arrQuestion['beginning_number'];$intCounter<=$arrQuestion['ending_number'];$intCounter++){
+			} elseif ($arrQuestion['question_type'] == 9) {
+				foreach (range($arrQuestion['beginning_number'], $arrQuestion['ending_number']) as $intCounter) {
 					$arrQuestion['checked'] = '';
 					$arrQuestion['value'] = $intCounter;
 					if ($this->checkUpdate($arrQuestion['uid'])) {
