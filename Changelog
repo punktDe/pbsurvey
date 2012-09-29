@@ -1,3 +1,22 @@
+2012-09-28 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Start and endtime of a survey are the same
+ ~ [BUGFIX] Question Type 9: Matrix – Rating Scale (Numeric) does not work if starting number > ending number
+ + [BUGFIX] Result in mail unusuable for matrix questions
+ + [FEATURE] Matrix: Possiblity to set a fixed width for first Column
+
+2012-09-27 - Patrick Broens <patrick@patrickbroens.nl>
+ + [FEATURE] Start single response survey at the point where the user left the survey
+ ~ [BUGFIX] Translations are not taken from translation server
+ ~ [BUGFIX] Can't exclude CSS field for regular BE-users
+ ~ [BUGFIX] Question type 'Open Ended - Constant Sum' doesn't remember sum after validation error
+ + [FEATURE] Answers not editable without the use of the answer wizard
+ ~ [BUGFIX] From "name" in email is hardcoded to "survey
+ ~ [BUGFIX] Mail message sent in wrong charset
+
+2012-09-20 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Pagebreak conditions not working
+ ~ [BUGFIX] Backend module is using deprecated methods for 4.6
+
 2007-06-01 - Patrick Broens <patrick@patrickbroens.nl>
  ~ Moved JS validation from button to form
 
@@ -98,14 +117,14 @@
 
 2006-05-10 - Patrick Broens <patrick@patrickbroens.nl>
  ~ pi1\class.tx_pbsurvey_pi1.php: function jsLocallang(): Fixed a bug that made the client side validation useless.
- 
+
 2006-05-10 - Patrick Broens <patrick@patrickbroens.nl>
  ~ pi1\class.tx_pbsurvey_pi1.php: function getFFconfig: $this->arrConfig['pid'] was empty when no pid given in TS or FF. When empty it is now the current pid.
  ~ pi1\class.tx_pbsurvey_pi1.php: function array_htmlspecialchars: html code from html type was also translated.
 
 2006-05-01 - Patrick Broens <patrick@patrickbroens.nl>
  ~ pi1\class.tx_pbsurvey_pi1.php: function markerSub: Subtext was not inserted.
- 
+
 2006-05-01 - Patrick Broens <patrick@patrickbroens.nl>
  + Added id to additional fields. Were removed on 2006-04-27, but are necessary for additional fields.
  ~ wizard2\wizard_conditions.php: Changed array for true/false, yes/no in function getAnswers. Index for these types were wrong.
@@ -117,7 +136,7 @@
 2006-04-28 - Patrick Broens <patrick@patrickbroens.nl>
  ~ pi1\class.tx_pbsurvey_pi1.php: Changed line 213 to else because if locationheader on both cancel and completion, completion url would override the cancel url.
  ~ pi1\class.tx_pbsurvey_pi1.php: Added the pid of the survey items to the cookiename in anonymous access. In case of multiple surveys in one website.
- 
+
 2006-04-27 - Patrick Broens <patrick@patrickbroens.nl>
  - pi1/template.html: Deleted some unnecessary subpartmarkers
  ~ pi1\class.tx_pbsurvey_pi1.php: Changed some markerfunctions because of deletion unnecessary subpartmarkers.
