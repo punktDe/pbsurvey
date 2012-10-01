@@ -1,3 +1,6 @@
+2012-10-01 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Survey is skipped to the end
+
 2012-09-28 - Patrick Broens <patrick@patrickbroens.nl>
  ~ [BUGFIX] Start and endtime of a survey are the same
  ~ [BUGFIX] Question Type 9: Matrix – Rating Scale (Numeric) does not work if starting number > ending number
