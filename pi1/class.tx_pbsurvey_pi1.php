@@ -351,6 +351,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			}
 		}
 
+		reset($this->arrSurveyItems);
+
 		return $enteringStage;
 	}
 
