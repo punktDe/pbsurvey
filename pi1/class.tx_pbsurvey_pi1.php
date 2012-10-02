@@ -277,6 +277,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	function processItems() {
 		$intCounter = 0;
 		$blnPageCondition = FALSE;
+		reset($this->arrSurveyItems);
 		$arrFirst = current($this->arrSurveyItems);
 		foreach ($this->arrSurveyItems as $arrItem){
 		  	if ($intCounter < $this->intStage){ // Read past items
@@ -343,15 +344,16 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	protected function calculateEnteringStage() {
 		$currentStage = $enteringStage = -1;
 
+		reset($this->arrSurveyItems);
+		$firstItem = current($this->arrSurveyItems);
+
 		foreach ($this->arrSurveyItems as $key => $surveyItem) {
-			if ($surveyItem['question_type'] == 22) {
+			if ($surveyItem['question_type'] == 22 && !($surveyItem['uid'] == $firstItem['uid'])) {
 				$currentStage++;
 			} elseif (array_key_exists($key, $this->arrUserData)) {
 				$enteringStage = $currentStage;
 			}
 		}
-
-		reset($this->arrSurveyItems);
 
 		return $enteringStage;
 	}
