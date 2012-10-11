@@ -111,6 +111,7 @@
 			<label index="tx_pbsurvey_results.begintstamp">Start time</label>
 			<label index="tx_pbsurvey_results.endtstamp">End time</label>
 			<label index="tx_pbsurvey_results.language">Language</label>
+			<label index="tx_pbsurvey_results.history">History</label>
 			<label index="tx_pbsurvey_answers">Questionaire Answer</label>
 			<label index="tx_pbsurvey_answers.result">Result</label>
 			<label index="tx_pbsurvey_answers.question">Question</label>

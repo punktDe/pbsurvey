@@ -821,20 +821,18 @@ $TCA['tx_pbsurvey_results'] = array (
                 'max' => '15',
 			)
 		),
-		/* Here we are cheating. The column answers doesn't exist in the DB. I have to find out if there is another way to do this.
-		   Typo3 knows 1-M and M-M relations, but no M-1, which is the case here. Correct me if I'm wrong.
-		   All the answers belonging to this results record are displayed by the function displayAnswers in class tx_pbsurvey_answers.
-		*/
-//		'answers' => array (
-//			'label' => 'TEST: ',
-//			'config' => array (
-//				'type' => 'user',
-//				'userFunc' => 'tx_pbsurvey_answers->displayAnswers',
-//			)
-//		),
+		'history' => array (
+			'exclude' => 0,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results.history',
+			'config' => array (
+				'type' => 'text',
+				'cols' => '30',
+				'rows' => '5',
+			),
+		),
 	),
 	'types' => array (
-		'0' => array('showitem' => 'hidden;;1;;1-1-1,user,ip,finished,begintstamp,endtstamp,language_uid,answers')
+		'0' => array('showitem' => 'hidden;;1;;1-1-1,user,ip,finished,begintstamp,endtstamp,language_uid,answers,history')
 	),
 	'palettes' => array (
 		'1' => array('showitem' => '')

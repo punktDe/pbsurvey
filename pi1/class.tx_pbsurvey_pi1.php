@@ -52,6 +52,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	var $intNextPages;
 	var $strOutItems;
 	var $strJsCalls;
+	private $history = array();
 
 	/**********************************
 	 *
@@ -237,6 +238,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					$this->intStage++;
 				} elseif (isset($this->piVars['back'])) { // Pushed the back button
 					$this->intStage = $this->intPreviousStage;
+					$this->removeAnswersInHigherStages();
+					$this->storeResults(FALSE);
 				}
 				$this->userSetKey();
 				$this->processItems();
@@ -355,6 +358,12 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			}
 		}
 
+		// Remove everything in history behind the entering stage
+		$keyIndex = array_search($enteringStage + 1, $this->history);
+		if ($keyIndex !== FALSE) {
+			$this->history = array_splice($this->history, 0, $keyIndex);
+		}
+
 		return $enteringStage;
 	}
 
@@ -365,13 +374,13 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return	array		Converted answers information to array
 	 */
 	function previousStage($boolInput) {
-		if (!isset($this->piVars['back'])) { // Forward
-			$intOutput = intval($this->piVars['stage']);
+		if (!isset($this->piVars['back']) && isset($this->piVars['stage'])) { // Forward
+			$intOutput = $this->intStage;
 			if ($boolInput) {
-				$this->arrSessionData['history'][] = $intOutput;
+				$this->history[] = $intOutput;
 			}
-		} else { // Backward
-			$intOutput = array_pop($this->arrSessionData['history']);
+		} elseif (isset($this->piVars['back'])) { // Backward
+			$intOutput = array_pop($this->history);
 		}
 		return $intOutput;
 	}
@@ -1806,6 +1815,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$arrSelectConf['where'] .= ' AND result=' . intval($arrRes['uid']);
 			$arrSelectConf['where'] .= $this->cObj->enableFields($this->strAnswersTable);
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strAnswersTable,$arrSelectConf['where'],'','','');
+			$itemCount = $GLOBALS['TYPO3_DB']->sql_num_rows($dbRes);
+			if ($itemCount > 0 && strlen($arrRes['history']) > 0) {
+				$this->history = t3lib_div::intExplode(',', $arrRes['history']);
+			}
 			while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)) {
 				array_walk($arrRow, array($this,'array_htmlspecialchars'));
 				$arrAnswers[$arrRow['question']][$arrRow['row']][$arrRow['col']] = $arrRow['answer'];
@@ -1897,12 +1910,13 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$arrDb['ip'] = $this->arrSessionData['uip'];
 		$arrDb['pid'] = intval($this->arrConfig['pid']);
 		$arrDb['language_uid'] = $GLOBALS['TSFE']->config['config']['language'];
-		if (($this->arrSessionData['rid'] && $this->intStage==0) || $boolFinished) { // Surveyresult is an update and first page submitted
+		if ($this->arrSessionData['rid']) { // Surveyresult always needs to be updated for history
+			$arrDb['history'] = implode(',', $this->history);
 			$strWhere = 'uid=' . intval($this->arrSessionData['rid']);
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($this->strResultsTable,$strWhere,$arrDb);
-		} elseif ($this->intStage==0) {
+		} elseif ($this->intStage == -1) {
 			$arrDb['crdate'] = $arrDb['begintstamp'] = time();
-			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable,$arrDb); // Insert result
+			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable, $arrDb); // Insert result
 			$this->arrSessionData['rid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
 			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) { // Anonymous survey, check acces by cookie
 				setcookie($this->extKey."[".$this->arrConfig['pid']."][rid]", $this->arrSessionData['rid'], (time()+60*60*24*$this->arrConfig['cookie_lifetime']));
@@ -2011,6 +2025,40 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			 $strOutput = $this->surveyError('failed_saving_data');
 		}
 		return $strOutput;
+	}
+
+	/**
+	 * Removes answers in stages higher than the current
+	 *
+	 * This is to keep the history in sync with the answers
+	 *
+	 * @return void
+	 */
+	private function removeAnswersInHigherStages() {
+		$counter = 0;
+		reset($this->arrSurveyItems);
+		$firstItem = current($this->arrSurveyItems);
+		$removeItems = array();
+
+		foreach ($this->arrSurveyItems as $surveyItem) {
+			if ($surveyItem['question_type'] == 22) {
+	            if ($surveyItem['uid'] != $firstItem['uid']) {
+		            $counter++;
+				}
+			}
+			if ($counter > $this->intStage) { // Items that belong to next stages
+				$removeItems[] = $surveyItem['uid'];
+			}
+		}
+
+		if (!empty($removeItems)) {
+			$whereClause = '1=1';
+			$whereClause .= ' AND question IN (' . t3lib_div::csvValues($removeItems, ',', "'") . ')';
+			$whereClause .= ' AND pid=' . intval($this->arrConfig['pid']);
+			$whereClause .= ' AND result=' . intval($this->arrSessionData['rid']);
+
+			$databaseResource = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable, $whereClause);
+		}
 	}
 
 	/**
