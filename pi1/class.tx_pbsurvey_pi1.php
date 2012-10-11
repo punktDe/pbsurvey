@@ -1815,8 +1815,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$arrSelectConf['where'] .= ' AND result=' . intval($arrRes['uid']);
 			$arrSelectConf['where'] .= $this->cObj->enableFields($this->strAnswersTable);
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strAnswersTable,$arrSelectConf['where'],'','','');
-			$itemCount = $GLOBALS['TYPO3_DB']->sql_num_rows($dbRes);
-			if ($itemCount > 0 && strlen($arrRes['history']) > 0) {
+			if (strlen($arrRes['history']) > 0) {
 				$this->history = t3lib_div::intExplode(',', $arrRes['history']);
 			}
 			while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)) {
