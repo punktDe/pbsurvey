@@ -10,6 +10,7 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="no_items">There are no questions available to show.</label>
+			<label index="access_single_finished">You have finished this survey.</label>
 			<label index="access_single_no_update">You have already responded to this survey. You can only do this once.</label>
 			<label index="access_single_update_expired">You cannot update your response anymore. The days for update have expired.</label>
 			<label index="access_user_maximum">You have reached the maximum number of responses to this survey</label>

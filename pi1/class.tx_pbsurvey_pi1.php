@@ -736,12 +736,37 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$this->arrSessionData['rid']=$arrPrevious[2]['uid'];
 		if ((int)$this->arrConfig['access_level']) { // Single response
 			if (!$this->piVars['stage']) {
+
 				// Time is expired for updateable response
-				if ($this->arrConfig['access_level']==1 && $arrPrevious[2]['crdate'] && ($arrPrevious[2]['crdate']+($this->arrConfig['days_for_update']*(3600*24))<$GLOBALS['EXEC_TIME']) && $this->arrConfig['days_for_update']<>0 && $arrPrevious[1]<>0) {
+				if (
+					$this->arrConfig['access_level'] == 1 &&
+					$arrPrevious[2]['crdate'] &&
+					($arrPrevious[2]['crdate'] + ($this->arrConfig['days_for_update'] * (3600 * 24)) < $GLOBALS['EXEC_TIME']) &&
+					$this->arrConfig['days_for_update'] <> 0 &&
+					$arrPrevious[1] <> 0
+				) {
 					$strOutput = 'access_single_update_expired';
+
 				// Exit because update not allowed
-				} elseif ($arrPrevious[0] && $this->arrConfig['access_level']==2 && !isset($this->piVars['stage'])) {
+				} elseif (
+					$this->arrConfig['access_level'] == 2 &&
+					$arrPrevious[0] &&
+					!isset($this->piVars['stage'])
+				) {
 					$strOutput = 'access_single_no_update';
+
+				// The survey has been finished
+				} elseif ($this->arrConfig['access_level'] == 3) {
+					if ($arrPrevious[2]['finished']) {
+						$strOutput = 'access_single_finished';
+					} elseif (
+						$arrPrevious[2]['crdate'] &&
+						($arrPrevious[2]['crdate'] + ($this->arrConfig['days_for_update'] * (3600 * 24)) < $GLOBALS['EXEC_TIME']) &&
+						$this->arrConfig['days_for_update'] <> 0 &&
+						$arrPrevious[1] <> 0
+					) {
+						$strOutput = 'access_single_update_expired';
+					}
 				}
 			}
 		} else { // Multiple responses

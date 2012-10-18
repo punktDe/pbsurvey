@@ -18,6 +18,7 @@
 			<label index="pi_flexform.access_level0">Multiple Response</label>
 			<label index="pi_flexform.access_level1">Single Response</label>
 			<label index="pi_flexform.access_level2">Single Response (Not Updateable)</label>
+			<label index="pi_flexform.access_level3">Single Response (Not Updateable after finish)</label>
 			<label index="pi_flexform.entering_stage">Begin stage when restarting</label>
 			<label index="pi_flexform.entering_stage0">At the beginning of the survey</label>
 			<label index="pi_flexform.entering_stage1">At the point where user left the survey</label>
@@ -69,7 +70,6 @@
 			<label index="pi_flexform.validation0">Client-side Javascript</label>
 			<label index="pi_flexform.validation1">Server-side PHP (Accessibility)</label>
 			<label index="pi_flexform.validation2">Both Server-side and Client-side</label>
-			<label index="pi_flexform.access_level3">Manual Response Entry</label>
 			<label index="pi_flexform.menu.mail">Mail</label>
 			<label index="pi_flexform.email">Send mail</label>
 			<label index="pi_flexform.subject">Subject</label>
