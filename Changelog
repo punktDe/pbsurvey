@@ -1,3 +1,6 @@
+2012-10-18 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Add option to have updateable single response survey only before it has finished
+
 2012-10-11 - Patrick Broens <patrick@patrickbroens.nl>
  ~ [BUGFIX] Using back button without any answers in database screws up history
  ~ [BUGFIX] History is not available anymore after returning to an unfinished survey
