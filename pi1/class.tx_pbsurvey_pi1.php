@@ -52,6 +52,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	var $intNextPages;
 	var $strOutItems;
 	var $strJsCalls;
+	private $history = array();
 
 	/**********************************
 	 *
@@ -87,12 +88,14 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			'pid'                 => array('pages', 'sDEF', 'pid',3),
 			'YNemail' 	          => array('YNemail', 'sMAIL', 'mail', 2),
 			'FromEmail'           => array('FromEmail', 'sMAIL', 'pbsurvey.from', 2),
+			'FromName'            => array('FromName', 'sMAIL', 'pbsurvey.fromName', 2),
 			'Subject'          	  => array('Subject', 'sMAIL', 'pbsurvey.Subject', 2),
 			'ToEmail'      		  => array('ToEmail', 'sMAIL', 'pbsurvey.courriel', 2),
 			'CcEmail'    		  => array('CcEmail', 'sMAIL', 'pbsurvey.cc', 2),
 			'MessageBox'    	  => array('MessageBox', 'sMAIL', 'pbsurvey.msb', 2),
 			'captcha_page'        => array('captcha', 'sACCESS', 'security.captcha', 2),
 			'access_level'        => array('access_level', 'sACCESS', 'accessLevel', 2),
+			'entering_stage'      => array('entering_stage', 'sACCESS', 'enteringStage', 2),
 			'anonymous_mode'      => array('anonymous_mode', 'sACCESS', 'anonymous.mode', 2),
 			'cookie_lifetime'     => array('cookie_lifetime', 'sACCESS', 'anonymous.cookie_lifetime', 2),
 			'completion_action'   => array('completion_action', 'sCOMPLETION', 'completion.action', 2),
@@ -108,6 +111,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			'responses_per_user'  => array('responses_per_user', 'sOTHER', 'userResponses', 2),
 			'days_for_update'     => array('days_for_update', 'sOTHER', 'daysForUpdate', 2),
 			'validation'          => array('validation', 'sOTHER', 'validation', 2),
+			'firstColumnWidth'    => array('first_column_width', 'sOTHER', 'matrix.firstColumnWidth', 2),
 			'scoring'             => array('result', 'sSCORING', '', 4, 'el'),
 		);
 		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$this->extKey][$this->prefixId]['setFFconfig'])) {
@@ -218,7 +222,14 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				$strOutput = $this->loadCaptcha();
 			} else {
 				$this->arrSessionData['captcha'] = 1;
-				$this->intStage = $this->piVars['stage']!=''?intval($this->piVars['stage']):-1;
+
+				// Set entering stage if allowed
+				if (!isset($this->piVars['stage']) && $this->arrConfig['entering_stage'] == 1) {
+					$this->intStage = $this->calculateEnteringStage();
+				} else {
+					$this->intStage = $this->piVars['stage'] != '' ? intval($this->piVars['stage']) : -1;
+				}
+
 				$boolValidated = $this->validateForm();
 				$this->intPreviousStage = $this->previousStage($boolValidated);
 				if ($boolValidated && !isset($this->piVars['back'])) { //No server side validation or validation is ok
@@ -227,6 +238,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					$this->intStage++;
 				} elseif (isset($this->piVars['back'])) { // Pushed the back button
 					$this->intStage = $this->intPreviousStage;
+					$this->removeAnswersInHigherStages();
+					$this->storeResults(FALSE);
 				}
 				$this->userSetKey();
 				$this->processItems();
@@ -267,6 +280,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	function processItems() {
 		$intCounter = 0;
 		$blnPageCondition = FALSE;
+		reset($this->arrSurveyItems);
 		$arrFirst = current($this->arrSurveyItems);
 		foreach ($this->arrSurveyItems as $arrItem){
 		  	if ($intCounter < $this->intStage){ // Read past items
@@ -326,19 +340,47 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	}
 
 	/**
+	 * Calculates the point where the user left the survey
+	 *
+	 * @return int The stage where the survey has to start again
+	 */
+	protected function calculateEnteringStage() {
+		$currentStage = $enteringStage = -1;
+
+		reset($this->arrSurveyItems);
+		$firstItem = current($this->arrSurveyItems);
+
+		foreach ($this->arrSurveyItems as $key => $surveyItem) {
+			if ($surveyItem['question_type'] == 22 && !($surveyItem['uid'] == $firstItem['uid'])) {
+				$currentStage++;
+			} elseif (array_key_exists($key, $this->arrUserData)) {
+				$enteringStage = $currentStage;
+			}
+		}
+
+		// Remove everything in history behind the entering stage
+		$keyIndex = array_search($enteringStage + 1, $this->history);
+		if ($keyIndex !== FALSE) {
+			$this->history = array_splice($this->history, 0, $keyIndex);
+		}
+
+		return $enteringStage;
+	}
+
+	/**
 	 * Fills the question history and returns the previous stage
 	 *
 	 * @param	boolean		True when the submitted form is validated
 	 * @return	array		Converted answers information to array
 	 */
 	function previousStage($boolInput) {
-		if (!isset($this->piVars['back'])) { // Forward
-			$intOutput = intval($this->piVars['stage']);
+		if (!isset($this->piVars['back']) && isset($this->piVars['stage'])) { // Forward
+			$intOutput = $this->intStage;
 			if ($boolInput) {
-				$this->arrSessionData['history'][] = $intOutput;
+				$this->history[] = $intOutput;
 			}
-		} else { // Backward
-			$intOutput = array_pop($this->arrSessionData['history']);
+		} elseif (isset($this->piVars['back'])) { // Backward
+			$intOutput = array_pop($this->history);
 		}
 		return $intOutput;
 	}
@@ -471,7 +513,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
 	function surveyCompletion($rid) {
 		if($this->arrConfig['YNemail'] != 0) {
-			$this->prepareMail($rid);
+			$this->prepareMail();
 		}
 
 		switch($this->arrConfig['completion_action']) {
@@ -689,18 +731,42 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return	string		Locallang label if error
 	 */
 	function checkAccessLevel() {
-		$this->arrSessionData['begintstamp'] = time();
 		$arrPrevious = $this->readPreviousUser();
 		$this->arrUserData=$arrPrevious[0]?$arrPrevious[0]:array();
 		$this->arrSessionData['rid']=$arrPrevious[2]['uid'];
 		if ((int)$this->arrConfig['access_level']) { // Single response
 			if (!$this->piVars['stage']) {
+
 				// Time is expired for updateable response
-				if ($this->arrConfig['access_level']==1 && $arrPrevious[2]['crdate'] && ($arrPrevious[2]['crdate']+($this->arrConfig['days_for_update']*(3600*24))<$GLOBALS['EXEC_TIME']) && $this->arrConfig['days_for_update']<>0 && $arrPrevious[1]<>0) {
+				if (
+					$this->arrConfig['access_level'] == 1 &&
+					$arrPrevious[2]['crdate'] &&
+					($arrPrevious[2]['crdate'] + ($this->arrConfig['days_for_update'] * (3600 * 24)) < $GLOBALS['EXEC_TIME']) &&
+					$this->arrConfig['days_for_update'] <> 0 &&
+					$arrPrevious[1] <> 0
+				) {
 					$strOutput = 'access_single_update_expired';
+
 				// Exit because update not allowed
-				} elseif ($arrPrevious[0] && $this->arrConfig['access_level']==2 && !isset($this->piVars['stage'])) {
+				} elseif (
+					$this->arrConfig['access_level'] == 2 &&
+					$arrPrevious[0] &&
+					!isset($this->piVars['stage'])
+				) {
 					$strOutput = 'access_single_no_update';
+
+				// The survey has been finished
+				} elseif ($this->arrConfig['access_level'] == 3) {
+					if ($arrPrevious[2]['finished']) {
+						$strOutput = 'access_single_finished';
+					} elseif (
+						$arrPrevious[2]['crdate'] &&
+						($arrPrevious[2]['crdate'] + ($this->arrConfig['days_for_update'] * (3600 * 24)) < $GLOBALS['EXEC_TIME']) &&
+						$this->arrConfig['days_for_update'] <> 0 &&
+						$arrPrevious[1] <> 0
+					) {
+						$strOutput = 'access_single_update_expired';
+					}
 				}
 			}
 		} else { // Multiple responses
@@ -1249,7 +1315,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		if (in_array($arrQuestion['question_type'],$arrAllowed)) {
 			$intOutput = count($this->answersArray($arrQuestion['answers']));
 		} elseif ($arrQuestion['question_type']==9) {
-			$intOutput = $arrQuestion['ending_number'] - $arrQuestion['beginning_number']+1;
+			$intOutput = max($arrQuestion['beginning_number'], $arrQuestion['ending_number']) -
+				min($arrQuestion['beginning_number'], $arrQuestion['ending_number']) + 1;
 		}
 		return $intOutput;
 	}
@@ -1262,12 +1329,36 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   integer       Calculated value
 	 */
 	function markerColwidth($arrQuestion) {
-		$arrAllowed = array(6,7,8);
-		if (in_array($arrQuestion['question_type'],$arrAllowed)) {
-  		    $intOutput = intval(100/(count($this->answersArray($arrQuestion['answers'])) + 1)) . '%';
-		} elseif ($arrQuestion['question_type']==9) {
-			$intOutput = intval(100/($arrQuestion['ending_number'] - $arrQuestion['beginning_number']+2)) . '%';
+		$arrAllowed = array(6, 7, 8);
+		$firstColumnWidth = intval($this->arrConfig['firstColumnWidth']);
+		$firstColumnModifier = 0;
+
+			// First column not set correctly
+		if($firstColumnWidth >= 100 or $firstColumnWidth <= 0) {
+			$firstColumnWidth = 0;
+
+			// First column set, so we need to extract first column from calculation
+		} else {
+			$firstColumnModifier = -1;
 		}
+
+		if (in_array($arrQuestion['question_type'], $arrAllowed)) {
+			$intOutput = (100 - $firstColumnWidth) / (
+				count($this->answersArray($arrQuestion['answers'])) +
+				1 +
+				$firstColumnModifier
+			);
+		} elseif ($arrQuestion['question_type'] == 9) {
+			$intOutput = (100 - $firstColumnWidth) / (
+				max($arrQuestion['beginning_number'], $arrQuestion['ending_number']) -
+				min($arrQuestion['beginning_number'], $arrQuestion['ending_number']) +
+				2 +
+				$firstColumnModifier
+			);
+		}
+
+		$intOutput = intval($intOutput) . '%';
+
 		return $intOutput;
 	}
 
@@ -1360,10 +1451,15 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				$arrQuestion['value'] = $arrCol[0];
 				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###HEADER###'), $arrQuestion, '###|###', 1);
 			}
-		} elseif ($arrQuestion['question_type']==9) {
-			for ($intCounter=$arrQuestion['beginning_number'];$intCounter<=$arrQuestion['ending_number'];$intCounter++){
+		} elseif ($arrQuestion['question_type'] == 9) {
+			foreach (range($arrQuestion['beginning_number'], $arrQuestion['ending_number']) as $intCounter) {
 				$arrQuestion['value'] = $intCounter;
-				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###HEADER###'), $arrQuestion, '###|###', 1);
+				$arrHtml[] = $this->cObj->substituteMarkerArray(
+					$GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###HEADER###'),
+					$arrQuestion,
+					'###|###',
+					1
+				);
 			}
 		}
 		$strOutput = implode(chr(13),$arrHtml);
@@ -1434,8 +1530,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					}
 					$arrHtmlCols[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###COLUMNS###'), $arrQuestion, '###|###', 1);
 				}
-			} elseif ($arrQuestion['question_type']==9) {
-				for ($intCounter=$arrQuestion['beginning_number'];$intCounter<=$arrQuestion['ending_number'];$intCounter++){
+			} elseif ($arrQuestion['question_type'] == 9) {
+				foreach (range($arrQuestion['beginning_number'], $arrQuestion['ending_number']) as $intCounter) {
 					$arrQuestion['checked'] = '';
 					$arrQuestion['value'] = $intCounter;
 					if ($this->checkUpdate($arrQuestion['uid'])) {
@@ -1583,6 +1679,15 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$this->arrJsItems[3] = true;
 			$arrMarkers = $arrQuestion;
 			$arrMarkers['remaining_points'] = $this->pi_getLL('remaining_points');
+
+			$currentTotal = 0;
+			if (is_array($this->arrUserData[$arrQuestion['uid']])) {
+				foreach ($this->arrUserData[$arrQuestion['uid']] as $value) {
+					$currentTotal += $value[0];
+				}
+				$arrMarkers['total_number'] = $arrQuestion['total_number'] - $currentTotal;
+			}
+
 			$strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###REMAINING###'),$arrMarkers,'###|###', 1);
 		}
 		return $strOutput;
@@ -1735,6 +1840,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			$arrSelectConf['where'] .= ' AND result=' . intval($arrRes['uid']);
 			$arrSelectConf['where'] .= $this->cObj->enableFields($this->strAnswersTable);
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strAnswersTable,$arrSelectConf['where'],'','','');
+			if (strlen($arrRes['history']) > 0) {
+				$this->history = t3lib_div::intExplode(',', $arrRes['history']);
+			}
 			while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)) {
 				array_walk($arrRow, array($this,'array_htmlspecialchars'));
 				$arrAnswers[$arrRow['question']][$arrRow['row']][$arrRow['col']] = $arrRow['answer'];
@@ -1823,16 +1931,16 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			}
 		}
 		$arrDb['user'] = intval($this->arrSessionData['uid']);
-		$arrDb['begintstamp'] = intval($this->arrSessionData['begintstamp']);
 		$arrDb['ip'] = $this->arrSessionData['uip'];
 		$arrDb['pid'] = intval($this->arrConfig['pid']);
 		$arrDb['language_uid'] = $GLOBALS['TSFE']->config['config']['language'];
-		if (($this->arrSessionData['rid'] && $this->intStage==0) || $boolFinished) { // Surveyresult is an update and first page submitted
+		if ($this->arrSessionData['rid']) { // Surveyresult always needs to be updated for history
+			$arrDb['history'] = implode(',', $this->history);
 			$strWhere = 'uid=' . intval($this->arrSessionData['rid']);
 			$dbRes = $GLOBALS['TYPO3_DB']->exec_UPDATEquery($this->strResultsTable,$strWhere,$arrDb);
-		} elseif ($this->intStage==0) {
-			$arrDb['crdate'] = time();
-			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable,$arrDb); // Insert result
+		} elseif ($this->intStage == -1) {
+			$arrDb['crdate'] = $arrDb['begintstamp'] = time();
+			$dbRes = $GLOBALS['TYPO3_DB']->exec_INSERTquery($this->strResultsTable, $arrDb); // Insert result
 			$this->arrSessionData['rid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
 			if (!$this->arrSessionData['uid'] && $this->arrConfig['anonymous_mode']) { // Anonymous survey, check acces by cookie
 				setcookie($this->extKey."[".$this->arrConfig['pid']."][rid]", $this->arrSessionData['rid'], (time()+60*60*24*$this->arrConfig['cookie_lifetime']));
@@ -1943,56 +2051,133 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		return $strOutput;
 	}
 
-	/**********************************
-	 * prepare_mail function
-	 *DMR : Charles Bureau, Bruno Tavara
-	 ***********************************
-	 * Prepare text to be send by mail and call mailto function
-	 * @return	void
+	/**
+	 * Removes answers in stages higher than the current
+	 *
+	 * This is to keep the history in sync with the answers
+	 *
+	 * @return void
 	 */
-
-	function prepareMail($rid){
-		$intPage = $this->arrConfig['pid'];
-		$arrSelectConf['selectFields'] = '*';
-		$arrSelectConf['where'] = '1=1';
-		$arrSelectConf['where'] .= ' AND pid=' . intval($intPage);
-		$arrSelectConf['where'] .= ' AND result=' . intval($rid);
-		$arrSelectConf['orderBy'] = 'uid ASC';
-		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'], $this->strAnswersTable,$arrSelectConf['where'], '', $arrSelectConf['orderBy'], '');
+	private function removeAnswersInHigherStages() {
 		$counter = 0;
-		//Loop threw the answers and build a new array containing question sand answers only
-		while ($arrRow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
-			$counter++;
-			$arrPreviousAnswers[$counter][$arrRow['row']][$arrRow['col']]['answer'] = $arrRow['answer'];
-			$arrPreviousAnswers[$counter][$arrRow['row']][$arrRow['col']]['question'] = $arrRow['question'];
-		}
+		reset($this->arrSurveyItems);
+		$firstItem = current($this->arrSurveyItems);
+		$removeItems = array();
 
-		foreach($arrPreviousAnswers as $intRow => $mixRowValue) {
-			foreach($mixRowValue as $intRow2 => $mixRowValue2) {
-				foreach($mixRowValue2 as $intRow3 => $mixRowValue3) {
-						$intRowQ = $arrPreviousAnswers[$intRow][$intRow2][$intRow3]['question'];	//Get question uid
-						$question[$intRowQ][$intRow2] = $arrPreviousAnswers[$intRow][$intRow2][$intRow3]['answer'];	//Get answer value
+		foreach ($this->arrSurveyItems as $surveyItem) {
+			if ($surveyItem['question_type'] == 22) {
+	            if ($surveyItem['uid'] != $firstItem['uid']) {
+		            $counter++;
 				}
+			}
+			if ($counter > $this->intStage) { // Items that belong to next stages
+				$removeItems[] = $surveyItem['uid'];
 			}
 		}
 
-		unset($arrPreviousAnswers);
+		if (!empty($removeItems)) {
+			$whereClause = '1=1';
+			$whereClause .= ' AND question IN (' . t3lib_div::csvValues($removeItems, ',', "'") . ')';
+			$whereClause .= ' AND pid=' . intval($this->arrConfig['pid']);
+			$whereClause .= ' AND result=' . intval($this->arrSessionData['rid']);
 
-		if($question){
-			$nbrQuestion = 1;
-			foreach($question as $key => $value){
-				$prepare_mail .= '#' . $nbrQuestion++ . ' :' . "\r\n";
-				$prepare_mail .= $this->readValue('uid = ' . intval($key), $this->strItemsTable, 'question,  question_alias,  question_subtext, page_title, page_introduction');
-				foreach($value as $answer){
-					if (is_numeric($answer))
-						$prepare_mail .= $answer . ' - ' . $this->readValue('uid = ' . intval($key), $this->strItemsTable, 'answers', $answer);
-					else
-						$prepare_mail .= $answer;
-				}
-				$prepare_mail .= "\r\n-----------\r\n\r\n";
-			}
-			$this->mailto($prepare_mail);
+			$databaseResource = $GLOBALS['TYPO3_DB']->exec_DELETEquery($this->strAnswersTable, $whereClause);
 		}
+	}
+
+	/**
+	 * Prepare the content of the mail
+	 *
+	 * @return void
+	 */
+	function prepareMail() {
+		$questionNumber = 1;
+		$mailContent = '';
+
+		foreach($this->arrSurveyItems as $itemUid => $item) {
+			if (array_key_exists($itemUid, $this->arrUserData)) {
+
+				// Set the question number and the question
+				$answerHeader = '#' . $questionNumber . ': ' . $item['question'];
+				$answerHeaderDivider = str_repeat('-', strlen($answerHeader));
+				$mailContent .= $answerHeaderDivider . "\r\n" . $answerHeader . "\r\n" . $answerHeaderDivider . "\r\n";
+
+				$userAnswers = $this->arrUserData[$itemUid];
+				$itemAnswers = $this->answersArray($item['answers']);
+				$itemRows = explode("\n", $item['rows']);
+
+				switch((integer) $item['question_type']) {
+					case 1:
+					case 2:
+					case 3:
+					case 23:
+						foreach ($userAnswers as $rowKey => $row) {
+							if ($rowKey != -1 && array_key_exists($row[0], $itemAnswers)) {
+								$mailContent .= $itemAnswers[$row[0]][0] . "\r\n";
+							} else {
+								$mailContent .= $row[0] . "\r\n";
+							}
+						}
+						break;
+					case 4:
+						$labelIndex = array(
+							1 => 'value_false',
+							2 => 'value_true'
+						);
+						$mailContent .= $this->pi_getLL($labelIndex[$userAnswers[0][0]]) . "\r\n";
+						break;
+					case 5:
+						$labelIndex = array(
+							1 => 'value_no',
+							2 => 'value_yes'
+						);
+						$mailContent .= $this->pi_getLL($labelIndex[$userAnswers[0][0]]) . "\r\n";
+						break;
+					case 6:
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= trim($itemRows[$rowKey - 1]) . ':' . "\r\n";
+							foreach ($row as $answer) {
+								$mailContent .= '- ' . $itemAnswers[$answer][0] . "\r\n";
+							}
+						}
+						break;
+					case 7:
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= trim($itemRows[$rowKey - 1]) . ':' . "\r\n";
+							foreach ($row as $answer) {
+								$mailContent .= '- ' . $answer . "\r\n";
+							}
+						}
+						break;
+					case 8:
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= trim($itemRows[$rowKey - 1]) . ': ' . $itemAnswers[$row[0]][0] . "\r\n";
+						}
+						break;
+					case 9:
+					case 11:
+					case 15:
+					case 16:
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= trim($itemRows[$rowKey - 1]) . ': ' . $row[0] . "\r\n";
+						}
+						break;
+					case 10:
+					case 12:
+					case 13:
+					case 14:
+						$mailContent .= $userAnswers[0][0] . "\r\n";
+						break;
+				}
+
+				// Add two blank lines between questions
+				$mailContent .= "\r\n\r\n";
+			}
+
+			$questionNumber++;
+		}
+
+		$this->mailto($mailContent);
 	}
 
 	/**********************************
@@ -2035,17 +2220,18 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 		$id=$GLOBALS['TSFE']->id;
 		$YNemail = $this->arrConfig['YNemail'];
 		$FromEmail = $this->arrConfig['FromEmail'];
+		$fromName = $this->arrConfig['FromName'] != '' ? $this->arrConfig['FromName'] : 'Survey';
 		$ToEmail = $this->arrConfig['ToEmail'];
 		$CcEmail = $this->arrConfig['CcEmail'];
 		$MessageBox = $this->arrConfig['MessageBox'];
 		$Subject  = $this->arrConfig['Subject'];
-		$headers = 'From: "Survey" <' . $FromEmail . '>' . "\n";
+		$headers = 'From: "' . $fromName . '" <' . $FromEmail . '>' . "\n";
 		$headers .= 'Reply-To: ' . $ToEmail . "\n";
 		if(!empty($CcEmail)) {
 			$headers .= 'Cc: ' . $CcEmail . "\n";
 		}
 		// *************** TEXT ***************
-		$headers .= 'Content-Type: text/plain; charset="UTF-8"' . "\n";
+		$headers .= 'Content-Type: text/plain; charset="' . $GLOBALS['TSFE']->renderCharset . '"' . "\n";
 		$headers .= 'Content-Transfer-Encoding: 8bit' . "\n";
 		// *************** HTML ***************
 		#$headers = "MIME-Version: 1.0" . "\r\n";

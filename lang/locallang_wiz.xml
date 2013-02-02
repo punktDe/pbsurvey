@@ -5,7 +5,6 @@
 		<type>module</type>
 		<csh_table></csh_table>
 		<fileId>EXT:pbsurvey/lang/locallang_wiz.xml</fileId>
-		<ext_filename_template>EXT:pbsurvey/lang/###LANGKEY###.locallang_wiz.xml</ext_filename_template>
 		<labelContext type="array">
 		</labelContext>
 	</meta>
@@ -159,14 +158,5 @@
 			<label index="conditions_no">No</label>
 			<label index="conditions_error">There are no questions in front of this page-break!</label>
 		</languageKey>
-		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang_wiz.xml</languageKey>
-		<languageKey index="de">EXT:pbsurvey/lang/de.locallang_wiz.xml</languageKey>
-		<languageKey index="fr">EXT:pbsurvey/lang/fr.locallang_wiz.xml</languageKey>
-		<languageKey index="dk">EXT:pbsurvey/lang/dk.locallang_wiz.xml</languageKey>
-		<languageKey index="no">EXT:pbsurvey/lang/no.locallang_wiz.xml</languageKey>
 	</data>
-	<orig_hash type="array">
-	</orig_hash>
-	<orig_text type="array">
-	</orig_text>
 </T3locallang>

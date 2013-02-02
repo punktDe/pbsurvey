@@ -4,7 +4,6 @@
 		<description>Language labels of Questionaire Flexform </description>
 		<type>module</type>
 		<fileId>EXT:pbsurvey/lang/locallang.xml</fileId>
-		<ext_filename_template>EXT:pbsurvey/lang/###LANGKEY###.locallang.xml</ext_filename_template>
 		<labelContext type="array">
 		</labelContext>
 	</meta>
@@ -19,6 +18,10 @@
 			<label index="pi_flexform.access_level0">Multiple Response</label>
 			<label index="pi_flexform.access_level1">Single Response</label>
 			<label index="pi_flexform.access_level2">Single Response (Not Updateable)</label>
+			<label index="pi_flexform.access_level3">Single Response (Not Updateable after finish)</label>
+			<label index="pi_flexform.entering_stage">Begin stage when restarting</label>
+			<label index="pi_flexform.entering_stage0">At the beginning of the survey</label>
+			<label index="pi_flexform.entering_stage1">At the point where user left the survey</label>
 			<label index="pi_flexform.anonymous_mode">Anonymous check</label>
 			<label index="pi_flexform.anonymous_mode0">IP-address</label>
 			<label index="pi_flexform.anonymous_mode1">Cookie</label>
@@ -67,22 +70,18 @@
 			<label index="pi_flexform.validation0">Client-side Javascript</label>
 			<label index="pi_flexform.validation1">Server-side PHP (Accessibility)</label>
 			<label index="pi_flexform.validation2">Both Server-side and Client-side</label>
-			<label index="pi_flexform.access_level3">Manual Response Entry</label>
 			<label index="pi_flexform.menu.mail">Mail</label>
 			<label index="pi_flexform.email">Send mail</label>
 			<label index="pi_flexform.subject">Subject</label>
 			<label index="pi_flexform.email.nomail">No mail</label>
 			<label index="pi_flexform.email.qa">Send : Question / Answer</label>
 			<label index="pi_flexform.email.message">Send : Default message</label>
-			<label index="pi_flexform.from">From :</label>
+			<label index="pi_flexform.from">From: Email Address</label>
+			<label index="pi_flexform.from_name">From: Name</label>
 			<label index="pi_flexform.to">To :</label>
 			<label index="pi_flexform.cc">Cc :</label>
 			<label index="pi_flexform.message">Return message :</label>
+			<label index="pi_flexform.first_column_width">First column width for matrix questions (percentage):</label>
 		</languageKey>
-		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang.xml</languageKey>
-		<languageKey index="de">EXT:pbsurvey/lang/de.locallang.xml</languageKey>
-		<languageKey index="fr">EXT:pbsurvey/lang/fr.locallang.xml</languageKey>
-		<languageKey index="dk">EXT:pbsurvey/lang/dk.locallang.xml</languageKey>
-		<languageKey index="no">EXT:pbsurvey/lang/no.locallang.xml</languageKey>
 	</data>
 </T3locallang>

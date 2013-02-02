@@ -7,3 +7,6 @@ hideNewLocalizations = 0
 
   # cat=basic/enable/180; type=boolean; label= Prepend at Copy: Here you can enable adding of the text "(copy [#])" to titles of copied records.
 prependAtCopy = 0
+
+  # cat=basic/enable/210; type=boolean; label= Editable answers: By default, you can only add answers with the wizard. Setting this option makes it possible to add answers directly in the text field. Very usefull when entering a lot of answers.
+answersEditable = 0

@@ -4,13 +4,13 @@
 		<description>Frontend language labels for Questionaire</description>
 		<type>module</type>
 		<fileId>EXT:pbsurvey/pi1/locallang.xml</fileId>
-		<ext_filename_template>EXT:pbsurvey/pi1/###LANGKEY###.locallang.xml</ext_filename_template>
 		<labelContext type="array">
 		</labelContext>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="no_items">There are no questions available to show.</label>
+			<label index="access_single_finished">You have finished this survey.</label>
 			<label index="access_single_no_update">You have already responded to this survey. You can only do this once.</label>
 			<label index="access_single_update_expired">You cannot update your response anymore. The days for update have expired.</label>
 			<label index="access_user_maximum">You have reached the maximum number of responses to this survey</label>
@@ -76,18 +76,5 @@
 			<label index="completion_message">Thank you for taking the survey!</label>
 			<label index="no_script">In order to participate in this survey, Javascript support needs to be available. Perhaps Javascript is switched off or your browser does not support it.</label>
 		</languageKey>
-		<languageKey index="nl">EXT:pbsurvey/pi1/nl.locallang.xml</languageKey>
-		<languageKey index="de">EXT:pbsurvey/pi1/de.locallang.xml</languageKey>
-		<languageKey index="fr">EXT:pbsurvey/pi1/fr.locallang.xml</languageKey>
-		<languageKey index="dk">EXT:pbsurvey/pi1/dk.locallang.xml</languageKey>
-		<languageKey index="fi">EXT:pbsurvey/pi1/fi.locallang.xml</languageKey>
-		<languageKey index="no">EXT:pbsurvey/pi1/no.locallang.xml</languageKey>
-		<languageKey index="it">EXT:pbsurvey/pi1/it.locallang.xml</languageKey>
-		<languageKey index="es">EXT:pbsurvey/pi1/es.locallang.xml</languageKey>
-		<languageKey index="hk">EXT:pbsurvey/pi1/hk.locallang.xml</languageKey>
 	</data>
-	<orig_hash type="array">
-	</orig_hash>
-	<orig_text type="array">
-	</orig_text>
 </T3locallang>

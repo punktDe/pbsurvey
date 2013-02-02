@@ -78,6 +78,7 @@ CREATE TABLE tx_pbsurvey_results (
 	finished tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	begintstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	endtstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	history text,
 	language_uid tinytext NOT NULL,
 	PRIMARY KEY (uid),
 	KEY parent (pid)
@@ -97,7 +98,7 @@ CREATE TABLE tx_pbsurvey_answers (
 	question int(11) unsigned DEFAULT '0' NOT NULL,
 	row int(11) DEFAULT '0' NOT NULL,
 	col int(11) unsigned DEFAULT '0' NOT NULL,
-	answer text NOT NULL,	
+	answer text NOT NULL,
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 	KEY parent (result)

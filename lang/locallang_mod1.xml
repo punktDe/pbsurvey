@@ -5,7 +5,6 @@
 		<type>module</type>
 		<csh_table></csh_table>
 		<fileId>EXT:pbsurvey/lang/locallang_mod1.xml</fileId>
-		<ext_filename_template>EXT:pbsurvey/lang/###LANGKEY###.locallang_mod1.xml</ext_filename_template>
 		<labelContext type="array">
 		</labelContext>
 	</meta>
@@ -17,14 +16,5 @@
 			<label index="no_results">There are no questionaire results on this page.</label>
 			<label index="error">Error</label>
 		</languageKey>
-		<languageKey index="nl">EXT:pbsurvey/lang/nl.locallang_mod1.xml</languageKey>
-		<languageKey index="de">EXT:pbsurvey/lang/de.locallang_mod1.xml</languageKey>
-		<languageKey index="fr">EXT:pbsurvey/lang/fr.locallang_mod1.xml</languageKey>
-		<languageKey index="dk">EXT:pbsurvey/lang/dk.locallang_mod1.xml</languageKey>
-		<languageKey index="no">EXT:pbsurvey/lang/no.locallang_mod1.xml</languageKey>
 	</data>
-	<orig_hash type="array">
-	</orig_hash>
-	<orig_text type="array">
-	</orig_text>
 </T3locallang>
