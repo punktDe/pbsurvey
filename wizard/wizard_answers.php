@@ -47,13 +47,13 @@ class tx_pbsurvey_answers_wiz {
     var $arrTableParameters; // The array which is constantly submitted by the multidimensional form of this wizard.
 	var $blnLocalization = FALSE; // If true, record is localization.
 	var $arrl18n_diffsource = array(); // Answers from the default language
-	
+
     /**********************************
 	 *
 	 * Configuration functions
 	 *
 	 **********************************/
-	 
+
 	/**
 	 * Initialization of the class
 	 *
@@ -79,7 +79,7 @@ class tx_pbsurvey_answers_wiz {
 			$this->include_once[] = PATH_t3lib.'class.t3lib_tcemain.php';
 		}
 	}
-	
+
     /**********************************
 	 *
 	 * General functions
@@ -102,7 +102,7 @@ class tx_pbsurvey_answers_wiz {
 		$strOutput.=$this->objDoc->endPage();
 		$this->strContent = $strOutput;
 	}
-	
+
 	/**
 	 * Fill the table if user has chosen a predefined answer group
 	 *
@@ -119,7 +119,7 @@ class tx_pbsurvey_answers_wiz {
 			}
 		}
     }
-	
+
 	/**
 	 * Get answers from default language if localization
 	 *
@@ -153,7 +153,7 @@ class tx_pbsurvey_answers_wiz {
 		}
 		return $arrOutput;
 	}
-	
+
 	/**
 	 * Get the contents of the current record, do the localisation and make a HTML table out of it.
 	 *
@@ -169,7 +169,7 @@ class tx_pbsurvey_answers_wiz {
 		$strOutput = $this->getTableHTML($arrTable);
 		return $strOutput;
 	}
-	
+
 	/**
 	 * Converts the input array to a configuration code string
 	 *
@@ -199,8 +199,8 @@ class tx_pbsurvey_answers_wiz {
 			}
 		}
 		return $arrOutput;
-	} 
-    
+	}
+
     /**
 	 * Output the accumulated content to screen
 	 *
@@ -209,13 +209,13 @@ class tx_pbsurvey_answers_wiz {
 	function printContent()	{
 		echo $this->strContent;
 	}
-    
+
     /**********************************
 	 *
 	 * Checking functions
 	 *
 	 **********************************/
-    
+
 	/**
 	 * Check if there is a reference to the record
 	 *
@@ -228,7 +228,7 @@ class tx_pbsurvey_answers_wiz {
 			exit;
 		}
     }
-    
+
 	/**
 	 * Detects if a control button (up/down/around/delete) has been pressed for an item
      * and accordingly it will manipulate the internal arrTableParameters array
@@ -248,7 +248,7 @@ class tx_pbsurvey_answers_wiz {
         foreach ($arrFunctions as $strKey => $strValue) {
             if (is_array($this->arrTableParameters[$strKey])) {
                 $intKey = key($this->arrTableParameters[$strKey]);
-                if ($this->arrTableParameters[$strKey] && t3lib_div::testInt($intKey)) {
+				if ($this->arrTableParameters[$strKey] && is_integer($intKey)) {
                     if ($strKey<>'row_remove') {
                     	eval("\$intTemp=".$strValue.";");
                         if ($strKey<>'row_add') {
@@ -265,7 +265,7 @@ class tx_pbsurvey_answers_wiz {
             }
         }
 	}
-	
+
 	/**
 	 * Detects if a save button has been pressed
      * and accordingly save the data and redirect to record page
@@ -285,7 +285,7 @@ class tx_pbsurvey_answers_wiz {
             }
         }
     }
-    
+
 	/**
 	 * Check if submitted table array has 3 keys.
      * if not, correct the array
@@ -301,7 +301,7 @@ class tx_pbsurvey_answers_wiz {
 			}
         }
     }
-    
+
 	/**********************************
 	 *
 	 * Rendering functions
@@ -367,7 +367,7 @@ class tx_pbsurvey_answers_wiz {
         }
         return $strOutput;
     }
-    
+
     /**
 	 * Creates the HTML for the rows:
 	 *
@@ -427,7 +427,7 @@ class tx_pbsurvey_answers_wiz {
 		$strOutput = implode(chr(10),$arrRows);
 		return $strOutput;
     }
-    
+
    	/**
 	 * Draw the footer of the wizard table
 	 *
@@ -447,7 +447,7 @@ class tx_pbsurvey_answers_wiz {
 			</div>';
         return $strOutput;
     }
-    
+
    	/**
 	 * Draw the Control Panel in front of every row
 	 *
@@ -471,7 +471,7 @@ class tx_pbsurvey_answers_wiz {
 			}
         $arrOutput[] = '<input type="image" name="'.$this->strExtKey.'[row_add]['.(($intLine+1)*2).']"'.t3lib_iconWorks::skinImg($this->objDoc->backPath,'gfx/add.gif','').t3lib_BEfunc::titleAltAttrib($LANG->getLL('table_addRow',1)).' />';
         return $arrOutput;
-    }  
+    }
 }
 
 if (defined("TYPO3_MODE") && $TYPO3_CONF_VARS[TYPO3_MODE]["XCLASS"]["ext/pbsurvey/wizard/wizard_answers.php"])    {
