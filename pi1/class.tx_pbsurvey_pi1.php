@@ -2467,7 +2467,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
 	function validationIsDateEuropean($strInput){
 		$arrDate = array();
-		if (ereg('([0-9]{1,2})[-,/]([0-9]{1,2})[-,/](([0-9]{2})|([0-9]{4}))', $strInput, $arrDate)) {
+		if (preg_match('#([0-9]{1,2})[-,/]([0-9]{1,2})[-,/](([0-9]{2})|([0-9]{4}))#', $strInput, $arrDate)) {
 			if ($arrDate[2]<1 || $arrDate[2]>12) return '2';
 			if ($arrDate[1]<1 || $arrDate[1]>31) return '3';
 			if ($arrDate[1]>30+(($arrDate[2]>7)^($arrDate[2]&1))) return '4::'.$arrDate[2];
@@ -2486,8 +2486,8 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   boolean       true if first date is earlier
 	 */
 	function validationIsFirstDateEarlier($strFirstDate,$strSecondDate){
-		list($intDay[1], $intMonth[1], $intYear[1]) = split('[-,/]', $strFirstDate);
-		list($intDay[2], $intMonth[2], $intYear[2]) = split('[-,/]', $strSecondDate);
+		list($intDay[1], $intMonth[1], $intYear[1]) = preg_split('#[-,/]#', $strFirstDate);
+		list($intDay[2], $intMonth[2], $intYear[2]) = preg_split('#[-,/]#', $strSecondDate);
 		$intDateFirst = mktime(0,0,0,$intMonth[1],$intDay[1],$intYear[1]);
 		$intDateSecond = mktime(0,0,0,$intMonth[2],$intDay[2],$intYear[2]);
 		if ($intDateFirst<$intDateSecond) {
