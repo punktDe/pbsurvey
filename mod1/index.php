@@ -193,7 +193,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 		$arrSelectConf['orderBy'] = 'sorting ASC';
 		$dbRes = $GLOBALS['TYPO3_DB']->exec_SELECTquery($arrSelectConf['selectFields'],$this->strItemsTable,$arrSelectConf['where'],'',$arrSelectConf['orderBy'],'');
 		while ($arrRow =$GLOBALS['TYPO3_DB']->sql_fetch_assoc($dbRes)){
-            array_walk($arrRow, 'trim');
+			$arrRow = array_map('trim', $arrRow);
 			if (in_array($arrRow['question_type'],array(1,2,3,6,7,8,23))) {
             	$arrRow['answers'] = $this->answersArray($arrRow['answers']);
 			} else {
@@ -201,7 +201,7 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 			}
             if (in_array($arrRow['question_type'],array(6,7,8,9,11,15,16))) {
             	$arrRow['rows'] = explode(chr(10),$arrRow['rows']);
-            	array_walk($arrRow['rows'] ,create_function('&$arr','$arr=trim($arr);'));
+				$arrRow['rows'] = array_map('trim', $arrRow['rows']);
             } else {
             	unset($arrRow['rows']);
             }
