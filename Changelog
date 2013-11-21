@@ -1,0 +1,208 @@
+2013-11-21 - Patrick Broens <patrick@patrickbroens.nl>
+ + [FEATURE] Add question type "Choice - Image rating". Thanks to Punkt.de for sponsoring
+
+2013-11-19 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] ereg and split are deprecated since PHP 5.3
+ ~ [BUGFIX] Trimming is not performed correctly in BE
+ ~ [BUGFIX] Fatal error when editing multible checkboxes answer in 6.0+
+
+2013-02-02 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [TASK] Tagging pbsurvey 1.4.0
+ ~ [TASK] Update Changelog and ext_emconf.php for version 1.4.0
+
+2012-10-18 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Add option to have updateable single response survey only before it has finished
+
+2012-10-11 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Using back button without any answers in database screws up history
+ ~ [BUGFIX] History is not available anymore after returning to an unfinished survey
+
+2012-10-02 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Survey starts at first question without answer when using start point after leaving
+
+2012-10-01 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Survey is skipped to the end
+
+2012-09-28 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Start and endtime of a survey are the same
+ ~ [BUGFIX] Question Type 9: Matrix – Rating Scale (Numeric) does not work if starting number > ending number
+ + [BUGFIX] Result in mail unusuable for matrix questions
+ + [FEATURE] Matrix: Possiblity to set a fixed width for first Column
+
+2012-09-27 - Patrick Broens <patrick@patrickbroens.nl>
+ + [FEATURE] Start single response survey at the point where the user left the survey
+ ~ [BUGFIX] Translations are not taken from translation server
+ ~ [BUGFIX] Can't exclude CSS field for regular BE-users
+ ~ [BUGFIX] Question type 'Open Ended - Constant Sum' doesn't remember sum after validation error
+ + [FEATURE] Answers not editable without the use of the answer wizard
+ ~ [BUGFIX] From "name" in email is hardcoded to "survey
+ ~ [BUGFIX] Mail message sent in wrong charset
+
+2012-09-20 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] Pagebreak conditions not working
+ ~ [BUGFIX] Backend module is using deprecated methods for 4.6
+
+2007-06-01 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Moved JS validation from button to form
+
+2007-05-30 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added <noscript> tag when only client side validation. Just a simple bypass. Can be avoided by switching off CSS.
+ ~ Changed default value Form validation to PHP Server Side
+ ~ Changed default value completion action to "display message"
+ ~ Changed default value Page Numbering to "Display progress as progress bar"
+ ~ Changed default value Question Numbering to "Number questions within entire questionaire"
+
+2007-05-25 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix to critical #5179: All answers from all users to a question were deleted when using radiobuttons and answering was not required to the question
+ ~ Change in storage of arrUserData. Answers read from database were stored differently from answers read from piVars
+ ~ Bugfix in conditions. Wrong variablenames in "Not Equal" part
+ + Added some French translations in locallang_db
+ ~ Maxlength for Open Question - Number was not available in HTML template
+
+2007-05-08 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Checks on intvals before inserts and executes on database
+ + Send the values of the current item to the hook
+ ~ Changed default value of anonymous check in flexform to Cookie
+ ~ Changed default value of cookie lifetime to 30 days
+
+2007-3-5 - Patrick Broens <patrick@patrickbroens.nl>
+ + Spanish frontend language
+ + Chinese Traditional frontend language
+
+2007-2-17 - Patrick Broens <patrick@patrickbroens.nl>
+ + Redirect to pages depending on the users score at the end of the survey
+
+2006-12-18 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ - None - value change again. Is now separately configurable
+
+2006-12-12 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Again bugfix with all checkboxes from one question not submitted anymore
+
+2006-12-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ - None - value with dropdown was configured wrong. Had to be with required questions
+
+2006-12-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix with all checkboxes from one question not submitted anymore
+ ~ Hook is not increasing the question numbering anymore
+
+2006-12-05 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix in maxlength when empty in BE field
+
+2006-12-05 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix in page introduction with RTE
+ ~ From now when a default value is selected for a dropdown in the backend, the �None � value will not be displayed anymore.
+
+2006-11-25 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Page introduction changed to RTE field
+
+2006-11-23 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix in page conditions wizard
+
+2006-11-21 - Patrick Broens <patrick@patrickbroens.nl>
+ + Inserted input field in TCA to add a user defined css class to each question item
+
+2006-11-16 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Changed input field for question subtext to RTE
+
+2006-11-08 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bug in question types 1,2,3,23 default setting
+
+2006-11-08 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added hook to insert user defined functions
+
+2006-10-27 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added random answer order for question types 1,23,2,3,11
+ + Added language field to the result records for multilanguage surveys
+
+2006-10-13 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Although field maximum_length was in question types 14 & 15, it was not put in the template
+
+2006-10-08 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added possibility to have both client and server side validation
+ ~ Changed default values of the extension configuration
+
+2006-09-20 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added Italian translation to frontend plugin
+
+2006-09-18 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added remaining point notifier to question type Open Ended - Constant Sum
+
+2006-07-16 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix on question numbering
+
+2006-06-14 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix on not updatable single response with only one page with questions
+
+2006-05-18 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Bugfix on server and client side form validation for question type "Open Answer - Number"
+
+2006-05-14 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added question type 23, Choice - Multiple Answers (Selectbox)
+ - Deleted table row 'sql', which was not in use and is a reserved word for MySQL 5
+
+2006-05-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ pi1\class.tx_pbsurvey_pi1.php: function jsLocallang(): Fixed a bug that made the client side validation useless.
+
+2006-05-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ pi1\class.tx_pbsurvey_pi1.php: function getFFconfig: $this->arrConfig['pid'] was empty when no pid given in TS or FF. When empty it is now the current pid.
+ ~ pi1\class.tx_pbsurvey_pi1.php: function array_htmlspecialchars: html code from html type was also translated.
+
+2006-05-01 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ pi1\class.tx_pbsurvey_pi1.php: function markerSub: Subtext was not inserted.
+
+2006-05-01 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added id to additional fields. Were removed on 2006-04-27, but are necessary for additional fields.
+ ~ wizard2\wizard_conditions.php: Changed array for true/false, yes/no in function getAnswers. Index for these types were wrong.
+ + Added db fields textarea_width and textarea_height. Textarea in additional fields is has configurable dimensions now.
+ ~ pi1\class.tx_pbsurvey_pi1.php: function checkAccessLevel. When using cookie on single response, cookie still exists and old results were deleted resulted in "You cannot update your response anymore"
+ ~ pi1\class.tx_pbsurvey_pi1.php: moved $this->validationString() call in processSurvey() function so it's only called when there are still items;
+ ~ pi1\class.tx_pbsurvey_pi1.php: Resolved "Number questions within each page". It numbered also the presentation items.
+
+2006-04-28 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ pi1\class.tx_pbsurvey_pi1.php: Changed line 213 to else because if locationheader on both cancel and completion, completion url would override the cancel url.
+ ~ pi1\class.tx_pbsurvey_pi1.php: Added the pid of the survey items to the cookiename in anonymous access. In case of multiple surveys in one website.
+
+2006-04-27 - Patrick Broens <patrick@patrickbroens.nl>
+ - pi1/template.html: Deleted some unnecessary subpartmarkers
+ ~ pi1\class.tx_pbsurvey_pi1.php: Changed some markerfunctions because of deletion unnecessary subpartmarkers.
+
+2006-04-25 - Patrick Broens <patrick@patrickbroens.nl>
+ + pi1\class.tx_pbsurvey_pi1.php: Added Cookie check on anonymous survey
+ ~ pi1\class.tx_pbsurvey_pi1.php: ReadPreviousUser didn't add the latest piVars. Solved. Important with server side validation.
+ - Deleted config variable completion_message from FlexForm and TS.
+ + completion_message configurable in locallang.
+
+2006-03-30 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Manual: Corrections and additions to the manual according to the new version
+
+2006-03-27 - Patrick Broens <patrick@patrickbroens.nl>
+ + Made the ext_php_api.dat file
+ ~ CSH: Changed some descriptions according to the new version
+
+2006-03-23 - Patrick Broens <patrick@patrickbroens.nl>
+ + pi1\class.tx_pbsurvey_pi1.php: Added server-side validation
+ ~ pi1\class.tx_pbsurvey_pi1.php: Some code cleaning, moving and adding sections
+ ~ pi1\class.tx_pbsurvey_pi1.php: Changed the way the value 'stage' is processed in the form.
+ + pi1\class.tx_pbsurvey_pi1.php: Added function previousStage because you couldn't go back more than 1 stage.
+
+2006-03-10 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Put Captcha option from sheet Security to sheet Access in plugin FlexForm
+ - Deleted sheet Security from plugin FlexForm
+ ~ Changed CSS to static template file
+ ~ Changed HTML template. Now using <fieldset> and <legend>
+ ~ pi1\class.tx_pbsurvey_pi1.php: All session data changed to real session data instead of choice between 'ses' and 'user'
+
+2006-03-09 - Patrick Broens <patrick@patrickbroens.nl>
+ + pi1\class.tx_pbsurvey_pi1.php: Added function array_htmlspecialchars and the calls in readPreviousUser and readSurvey
+
+2006-03-08 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Changed the 'types' for tx_pbsurvey_items in $TCA to show sys_language_uid, fields hidden, l18n_parent
+
+2006-03-07 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ Changed the order of pulldown options in the FlexForm of the backend plugin
+ + Added missing CSH in tx_pbsurvey_item, tx_pbsurvey_results and tx_pbsurvey_answers
+
+2006-03-02 - Patrick Broens <patrick@patrickbroens.nl>
+ + Added ChangeLog to pbsurvey
+ ~ Changed Context Sensitive Help of mod1
+ ~ Changed Context Sensitive Help of modfunc1
