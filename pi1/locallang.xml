@@ -48,6 +48,7 @@
 			<label index="js_email">Please enter a valid email address for question number %q</label>
 			<label index="js_ranking">Item rankings must be between 1 and %v for question %q</label>
 			<label index="js_ranking_double">Each ranking value can be entered only once for question %q</label>
+			<label index="js_ranking_images">Each ranking option should be checked once for question %q</label>
 			<label index="comment_responses_both">Select at least ###OPTIONS_MINIMUM_RESPONSES### responses and no more than ###OPTIONS_MAXIMUM_RESPONSES### responses.</label>
 			<label index="comment_responses_minimum">Select at least ###OPTIONS_MINIMUM_RESPONSES### responses.</label>
 			<label index="comment_responses_maximum">Select no more than ###OPTIONS_MAXIMUM_RESPONSES### responses.</label>
@@ -62,6 +63,7 @@
 			<label index="comment_responses_enter_minimum">Enter at least ###OPTIONS_MINIMUM_RESPONSES### responses.</label>
 			<label index="comment_responses_enter_maximum">Enter no more than ###OPTIONS_MAXIMUM_RESPONSES### responses.</label>
 			<label index="comment_ranking">Rank the items below, using numeric values starting with 1.</label>
+			<label index="comment_image_ranking">Rank the items below, an option can only be used once.</label>
 			<label index="submit">Submit</label>
 			<label index="back">Back</label>
 			<label index="cancel">Cancel</label>

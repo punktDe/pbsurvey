@@ -190,6 +190,23 @@
 </fieldset>
 <!--###5_DROP### end-->
 
+<!--###24### begin-->
+<fieldset class="survey_item ###ADDITIONALCLASS###">
+<legend class="question"><span class="questionNumber">###CURRENTITEM###</span> ###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
+<!--###COMMENT### begin--><div class="questionComment">###QUESTION_COMMENT###</div><!--###COMMENT### end-->
+<!--###SUB### begin--><div class="questionSubtext">###QUESTION_SUBTEXT###</div><!--###SUB### end-->
+
+<!--###LIST### begin-->
+<div class="">
+	###IMAGE###
+	<!--###OPTION### begin-->
+		<input type="radio" name="tx_pbsurvey_pi1[###UID###][###VALUE###][0]" value="###COUNTER###" ###CHECKED### ###JSFUNCTION### />###VALUE###
+	<!--###OPTION### end-->
+</div>
+<!--###LIST### end-->
+</fieldset>
+<!--###24### end-->
+
 <!--###6### begin-->
 <fieldset class="survey_item ###ADDITIONALCLASS###">
 <legend class="question"><span class="questionNumber">###CURRENTITEM###</span>###QUESTION###<!--###REQUIRED### begin--><span class="required"> *</span><!--###REQUIRED### end--></legend>
@@ -205,8 +222,8 @@
   </tr>
   <!--###ROWS### begin--><tr class="###ROWCLASS###">
     <td class="columnFirst">###ROW###</td>
-	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][###COLCOUNTER###]" type="checkbox" value="###COLCOUNTER###" ###CHECKED### /></td><!--###COLUMNS### end-->	
-  </tr><!--###ROWS### end-->	
+	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][###COLCOUNTER###]" type="checkbox" value="###COLCOUNTER###" ###CHECKED### /></td><!--###COLUMNS### end-->
+  </tr><!--###ROWS### end-->
 </table>
 </fieldset>
 <!--###6### end-->
@@ -226,8 +243,8 @@
   </tr>
   <!--###ROWS### begin--><tr class="###ROWCLASS###">
     <td class="columnFirst">###ROW###</td>
-	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][###COLCOUNTER###]" type="text" value="###VALUE###" size="2" /></td><!--###COLUMNS### end-->	
-  </tr><!--###ROWS### end-->	
+	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][###COLCOUNTER###]" type="text" value="###VALUE###" size="2" /></td><!--###COLUMNS### end-->
+  </tr><!--###ROWS### end-->
 </table>
 </fieldset>
 <!--###7### end-->
@@ -247,8 +264,8 @@
   </tr>
   <!--###ROWS### begin--><tr class="###ROWCLASS###">
     <td class="columnFirst">###ROW###</td>
-	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="radio" value="###COLCOUNTER###" ###CHECKED### /></td><!--###COLUMNS### end-->	
-  </tr><!--###ROWS### end-->	
+	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="radio" value="###COLCOUNTER###" ###CHECKED### /></td><!--###COLUMNS### end-->
+  </tr><!--###ROWS### end-->
 </table>
 </fieldset>
 <!--###8### end-->
@@ -268,8 +285,8 @@
   </tr>
   <!--###ROWS### begin--><tr class="###ROWCLASS###">
     <td class="columnFirst">###ROW###</td>
-	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="radio" value="###VALUE###" ###CHECKED### /></td><!--###COLUMNS### end-->	
-  </tr><!--###ROWS### end-->	
+	<!--###COLUMNS### begin--><td class="columnNext"><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="radio" value="###VALUE###" ###CHECKED### /></td><!--###COLUMNS### end-->
+  </tr><!--###ROWS### end-->
 </table>
 </fieldset>
 <!--###9### end-->
@@ -291,7 +308,7 @@
   <!--###ROWS### begin--><tr>
     <td>###ROW###</td>
     <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="2" ###JSFUNCTION### /></td>
-  </tr><!--###ROWS### end-->	
+  </tr><!--###ROWS### end-->
 </table>
 <!--###REMAINING### begin -->
 <input id="tx_pbsurvey_pi1_###UID###_remaining" type="text" value="###TOTAL_NUMBER###" size="2" disabled="disabled" /> ###REMAINING_POINTS###
@@ -334,7 +351,7 @@
   <!--###ROWS### begin--><tr>
     <td>###ROW###</td>
     <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="50" ###MAXLENGTH### /></td>
-  </tr><!--###ROWS### end-->	
+  </tr><!--###ROWS### end-->
 </table>
 </fieldset>
 <!--###15### end-->
@@ -348,7 +365,7 @@
   <!--###ROWS### begin--><tr>
     <td>###ROW###</td>
     <td><input name="tx_pbsurvey_pi1[###UID###][###ROWCOUNTER###][0]" type="text" value="###VALUE###" size="2" /></td>
-  </tr><!--###ROWS### end-->	
+  </tr><!--###ROWS### end-->
 </table>
 </fieldset>
 <!--###16### end-->

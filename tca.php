@@ -47,6 +47,7 @@ $TCA['tx_pbsurvey_item'] = array (
 			maximum_value,
 			maximum_length,
 			image,
+			images,
 			image_height,
 			image_width,
 			image_alignment,
@@ -126,6 +127,7 @@ $TCA['tx_pbsurvey_item'] = array (
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.3', '3'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.4', '4'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.5', '5'),
+					array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.24', '24'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.6', '6'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.7', '7'),
                     array('LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.question_type.I.8', '8'),
@@ -595,6 +597,22 @@ $TCA['tx_pbsurvey_item'] = array (
                 'maxitems' => 1,
             )
         ),
+		'images' => array (
+			'l10n_mode' => 'mergeIfNotBlank',
+			'exclude' => 1,
+			'label' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item.images',
+			'config' => array (
+				'type' => 'group',
+				'internal_type' => 'file',
+				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+				'max_size' => 500,
+				'uploadfolder' => 'uploads/tx_pbsurvey',
+				'show_thumbs' => 1,
+				'size' => 10,
+				'minitems' => 0,
+				'maxitems' => 999,
+			)
+		),
 		'image_height' => array (
 			'l10n_mode' => 'exclude',
             'exclude' => 0,
@@ -710,6 +728,7 @@ $TCA['tx_pbsurvey_item'] = array (
 		'3' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, answers;;3;;1-1-1, answers_text_additional;;4;;, styleclass'),
 		'4' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_tf;;9;;1-1-1, display_type, styleclass'),
 		'5' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, default_value_yn;;9;;1-1-1, display_type, styleclass'),
+		'24' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, images;;7;;1-1-1, beginning_number;;;;1-1-1, ending_number, styleclass'),
 		'6' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, answers;;;;1-1-1, styleclass'),
 		'7' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, answers;;;;1-1-1, styleclass'),
 		'8' => array('showitem' => 'sys_language_uid;;1;;,question_type;;;;1-1-1, question;;2;;1-1-1, question_subtext;;;richtext:rte_transform[flag=rte_enabled|mode=ts];, rows;;;;1-1-1, answers;;;;1-1-1, styleclass'),

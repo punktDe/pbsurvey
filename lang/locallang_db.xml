@@ -18,6 +18,7 @@
 			<label index="tx_pbsurvey_item.question_type.I.3">Choice - One Answer (Option Buttons)</label>
 			<label index="tx_pbsurvey_item.question_type.I.4">Choice - True/False</label>
 			<label index="tx_pbsurvey_item.question_type.I.5">Choice - Yes/No</label>
+			<label index="tx_pbsurvey_item.question_type.I.24">Choice - Image rating</label>
 			<label index="tx_pbsurvey_item.question_type.I.6">Matrix - Multiple Answers per Row (Checkboxes)</label>
 			<label index="tx_pbsurvey_item.question_type.I.7">Matrix - Multiple Answers per Row (Textboxes)</label>
 			<label index="tx_pbsurvey_item.question_type.I.8">Matrix - One Answer per Row (Option Buttons)</label>
@@ -88,6 +89,7 @@
 			<label index="tx_pbsurvey_item.maximum_value">Maximum value</label>
 			<label index="tx_pbsurvey_item.maximum_length">Maximum length</label>
 			<label index="tx_pbsurvey_item.image">Image</label>
+			<label index="tx_pbsurvey_item.image">Images</label>
 			<label index="tx_pbsurvey_item.image_height">Maximum image height</label>
 			<label index="tx_pbsurvey_item.image_width">Maximum image width</label>
 			<label index="tx_pbsurvey_item.image_alignment">Image alignment</label>

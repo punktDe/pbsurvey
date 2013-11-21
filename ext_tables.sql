@@ -50,6 +50,7 @@ CREATE TABLE tx_pbsurvey_item (
 	maximum_value int(11) DEFAULT '0',
 	maximum_length int(11) DEFAULT '0',
 	image blob NOT NULL,
+	images blob NOT NULL,
 	image_height int(11) DEFAULT '0',
 	image_width int(11) DEFAULT '0',
 	image_alignment tinyint(3) unsigned DEFAULT '0' NOT NULL,

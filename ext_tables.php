@@ -8,9 +8,9 @@ $blnPrependAtCopy = $arrConfiguration['prependAtCopy']?'LLL:EXT:lang/locallang_g
 
 $TCA['tx_pbsurvey_item'] = array (
 	'ctrl' => array (
-		'title' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item',		
+		'title' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_item',
 		'label' => 'question',
-		'label_alt' => 'question_type',	
+		'label_alt' => 'question_type',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
 		'cruser_id' => 'cruser_id',
@@ -20,7 +20,7 @@ $TCA['tx_pbsurvey_item'] = array (
 		'transOrigDiffSourceField' => 'l18n_diffsource',
 		'languageField' => 'sys_language_uid',
 		'type' => 'question_type',
-		'typeicon_column' => 'question_type',	
+		'typeicon_column' => 'question_type',
 		'typeicons' => array (
 			'0' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_tx_pbsurvey_item.gif',
 			'1' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_1.gif',
@@ -46,10 +46,11 @@ $TCA['tx_pbsurvey_item'] = array (
 			'21' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_21.gif',
 			'22' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_22.gif',
 			'23' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_23.gif',
+			'24' => t3lib_extMgm::extRelPath($_EXTKEY).'icons/icon_pbsurvey_item_24.gif',
 		),
-		'sortby' => 'sorting',	
-		'delete' => 'deleted',	
-		'enablecolumns' => array (		
+		'sortby' => 'sorting',
+		'delete' => 'deleted',
+		'enablecolumns' => array (
 			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
@@ -62,12 +63,12 @@ $TCA['tx_pbsurvey_item'] = array (
 
 $TCA['tx_pbsurvey_results'] = array (
 	'ctrl' => array (
-		'title' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results',		
-		'label' => 'uid',	
+		'title' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_results',
+		'label' => 'uid',
 		'tstamp' => 'tstamp',
-		'crdate' => 'crdate',	
-		'delete' => 'deleted',	
-		'enablecolumns' => array (		
+		'crdate' => 'crdate',
+		'delete' => 'deleted',
+		'enablecolumns' => array (
 			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
@@ -77,12 +78,12 @@ $TCA['tx_pbsurvey_results'] = array (
 
 $TCA['tx_pbsurvey_answers'] = array (
 	'ctrl' => array (
-		'title' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers',		
-		'label' => 'question',	
+		'title' => 'LLL:EXT:pbsurvey/lang/locallang_db.xml:tx_pbsurvey_answers',
+		'label' => 'question',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'delete' => 'deleted',	
-		'enablecolumns' => array (		
+		'delete' => 'deleted',
+		'enablecolumns' => array (
 			'disabled' => 'hidden',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',

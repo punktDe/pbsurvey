@@ -301,7 +301,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 						unset($this->arrUserData[$item['uid']]);
 					}
 					$this->intPastItems++;
-					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23) $this->intCurrentItem++;
+					if ($arrItem['question_type'] <= 16 || $arrItem['question_type'] == 23 || $arrItem['question_type'] == 24) {
+						$this->intCurrentItem++;
+					}
 				}
 			} elseif ($intCounter == $this->intStage){ // Read items that belong to stage
 				if ($arrItem['question_type']==22){
@@ -312,7 +314,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 						$this->intNextPages++;
 					}
 				} else {
-					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23) {
+					if ($arrItem['question_type'] <= 16 || $arrItem['question_type'] == 23 || $arrItem['question_type'] == 24) {
 						$this->intCurrentItem++;
 						$this->intPageItem++;
 						$this->arrCurrentIds[] = $arrItem['uid'];
@@ -322,7 +324,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					} else {
 						$this->strOutItems .= $this->callHook($arrItem);
 					}
-					if ($arrItem['question_type']<=16 || $arrItem['question_type']==23) {
+					if ($arrItem['question_type'] <= 16 || $arrItem['question_type'] == 23 || $arrItem['question_type'] == 24) {
 						$this->jsProcessCalls($arrItem);
 					}
 				}
@@ -1130,7 +1132,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        Question number
 	 */
 	function markerCurrentItem($intType) {
-		if (($intType>=1 && $intType<=16) || $intType==23) {
+		if (($intType >= 1 && $intType <= 16) || $intType == 23 || $intType == 24) {
 			if ($this->arrConfig['question_numbering']==1) {
 				$strOutput = $this->intCurrentItem . '.';
 			} elseif ($this->arrConfig['question_numbering']<>0){
@@ -1142,14 +1144,14 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 
 	/**
 	 * Fill marker with question
-	 * in question type 1-16,23
+	 * in question type 1-16, 23, 24
 	 *
 	 * @param    integer       Type of question
 	 * @param    string        The question itself
 	 * @return   string        Question asked
 	 */
 	function markerQuestion($intType,$strQuestion) {
-		if (($intType>= 1 && $intType<=16) ||$intType==23) {
+		if (($intType >= 1 && $intType <= 16) || $intType == 23 || $intType == 24) {
 			$strOutput = $strQuestion;
 		}
 		return $strOutput;
@@ -1157,7 +1159,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 
 	/**
 	 * Generate subtext of question if available.
-	 * in question type 1-16, 23
+	 * in question type 1-16, 23, 24
 	 *
 	 * @param    integer       Type of question
 	 * @param    array         The subtext
@@ -1165,7 +1167,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        Subtext placed in marker
 	 */
 	function markerSub($intType,$strSubText,$strTemplate) {
-		if (($intType>= 1 && $intType<=16) ||$intType==23) {
+		if (($intType >= 1 && $intType <= 16) || $intType == 23 || $intType == 24) {
 			if ($strSubText) {
 				 $strOutput = $this->cObj->substituteMarker($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###SUB###'), '###QUESTION_SUBTEXT###', $this->pi_RTEcssText($strSubText));
 			}
@@ -1175,7 +1177,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 
 	/**
 	 * Put a sign behind the question if question is required.
-	 * in question type 1-16, 23
+	 * in question type 1-16, 23, 24
 	 *
 	 * @param    integer       Type of question
 	 * @param    integer       Is the question required
@@ -1183,7 +1185,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        Sign
 	 */
 	function markerRequired($intType,$intRequired,$strTemplate) {
-		if (($intType>= 1 && $intType<=16) ||$intType==23) {
+		if (($intType >= 1 && $intType <= 16) || $intType == 23 || $intType == 24) {
 			if ($intRequired) {
 				$strOutput = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###REQUIRED###'), array(), '###|###', 1);
 			}
@@ -1200,7 +1202,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @return   string        Explanation text
 	 */
 	function markerComment($arrQuestion,$strTemplate) {
-		$arrAllowed = array(1,11,12,13,15,16,23);
+		$arrAllowed = array(1, 11, 12, 13, 15, 16, 23, 24);
 		if (in_array($arrQuestion['question_type'],$arrAllowed)) {
 			switch($arrQuestion['question_type']) {
 				case 1:
@@ -1212,12 +1214,12 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					} else if (!$arrQuestion['options_minimum_responses']&&$arrQuestion['options_maximum_responses']) {
 						$strComment = $this->pi_getLL('comment_responses_maximum');
 					}
-				break;
+					break;
 				case 11:
 					if ($arrQuestion['total_number']!=0) {
 						$strComment = 	$this->pi_getLL('comment_sum');
 					}
-				break;
+					break;
 				case 12:
 					if ($arrQuestion['minimum_date']&&$arrQuestion['maximum_date']) {
 						$strComment = 	$this->pi_getLL('comment_date_both');
@@ -1228,7 +1230,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					}
 					$arrQuestion['minimum_date']=$arrQuestion['minimum_date']?date('d-m-Y',$arrQuestion['minimum_date']):'';
 					$arrQuestion['maximum_date']=$arrQuestion['maximum_date']?date('d-m-Y',$arrQuestion['maximum_date']):'';
-				break;
+					break;
 				case 13:
 					if ($arrQuestion['minimum_value']&&$arrQuestion['maximum_value']) {
 						$strComment = 	$this->pi_getLL('comment_number_both');
@@ -1237,7 +1239,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					} else if (!$arrQuestion['minimum_value']&&$arrQuestion['maximum_value']) {
 						$strComment = $this->pi_getLL('comment_number_maximum');
 					}
-				break;
+					break;
 				case 15:
 					if ($arrQuestion['options_minimum_responses']&&$arrQuestion['options_maximum_responses']) {
 						$strComment = 	$this->pi_getLL('comment_responses_enter_both');
@@ -1246,7 +1248,10 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					} else if (!$arrQuestion['options_minimum_responses']&&$arrQuestion['options_maximum_responses']) {
 						$strComment = $this->pi_getLL('comment_responses_enter_maximum');
 					}
-				break;
+					break;
+				case 24:
+					$strComment = $this->pi_getLL('comment_image_ranking');
+					break;
 			}
 			if ($arrQuestion['question_type']<>16) {
 				$strMarker = $this->cObj->substituteMarkerArray($strComment,$arrQuestion,'###|###', 1);
@@ -1428,6 +1433,49 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 				}
 				$arrHtml[] = $this->cObj->substituteMarkerArray($GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'), $arrQuestion, '###|###', 1);
 			}
+		} elseif ($arrQuestion['question_type'] == 24) {
+			$images = explode(',', $arrQuestion['images']);
+			foreach ($images as $key => $image) {
+				$optionHtml = '';
+
+				$imageConfiguration = array(
+					'image' => $image,
+					'image_height' => $arrQuestion['image_height'],
+					'image_width' => $arrQuestion['image_width']
+				);
+				$markers['###IMAGE###'] = $this->markerImage($imageConfiguration);
+
+				foreach (range($arrQuestion['beginning_number'], $arrQuestion['ending_number']) as $radioValue) {
+					$checked = '';
+					if (
+						$this->checkUpdate($arrQuestion['uid']) &&
+						isset($this->arrUserData[$arrQuestion['uid']][$radioValue][0]) &&
+						$this->arrUserData[$arrQuestion['uid']][$radioValue][0] == $key + 1
+					) {
+						$checked = 'checked="checked"';
+					}
+					$optionValues = array(
+						'uid' => $arrQuestion['uid'],
+						'value' => $radioValue,
+						'counter' => $key + 1,
+						'jsfunction' => $this->markerJsFunctionPbsurveyUnsetSameValue($arrQuestion),
+						'checked' => $checked
+					);
+					$optionHtml[] = $this->cObj->substituteMarkerArray(
+						$GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###OPTION###'),
+						$optionValues,
+						'###|###',
+						1
+					);
+				}
+				$subpartMarkers['###OPTION###'] = implode(chr(13), $optionHtml);
+				$arrHtml[] = $this->cObj->substituteMarkerArrayCached(
+					$GLOBALS['TSFE']->cObj->getSubpart($strTemplate, '###LIST###'),
+					$markers,
+					$subpartMarkers,
+					array()
+				);
+			}
 		}
 		$strOutput = implode(chr(13),$arrHtml);
 		$arrOutput = array($strOutput,$blnChecked);
@@ -1497,7 +1545,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			} else {
 				//$arrMarkerArray['###MAXLENGTH###'] = '';
 			}
-			$arrMarkerArray['###JSFUNCTION###'] = $this->markerJsFunction($arrQuestion);
+			$arrMarkerArray['###JSFUNCTION###'] = $this->markerJsFunctionPbsurveyRemaining($arrQuestion);
 			$arrHtmlCols = array();
 			if (in_array($arrQuestion['question_type'],array(6,7,8))) {
 				foreach ($arrCols as $intColKey => $arrCol){
@@ -1675,7 +1723,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 */
 	function markerRemaining($arrQuestion,$strTemplate) {
 		if ($arrQuestion['question_type']==11 && $arrQuestion['total_number']!=0) {
-			$this->arrJsItems[19] = true;
+			$this->arrJsItems[101] = true;
 			$this->arrJsItems[3] = true;
 			$arrMarkers = $arrQuestion;
 			$arrMarkers['remaining_points'] = $this->pi_getLL('remaining_points');
@@ -1726,11 +1774,22 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 	 * @param    array       Question and all of its configuration
 	 * @return   string      Javascript call
 	 */
-	function markerJsFunction($arrQuestion) {
+	function markerJsFunctionPbsurveyRemaining($arrQuestion) {
 		if ($arrQuestion['question_type']==11 && $arrQuestion['total_number']!=0) {
 			$strOutput = 'onkeyup="pbsurveyRemaining('.$arrQuestion['uid'].','.$arrQuestion['total_number'].')"';
 		}
 		return $strOutput;
+	}
+
+	/**
+	 * Build the javascript call to check if there is no multiple checking for an image
+	 *
+	 * @param array $question Question and all of its configuration
+	 * @return string
+	 */
+	private function markerJsFunctionPbsurveyUnsetSameValue($question) {
+		$this->arrJsItems[102] = true;
+		return 'onclick="pbsurveyUnsetSameValue(event, ' . $question['uid'] . ');"';
 	}
 
 	/**
@@ -2168,6 +2227,12 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 					case 14:
 						$mailContent .= $userAnswers[0][0] . "\r\n";
 						break;
+					case 24:
+						$images = explode(',', $item['images']);
+						foreach ($userAnswers as $rowKey => $row) {
+							$mailContent .= $rowKey . ': ' . $images[$row[0] - 1] . "\r\n";
+						}
+						break;
 				}
 
 				// Add two blank lines between questions
@@ -2327,7 +2392,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 								$arrRowValue = array(0 => $arrRowValue);
 							}
 							foreach ($arrRowValue as $intColumn => $strValue) {
-								if (in_array($arrQuestionValidation['type'],array(1,3,4,5,6,8,9,23)) && !empty($strValue)) {
+								if (in_array($arrQuestionValidation['type'],array(1,3,4,5,6,8,9,23,24)) && !empty($strValue)) {
 									$intCounter++;
 								}
 								if (in_array($arrQuestionValidation['type'],array(2,4,5,10,12,13,14,15)) && !empty($strValue)) {
@@ -2419,6 +2484,15 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 						if (count(array_unique($arrUnique)) != $intCounter) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],25,$arrQuestionValidation['number']);
 						if ($intValueLow<1 || $intValueHigh>$arrQuestionValidation['values'][1]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],26,$arrQuestionValidation['number'],$arrQuestionValidation['values'][1]);
 						if ($arrQuestionValidation['required'] && $intCounter<$arrQuestionValidation['values'][1]) $arrError[] = $this->validationErrorMarker($arrQuestionValidation['type'],8,$arrQuestionValidation['number']);
+					}
+					if ($arrQuestionValidation['type'] == 24) {
+						if ($arrQuestionValidation['required'] && $intCounter<$arrQuestionValidation['values'][1]) {
+							$arrError[] = $this->validationErrorMarker(
+								$arrQuestionValidation['type'],
+								27,
+								$arrQuestionValidation['number']
+							);
+						}
 					}
 				}
 			}
@@ -2545,6 +2619,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			'js_email', // 24
 			'js_ranking_double', // 25
 			'js_ranking', // 26
+			'js_ranking_images' //27
 		);
 		return $arrOutput;
 	}
@@ -2599,6 +2674,7 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			15 => 16,
 			16 => 17,
 			23 => 6,
+			24 => 18
 		);
 		if ($this->arrConfig['question_numbering']==1) {
 			$intQuestionNumber = $this->intCurrentItem;
@@ -2649,6 +2725,9 @@ class tx_pbsurvey_pi1 extends tslib_pibase {
 			case 15:
 				$this->arrValidation[$arrQuestion['uid']]['values'][1] = $arrQuestion['options_minimum_responses']?$arrQuestion['options_minimum_responses']:'';
 				$this->arrValidation[$arrQuestion['uid']]['values'][2] = $arrQuestion['options_maximum_responses']?$arrQuestion['options_maximum_responses']:'';
+			break;
+			case 24:
+				$this->arrValidation[$arrQuestion['uid']]['values'][1] = abs($arrQuestion['beginning_number'] - $arrQuestion['ending_number']) + 1;
 			break;
 		}
 	}
@@ -2762,7 +2841,7 @@ function pbsurveyValidate() {	//
 			if (objElement.name) {
 				strTemp = objElement.name;
 				if (strTemp.indexOf('tx_pbsurvey_pi1['+args[intArgsCount]+']')>-1) {
-					if (in_array(intType,arrAllowed=new Array(1,3,4,5,6,8,9)) && (objElement.type=='checkbox' || objElement.type=='radio')) {
+					if (in_array(intType,arrAllowed=new Array(1,3,4,5,6,8,9,24)) && (objElement.type=='checkbox' || objElement.type=='radio')) {
 						if (objElement.checked) {
 							intCounter++;
 							if (objElement.value=='add_txt') {
@@ -2887,12 +2966,16 @@ $arrJsFunctions[17] = "
 			if (boolRequired && intCounter<arrTest[2]) strErrors+=pbsurveyError(intType,8,intNumber);
 		}";
 $arrJsFunctions[18] = "
+		if (intType==24) {
+			if (boolRequired && intCounter<arrTest[2]) strErrors+=pbsurveyError(intType,27,intNumber);
+		}";
+$arrJsFunctions[100] = "
 	}
 	if (strErrors) alert(strErrors);
 	document.pbsurveyReturnValue = (strErrors == '');
 }
 ";
-$arrJsFunctions[19] = "
+$arrJsFunctions[101] = "
 function pbsurveyRemaining(intId,intValue) {
 	var objForm=document.forms['frmPbSurvey'];
 	var intCounter = 0;
@@ -2912,24 +2995,41 @@ function pbsurveyRemaining(intId,intValue) {
 	pbsurveyChangeValue('tx_pbsurvey_pi1_'+intId+'_remaining',intRemaining);
 }
 ";
-$arrJsFunctions[20] = "
+$arrJsFunctions[102] = "
+function pbsurveyUnsetSameValue(ev, intId) {
+	var checkedValue = ev.target.value;
+	var objForm=document.forms['frmPbSurvey'];
+	for (intQuestion=0;intQuestion<objForm.length;intQuestion++) {
+		objElement=objForm.elements[intQuestion];
+		if (objElement.name) {
+			strTemp = objElement.name;
+			if (strTemp.indexOf('tx_pbsurvey_pi1['+intId+']')>-1) {
+				if (objElement.value == checkedValue && objElement != ev.target) {
+					objElement.checked = false;
+				}
+			}
+		}
+	}
+}
+";
+$arrJsFunctions[103] = "
 window.onload = function() {
 	document.getElementById('frmPbSurvey').style.display='block';
 }
 ";
-$arrJsFunctions[21] = "
+$arrJsFunctions[104] = "
 clickedBack = false;
 clickedCancel = false;
 ";
 
-	$this->arrJsItems[20] = true; // Always on, server or client side
+	$this->arrJsItems[103] = true; // Always on, server or client side
 
 	if (in_array($this->arrConfig['validation'],array(0,2))) { // Client side validation
 		$this->arrJsItems[2] = true;
 		$this->arrJsItems[4] = true;
 		$this->arrJsItems[5] = true;
-		$this->arrJsItems[18] = true;
-		$this->arrJsItems[21] = true;
+		$this->arrJsItems[100] = true;
+		$this->arrJsItems[104] = true;
 	}
 
 	ksort($this->arrJsItems);

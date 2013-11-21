@@ -1,3 +1,15 @@
+2013-11-21 - Patrick Broens <patrick@patrickbroens.nl>
+ + [FEATURE] Add question type "Choice - Image rating". Thanks to Punkt.de for sponsoring
+
+2013-11-19 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [BUGFIX] ereg and split are deprecated since PHP 5.3
+ ~ [BUGFIX] Trimming is not performed correctly in BE
+ ~ [BUGFIX] Fatal error when editing multible checkboxes answer in 6.0+
+
+2013-02-02 - Patrick Broens <patrick@patrickbroens.nl>
+ ~ [TASK] Tagging pbsurvey 1.4.0
+ ~ [TASK] Update Changelog and ext_emconf.php for version 1.4.0
+
 2012-10-18 - Patrick Broens <patrick@patrickbroens.nl>
  ~ [BUGFIX] Add option to have updateable single response survey only before it has finished
 

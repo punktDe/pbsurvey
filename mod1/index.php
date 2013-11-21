@@ -183,11 +183,11 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
 	 * @return	void
 	 */
 	function readSurvey() {
-		$arrSelectConf['selectFields'] = 'uid,question_type,question,question_alias,answers,rows,answers_allow_additional';
+		$arrSelectConf['selectFields'] = 'uid,question_type,question,question_alias,answers,rows,answers_allow_additional,images,beginning_number,ending_number';
     	$arrSelectConf['where'] = '1=1';
     	$arrSelectConf['where'] .= ' AND pid=' . intval($this->id);
 		$arrSelectConf['where'] .= ' AND ' . $this->strItemsTable . '.sys_language_uid IN (0,-1)';
-		$arrSelectConf['where'] .= ' AND ((question_type>=1 AND question_type<=16) OR question_type=23)';
+		$arrSelectConf['where'] .= ' AND ((question_type>=1 AND question_type<=16) OR question_type IN (23,24))';
 		$arrSelectConf['where'] .= t3lib_BEfunc::BEenableFields($this->strItemsTable);
 		$arrSelectConf['where'] .= t3lib_BEfunc::deleteClause($this->strItemsTable);
 		$arrSelectConf['orderBy'] = 'sorting ASC';
@@ -208,6 +208,15 @@ class tx_pbsurvey_module1 extends t3lib_SCbase {
             if (!in_array($arrRow['question_type'],array(1,3))) {
             	unset($arrRow['answers_allow_additional']);
             }
+			if ($arrRow['question_type'] == 24) {
+				$arrRow['images'] = explode(',', $arrRow['images']);
+			} else {
+				unset(
+					$arrRow['images'],
+					$arrRow['beginning_number'],
+					$arrRow['ending_number']
+				);
+			}
             $this->arrSurveyItems[$arrRow['uid']] = $arrRow;
 		}
     }
